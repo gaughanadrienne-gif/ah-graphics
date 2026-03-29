@@ -644,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   /**
-   * Extract JavaScript content from  tags within the HTML body.
+   * Extract JavaScript content from script tags within the HTML body.
    * Handles the case where Squarespace wraps Code Block content in divs.
    * Concatenates all script blocks found (cluster pages have one).
    */
@@ -652,7 +652,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!html) return '';
 
     var scripts = [];
-    var regex = /]*>([\s\S]*?)<\/script>/gi;
+    var regex = new RegExp('<' + 'script[^>]*>([\\s\\S]*?)</' + 'script>', 'gi');
     var match;
     while ((match = regex.exec(html)) !== null) {
       var content = match[1].trim();
