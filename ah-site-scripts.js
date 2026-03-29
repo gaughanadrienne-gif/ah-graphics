@@ -650,17 +650,14 @@ document.addEventListener("DOMContentLoaded", function() {
    */
   function extractScriptContent(html) {
     if (!html) return '';
-
-    var scripts = [];
-    var regex = new RegExp('<' + 'script[^>]*>([\\s\\S]*?)</' + 'script>', 'gi');
-    var match;
-    while ((match = regex.exec(html)) !== null) {
-      var content = match[1].trim();
-      if (content) {
-        scripts.push(content);
-      }
+    var startTag = '<' + 'script>';
+    var endTag = '</' + 'script>';
+    var start = html.indexOf(startTag);
+    var end = html.indexOf(endTag);
+    if (start > -1 && end > -1) {
+      return html.substring(start + startTag.length, end).trim();
     }
-    return scripts.join('\n');
+    return '';
   }
 
   /**
