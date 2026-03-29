@@ -436,11 +436,12 @@ document.addEventListener("DOMContentLoaded", function() {
  * This replaces the pilot loader (ah-graphics-loader.js) and pilot registry.
  */
 
-setTimeout(function() {
-
-  // Only run on article pages under /learn/
-  var path = window.location.pathname;
-  if (path.indexOf('/learn/') !== 0) return;
+// Wait for DOM ready, then run loader
+(function() {
+  function runLoader() {
+    // Only run on article pages under /learn/
+    var path = window.location.pathname;
+    if (path.indexOf('/learn/') !== 0) return;
 
   // Extract the article slug from the URL
   var slug = path.replace('/learn/', '').replace(/\/$/, '');
@@ -678,4 +679,11 @@ setTimeout(function() {
     }
   }
 
-}, 500);
+  }
+  // Run when DOM is ready, or immediately if already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runLoader);
+  } else {
+    runLoader();
+  }
+})();
