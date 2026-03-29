@@ -330,15 +330,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // === TOMATO QUIZ CALLOUT ===
-<!--
-  AMBITIOUS HARVEST CO - Tomato Quiz Callout Injection
-  Add this to Squarespace > Settings > Advanced > Code Injection > Post Item (Blog)
-  APPEND to existing postItem code, do not replace.
-
-  Automatically inserts a quiz callout at the end of all tomato articles.
-  Detects articles by URL slug. No manual article editing needed.
-  New tomato articles will get the callout automatically if slug contains "tomato".
--->
+// Automatically inserts a quiz callout at the end of all tomato articles.
+// Detects articles by URL slug. New tomato articles get the callout automatically.
 
 
 (function() {
