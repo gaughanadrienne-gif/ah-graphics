@@ -544,6 +544,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "succulents-fire-wise-landscaping": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
     "propagating-succulents": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
     "succulent-problems-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "dudleya-california-native-succulents": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
     "growing-tomatoes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
     "heirloom-tomatoes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
     "best-tomatoes-by-microclimate-what-to-grow-where-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
