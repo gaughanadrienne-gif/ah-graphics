@@ -764,6 +764,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "worm-castings-vs-finished-compost": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
     "zone-0-ember-resistant-landscaping-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "zucchini-vs-yellow-summer-squash": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "7-fruit-trees-that-actually-produce-well-in-foggy-coastal-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
   };
 
   // =========================================================================
