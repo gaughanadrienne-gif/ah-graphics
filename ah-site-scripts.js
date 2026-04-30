@@ -646,6 +646,8 @@ document.addEventListener("DOMContentLoaded", function() {
     "growing-raspberries-in-santa-cruz-county-a-complete-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "raised-bed-basics-for-bay-area-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
     "santa-cruz-garden-checklist-february": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "raspberry-growth-stages-what-to-expect-year-by-year": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-april": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "santa-cruz-garden-checklist-march": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "santa-cruz-microclimates": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "toyon-california-holly-native-shrub": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
