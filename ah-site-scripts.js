@@ -1089,42 +1089,44 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 1600);
 })();
 
-// === GARDEN SHOP POLISH (2026-06-11) ===
-// Styles the /store collection page: typography, card hover, intro band.
+// === GARDEN SHOP POLISH v2 (2026-06-11) ===
+// Styles the /store product-list-section (dark theme): bigger art, stacked
+// title/price, gold pricing, hover lift, tagline band.
 (function() {
   if (location.pathname.indexOf('/store') !== 0) return;
   var css = '' +
-    '.products.collection-content-wrapper, #productList, .products-flex-container { background: transparent; }' +
-    '.grid-item, .products .list-grid .grid-item { transition: transform .25s ease, box-shadow .25s ease; border-radius: 10px; padding: 10px; }' +
-    '.grid-item:hover { transform: translateY(-6px); box-shadow: 0 14px 34px rgba(26,59,42,.14); background: #ffffff; }' +
-    '.grid-image, .grid-image-wrapper, .grid-item img { border-radius: 8px; overflow: hidden; }' +
-    '.grid-title, .grid-item .grid-title { font-family: Montserrat, sans-serif !important; font-weight: 600 !important; font-size: 1rem !important; color: #1a3b2a !important; letter-spacing: .01em; margin-top: .8rem !important; }' +
-    '.grid-prices, .grid-item .grid-prices { color: #b8694a !important; font-family: Montserrat, sans-serif !important; font-weight: 700 !important; font-size: .95rem !important; }' +
-    '.grid-meta-status, .product-mark { background: #c9a84c !important; color: #1a3b2a !important; font-weight: 700; }' +
-    '.ah-shop-intro { font-family: Montserrat, sans-serif; text-align: center; padding: 2.2rem 1rem 0.6rem; }' +
-    '.ah-shop-intro h1 { font-family: "Palatino Linotype", Georgia, serif; font-size: 2.2rem; color: #1a3b2a; margin: 0 0 .5rem; font-weight: 400; }' +
-    '.ah-shop-intro .ah-rule { width: 70px; height: 3px; background: #c9a84c; margin: 0 auto .8rem; }' +
-    '.ah-shop-intro p { color: #5a6c5a; font-size: .95rem; max-width: 560px; margin: 0 auto; line-height: 1.6; }';
+    '.product-list-item { background: #16291f !important; border: 1px solid rgba(201,168,76,.18); border-radius: 14px; padding: 22px !important; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }' +
+    '.product-list-item:hover { transform: translateY(-4px); box-shadow: 0 16px 38px rgba(0,0,0,.35); border-color: rgba(201,168,76,.5); }' +
+    '.product-list-image-wrapper, .product-list-item-image { width: 230px !important; max-width: 35vw; }' +
+    '.product-list-item img { border-radius: 10px; }' +
+    '.product-list-title-price { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }' +
+    '.product-list-item-title { font-family: Montserrat, sans-serif !important; font-weight: 600 !important; font-size: 1.15rem !important; line-height: 1.35 !important; color: #f8f9f0 !important; letter-spacing: .01em; }' +
+    '.product-list-item-price, .product-list-list-layout-price-meta { font-family: Montserrat, sans-serif !important; font-weight: 700 !important; font-size: 1rem !important; }' +
+    '.product-list-item-price .sale-price, .product-list-item-price { color: #c9a84c !important; }' +
+    '.product-list-item-price .original-price { color: #8c9c8c !important; font-weight: 500 !important; }' +
+    '.product-list-description, .product-list-description-rich-text, .product-list-description p { color: #c9d4c4 !important; font-size: .92rem !important; line-height: 1.6 !important; }' +
+    '.grid-meta-status, .product-list-item-status { background: #c9a84c !important; color: #14241b !important; font-weight: 700 !important; border-radius: 4px; }' +
+    '.ah-shop-intro { font-family: Montserrat, sans-serif; text-align: center; padding: 0 1rem 2rem; }' +
+    '.ah-shop-intro .ah-rule { width: 70px; height: 3px; background: #c9a84c; margin: 0 auto 1rem; }' +
+    '.ah-shop-intro p { color: #c9d4c4; font-size: .95rem; max-width: 600px; margin: 0 auto; line-height: 1.7; }';
   var style = document.createElement('style');
   style.textContent = css;
   document.head.appendChild(style);
 
   function addIntro() {
     if (document.querySelector('.ah-shop-intro')) return;
-    var grid = document.querySelector('.products.collection-content-wrapper') ||
-               document.querySelector('#productList') ||
-               document.querySelector('.products-flex-container') ||
-               document.querySelector('section .content-wrapper');
-    if (!grid) return;
+    var list = document.querySelector('.product-list-container') ||
+               document.querySelector('.product-list');
+    if (!list) return;
     var intro = document.createElement('div');
     intro.className = 'ah-shop-intro';
-    intro.innerHTML = '<h1>The Garden Shop</h1><div class="ah-rule"></div>' +
-      '<p>California-specific growing guides, written from twenty years of Santa Cruz County gardens. Instant PDF downloads, printable worksheets, and a 30-day money-back guarantee on everything.</p>';
-    grid.parentNode.insertBefore(intro, grid);
+    intro.innerHTML = '<div class="ah-rule"></div>' +
+      '<p>California-specific growing guides written from twenty years of Santa Cruz County gardens. Instant PDF downloads, printable worksheets, and a 30-day money-back guarantee on everything.</p>';
+    list.parentNode.insertBefore(intro, list);
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() { setTimeout(addIntro, 600); });
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(addIntro, 800); });
   } else {
-    setTimeout(addIntro, 600);
+    setTimeout(addIntro, 800);
   }
 })();
