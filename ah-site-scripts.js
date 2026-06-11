@@ -388,6 +388,9 @@ document.addEventListener("DOMContentLoaded", function() {
         '<p style="font-family:Georgia,serif;font-size:1.4rem;font-weight:normal;color:#f8f9f0 !important;margin:0 0 0.75rem 0;line-height:1.3;">Not sure which tomato varieties grow best in your zone?</p>' +
         '<p style="font-size:0.9rem;color:#dde2d8 !important;margin:0 0 1.25rem 0;line-height:1.6;">Answer 4 quick questions and get zone-matched variety recommendations, plus a free Tomato Variety Selector PDF.</p>' +
         '<a href="/tomato-quiz" style="display:inline-block;background-color:#f8f9f0;color:#1a3b2a !important;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-family:Montserrat,Arial,sans-serif;font-size:0.9rem;font-weight:700;">Take the Quiz</a>' +
+        '<p style="font-size:0.85rem;color:#dde2d8 !important;margin:1.25rem 0 0 0;">Ready to grow more tomatoes this season? ' +
+          '<a href="/tomato-masterkit" style="color:#c9a84c !important;font-weight:700;text-decoration:underline;">Get the Tomato Growing MasterKit</a>' +
+        '</p>' +
       '</div>';
 
     // Insert before the FAQ section if it exists, otherwise at the end
@@ -988,5 +991,22 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener('DOMContentLoaded', runLoader);
   } else {
     runLoader();
+  }
+})();
+// === MASTERKIT BUY BUTTON FIX (2026-06-11) ===
+// The landing page buy buttons were authored against a guessed product slug
+// before the product existed. Rewrite them to the real product URL.
+(function() {
+  var DEAD = '/store/the-tomato-growing-masterkit-california-edition';
+  var REAL = '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6';
+  function fixButtons() {
+    var links = document.querySelectorAll('a[href="' + DEAD + '"], a[href^="' + DEAD + '?"]');
+    for (var i = 0; i < links.length; i++) links[i].setAttribute('href', REAL);
+    if (links.length) console.log('[AH] fixed ' + links.length + ' MasterKit buy link(s)');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(fixButtons, 300); });
+  } else {
+    setTimeout(fixButtons, 300);
   }
 })();
