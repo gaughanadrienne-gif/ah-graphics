@@ -1010,3 +1010,121 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(fixButtons, 300);
   }
 })();
+
+// === CONTEXTUAL PRODUCT CALLOUTS (2026-06-11) ===
+// Routes each article to its most relevant Garden Shop product.
+// Tomato articles are excluded (the quiz callout already carries the MasterKit CTA).
+(function() {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  setTimeout(function() {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (slug.indexOf('tomato') !== -1) return;
+    if (document.querySelector('.ah-product-callout')) return;
+
+    var P = {
+      kids:      { url: '/store/p/kids-garden-activity-pack-santa-cruz-county-edition', title: 'Kids Garden Activity Pack', line: 'Hands-on garden activities, trackers, and badges for curious kids.', price: '$7.99' },
+      dahlia:    { url: '/store/p/california-dahlia-growing-guide', title: 'California Dahlia Growing Guide', line: 'Zone-by-zone tuber timing and an overwintering flowchart for California.', price: '$9.99' },
+      herb:      { url: '/store/p/herb-growing-kitchen-garden-guide-california-edition', title: 'Herb Growing Kitchen Garden Guide', line: 'Every herb from seed to cutting board, tuned to our Mediterranean climate.', price: '$9.99' },
+      firewise:  { url: '/store/p/firewise-food-garden-kit-california-edition', title: 'Firewise Food Garden Kit', line: 'Make your food garden part of your defensible space plan.', price: '$14.99' },
+      water:     { url: '/store/p/water-wise-garden-workbook-california-edition', title: 'Water-Wise Garden Workbook', line: 'Audit your water use and redesign your garden with real numbers.', price: '$9.99' },
+      pest:      { url: '/store/p/gopher-pest-defense-kit-santa-cruz-county-edition', title: 'Gopher & Pest Defense Kit', line: 'The integrated five-step defense system for gophers and garden pests.', price: '$12.99' },
+      compost:   { url: '/store/p/composting-soil-building-guide', title: 'Composting & Soil Building Guide', line: 'Composting methods built for real California clay and sand soils.', price: '$9.99' },
+      container: { url: '/store/p/container-small-space-garden-guide', title: 'Container & Small Space Garden Guide', line: 'Real harvests from balconies, patios, and doorsteps.', price: '$9.99' },
+      preserve:  { url: '/store/p/preserving-the-harvest-guide-california-edition', title: 'Preserving the Harvest Guide', line: 'Tested canning, freezing, drying, and fermenting methods. Safety first.', price: '$9.99' },
+      seed:      { url: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', title: 'Seed Starting Success Kit', line: 'Sowing dates and transplant timing built for our five microclimates.', price: '$9.99' },
+      companion: { url: '/store/p/companion-planting-master-chart-guide', title: 'Companion Planting Master Chart & Guide', line: 'Pairings backed by mechanisms, not folklore, mapped to our seasons.', price: '$9.99' },
+      micro:     { url: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition', title: 'Microclimate Mastery Guide', line: 'The five real growing zones of Santa Cruz County, decoded.', price: '$12.99' },
+      seasonal:  { url: '/store/p/seasonal-planting-master-guide-santa-cruz-county-edition', title: 'Seasonal Planting Master Guide', line: 'Twelve months of planting mapped to your microclimate.', price: '$12.99' },
+      first:     { url: '/store/p/first-harvest-kit-california-edition', title: 'First Harvest Kit', line: 'From bare ground to your first harvest, every decision in order.', price: '$14.99' },
+      planner:   { url: '/store/p/garden-planner-journal-santa-cruz-county-edition', title: 'Garden Planner & Journal', line: 'Twelve monthly spreads designed to print, with local planting windows.', price: '$7.99' }
+    };
+
+    var RULES = [
+      [/kids|sensory|dinosaur|fairy|pizza-garden|butterfly-way|moonlight|peter-rabbit|seuss|sunflower-fort/, 'kids'],
+      [/dahlia/, 'dahlia'],
+      [/herb|basil|mint-|-mint|dill|thyme|oregano|parsley|chives|cilantro|sage|rosemary/, 'herb'],
+      [/firewise|fire-wise|fire-safe|defensible|ember|wildfire|after-the-fire/, 'firewise'],
+      [/water-wise|drought|irrigation|greywater|ollas|rainwater|watering/, 'water'],
+      [/gopher|pest|slug|snail|aphid|deer-|rodent|squirrel|vole|earwig|powdery-mildew|hornworm|owl-box|owls-as/, 'pest'],
+      [/compost|vermicompost|soil|mulch|amendment|fertiliz/, 'compost'],
+      [/container|grow-bag|windowsill|balcony|pots/, 'container'],
+      [/preserv|canning|freez|drying|ferment|pickl/, 'preserve'],
+      [/seed/, 'seed'],
+      [/companion/, 'companion'],
+      [/microclimate|frost-dates|fog-belt|june-gloom/, 'micro'],
+      [/what-to-plant|checklist|january|february|march|april|-may|june|july|august|september|october|november|december|seasonal|succession|planting-calendar/, 'seasonal'],
+      [/beginner|first-|start-a-vegetable|new-gardener|mistakes/, 'first'],
+      [/journal|planner|planning/, 'planner']
+    ];
+
+    var prod = null;
+    for (var i = 0; i < RULES.length; i++) {
+      if (RULES[i][0].test(slug)) { prod = P[RULES[i][1]]; break; }
+    }
+    if (!prod) return;
+
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+
+    var box = document.createElement('div');
+    box.className = 'ah-product-callout';
+    box.innerHTML = '' +
+      '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#f8f9f0;border:1px solid #dde2d8;border-left:4px solid #c9a84c;border-radius:8px;padding:1.5rem 1.75rem;margin:2.5rem 0;">' +
+        '<p style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b8694a !important;margin:0 0 0.4rem 0;">From the Garden Shop</p>' +
+        '<p style="font-family:Georgia,serif;font-size:1.25rem;color:#1a3b2a !important;margin:0 0 0.4rem 0;">' + prod.title + '</p>' +
+        '<p style="font-size:0.9rem;color:#5a6c5a !important;margin:0 0 1rem 0;line-height:1.55;">' + prod.line + '</p>' +
+        '<a href="' + prod.url + '" style="display:inline-block;background-color:#1a3b2a;color:#f8f9f0 !important;text-decoration:none;padding:0.65rem 1.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">View the Guide <span style="color:#c9a84c !important;">' + prod.price + '</span></a>' +
+      '</div>';
+
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var j = 0; j < headings.length; j++) {
+      var t = headings[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { faqHeading = headings[j]; break; }
+    }
+    if (faqHeading) faqHeading.parentNode.insertBefore(box, faqHeading);
+    else articleBody.appendChild(box);
+  }, 1600);
+})();
+
+// === GARDEN SHOP POLISH (2026-06-11) ===
+// Styles the /store collection page: typography, card hover, intro band.
+(function() {
+  if (location.pathname.indexOf('/store') !== 0) return;
+  var css = '' +
+    '.products.collection-content-wrapper, #productList, .products-flex-container { background: transparent; }' +
+    '.grid-item, .products .list-grid .grid-item { transition: transform .25s ease, box-shadow .25s ease; border-radius: 10px; padding: 10px; }' +
+    '.grid-item:hover { transform: translateY(-6px); box-shadow: 0 14px 34px rgba(26,59,42,.14); background: #ffffff; }' +
+    '.grid-image, .grid-image-wrapper, .grid-item img { border-radius: 8px; overflow: hidden; }' +
+    '.grid-title, .grid-item .grid-title { font-family: Montserrat, sans-serif !important; font-weight: 600 !important; font-size: 1rem !important; color: #1a3b2a !important; letter-spacing: .01em; margin-top: .8rem !important; }' +
+    '.grid-prices, .grid-item .grid-prices { color: #b8694a !important; font-family: Montserrat, sans-serif !important; font-weight: 700 !important; font-size: .95rem !important; }' +
+    '.grid-meta-status, .product-mark { background: #c9a84c !important; color: #1a3b2a !important; font-weight: 700; }' +
+    '.ah-shop-intro { font-family: Montserrat, sans-serif; text-align: center; padding: 2.2rem 1rem 0.6rem; }' +
+    '.ah-shop-intro h1 { font-family: "Palatino Linotype", Georgia, serif; font-size: 2.2rem; color: #1a3b2a; margin: 0 0 .5rem; font-weight: 400; }' +
+    '.ah-shop-intro .ah-rule { width: 70px; height: 3px; background: #c9a84c; margin: 0 auto .8rem; }' +
+    '.ah-shop-intro p { color: #5a6c5a; font-size: .95rem; max-width: 560px; margin: 0 auto; line-height: 1.6; }';
+  var style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  function addIntro() {
+    if (document.querySelector('.ah-shop-intro')) return;
+    var grid = document.querySelector('.products.collection-content-wrapper') ||
+               document.querySelector('#productList') ||
+               document.querySelector('.products-flex-container') ||
+               document.querySelector('section .content-wrapper');
+    if (!grid) return;
+    var intro = document.createElement('div');
+    intro.className = 'ah-shop-intro';
+    intro.innerHTML = '<h1>The Garden Shop</h1><div class="ah-rule"></div>' +
+      '<p>California-specific growing guides, written from twenty years of Santa Cruz County gardens. Instant PDF downloads, printable worksheets, and a 30-day money-back guarantee on everything.</p>';
+    grid.parentNode.insertBefore(intro, grid);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(addIntro, 600); });
+  } else {
+    setTimeout(addIntro, 600);
+  }
+})();
