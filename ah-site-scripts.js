@@ -875,6 +875,17 @@ document.addEventListener("DOMContentLoaded", function() {
     "growing-mandarins-and-satsumas-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
     "best-bean-varieties-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
     "the-complete-guide-to-growing-squash-and-cucumbers-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "companion-plants-zucchini": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-clay-soil-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-foggy-coastal-summers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-grow-winter-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-handle-heat-waves-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-produce-all-season": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-regrow-after-cutting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-small-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-store-well-after-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "plants-repel-garden-pests-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "native-groundcovers-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
   };
 
   // =========================================================================
