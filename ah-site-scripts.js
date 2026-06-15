@@ -810,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "grow-radishes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "growing-cosmos-flowers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "growing-stone-fruit-in-santa-cruz-county-peaches-plums-apricots-and-nectarines": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
-    "growing-sweet-peas-in-santa-cruz-county-fragrant-favorites-for-cool-season-bouquets": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "growing-sweet-peas-in-santa-cruz-county-fragrant-favorites-for-cool-season-bouquets": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
     "growing-under-the-redwoods-gardening-in-shade-and-acidic-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
     "growing-zinnias-summer-garden-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "heirloom-vs-hybrid-tomatoes": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
