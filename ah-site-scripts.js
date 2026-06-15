@@ -886,6 +886,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "crops-store-well-after-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
     "plants-repel-garden-pests-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
     "native-groundcovers-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "native-plants-by-microclimate-what-to-grow-where-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
   };
 
   // =========================================================================
