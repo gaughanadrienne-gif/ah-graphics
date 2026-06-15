@@ -868,6 +868,13 @@ document.addEventListener("DOMContentLoaded", function() {
     "zone-0-ember-resistant-landscaping-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "zucchini-vs-yellow-summer-squash": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
     "7-fruit-trees-that-actually-produce-well-in-foggy-coastal-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "citrus-problems-yellow-leaves-leaf-drop-and-no-fruit": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "citrus-cold-protection-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "fertilizing-citrus-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-limes-in-santa-cruz-county-and-why-its-tricky": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-mandarins-and-satsumas-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "best-bean-varieties-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "the-complete-guide-to-growing-squash-and-cucumbers-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
   };
 
   // =========================================================================
