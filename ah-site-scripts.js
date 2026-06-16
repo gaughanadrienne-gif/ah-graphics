@@ -1319,17 +1319,24 @@ function ahIsFlockArticle(slug) {
         rel.classList.add('ah-keep');
         rel.parentElement.insertBefore(wrap, rel); wrap.appendChild(rel); wrap.appendChild(grid);
         var leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="#1A3B2A" stroke-width="1.4"><path d="M12 2C7 5 4 9 4 14a8 8 0 0016 0c0-5-3-9-8-12z"/><path d="M12 5v13"/></svg>';
+        var dropCard = function (c) { if (c.parentNode) c.parentNode.removeChild(c); if (!grid.children.length && wrap.parentNode) wrap.parentNode.removeChild(wrap); };
         links.forEach(function (a) {
           var href = a.getAttribute('href'), title = a.textContent.trim();
           var c = document.createElement('a'); c.href = href;
           c.innerHTML = '<div class="ph">' + leaf + '</div><div class="b"><h5>' + title + '</h5></div>';
           grid.appendChild(c); a.style.display = 'none';
-          fetch(href).then(function (r) { return r.text(); }).then(function (t) {
+          // Validate the link: a broken (404) related link is dropped so we never
+          // render a dead card. Otherwise pull the article's og:image for the thumb.
+          fetch(href).then(function (r) {
+            if (!r.ok) { dropCard(c); return null; }
+            return r.text();
+          }).then(function (t) {
+            if (!t) return;
             var m = t.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
             if (m && !/AHC|logo/i.test(m[1])) {
               c.querySelector('.ph').innerHTML = '<img src="' + m[1].replace(/^http:/, 'https:').split('?')[0] + '?format=600w" alt="">';
             }
-          }).catch(function () {});
+          }).catch(function () { dropCard(c); });
         });
         var lc = links[0].closest('ul'); if (lc) lc.style.display = 'none';
       }
