@@ -1703,3 +1703,30 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === START HERE POLISH (2026-06-16, session 41) ===
+// /start-here only. Marigold heading accents + upgrade the muted sage CTAs to
+// strong marigold buttons that pop on both the dark-green and cream bands.
+// Reversible.
+(function () {
+  function onPage() { return location.pathname.replace(/\/$/, '') === '/start-here' && document.querySelector('#sections'); }
+  function build() {
+    if (document.getElementById('ah-sh-style')) return;
+    var css =
+    '#sections .page-section h2{position:relative}' +
+    '#sections .page-section h2:not(.ah-keep)::after{content:"";display:block;width:48px;height:3px;background:#E0A53F;border-radius:2px;margin:16px auto 0}' +
+    '#sections .sqs-block-button-element{background:#E0A53F!important;color:#2a2208!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;font-size:13px!important;padding:15px 30px!important;transition:.18s ease!important;box-shadow:0 4px 14px rgba(0,0,0,.18)!important}' +
+    '#sections .sqs-block-button-element:hover{background:#d3982f!important;color:#2a2208!important;transform:translateY(-2px)!important}';
+    var st = document.createElement('style'); st.id = 'ah-sh-style'; st.textContent = css;
+    document.head.appendChild(st);
+  }
+  function boot() {
+    if (onPage()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
