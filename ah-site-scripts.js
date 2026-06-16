@@ -1649,3 +1649,57 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === FOOTER ENRICHMENT (2026-06-16, session 41) ===
+// Global. Prepends a brand + social + quick-links + newsletter-CTA band above the
+// existing footer (which had nav links only -- no Shop link, no social, no
+// newsletter). Links point to real destinations. Fully reversible.
+(function () {
+  function build() {
+    var foot = document.querySelector('#footer-sections');
+    if (!foot || document.getElementById('ah-foot-style') || foot.querySelector('.ah-foot-enhance')) return;
+
+    var css =
+    '.ah-foot-enhance{display:grid;grid-template-columns:1.5fr 1fr 1.3fr;gap:40px;max-width:1100px;margin:0 auto;padding:48px 28px 40px;border-bottom:1px solid rgba(255,255,255,.13)}' +
+    '.ah-foot-enhance .ah-fe-logo{font-family:"Palatino Linotype",Georgia,serif;font-size:22px;color:#F8F9F0!important;margin-bottom:10px}' +
+    '.ah-foot-enhance p{font:14px/1.55 Montserrat,sans-serif;color:#b9c7b6!important;margin:0 0 16px;max-width:32ch}' +
+    '.ah-foot-enhance h4{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#F8F9F0!important;margin:0 0 14px}' +
+    '.ah-foot-enhance a{display:block;font:14px/1.4 Montserrat,sans-serif;color:#cdd6c8!important;text-decoration:none!important;border-bottom:0!important;padding:5px 0;background-image:none!important}' +
+    '.ah-foot-enhance a:hover{color:#fff!important}' +
+    '.ah-fe-social{display:flex;gap:10px;margin-top:4px}' +
+    '.ah-fe-social a{width:36px;height:36px;border:1px solid rgba(255,255,255,.28);border-radius:50%;display:flex!important;align-items:center;justify-content:center;padding:0!important}' +
+    '.ah-fe-social a:hover{background:rgba(255,255,255,.12)}' +
+    '.ah-fe-social svg{width:16px;height:16px;color:#dfe6da}' +
+    '.ah-fe-btn{display:inline-block!important;background:#E0A53F!important;color:#2a2208!important;font:700 12px/1 Montserrat,sans-serif!important;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px!important;border-radius:3px;margin-top:4px}' +
+    '.ah-fe-btn:hover{background:#d3982f!important;color:#2a2208!important}' +
+    '@media(max-width:760px){.ah-foot-enhance{grid-template-columns:1fr;gap:28px}}';
+    var st = document.createElement('style'); st.id = 'ah-foot-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var ig = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>';
+    var pin = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.6 19.3c-.1-.8-.2-2 .04-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.5 2.1-.8 3.3-.2 1 .5 1.7 1.4 1.7 1.7 0 3-1.8 3-4.4 0-2.3-1.6-3.9-4-3.9-2.7 0-4.3 2-4.3 4.1 0 .8.3 1.7.7 2.2.1.1.1.2.1.3l-.3 1.2c0 .2-.2.2-.4.1-1.3-.6-2.1-2.5-2.1-4 0-3.2 2.3-6.2 6.8-6.2 3.6 0 6.3 2.5 6.3 5.9 0 3.5-2.2 6.4-5.3 6.4-1 0-2-.5-2.3-1.2l-.6 2.4c-.2.9-.8 2-1.2 2.6A10 10 0 1012 2z"/></svg>';
+    var fb = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3H13V9c0-.9.3-1.5 1.6-1.5H17V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4V11H8v3h2.6v8H13z"/></svg>';
+    var th = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 11.3c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.5-4.7-1.6 0-3 .7-3.8 2l1.4 1c.6-.9 1.5-1.1 2.4-1.1 1.5 0 2.3.9 2.5 2.4-.6-.1-1.2-.2-1.9-.2-2.5 0-4.1 1.3-4 3.3 0 1.6 1.4 2.7 3.1 2.7 1.4 0 2.9-.8 3.4-2.7.3.6.6 1.4.6 2.4 0 1.9-1.6 3.9-4.9 3.9-3.6 0-5.2-2.4-5.2-6.1S6.9 6 10.5 6c2.3 0 3.9.9 4.9 2.3l1.5-1C15.6 5.4 13.4 4.3 10.5 4.3 5.7 4.3 3 7.3 3 12s2.7 7.7 7.5 7.7c4.3 0 6.7-2.7 6.7-5.6 0-1.5-.6-2.7-1.7-3.5z"/></svg>';
+
+    var band = document.createElement('div'); band.className = 'ah-foot-enhance';
+    band.innerHTML = '<div><div class="ah-fe-logo">Ambitious Harvest</div>' +
+      '<p>Practical, locally grounded gardening for Santa Cruz County and the greater Bay Area.</p>' +
+      '<div class="ah-fe-social">' +
+      '<a href="https://www.instagram.com/ambitiousharvest" aria-label="Instagram">' + ig + '</a>' +
+      '<a href="https://www.pinterest.com/AmbitiousHarvest" aria-label="Pinterest">' + pin + '</a>' +
+      '<a href="https://www.facebook.com/AmbitiousHarvest/" aria-label="Facebook">' + fb + '</a>' +
+      '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
+      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a></div>' +
+      '<div><h4>Grow with the seasons</h4><p>Get the free Santa Cruz planting calendar, plus seasonal reminders and new guides.</p><a class="ah-fe-btn" href="/your-garden-toolkit">Get the free calendar →</a></div>';
+    foot.insertBefore(band, foot.firstChild);
+  }
+  function boot() {
+    if (document.querySelector('#footer-sections')) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (document.querySelector('#footer-sections')) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
