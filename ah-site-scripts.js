@@ -1196,6 +1196,47 @@ function ahIsFlockArticle(slug) {
   function init() {
     if (!onArticle() || document.getElementById('ah-enh-style')) return;
 
+    // --- Internal link repair (link audit 2026-06-16) ---------------------
+    // Remap known-broken cross-links to their correct slug, and neutralize dead
+    // tag-page links (tag pages are disabled, so they 404). Runs before the
+    // related-card builder below, so corrected links render as real cards.
+    var LINK_REMAP = {
+      '/learn/avocado-problems-in-california': '/learn/avocado-problems-california',
+      '/learn/brassica-pests-and-diseases-in-santa-cruz-county': '/learn/brassica-pests-diseases-santa-cruz',
+      '/learn/brassica-planting-calendar-for-santa-cruz-county': '/learn/brassica-planting-calendar-santa-cruz',
+      '/learn/cool-season-cut-flowers-santa-cruz': '/learn/cool-season-cut-flowers-for-santa-cruz-county',
+      '/learn/fertilizing-citrus-santa-cruz': '/learn/fertilizing-citrus-in-santa-cruz-county',
+      '/learn/growing-a-cut-flower-garden-in-santa-cruz-county': '/learn/growing-cut-flower-garden-santa-cruz',
+      '/learn/growing-avocados-in-containers-in-california': '/learn/growing-avocados-containers-california',
+      '/learn/growing-broccoli-in-santa-cruz-county': '/learn/growing-broccoli-santa-cruz',
+      '/learn/growing-brussels-sprouts-in-santa-cruz-county': '/learn/growing-brussels-sprouts-santa-cruz',
+      '/learn/growing-cauliflower-in-santa-cruz-county': '/learn/growing-cauliflower-santa-cruz',
+      '/learn/growing-cut-flowers-from-seed-santa-cruz': '/learn/growing-cut-flowers-from-seed-in-santa-cruz-county',
+      '/learn/growing-dahlias-in-santa-cruz-county': '/learn/growing-dahlias-santa-cruz',
+      '/learn/growing-meyer-lemons-santa-cruz': '/learn/growing-meyer-lemons-in-santa-cruz-county',
+      '/learn/growing-snapdragons-in-santa-cruz-county': '/learn/growing-snapdragons-santa-cruz',
+      '/learn/growing-sunflowers-in-santa-cruz-county': '/learn/growing-sunflowers-santa-cruz',
+      '/learn/native-plants-for-pollinators-in-santa-cruz-county': '/learn/native-plants-for-pollinators',
+      '/learn/saving-bean-pea-seeds': '/learn/saving-bean-and-pea-seeds',
+      '/learn/native-garden-design-in-santa-cruz-county': '/learn/benefits-native-garden-design-santa-cruz',
+      '/learn/cover-crops-for-santa-cruz-county-gardens-complete-guide': '/learn/cover-crops-santa-cruz-complete-guide',
+      '/learn/growing-cosmos-santa-cruz': '/learn/growing-cosmos-flowers',
+      '/learn/succession-planting-cut-flowers-santa-cruz': '/learn/succession-planting-cut-flowers-for-continuous-blooms',
+      '/learn/drip-irrigation-setup': '/learn/drip-irrigation-raised-beds-setup'
+    };
+    [].slice.call(document.querySelectorAll('a[href*="/learn/"]')).forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      var path = href.replace(/^https?:\/\/[^/]+/, '').replace(/\/$/, '');
+      if (LINK_REMAP[path]) {
+        a.setAttribute('href', LINK_REMAP[path]);
+      } else if (path.indexOf('/learn/tag/') === 0) {
+        var span = document.createElement('span');
+        span.textContent = a.textContent;
+        span.className = 'ah-dead-tag';
+        if (a.parentNode) a.parentNode.replaceChild(span, a);
+      }
+    });
+
 
     var css =
     '.blog-item-content{--ahg:#1A3B2A;--ahm:#E0A53F;--aht:#BD6438;--ahline:#dce0d2}' +
