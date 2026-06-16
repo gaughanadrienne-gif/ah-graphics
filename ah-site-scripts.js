@@ -1496,3 +1496,76 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === ARTICLE DISPLAY FIXES (2026-06-16, session 41) ===
+// Two pre-existing content bugs, fixed at render time across ALL /learn/ articles:
+//  1. Dark-background graphic boxes whose heading/paragraph text inherits the
+//     theme's dark color (the box sets color:#f8f9f0 but not !important, so the
+//     theme's h2/p rules win) -> unreadable dark-on-dark. We force light text.
+//  2. Duplicate header image (a native image block + a body-inserted header of
+//     the same file) -> we hide the second one.
+// Fully reversible: remove this block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0 || location.pathname.indexOf('/learn/category/') === 0) return;
+
+  function lum(rgb) {
+    var m = (rgb || '').match(/\d+(\.\d+)?/g);
+    if (!m || m.length < 3) return 1;
+    return (0.299 * +m[0] + 0.587 * +m[1] + 0.114 * +m[2]) / 255;
+  }
+  function isTransparent(c) { return !c || c === 'rgba(0, 0, 0, 0)' || c === 'transparent'; }
+  function isDarkBg(c) { return !isTransparent(c) && lum(c) < 0.45; }
+  function isDarkText(c) { return lum(c) < 0.5; }
+
+  function fixContrast(root) {
+    [].slice.call(root.querySelectorAll('*')).forEach(function (box) {
+      if (!isDarkBg(getComputedStyle(box).backgroundColor)) return;
+      var els = [box].concat([].slice.call(box.querySelectorAll('*')));
+      els.forEach(function (el) {
+        if (el !== box) {
+          var ownBg = getComputedStyle(el).backgroundColor;
+          // Skip nested dark boxes (handled on their own pass) and light pills/badges
+          if (isDarkBg(ownBg)) return;
+          if (!isTransparent(ownBg) && lum(ownBg) >= 0.45) return;
+        }
+        if (isDarkText(getComputedStyle(el).color)) el.style.setProperty('color', '#F8F9F0', 'important');
+        if (/^H[1-6]$/.test(el.tagName)) el.classList.add('ah-keep'); // drop our accent bar inside graphics
+      });
+    });
+  }
+
+  function dedupeHeader(root) {
+    var imgs = [].slice.call(root.querySelectorAll('img')).filter(function (i) { return (i.currentSrc || i.src); });
+    if (imgs.length < 2) return;
+    var a = (imgs[0].currentSrc || imgs[0].src).split('?')[0];
+    var b = (imgs[1].currentSrc || imgs[1].src).split('?')[0];
+    if (a && a === b) {
+      var fig = imgs[1].closest('figure, .sqs-block-image, .sqs-block') || imgs[1];
+      if (!fig.getAttribute('data-ah-dupe-hidden')) {
+        fig.style.setProperty('display', 'none', 'important');
+        fig.setAttribute('data-ah-dupe-hidden', '1');
+      }
+    }
+  }
+
+  function run() {
+    var root = document.querySelector('.blog-item-content');
+    if (!root) return;
+    fixContrast(root);
+    dedupeHeader(root);
+  }
+
+  function boot() {
+    run();
+    setTimeout(run, 1200);
+    setTimeout(run, 2800); // catch late-rendered graphics/images
+    var root = document.querySelector('.blog-item-content');
+    if (root && window.MutationObserver) {
+      var t, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(run, 300); });
+      mo.observe(root, { childList: true, subtree: true });
+      setTimeout(function () { mo.disconnect(); }, 9000);
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
