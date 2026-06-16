@@ -2141,25 +2141,45 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === CONTACT PAGE POLISH (2026-06-16, session 41) ===
-// /contact only. Marigold accent under the "Get in Touch" title + brand styling
-// on the form's Send button (was muted sage). CSS only -- the form is untouched.
-// Reversible.
+// /contact only. Marigold accent under "Get in Touch", brand styling on the
+// form's Send button (was muted sage), and the social icons (which rendered as
+// unreadable low-contrast green blocks) swapped for clean brand-circle glyphs.
+// The form itself is untouched. Reversible.
 (function () {
   function onPage() { return location.pathname.replace(/\/$/, '') === '/contact' && document.querySelector('#sections'); }
+  var SOC = {
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+    pinterest: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.6 19.3c-.1-.8-.2-2 .04-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.5 2.1-.8 3.3-.2 1 .5 1.7 1.4 1.7 1.7 0 3-1.8 3-4.4 0-2.3-1.6-3.9-4-3.9-2.7 0-4.3 2-4.3 4.1 0 .8.3 1.7.7 2.2.1.1.1.2.1.3l-.3 1.2c0 .2-.2.2-.4.1-1.3-.6-2.1-2.5-2.1-4 0-3.2 2.3-6.2 6.8-6.2 3.6 0 6.3 2.5 6.3 5.9 0 3.5-2.2 6.4-5.3 6.4-1 0-2-.5-2.3-1.2l-.6 2.4c-.2.9-.8 2-1.2 2.6A10 10 0 1012 2z"/></svg>',
+    facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3H13V9c0-.9.3-1.5 1.6-1.5H17V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4V11H8v3h2.6v8H13z"/></svg>',
+    threads: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 11.3c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.5-4.7-1.6 0-3 .7-3.8 2l1.4 1c.6-.9 1.5-1.1 2.4-1.1 1.5 0 2.3.9 2.5 2.4-.6-.1-1.2-.2-1.9-.2-2.5 0-4.1 1.3-4 3.3 0 1.6 1.4 2.7 3.1 2.7 1.4 0 2.9-.8 3.4-2.7.3.6.6 1.4.6 2.4 0 1.9-1.6 3.9-4.9 3.9-3.6 0-5.2-2.4-5.2-6.1S6.9 6 10.5 6c2.3 0 3.9.9 4.9 2.3l1.5-1C15.6 5.4 13.4 4.3 10.5 4.3 5.7 4.3 3 7.3 3 12s2.7 7.7 7.5 7.7c4.3 0 6.7-2.7 6.7-5.6 0-1.5-.6-2.7-1.7-3.5z"/></svg>'
+  };
+  function socials() {
+    [].slice.call(document.querySelectorAll('#sections .sqs-svg-icon--wrapper')).forEach(function (a) {
+      if (a.classList.contains('ah-soc')) return;
+      var cls = a.className || '';
+      var key = Object.keys(SOC).filter(function (k) { return cls.indexOf(k) >= 0; })[0];
+      if (key) { a.innerHTML = SOC[key]; a.classList.add('ah-soc'); }
+    });
+  }
   function build() {
-    if (document.getElementById('ah-contact-style')) return;
+    if (document.getElementById('ah-contact-style')) { socials(); return; }
     var css =
     '#sections h1{position:relative}' +
     '#sections h1::after{content:"";display:block;width:48px;height:3px;background:#E0A53F;border-radius:2px;margin:16px auto 0}' +
     '#sections .sqs-block-form .form-submit-button button,#sections .sqs-block-form button.sqs-system-button,#sections form button.button{background:#1A3B2A!important;background-color:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;padding:15px 34px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
-    '#sections .sqs-block-form button.sqs-system-button:hover,#sections form button.button:hover{background:#2c5d42!important;background-color:#2c5d42!important;transform:translateY(-2px)}';
+    '#sections .sqs-block-form button.sqs-system-button:hover,#sections form button.button:hover{background:#2c5d42!important;background-color:#2c5d42!important;transform:translateY(-2px)}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc{width:42px!important;height:42px!important;border-radius:50%!important;background:#1A3B2A!important;display:inline-flex!important;align-items:center;justify-content:center;margin:0 6px!important;transition:.18s;vertical-align:middle}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc svg{width:19px;height:19px;color:#F8F9F0}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc:hover{background:#E0A53F!important}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc:hover svg{color:#2a2208}';
     var st = document.createElement('style'); st.id = 'ah-contact-style'; st.textContent = css;
     document.head.appendChild(st);
+    socials();
   }
   function boot() {
-    if (onPage()) return build();
+    if (onPage()) { build(); setTimeout(socials, 1000); return; }
     var tries = 0, iv = setInterval(function () {
-      if (onPage()) { clearInterval(iv); build(); }
+      if (onPage()) { clearInterval(iv); build(); setTimeout(socials, 1000); }
       if (++tries > 40) clearInterval(iv);
     }, 250);
   }
