@@ -1031,14 +1031,79 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 })();
 
+// === GARDEN COOP -> BUILD YOUR FLOCK CROSS-LINK (2026-06-16) ===
+// Flock/coop articles get a callout to the Build Your Flock local availability tool.
+// Shared so the product callout below can step aside on these articles.
+function ahIsFlockArticle(slug) {
+  var FLOCK = {
+    'starting-a-backyard-flock-in-santa-cruz-county': 1,
+    'choosing-the-right-breeds-for-coastal-california-gardens': 1,
+    'designing-a-predator-proof-run-for-your-garden-flock': 1,
+    'raising-chicks-and-ducklings-in-santa-cruz': 1,
+    'what-to-feed-your-backyard-flock-year-round-in-california': 1,
+    'common-health-issues-backyard-chickens-ducks-geese': 1,
+    'adopting-rescue-birds-quarantine-deworming-flock-introduction': 1,
+    'keeping-a-mixed-flock-chickens-ducks-geese-together': 1,
+    'how-your-flock-can-work-your-garden': 1,
+    'composting-with-chicken-and-duck-waste': 1,
+    'managing-free-range-time-protecting-plants': 1,
+    'best-and-worst-garden-plants-for-free-range-flock': 1,
+    'keeping-ducks-in-your-california-garden': 1,
+    'keeping-a-goose-single-goose-flocks': 1,
+    'heritage-and-rescue-chicken-breeds-santa-cruz': 1,
+    'predator-proofing-your-flock-santa-cruz-county': 1,
+    'hardware-cloth-coop-locks-night-safety': 1,
+    'what-to-do-when-a-predator-gets-in': 1,
+    'seasonal-flock-care-spring-summer-coastal-california': 1,
+    'seasonal-flock-care-fall-winter-coastal-california': 1
+  };
+  if (FLOCK[slug]) return true;
+  return /flock|coop|chicken|duckling|ducks|goose|geese|poultry|pullet|backyard-bird|hatchling/.test(slug);
+}
+(function() {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  setTimeout(function() {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (!ahIsFlockArticle(slug)) return;
+    if (document.querySelector('.ah-flock-callout')) return;
+
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+
+    var box = document.createElement('div');
+    box.className = 'ah-flock-callout';
+    box.innerHTML = '' +
+      '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#f8f9f0;border:1px solid #dde2d8;border-left:4px solid #4A7A5B;border-radius:8px;padding:1.5rem 1.75rem;margin:2.5rem 0;">' +
+        '<p style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#4A7A5B !important;margin:0 0 0.4rem 0;">Local Resource</p>' +
+        '<p style="font-family:Georgia,serif;font-size:1.25rem;color:#1a3b2a !important;margin:0 0 0.4rem 0;">Build Your Flock</p>' +
+        '<p style="font-size:0.9rem;color:#5a6c5a !important;margin:0 0 1rem 0;line-height:1.55;">See which chickens, ducks, and geese are available right now from Santa Cruz County shelters, feed stores, and breeders.</p>' +
+        '<a href="/build-your-flock" style="display:inline-block;background-color:#1a3b2a;color:#f8f9f0 !important;text-decoration:none;padding:0.65rem 1.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">Browse local availability &rarr;</a>' +
+      '</div>';
+
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var j = 0; j < headings.length; j++) {
+      var t = headings[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { faqHeading = headings[j]; break; }
+    }
+    if (faqHeading) faqHeading.parentNode.insertBefore(box, faqHeading);
+    else articleBody.appendChild(box);
+  }, 1500);
+})();
+
 // === CONTEXTUAL PRODUCT CALLOUTS (2026-06-11) ===
 // Routes each article to its most relevant Garden Shop product.
 // Tomato articles are excluded (the quiz callout already carries the MasterKit CTA).
+// Flock/coop articles are excluded (they carry the Build Your Flock callout instead).
 (function() {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   setTimeout(function() {
     var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
     if (slug.indexOf('tomato') !== -1) return;
+    if (ahIsFlockArticle(slug)) return;
+    if (document.querySelector('.ah-flock-callout')) return;
     if (document.querySelector('.ah-product-callout')) return;
 
     var P = {
