@@ -1730,3 +1730,46 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === LOCAL RESOURCES POLISH (2026-06-16, session 41) ===
+// /local-resources only. Turns each resource entry (a <p> that starts with a
+// <strong> name) into a card, lays each category out as a 2-column grid, and
+// adds marigold heading accents. Reversible.
+(function () {
+  function onPage() { return location.pathname.replace(/\/$/, '') === '/local-resources' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-lr-style')) return;
+    var css =
+    '#sections h2{position:relative}' +
+    '#sections h2:not(.ah-keep)::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px 0 0}' +
+    '.ah-res-grid{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:18px!important;align-items:start!important}' +
+    '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;margin:0!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
+    '.ah-res-card strong:first-child{font-family:"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block;margin-bottom:5px}' +
+    '.ah-res-card a{color:#BD6438!important;text-decoration:none!important;border-bottom:1px solid rgba(189,100,56,.4)!important;background-image:none!important}' +
+    '@media(max-width:760px){.ah-res-grid{grid-template-columns:1fr!important}}';
+    var st = document.createElement('style'); st.id = 'ah-lr-style'; st.textContent = css;
+    document.head.appendChild(st);
+    markup();
+  }
+
+  function markup() {
+    [].slice.call(document.querySelectorAll('#sections .sqs-html-content p')).forEach(function (p) {
+      var f = p.firstElementChild;
+      if (f && f.tagName === 'STRONG' && p.textContent.trim().length > 10) {
+        p.classList.add('ah-res-card');
+        if (p.parentElement) p.parentElement.classList.add('ah-res-grid');
+      }
+    });
+  }
+
+  function boot() {
+    if (onPage()) { build(); setTimeout(markup, 1200); return; }
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); setTimeout(markup, 1200); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
