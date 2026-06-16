@@ -1106,22 +1106,24 @@ function ahIsFlockArticle(slug) {
     if (document.querySelector('.ah-flock-callout')) return;
     if (document.querySelector('.ah-product-callout')) return;
 
+    var IMGBASE = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    var IMG = function (c, w) { return IMGBASE + c + '?format=' + w + 'w'; };
     var P = {
-      kids:      { url: '/store/p/kids-garden-activity-pack-santa-cruz-county-edition', title: 'Kids Garden Activity Pack', line: 'Hands-on garden activities, trackers, and badges for curious kids.', price: '$7.99' },
-      dahlia:    { url: '/store/p/california-dahlia-growing-guide', title: 'California Dahlia Growing Guide', line: 'Zone-by-zone tuber timing and an overwintering flowchart for California.', price: '$9.99' },
-      herb:      { url: '/store/p/herb-growing-kitchen-garden-guide-california-edition', title: 'Herb Growing Kitchen Garden Guide', line: 'Every herb from seed to cutting board, tuned to our Mediterranean climate.', price: '$9.99' },
-      firewise:  { url: '/store/p/firewise-food-garden-kit-california-edition', title: 'Firewise Food Garden Kit', line: 'Make your food garden part of your defensible space plan.', price: '$14.99' },
-      water:     { url: '/store/p/water-wise-garden-workbook-california-edition', title: 'Water-Wise Garden Workbook', line: 'Audit your water use and redesign your garden with real numbers.', price: '$9.99' },
-      pest:      { url: '/store/p/gopher-pest-defense-kit-santa-cruz-county-edition', title: 'Gopher & Pest Defense Kit', line: 'The integrated five-step defense system for gophers and garden pests.', price: '$12.99' },
-      compost:   { url: '/store/p/composting-soil-building-guide', title: 'Composting & Soil Building Guide', line: 'Composting methods built for real California clay and sand soils.', price: '$9.99' },
-      container: { url: '/store/p/container-small-space-garden-guide', title: 'Container & Small Space Garden Guide', line: 'Real harvests from balconies, patios, and doorsteps.', price: '$9.99' },
-      preserve:  { url: '/store/p/preserving-the-harvest-guide-california-edition', title: 'Preserving the Harvest Guide', line: 'Tested canning, freezing, drying, and fermenting methods. Safety first.', price: '$9.99' },
-      seed:      { url: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', title: 'Seed Starting Success Kit', line: 'Sowing dates and transplant timing built for our five microclimates.', price: '$9.99' },
-      companion: { url: '/store/p/companion-planting-master-chart-guide', title: 'Companion Planting Master Chart & Guide', line: 'Pairings backed by mechanisms, not folklore, mapped to our seasons.', price: '$9.99' },
-      micro:     { url: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition', title: 'Microclimate Mastery Guide', line: 'The five real growing zones of Santa Cruz County, decoded.', price: '$12.99' },
-      seasonal:  { url: '/store/p/seasonal-planting-master-guide-santa-cruz-county-edition', title: 'Seasonal Planting Master Guide', line: 'Twelve months of planting mapped to your microclimate.', price: '$12.99' },
-      first:     { url: '/store/p/first-harvest-kit-california-edition', title: 'First Harvest Kit', line: 'From bare ground to your first harvest, every decision in order.', price: '$14.99' },
-      planner:   { url: '/store/p/garden-planner-journal-santa-cruz-county-edition', title: 'Garden Planner & Journal', line: 'Twelve monthly spreads designed to print, with local planting windows.', price: '$7.99' }
+      kids:      { url: '/store/p/kids-garden-activity-pack-santa-cruz-county-edition', title: 'Kids Garden Activity Pack', line: 'Hands-on garden activities, trackers, and badges for curious kids.', price: '$7.99', cover: '023d295f-7a0e-4b51-9228-c1367bd499e2/kids-garden-activity-pack-1-cover.jpeg' },
+      dahlia:    { url: '/store/p/california-dahlia-growing-guide', title: 'California Dahlia Growing Guide', line: 'Zone-by-zone tuber timing and an overwintering flowchart for California.', price: '$9.99', cover: 'a0525226-76c1-45ed-a278-08d34d0a8d31/dahlia-growing-guide-1-cover.jpeg' },
+      herb:      { url: '/store/p/herb-growing-kitchen-garden-guide-california-edition', title: 'Herb Growing Kitchen Garden Guide', line: 'Every herb from seed to cutting board, tuned to our Mediterranean climate.', price: '$9.99', cover: '7732bc6b-b114-4f88-9a8a-42d50b803083/herb-growing-kitchen-garden-guide-1-cover.jpeg' },
+      firewise:  { url: '/store/p/firewise-food-garden-kit-california-edition', title: 'Firewise Food Garden Kit', line: 'Make your food garden part of your defensible space plan.', price: '$14.99', cover: 'bc7fe7f5-933e-44b5-9a20-69a3d96aaef8/firewise-food-garden-kit-1-cover.jpeg' },
+      water:     { url: '/store/p/water-wise-garden-workbook-california-edition', title: 'Water-Wise Garden Workbook', line: 'Audit your water use and redesign your garden with real numbers.', price: '$9.99', cover: '3929876c-ddbc-48a5-ae55-ec2794fb4bf6/water-wise-garden-workbook-1-cover.jpeg' },
+      pest:      { url: '/store/p/gopher-pest-defense-kit-santa-cruz-county-edition', title: 'Gopher & Pest Defense Kit', line: 'The integrated five-step defense system for gophers and garden pests.', price: '$12.99', cover: '5cb21a0c-210c-411a-b76b-b3c3c4396dc4/gopher-pest-defense-kit-1-cover.jpeg' },
+      compost:   { url: '/store/p/composting-soil-building-guide', title: 'Composting & Soil Building Guide', line: 'Composting methods built for real California clay and sand soils.', price: '$9.99', cover: '8306991f-4a67-4e17-bada-65addfbb1a9e/composting-soil-building-guide-1-cover.jpeg' },
+      container: { url: '/store/p/container-small-space-garden-guide', title: 'Container & Small Space Garden Guide', line: 'Real harvests from balconies, patios, and doorsteps.', price: '$9.99', cover: 'a7e35ce3-9894-4fc8-85ec-42437b1f4cf0/container-garden-guide-1-cover.jpeg' },
+      preserve:  { url: '/store/p/preserving-the-harvest-guide-california-edition', title: 'Preserving the Harvest Guide', line: 'Tested canning, freezing, drying, and fermenting methods. Safety first.', price: '$9.99', cover: '93eccbe4-594c-4fd5-b7b8-abddf6596906/preserving-the-harvest-guide-1-cover.jpeg' },
+      seed:      { url: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', title: 'Seed Starting Success Kit', line: 'Sowing dates and transplant timing built for our five microclimates.', price: '$9.99', cover: 'fbc91ab7-4aec-42af-8ef9-f77d7ae2d425/seed-starting-success-kit-1-cover.jpeg' },
+      companion: { url: '/store/p/companion-planting-master-chart-guide', title: 'Companion Planting Master Chart & Guide', line: 'Pairings backed by mechanisms, not folklore, mapped to our seasons.', price: '$9.99', cover: '2b058961-8abc-41e0-81b4-1e9c8fb28faf/companion-planting-chart-guide-1-cover.jpeg' },
+      micro:     { url: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition', title: 'Microclimate Mastery Guide', line: 'The five real growing zones of Santa Cruz County, decoded.', price: '$12.99', cover: 'b3c3da63-ceef-4b34-910e-2943b9a4bbab/microclimate-mastery-guide-1-cover.jpeg' },
+      seasonal:  { url: '/store/p/seasonal-planting-master-guide-santa-cruz-county-edition', title: 'Seasonal Planting Master Guide', line: 'Twelve months of planting mapped to your microclimate.', price: '$12.99', cover: 'fc77da29-add8-40e5-9fcb-49f23f9720e1/seasonal-planting-master-guide-1-cover.jpeg' },
+      first:     { url: '/store/p/first-harvest-kit-california-edition', title: 'First Harvest Kit', line: 'From bare ground to your first harvest, every decision in order.', price: '$14.99', cover: 'dd2f6938-54ca-4c68-9aa8-240e26854d4c/first-harvest-kit-1-cover.jpeg' },
+      planner:   { url: '/store/p/garden-planner-journal-santa-cruz-county-edition', title: 'Garden Planner & Journal', line: 'Twelve monthly spreads designed to print, with local planting windows.', price: '$7.99', cover: '0993fac6-834e-4747-b62d-8ba39939350c/garden-planner-journal-1-cover.jpeg' }
     };
 
     var RULES = [
@@ -1136,7 +1138,9 @@ function ahIsFlockArticle(slug) {
       [/preserv|canning|freez|drying|ferment|pickl/, 'preserve'],
       [/seed/, 'seed'],
       [/companion/, 'companion'],
-      [/microclimate|frost-dates|fog-belt|june-gloom/, 'micro'],
+      // Microclimate guide now also covers citrus, fruit trees, and cold/frost topics
+      // (previously these matched no rule, so the article had no product CTA at all).
+      [/microclimate|frost|fog-belt|june-gloom|cold-protect|cold-hardy|citrus|avocado|apple|lemon|orange|fruit-tree|stone-fruit|peach|plum|pear|fig/, 'micro'],
       [/what-to-plant|checklist|january|february|march|april|-may|june|july|august|september|october|november|december|seasonal|succession|planting-calendar/, 'seasonal'],
       [/beginner|first-|start-a-vegetable|new-gardener|mistakes/, 'first'],
       [/journal|planner|planning/, 'planner']
@@ -1153,15 +1157,17 @@ function ahIsFlockArticle(slug) {
                       document.querySelector('.entry-content');
     if (!articleBody) return;
 
+    // Card-with-cover design. Uses the .ah-prod styles injected by the article
+    // enhancement block below (present on every article page).
     var box = document.createElement('div');
-    box.className = 'ah-product-callout';
+    box.className = 'ah-prod ah-product-callout';
     box.innerHTML = '' +
-      '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#f8f9f0;border:1px solid #dde2d8;border-left:4px solid #c9a84c;border-radius:8px;padding:1.5rem 1.75rem;margin:2.5rem 0;">' +
-        '<p style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b8694a !important;margin:0 0 0.4rem 0;">From the Garden Shop</p>' +
-        '<p style="font-family:Georgia,serif;font-size:1.25rem;color:#1a3b2a !important;margin:0 0 0.4rem 0;">' + prod.title + '</p>' +
-        '<p style="font-size:0.9rem;color:#5a6c5a !important;margin:0 0 1rem 0;line-height:1.55;">' + prod.line + '</p>' +
-        '<a href="' + prod.url + '" style="display:inline-block;background-color:#1a3b2a;color:#f8f9f0 !important;text-decoration:none;padding:0.65rem 1.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">View the Guide <span style="color:#c9a84c !important;">' + prod.price + '</span></a>' +
-      '</div>';
+      '<div class="cov"><img src="' + IMG(prod.cover, 400) + '" alt=""></div>' +
+      '<div><div class="eb">Go deeper · Recommended guide</div>' +
+      '<h4>' + prod.title + '</h4>' +
+      '<p>' + prod.line + '</p>' +
+      '<span class="price">' + prod.price + '</span>' +
+      '<a class="ah-cta" href="' + prod.url + '">View the guide</a></div>';
 
     var faqHeading = null;
     var headings = articleBody.querySelectorAll('h2, h3');
@@ -1174,16 +1180,14 @@ function ahIsFlockArticle(slug) {
   }, 1600);
 })();
 
-// === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — STAGED: CITRUS ONLY ===
-// Redesign of the article reading + conversion experience. Adds an "In this
-// guide" jump box, marigold H2 accents, a card-with-cover product CTA, an
-// author box, a green downloads box, and image-based related cards.
-// STAGED ROLLOUT: gated to the citrus-cold-protection article for live review.
-// To roll out site-wide: delete the `if (slug.indexOf('citrus-cold-protection')`
-// guard below, and move product-card duties into the contextual callout block.
+// === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
+// Redesign of the article reading experience on every /learn/ article. Adds an
+// "In this guide" jump box, marigold H2 accents, normalized section headers, an
+// author box, a green downloads box, and image-based related cards (broken links
+// dropped). The product CTA is handled by the contextual-callout block above,
+// which renders the card-with-cover ".ah-prod" markup these styles target.
 // Fully reversible: remove this whole block.
 (function () {
-  var STAGE_SLUG = 'citrus-cold-protection';
   function onArticle() {
     return location.pathname.indexOf('/learn/') === 0 &&
            location.pathname.indexOf('/learn/category/') !== 0 &&
@@ -1191,19 +1195,7 @@ function ahIsFlockArticle(slug) {
   }
   function init() {
     if (!onArticle() || document.getElementById('ah-enh-style')) return;
-    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
-    if (slug.indexOf(STAGE_SLUG) === -1) return; // <-- remove for site-wide rollout
 
-    var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
-    // Citrus/cold articles route to the Microclimate guide ($12.99 per existing P map).
-    var prod = {
-      t: 'Microclimate Mastery Guide',
-      u: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition',
-      c: 'b3c3da63-ceef-4b34-910e-2943b9a4bbab/microclimate-mastery-guide-1-cover.jpeg',
-      p: '$12.99',
-      b: 'Map your property’s cold pockets, frost dates, and warm walls so every plant lands where it will thrive.'
-    };
-    var cov = function (c, w) { return CDN + c + '?format=' + w + 'w'; };
 
     var css =
     '.blog-item-content{--ahg:#1A3B2A;--ahm:#E0A53F;--aht:#BD6438;--ahline:#dce0d2}' +
@@ -1239,7 +1231,7 @@ function ahIsFlockArticle(slug) {
     '.ah-rel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}' +
     '.ah-rel a{background:#fff;border:1px solid var(--ahline);border-radius:10px;overflow:hidden;text-decoration:none!important;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:block}' +
     // High-specificity overrides: the theme styles content links with border-bottom + underline at a specificity that beats a bare .class selector.
-    '.blog-item-content .ah-rel a,.blog-item-content .ah-rel a:hover,.blog-item-content .ah-rel h5,.blog-item-content .ah-lead li a{border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
+    '.blog-item-content .ah-rel a,.blog-item-content .ah-rel a:hover,.blog-item-content .ah-rel h5,.blog-item-content .ah-lead li a,.blog-item-content .ah-prod a.ah-cta,.blog-item-content .ah-prod a.ah-cta:hover{border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
     '.blog-item-content .ah-lead li a{border:1px solid rgba(255,255,255,.28)!important}' +
     '.blog-item-content .ah-lead li a:hover{border-color:var(--ahm)!important;background:var(--ahm)!important;color:#2a2208!important}' +
     '.ah-rel a:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
@@ -1280,16 +1272,6 @@ function ahIsFlockArticle(slug) {
       }).join('');
       box.innerHTML = '<h6>In this guide</h6><ul>' + items + '</ul>';
       sections[0].parentElement.insertBefore(box, sections[0]);
-    }
-
-    var anchor = faq || dl || rel;
-    if (anchor && !document.querySelector('.ah-product-callout')) {
-      var card = document.createElement('div'); card.className = 'ah-prod ah-product-callout';
-      card.innerHTML = '<div class="cov"><img src="' + cov(prod.c, 400) + '" alt=""></div>' +
-        '<div><div class="eb">Go deeper · Recommended guide</div><h4>' + prod.t + '</h4>' +
-        '<p>' + prod.b + '</p><span class="price">' + prod.p + '</span>' +
-        '<a class="ah-cta" href="' + prod.u + '">View the guide</a></div>';
-      anchor.parentElement.insertBefore(card, anchor);
     }
 
     if (dl) {
