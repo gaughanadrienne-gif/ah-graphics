@@ -1863,3 +1863,75 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === HOMEPAGE: WHY-SECTION REDESIGN + HERO POLISH (2026-06-16, session 41) ===
+// Homepage only. (1) Replaces the "Why Local Gardening Knowledge Matters"
+// paragraph with a centered 3-column value section. (2) Hero: makes the value
+// line the headline (brand name becomes an eyebrow), trims the second paragraph,
+// upgrades the CTA, and adds a second "Shop Guides" CTA. Reversible.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-why3-style')) return;
+    var css =
+    /* hero */
+    '#sections > .page-section:first-child h1{font-size:15px!important;font-family:Montserrat,sans-serif!important;font-weight:700!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#E0A53F!important;margin:0 0 14px!important;line-height:1!important}' +
+    '#sections > .page-section:first-child h4{font-family:"Palatino Linotype",Georgia,serif!important;font-size:50px!important;font-weight:400!important;color:#F8F9F0!important;line-height:1.08!important;margin:0 0 16px!important}' +
+    '#sections > .page-section:first-child .sqs-block-button-element{background:#E0A53F!important;color:#2a2208!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;padding:15px 30px!important}' +
+    '#ah-hero-cta2{display:inline-block;margin-left:12px;background:transparent;color:#F8F9F0!important;border:1.5px solid rgba(255,255,255,.7)!important;border-radius:3px;text-transform:uppercase;letter-spacing:.08em;font:700 13px/1 Montserrat,sans-serif;padding:14px 28px;text-decoration:none!important;vertical-align:middle}' +
+    '#ah-hero-cta2:hover{background:rgba(255,255,255,.14)!important}' +
+    /* why value grid */
+    '#ah-why-wrap{max-width:1040px;margin:0 auto;text-align:center;padding:8px 28px}' +
+    '#ah-why-wrap h2{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:32px!important;margin:0 0 10px!important;font-weight:400!important}' +
+    '#ah-why-wrap .lead{font:16px/1.6 Montserrat,sans-serif;color:#525a51!important;max-width:60ch;margin:0 auto 38px}' +
+    '#ah-why-wrap .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}' +
+    '#ah-why-wrap .col{text-align:center}' +
+    '#ah-why-wrap .ic{width:54px;height:54px;border-radius:14px;background:#1A3B2A;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}' +
+    '#ah-why-wrap .ic svg{width:26px;height:26px;color:#E0A53F}' +
+    '#ah-why-wrap h3{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:20px!important;margin:0 0 8px!important;font-weight:400!important}' +
+    '#ah-why-wrap .col p{font:14.5px/1.6 Montserrat,sans-serif!important;color:#525a51!important;margin:0!important}' +
+    '@media(max-width:760px){#ah-why-wrap .grid{grid-template-columns:1fr;gap:26px}#sections > .page-section:first-child h4{font-size:34px!important}}';
+    var st = document.createElement('style'); st.id = 'ah-why3-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    // ---- Hero ----
+    var hero = document.querySelector('#sections > .page-section');
+    if (hero) {
+      var ps = [].slice.call(hero.querySelectorAll('p')).filter(function (p) { return p.textContent.trim().length > 20; });
+      if (ps[1]) ps[1].style.display = 'none';
+      var btn = hero.querySelector('.sqs-block-button-element');
+      if (btn && !document.getElementById('ah-hero-cta2')) {
+        var a = document.createElement('a'); a.id = 'ah-hero-cta2'; a.href = '/store'; a.textContent = 'Shop Guides';
+        btn.parentNode.appendChild(a);
+      }
+    }
+
+    // ---- Why section ----
+    var secs = [].slice.call(document.querySelectorAll('#sections > .page-section'));
+    var why = secs.find(function (s) { var h = s.querySelector('h1,h2,h3'); return h && /why local gardening/i.test(h.textContent); });
+    if (why && !why.querySelector('#ah-why-wrap')) {
+      var inner = why.querySelector('.content-wrapper') || why;
+      [].slice.call(inner.children).forEach(function (c) { c.style.display = 'none'; });
+      var w = document.createElement('div'); w.id = 'ah-why-wrap';
+      w.innerHTML = '<h2>Why Local Gardening Knowledge Matters</h2>' +
+        '<p class="lead">Generic advice was not written for our fog, dry summers, or mild winters. What works in the Midwest or Pacific Northwest often fails here.</p>' +
+        '<div class="grid">' +
+        '<div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Local, not generic</h3><p>Written for our coastal fog, dry summers, and mild winters, not the Midwest or Pacific Northwest.</p></div>' +
+        '<div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6M8 17h4"/></svg></div><h3>Tested, not theoretical</h3><p>The right varieties, timing, and water-wise techniques that actually produce here.</p></div>' +
+        '<div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><h3>Four California zones</h3><p>Guidance tuned to coastal, inland valley, mountain, and desert microclimates.</p></div>' +
+        '</div>';
+      inner.appendChild(w);
+    }
+  }
+
+  function boot() {
+    if (onHome()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onHome()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
