@@ -1734,7 +1734,7 @@ function ahIsFlockArticle(slug) {
       '<a href="https://www.pinterest.com/AmbitiousHarvest" aria-label="Pinterest">' + pin + '</a>' +
       '<a href="https://www.facebook.com/AmbitiousHarvest/" aria-label="Facebook">' + fb + '</a>' +
       '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
-      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a></div>' +
+      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a><a href="/disclosure">Disclosure</a></div>' +
       '<div><h4>Grow with the seasons</h4><p>Get the free Santa Cruz planting calendar, plus seasonal reminders and new guides.</p><a class="ah-fe-btn" href="/your-garden-toolkit">Get the free calendar →</a></div>';
     foot.insertBefore(band, foot.firstChild);
   }
