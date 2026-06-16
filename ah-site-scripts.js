@@ -1382,3 +1382,117 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === STORE MERCHANDISING (2026-06-16, session 41) ===
+// Adds a value hero + trust bar, a featured MasterKit card, tinted cover panels
+// + truthful badges on the product grid, and a why-buy strip to the /store page.
+// Bundle banner intentionally omitted (no bundle product exists yet).
+// NOTE: page <title> override here is interim; set the real SEO title in
+// Squarespace (Pages > Store > SEO) for durable search/social. Fully reversible.
+(function () {
+  function onStore() {
+    return location.pathname.replace(/\/$/, '') === '/store' && document.querySelector('.product-list');
+  }
+  function build() {
+    if (document.getElementById('ah-store-style')) return;
+    document.title = 'Shop Garden Guides & Kits | Ambitious Harvest';
+    var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    var MK = '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6';
+    var css =
+    '.product-list-header{display:none!important}' +
+    '.ah-shop-hero{background:linear-gradient(180deg,#1A3B2A,#163322);color:#F8F9F0;border-radius:14px;padding:42px 36px 40px;text-align:center;margin:0 0 28px;position:relative;overflow:hidden}' +
+    '.ah-shop-hero .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E0A53F!important;margin-bottom:12px}' +
+    '.ah-shop-hero h1{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:36px;margin:0 0 12px}' +
+    '.ah-shop-hero p{color:#cdd6c8!important;max-width:56ch;margin:0 auto;font:16px/1.6 Montserrat,sans-serif}' +
+    '.ah-trust{display:flex;justify-content:center;gap:30px;margin-top:22px;flex-wrap:wrap}' +
+    '.ah-trust span{font:600 12.5px/1.2 Montserrat,sans-serif;color:#d7e0d2!important;display:flex;align-items:center;gap:8px}' +
+    '.ah-trust svg{width:16px;height:16px;color:#E0A53F;flex:0 0 auto}' +
+    '.ah-feat{display:grid;grid-template-columns:1fr 1.2fr;background:#fff;border:1px solid #dce0d2;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(28,33,29,.12);margin:0 0 36px}' +
+    '.ah-feat .cov{background:radial-gradient(circle at 50% 35%,#fbf6e9,#eef0e2);display:flex;align-items:center;justify-content:center;padding:32px;position:relative}' +
+    '.ah-feat .cov img{width:72%;border-radius:8px;box-shadow:0 16px 40px rgba(28,33,29,.22)}' +
+    '.ah-feat .bod{padding:36px 40px;display:flex;flex-direction:column;justify-content:center}' +
+    '.ah-feat .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#BD6438!important;margin-bottom:10px}' +
+    '.ah-feat h2{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#1A3B2A!important;font-size:30px;margin:0 0 12px}' +
+    '.ah-feat p{font:15px/1.6 Montserrat,sans-serif;color:#525a51!important;margin:0 0 16px}' +
+    '.ah-feat ul{list-style:none!important;padding:0!important;margin:0 0 20px!important}' +
+    '.ah-feat li{position:relative;padding-left:24px;margin:0 0 8px!important;font:14px/1.4 Montserrat,sans-serif;color:#2c3327!important}' +
+    '.ah-feat li:before{content:"\\2713";position:absolute;left:0;color:#3a7256;font-weight:700}' +
+    '.ah-feat .pr{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}' +
+    '.ah-feat .now{font-family:"Palatino Linotype",Georgia,serif;font-size:30px;color:#1A3B2A!important}' +
+    '.ah-feat .was{font:16px Montserrat,sans-serif;color:#7c8378!important;text-decoration:line-through}' +
+    '.ah-feat .save{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid #BD6438;color:#BD6438!important;padding:4px 9px;border-radius:3px}' +
+    '.ah-cta2{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 24px;border-radius:3px;background:#1A3B2A;color:#F8F9F0!important;text-decoration:none!important;border-bottom:0!important;width:fit-content}' +
+    '.ah-badge{position:absolute;top:10px;left:10px;z-index:3;font:700 10.5px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px}' +
+    '.ah-badge.pop{background:#E0A53F;color:#2a2208}' +
+    '.ah-badge.start{background:#1A3B2A;color:#F8F9F0}' +
+    '.product-list-item{position:relative;padding:10px;border-radius:12px;transition:.2s}' +
+    '.product-list-item:hover{background:#fff;box-shadow:0 8px 26px rgba(28,33,29,.10)}' +
+    '.ah-tint-0 .product-list-image-wrapper,.ah-tint-0 figure{background:linear-gradient(160deg,#f4f1e4,#e9ece0)!important;border-radius:8px;overflow:hidden}' +
+    '.ah-tint-1 .product-list-image-wrapper,.ah-tint-1 figure{background:linear-gradient(160deg,#e7ede3,#dbe3d6)!important;border-radius:8px;overflow:hidden}' +
+    '.ah-tint-2 .product-list-image-wrapper,.ah-tint-2 figure{background:linear-gradient(160deg,#f7efe0,#f1e7d4)!important;border-radius:8px;overflow:hidden}' +
+    '.ah-tint-3 .product-list-image-wrapper,.ah-tint-3 figure{background:linear-gradient(160deg,#e8eef0,#dde7ea)!important;border-radius:8px;overflow:hidden}' +
+    '.ah-why{background:#1A3B2A;color:#d7e0d2;border-radius:14px;padding:40px 36px;margin:44px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}' +
+    '.ah-why h3{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:19px;margin:10px 0 6px}' +
+    '.ah-why p{font:14px/1.55 Montserrat,sans-serif;color:#cdd6c8!important;margin:0}' +
+    '.ah-why .ic{width:40px;height:40px;border-radius:10px;background:rgba(224,165,63,.18);display:flex;align-items:center;justify-content:center;color:#E0A53F}' +
+    '.ah-why .ic svg{width:21px;height:21px}' +
+    '@media(max-width:880px){.ah-feat{grid-template-columns:1fr}.ah-why{grid-template-columns:1fr;gap:22px}.ah-shop-hero h1{font-size:28px}}';
+    var st = document.createElement('style'); st.id = 'ah-store-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var pl = document.querySelector('.product-list');
+    var par = pl.parentNode;
+
+    var hero = document.createElement('div'); hero.className = 'ah-shop-hero';
+    hero.innerHTML = '<div class="eb">Instant digital downloads</div>' +
+      '<h1>Garden Guides &amp; Kits, Built for California</h1>' +
+      '<p>Every guide is written for our four local microclimates (coastal, inland valley, mountain, and desert) so the advice actually fits your yard.</p>' +
+      '<div class="ah-trust">' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>30-day money-back guarantee</span>' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Instant PDF, yours forever</span>' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Santa Cruz &amp; Bay Area specific</span>' +
+      '</div>';
+
+    var feat = document.createElement('div'); feat.className = 'ah-feat';
+    feat.innerHTML = '<div class="cov"><span class="ah-badge pop">★ Most Popular</span><img src="' + CDN + 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg?format=600w" alt="Tomato Growing MasterKit"></div>' +
+      '<div class="bod"><div class="eb">Start here · Bestseller</div><h2>The Tomato Growing MasterKit</h2>' +
+      '<p>The complete, California-specific system for a tomato harvest that doesn’t quit, from variety selection to season-long care.</p>' +
+      '<ul><li>12 sections + 2 bonuses (Zone Cards &amp; Season Journal)</li><li>Tailored to all four California growing zones</li><li>Printable, instant download, money-back guarantee</li></ul>' +
+      '<div class="pr"><span class="now">$14.99</span><span class="was">$19.99</span><span class="save">Launch · Save 25%</span></div>' +
+      '<a class="ah-cta2" href="' + MK + '">Get instant access</a></div>';
+
+    par.insertBefore(hero, pl);
+    par.insertBefore(feat, pl);
+
+    var why = document.createElement('div'); why.className = 'ah-why';
+    why.innerHTML =
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Genuinely local</h3><p>Not generic advice. Every guide is written for our four California microclimates by someone who gardens here.</p></div>' +
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Beautifully practical</h3><p>Printable PDFs with checklists, charts, and journal pages you’ll actually use in the garden.</p></div>' +
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Risk-free</h3><p>30-day money-back guarantee. If a guide doesn’t help you grow, you don’t pay for it.</p></div>';
+    par.insertBefore(why, pl.nextSibling);
+
+    applyCards();
+    setTimeout(applyCards, 1200);
+  }
+  function applyCards() {
+    var items = [].slice.call(document.querySelectorAll('.product-list-item'));
+    items.forEach(function (it, i) {
+      if (!/ah-tint-/.test(it.className)) it.classList.add('ah-tint-' + (i % 4));
+      if (it.querySelector('.ah-badge')) return;
+      var link = it.querySelector('a[href*="/store/p/"]');
+      var href = link ? link.getAttribute('href') : '';
+      var img = it.querySelector('.product-list-image-wrapper, figure, .product-list-image-container') || it;
+      if (href.indexOf('04risdgzwd80') > -1) { var b = document.createElement('span'); b.className = 'ah-badge pop'; b.textContent = '★ Most Popular'; img.appendChild(b); }
+      else if (href.indexOf('first-harvest') > -1) { var b2 = document.createElement('span'); b2.className = 'ah-badge start'; b2.textContent = 'Start Here'; img.appendChild(b2); }
+    });
+  }
+  function boot() {
+    if (onStore()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onStore()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
