@@ -1,3 +1,24 @@
+// === NOINDEX THIN TAG LISTING PAGES (added 2026-06-16) ===
+// Tag pages (/learn/tag/...) are thin, duplicative aggregations and are being
+// deprecated (tag links stripped in the session-41 link audit; BlogToPin tag
+// pages off). Keep them out of the search index. Runs immediately (this file is
+// header-injected) so the robots meta is in the DOM as early as possible for
+// crawlers, which render JS and honor a JS-set robots meta. Categories are left
+// indexed as browse hubs per the 2026-06-16 decision.
+(function () {
+  try {
+    if (location.pathname.indexOf("/learn/tag/") === 0) {
+      var m = document.querySelector('meta[name="robots"]');
+      if (!m) {
+        m = document.createElement("meta");
+        m.setAttribute("name", "robots");
+        (document.head || document.documentElement).appendChild(m);
+      }
+      m.setAttribute("content", "noindex, follow");
+    }
+  } catch (e) {}
+})();
+
 // === FOOTER LINKS, CROSS-LINKS, HEADING UPGRADES ===
 /*
  * Ambitious Harvest - Footer Code Injection Updates
