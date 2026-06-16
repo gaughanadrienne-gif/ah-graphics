@@ -13,7 +13,7 @@ DATE_RE = re.compile(rf"({MONTHS})\s+\d{{1,2}}(st|nd|rd|th)?", re.I)
 # Lines that are purely status annotations (no breed content)
 _STATUS_FRAGMENTS = re.compile(
     r"^(SOLD\s+OUT|WILL\s*NOT\s*ARRIVE|NOT\s*ARRIVE|WILL\s+NOT|"
-    r"INCOMING|ARRIVING|PRE.?ORDER|CANCELLED|NOT\s+ARRIVING|WILL)$",
+    r"INCOMING|ARRIVING|PRE.?ORDER|CANCELLED|NOT\s+ARRIVING|WILL|NOT|ARRIVE)$",
     re.I,
 )
 
@@ -29,7 +29,7 @@ def _status(line):
     up = line.upper()
     if "SOLD OUT" in up:
         return "sold-out"
-    if "WILL NOT ARRIVE" in up or "NOT ARRIVING" in up or "CANCELLED" in up:
+    if "WILL NOT ARRIVE" in up or "NOT ARRIVE" in up or "NOT ARRIVING" in up or "CANCELLED" in up:
         return "unavailable"
     if "INCOMING" in up or "ARRIVING" in up or "PRE-ORDER" in up or "PRE ORDER" in up:
         return "incoming"
