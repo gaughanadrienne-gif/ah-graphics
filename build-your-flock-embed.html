@@ -1,0 +1,221 @@
+<!-- Ambitious Harvest Co - Build Your Flock (Squarespace Embed) -->
+<!-- Paste this entire block into a Squarespace Code Block on the /build-your-flock page. -->
+<!-- Data is fetched from the ah-graphics GitHub Pages repo and refreshed daily. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.bf-wrap *, .bf-wrap *::before, .bf-wrap *::after { box-sizing:border-box; margin:0; padding:0; }
+.sqs-block-code, .sqs-block-code .sqs-block-content, .sqs-block-code .sqs-code-container,
+.fe-block, .fluid-engine { max-width:none !important; width:100% !important; }
+.bf-wrap {
+  --forest:#1c3c2c; --forest-light:#2a5a3a; --cream:#f8f9f0; --cream-dark:#eef0e6;
+  --sage:#dde2d8; --sage-dark:#c5ccc0; --muted:#8c9c8c; --white:#ffffff; --ink:#1a3b2a;
+  --green:#4A7A5B; --tan:#B5956B; --gray:#8c9c8c;
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;
+  max-width:1100px; margin:0 auto; padding:28px 18px; color:var(--ink) !important;
+}
+.bf-hero { text-align:center; margin-bottom:6px; }
+.bf-hero h2 { font-size:2rem; line-height:1.15; color:var(--forest) !important; margin-bottom:10px; }
+.bf-hero p { color:#3a5446 !important; max-width:660px; margin:0 auto; font-size:1rem; line-height:1.5; }
+.bf-stamp { display:inline-block; margin-top:14px; font-size:0.8rem; color:var(--muted) !important;
+  background:var(--cream); padding:5px 14px; border-radius:999px; }
+.bf-section { margin-top:38px; }
+.bf-section > h3 { font-size:1.3rem; color:var(--forest) !important;
+  border-bottom:2px solid var(--sage); padding-bottom:8px; margin-bottom:6px; }
+.bf-section > .bf-subhead { font-size:0.88rem; color:var(--muted) !important; margin-bottom:16px; }
+.bf-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+.bf-card { background:var(--white); border:1px solid var(--sage); border-radius:14px; padding:16px;
+  display:flex; flex-direction:column; gap:7px; box-shadow:0 2px 6px rgba(26,59,42,0.06); }
+.bf-card-head { display:flex; align-items:center; gap:9px; }
+.bf-icon { width:26px; height:26px; flex:none; color:var(--forest-light) !important; }
+.bf-card img.bf-photo { width:100%; height:150px; object-fit:cover; border-radius:10px; margin-bottom:2px; }
+.bf-card h4 { font-size:1.05rem; color:var(--forest) !important; line-height:1.2; }
+.bf-meta { font-size:0.85rem; color:#3a5446 !important; line-height:1.4; }
+.bf-src { font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted) !important; }
+.bf-card a.bf-link { font-size:0.85rem; color:var(--forest-light) !important; font-weight:600;
+  text-decoration:none; margin-top:auto; padding-top:4px; }
+.bf-card a.bf-link:hover { text-decoration:underline; }
+.bf-badge { display:inline-block; font-size:0.7rem; font-weight:600; padding:2px 9px; border-radius:999px;
+  color:var(--white) !important; width:fit-content; }
+.bf-badge.in-stock, .bf-badge.available { background:var(--green) !important; }
+.bf-badge.incoming, .bf-badge.limited { background:var(--tan) !important; }
+.bf-badge.sold-out, .bf-badge.unavailable { background:var(--gray) !important; }
+.bf-list { list-style:none; display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+.bf-list li { display:flex; justify-content:space-between; align-items:center; gap:8px;
+  font-size:0.86rem; color:#3a5446 !important; border-bottom:1px dashed var(--sage); padding-bottom:5px; }
+.bf-list li:last-child { border-bottom:none; }
+.bf-list .bf-li-name { font-weight:500; }
+.bf-more { font-size:0.8rem; color:var(--muted) !important; margin-top:2px; }
+.bf-empty { color:var(--muted) !important; font-style:italic; padding:8px 0; }
+.bf-note { text-align:center; font-size:0.85rem; color:#3a5446 !important; background:var(--cream);
+  border-radius:12px; padding:16px; margin-top:34px; line-height:1.5; }
+.bf-card.bf-wide { grid-column:1 / -1; }
+@media (max-width:520px) { .bf-hero h2 { font-size:1.6rem; } }
+</style>
+<div class="bf-wrap">
+  <div class="bf-hero">
+    <h2>Build Your Flock</h2>
+    <p>Chickens, ducks, and geese available right now from Santa Cruz County shelters, rescues, feed stores, and breeders. Availability changes fast, so always call or check the source before you go.</p>
+    <div class="bf-stamp" id="bf-stamp">Loading availability...</div>
+  </div>
+  <div id="bf-shelters" class="bf-section"></div>
+  <div id="bf-feed" class="bf-section"></div>
+  <div id="bf-breeders" class="bf-section"></div>
+  <div class="bf-note">Run a local rescue, feed store, or breeder and want to be listed here? Reach out through our Contact page and we will add you.</div>
+</div>
+<script>
+(function () {
+  var DATA_URL = "https://gaughanadrienne-gif.github.io/ah-graphics/build-your-flock-data.json";
+  var LIVE_CAP = 12; // max individual live items shown per high-volume source
+
+  var ICONS = {
+    chicken: '<svg class="bf-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 3a2.5 2.5 0 0 0-2.45 2H12a6 6 0 0 0-6 6v1a5 5 0 0 0 5 5h1a5 5 0 0 0 5-5V8.6A3.5 3.5 0 0 0 16 6l2-1-2.4-.8A2.5 2.5 0 0 0 15 3zm-3 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>',
+    duck: '<svg class="bf-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 4a3 3 0 0 0-3 3H8.5a4.5 4.5 0 0 0 0 9H11c3.3 0 6-2.7 6-6V7.5l2.5-1L17 5.4A3 3 0 0 0 16 4zm-1 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>',
+    goose: '<svg class="bf-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2a3 3 0 0 0-3 3v2.2A6 6 0 0 0 6 13a6 6 0 0 0 6 6h1a5 5 0 0 0 5-5V5a3 3 0 0 0-3-3h-2zm0 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>'
+  };
+  function esc(s){ var d=document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+  function icon(a){ return ICONS[a] || ICONS.chicken; }
+  function titleCase(s){ return (s||'').toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); }); }
+
+  // Distill a clean one-line summary. SCCAS (24PetConnect) detail is a verbose dump
+  // ("Name : X Gender : Male Breed : Chicken Age : 8 months old Weight : ..."); Petfinder
+  // detail is already concise ("Chicken in Monterey, CA").
+  function shelterDetail(r){
+    var d = r.detail || '';
+    if (!/Breed\s*:/i.test(d)) return d || titleCase(r.animal);
+    var field = function(label){
+      var m = d.match(new RegExp(label + '\\s*:\\s*([^:]*?)(?:\\s+[A-Z][A-Za-z/]+\\s*:|$)'));
+      return m ? m[1].trim() : '';
+    };
+    var gender = field('Gender'); if (/unknown/i.test(gender)) gender = '';
+    var breed = field('Breed');
+    var age = field('Age'); if (/unknown/i.test(age)) age = '';
+    var lead = [gender, breed].filter(Boolean).join(' ');
+    return [lead, age].filter(Boolean).join(', ') || titleCase(r.animal);
+  }
+
+  function shelterCard(r){
+    return '<div class="bf-card"><div class="bf-card-head">'+icon(r.animal)+
+      '<h4>'+esc(titleCase(r.name))+'</h4></div>'+
+      '<div class="bf-meta">'+esc(shelterDetail(r))+'</div>'+
+      '<div class="bf-src">'+esc(r.source)+'</div>'+
+      '<a class="bf-link" href="'+esc(r.link)+'" target="_blank" rel="noopener">View listing &rarr;</a></div>';
+  }
+
+  function curatedCard(c){
+    var photo = c.photo ? '<img class="bf-photo" src="'+esc(c.photo)+'" alt="'+esc(c.source)+'">' : '';
+    var head = '<div class="bf-card-head">'+(c.photo?'':icon('chicken'))+'<h4>'+esc(c.source)+'</h4></div>';
+    var loc = c.location ? '<div class="bf-src">'+esc(c.location)+'</div>' : '';
+    return '<div class="bf-card">'+photo+head+loc+
+      '<div class="bf-meta">'+esc(c.blurb)+'</div>'+
+      '<a class="bf-link" href="'+esc(c.link)+'" target="_blank" rel="noopener">Learn more &rarr;</a></div>';
+  }
+
+  // Summary card for a high-volume live source (Scotts Valley chicks, Metzer breeds).
+  function summaryCard(opts){
+    // opts: {title, source, location, link, linkText, items:[{label, sub, status}], total}
+    var rows = opts.items.map(function(it){
+      var badge = it.status ? '<span class="bf-badge '+esc(it.status.toLowerCase().split(' ')[0])+'">'+esc(it.statusLabel||it.status)+'</span>' : '';
+      var sub = it.sub ? '<span class="bf-meta">'+esc(it.sub)+'</span>' : '';
+      return '<li><span class="bf-li-name">'+esc(it.label)+'</span>'+sub+badge+'</li>';
+    }).join('');
+    var more = (opts.total > opts.items.length)
+      ? '<div class="bf-more">+ '+(opts.total - opts.items.length)+' more at '+esc(opts.source)+'</div>' : '';
+    var loc = opts.location ? '<div class="bf-src">'+esc(opts.location)+'</div>' : '';
+    return '<div class="bf-card bf-wide"><div class="bf-card-head">'+icon(opts.animal||'chicken')+
+      '<h4>'+esc(opts.title)+'</h4></div>'+loc+
+      (opts.subtitle?'<div class="bf-meta">'+esc(opts.subtitle)+'</div>':'')+
+      '<ul class="bf-list">'+rows+'</ul>'+more+
+      '<a class="bf-link" href="'+esc(opts.link)+'" target="_blank" rel="noopener">'+esc(opts.linkText||'View all')+' &rarr;</a></div>';
+  }
+
+  function renderSection(el, title, subhead, html, emptyMsg){
+    if(!html){ html = '<div class="bf-empty">'+esc(emptyMsg)+'</div>'; }
+    el.innerHTML = '<h3>'+esc(title)+'</h3>'+
+      (subhead?'<div class="bf-subhead">'+esc(subhead)+'</div>':'')+
+      '<div class="bf-grid">'+html+'</div>';
+  }
+
+  function feedSummary(items){
+    // Show available (in-stock/incoming) chicks; if all sold out, say so.
+    var avail = items.filter(function(i){ return i.status==='in-stock' || i.status==='incoming'; });
+    if(!avail.length) return '';
+    var shown = avail.slice(0, LIVE_CAP);
+    return summaryCard({
+      title:'Scotts Valley Feed', source:'Scotts Valley Feed', location:'Scotts Valley, CA',
+      subtitle:"This season's chicks (call the day before to confirm arrivals).",
+      link:'https://www.scottsvalleyfeed.com/chicks', linkText:'See the full chick schedule',
+      total: avail.length,
+      items: shown.map(function(i){
+        return { label:i.breed, sub:[i.price, i.date].filter(Boolean).join('  '), status:i.status,
+                 statusLabel: i.status==='incoming'?'Incoming':'In stock' };
+      })
+    });
+  }
+
+  function metzerSummary(items){
+    var counts = items.reduce(function(a,i){ a[i.animal]=(a[i.animal]||0)+1; return a; }, {});
+    var order = {goose:0, duck:1, chicken:2}; // surface waterfowl first (the unique value)
+    var sorted = items.slice().sort(function(a,b){ return (order[a.animal]||9)-(order[b.animal]||9); });
+    var shown = sorted.slice(0, LIVE_CAP);
+    var parts = [];
+    if(counts.duck) parts.push(counts.duck+' duck');
+    if(counts.goose) parts.push(counts.goose+' goose');
+    if(counts.chicken) parts.push(counts.chicken+' chicken');
+    return summaryCard({
+      title:'Metzer Farms', source:'Metzer Farms', location:'Gonzales, CA  (ships ducklings & goslings)',
+      animal:'duck',
+      subtitle: parts.join(', ')+' breeds with upcoming hatch dates.',
+      link:'https://www.metzerfarms.com/available.html', linkText:'See full availability',
+      total: items.length,
+      items: shown.map(function(i){
+        var st = (i.status||'').toLowerCase();
+        var cls = st.indexOf('limited')>-1 ? 'limited' : (st.indexOf('sold')>-1 ? 'sold-out' : 'available');
+        return { label:i.breed, sub:titleCase(i.animal), status:cls,
+                 statusLabel: i.status };
+      })
+    });
+  }
+
+  function render(data){
+    var s = data.sections;
+    var stamp = document.getElementById('bf-stamp');
+    var when = new Date(data.updated);
+    stamp.textContent = isNaN(when) ? 'Availability updates daily'
+      : 'Last updated: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+
+    // Shelters: individual cards (low volume)
+    renderSection(document.getElementById('bf-shelters'), 'Shelters and Rescues', '',
+      s.shelters.live.map(shelterCard).join('') + s.shelters.curated.map(curatedCard).join(''),
+      'No birds listed at local shelters today. Check back soon.');
+
+    // Feed stores: Scotts Valley summary (or seasonal message) + curated
+    var feedHtml = feedSummary(s.feedStores.live) + s.feedStores.curated.map(curatedCard).join('');
+    var feedEmpty = (data.status && data.status.scottsValley === 'off-season')
+      ? 'Chick season runs March through August. Check back in spring for arrivals.'
+      : 'No chick arrivals posted right now. Call your local feed store for the latest.';
+    renderSection(document.getElementById('bf-feed'), 'Feed Stores (Chick Season)', '', feedHtml, feedEmpty);
+
+    // Breeders: Metzer summary + curated breeders/sellers
+    var metzerItems = s.breeders.live.filter(function(i){ return i.source === 'Metzer Farms'; });
+    var breederHtml = (metzerItems.length ? metzerSummary(metzerItems) : '') +
+      s.breeders.curated.map(curatedCard).join('');
+    renderSection(document.getElementById('bf-breeders'), 'Breeders and Sellers', '', breederHtml,
+      'No breeder listings available right now.');
+  }
+
+  // Preview/test hook: if data is injected on the page, render it directly (used for local testing).
+  if (window.__BF_DATA) {
+    try { render(window.__BF_DATA); } catch (e) { /* leave loading stamp */ }
+    return;
+  }
+
+  fetch(DATA_URL, {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('fetch failed'); return r.json(); })
+    .then(render)
+    .catch(function(){
+      document.getElementById('bf-stamp').textContent = 'Availability is being updated. Please check back shortly.';
+    });
+})();
+</script>
