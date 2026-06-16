@@ -1771,6 +1771,9 @@ function ahIsFlockArticle(slug) {
     '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;margin:0!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
     '.ah-res-card strong:first-child{font-family:"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block;margin-bottom:5px}' +
     '.ah-res-card a{color:#BD6438!important;text-decoration:none!important;border-bottom:1px solid rgba(189,100,56,.4)!important;background-image:none!important}' +
+    /* hero title readability over the photo */
+    '#sections > .page-section:first-child .section-background::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,26,16,.18),rgba(12,26,16,.52));z-index:1}' +
+    '#sections > .page-section:first-child h1{text-shadow:0 2px 18px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.5)!important;position:relative;z-index:2}' +
     '@media(max-width:760px){.ah-res-grid{grid-template-columns:1fr!important}}';
     var st = document.createElement('style'); st.id = 'ah-lr-style'; st.textContent = css;
     document.head.appendChild(st);
@@ -1778,11 +1781,16 @@ function ahIsFlockArticle(slug) {
   }
 
   function markup() {
-    [].slice.call(document.querySelectorAll('#sections .sqs-html-content p')).forEach(function (p) {
-      var f = p.firstElementChild;
-      if (f && f.tagName === 'STRONG' && p.textContent.trim().length > 10) {
-        p.classList.add('ah-res-card');
-        if (p.parentElement) p.parentElement.classList.add('ah-res-grid');
+    // Only card-ify a block that is an actual resource LIST (2+ bold-led entries).
+    // A single bold-led paragraph (e.g. the intro explainer) must stay full-width.
+    [].slice.call(document.querySelectorAll('#sections .sqs-html-content')).forEach(function (block) {
+      var entries = [].slice.call(block.querySelectorAll('p')).filter(function (p) {
+        var f = p.firstElementChild;
+        return f && f.tagName === 'STRONG' && p.textContent.trim().length > 10;
+      });
+      if (entries.length >= 2) {
+        block.classList.add('ah-res-grid');
+        entries.forEach(function (p) { p.classList.add('ah-res-card'); });
       }
     });
   }
@@ -2048,6 +2056,53 @@ function ahIsFlockArticle(slug) {
     if (onPage()) return build();
     var tries = 0, iv = setInterval(function () {
       if (onPage()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === LEGAL PAGE POLISH (2026-06-16, session 41) ===
+// /terms-of-use + /privacy-policy. These are dark-green pages of uniform 14px
+// paragraphs. Light touch: style the first line as a serif title with a marigold
+// accent, the "Last updated" line as a muted subtitle, give the body a readable
+// size/measure, and tint links marigold. Keeps the existing dark theme. Reversible.
+(function () {
+  var PATHS = ['/terms-of-use', '/privacy-policy'];
+  function onPage() {
+    return PATHS.indexOf(location.pathname.replace(/\/$/, '')) >= 0 && document.querySelector('#sections .sqs-html-content');
+  }
+
+  function build() {
+    if (document.getElementById('ah-legal-style')) { mark(); return; }
+    var css =
+    '#sections .sqs-html-content{max-width:760px;margin:0 auto}' +
+    '#sections .sqs-html-content > p{font-size:15px!important;line-height:1.72!important}' +
+    '#sections .sqs-html-content .sqsrte-text-color--lightAccent{color:#dfe6da!important}' +
+    '#sections .sqs-html-content p.ah-legal-title{margin-bottom:4px!important}' +
+    '#sections .sqs-html-content p.ah-legal-title .sqsrte-text-color--lightAccent{font-family:"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important;display:inline-block}' +
+    '#sections .sqs-html-content p.ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#E0A53F;border-radius:2px;margin:18px 0 6px}' +
+    '#sections .sqs-html-content p.ah-legal-sub{margin-bottom:26px!important}' +
+    '#sections .sqs-html-content p.ah-legal-sub .sqsrte-text-color--lightAccent{font-family:Montserrat,sans-serif!important;font-size:12px!important;letter-spacing:.1em!important;text-transform:uppercase!important;color:#9fb09a!important}' +
+    '#sections .sqs-html-content a,#sections .sqs-html-content a .sqsrte-text-color--lightAccent{color:#E0A53F!important}';
+    var st = document.createElement('style'); st.id = 'ah-legal-style'; st.textContent = css;
+    document.head.appendChild(st);
+    mark();
+  }
+
+  function mark() {
+    var content = document.querySelector('#sections .sqs-html-content');
+    if (!content) return;
+    var ps = [].slice.call(content.querySelectorAll(':scope > p')).filter(function (p) { return p.textContent.trim(); });
+    if (ps[0] && !ps[0].classList.contains('ah-legal-title')) ps[0].classList.add('ah-legal-title');
+    if (ps[1] && !ps[1].classList.contains('ah-legal-sub') && /updated/i.test(ps[1].textContent)) ps[1].classList.add('ah-legal-sub');
+  }
+
+  function boot() {
+    if (onPage()) { build(); setTimeout(mark, 1000); return; }
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); setTimeout(mark, 1000); }
       if (++tries > 40) clearInterval(iv);
     }, 250);
   }
