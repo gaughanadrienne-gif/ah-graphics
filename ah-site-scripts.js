@@ -2128,11 +2128,11 @@ function ahIsFlockArticle(slug) {
     '#sections .sqs-html-content{max-width:760px;margin:0 auto}' +
     '#sections .sqs-html-content > p{font-size:15px!important;line-height:1.72!important}' +
     '#sections .sqs-html-content .sqsrte-text-color--lightAccent{color:#dfe6da!important}' +
-    '#sections .sqs-html-content p.ah-legal-title{margin-bottom:4px!important}' +
-    '#sections .sqs-html-content p.ah-legal-title .sqsrte-text-color--lightAccent{font-family:"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important;display:inline-block}' +
-    '#sections .sqs-html-content p.ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#E0A53F;border-radius:2px;margin:18px 0 6px}' +
-    '#sections .sqs-html-content p.ah-legal-sub{margin-bottom:26px!important}' +
-    '#sections .sqs-html-content p.ah-legal-sub .sqsrte-text-color--lightAccent{font-family:Montserrat,sans-serif!important;font-size:12px!important;letter-spacing:.1em!important;text-transform:uppercase!important;color:#9fb09a!important}' +
+    '#sections .sqs-html-content .ah-legal-title{margin-bottom:4px!important;font-family:"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important}' +
+    '#sections .sqs-html-content .ah-legal-title .sqsrte-text-color--lightAccent{font-family:inherit!important;font-size:inherit!important;line-height:inherit!important;font-weight:400!important;color:#F8F9F0!important}' +
+    '#sections .sqs-html-content .ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#E0A53F;border-radius:2px;margin:18px 0 6px}' +
+    '#sections .sqs-html-content .ah-legal-sub{margin-bottom:26px!important}' +
+    '#sections .sqs-html-content .ah-legal-sub,#sections .sqs-html-content .ah-legal-sub .sqsrte-text-color--lightAccent{font-family:Montserrat,sans-serif!important;font-size:12px!important;letter-spacing:.1em!important;text-transform:uppercase!important;color:#9fb09a!important}' +
     '#sections .sqs-html-content a,#sections .sqs-html-content a .sqsrte-text-color--lightAccent{color:#E0A53F!important}';
     var st = document.createElement('style'); st.id = 'ah-legal-style'; st.textContent = css;
     document.head.appendChild(st);
@@ -2142,9 +2142,15 @@ function ahIsFlockArticle(slug) {
   function mark() {
     var content = document.querySelector('#sections .sqs-html-content');
     if (!content) return;
-    var ps = [].slice.call(content.querySelectorAll(':scope > p')).filter(function (p) { return p.textContent.trim(); });
-    if (ps[0] && !ps[0].classList.contains('ah-legal-title')) ps[0].classList.add('ah-legal-title');
-    if (ps[1] && !ps[1].classList.contains('ah-legal-sub') && /updated/i.test(ps[1].textContent)) ps[1].classList.add('ah-legal-sub');
+    // The title is the first text element (a <p> on Terms/Privacy, an <h3> on
+    // Disclosure). Only treat it as a title if it is SHORT, so a long body
+    // paragraph can never be blown up to 42px.
+    var els = [].slice.call(content.querySelectorAll(':scope > p, :scope > h1, :scope > h2, :scope > h3, :scope > h4'))
+      .filter(function (e) { return e.textContent.trim(); });
+    var first = els[0];
+    if (first && !first.classList.contains('ah-legal-title') && first.textContent.trim().length < 60) first.classList.add('ah-legal-title');
+    var second = els[1];
+    if (second && !second.classList.contains('ah-legal-sub') && /updated/i.test(second.textContent) && second.textContent.trim().length < 60) second.classList.add('ah-legal-sub');
   }
 
   function boot() {
