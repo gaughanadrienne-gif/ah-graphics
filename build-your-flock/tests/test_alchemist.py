@@ -30,3 +30,22 @@ def test_parses_woocommerce_markup():
 
 def test_empty_html_is_safe():
     assert alchemist.parse("<html><body></body></html>") == []
+
+
+def test_excludes_category_tiles():
+    # WooCommerce category tiles carry a "N Products" count and /product-category/ links;
+    # they are not real listings and must be excluded (real product still kept).
+    sample = (
+        '<ul>'
+        '<li class="product"><h2 class="woocommerce-loop-product__title">Chicks30 Products</h2>'
+        '<a href="https://www.alchemistfarm.com/product-category/chicks/">x</a></li>'
+        '<li class="product"><h2 class="woocommerce-loop-product__title">Gift Packages3 Products</h2>'
+        '<a href="https://www.alchemistfarm.com/product-category/gift-packages/">x</a></li>'
+        '<li class="product"><h2 class="woocommerce-loop-product__title">Serama Hatching Egg</h2>'
+        '<a href="https://www.alchemistfarm.com/product/serama-egg/">x</a>'
+        '<span class="price">$10.00</span></li>'
+        '</ul>'
+    )
+    items = alchemist.parse(sample)
+    assert len(items) == 1
+    assert items[0]["name"] == "Serama Hatching Egg"
