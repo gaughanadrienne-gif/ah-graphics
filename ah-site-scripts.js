@@ -1539,13 +1539,19 @@ function ahIsFlockArticle(slug) {
     if (imgs.length < 2) return;
     var a = (imgs[0].currentSrc || imgs[0].src).split('?')[0];
     var b = (imgs[1].currentSrc || imgs[1].src).split('?')[0];
-    if (a && a === b) {
-      var fig = imgs[1].closest('figure, .sqs-block-image, .sqs-block') || imgs[1];
-      if (!fig.getAttribute('data-ah-dupe-hidden')) {
-        fig.style.setProperty('display', 'none', 'important');
-        fig.setAttribute('data-ah-dupe-hidden', '1');
-      }
+    if (!a || a !== b) return;
+    // SAFETY: hide ONLY the duplicate <img> (and an immediate wrapper that holds
+    // nothing but that image). NEVER hide an enclosing content block -- the header
+    // image often shares the article's html block with the body text.
+    var img = imgs[1];
+    if (img.getAttribute('data-ah-dupe-hidden')) return;
+    var target = img, wrap = img.parentElement;
+    if (wrap && wrap !== root && /^(FIGURE|P|DIV|SPAN)$/.test(wrap.tagName) &&
+        wrap.querySelectorAll('img').length === 1 && wrap.textContent.trim() === '') {
+      target = wrap;
     }
+    target.style.setProperty('display', 'none', 'important');
+    img.setAttribute('data-ah-dupe-hidden', '1');
   }
 
   function run() {
