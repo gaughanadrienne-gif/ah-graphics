@@ -1574,3 +1574,78 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === HOMEPAGE POLISH (2026-06-16, session 41) ===
+// Homepage only. Two wins:
+//  1. Category gallery: overlay bold serif labels on the images (with a gradient
+//     scrim + "Browse" prompt) instead of the tiny gray captions below them.
+//  2. "Latest from the Garden": convert the sparse single-column summary list
+//     into a tidy 4-column card grid (clears the block's absolute positioning).
+// Fully reversible: remove this block.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-home-style')) return;
+    var latest = null;
+    [].slice.call(document.querySelectorAll('#sections > .page-section')).forEach(function (s) {
+      if (s.querySelector('.summary-item-list')) latest = s;
+    });
+    if (latest) latest.classList.add('ah-latest-sec');
+
+    var css =
+    /* --- category gallery overlay --- */
+    '.gallery-section .gallery-strips-item{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(28,33,29,.10)}' +
+    '.gallery-section .gallery-strips-image-link{position:relative;display:block}' +
+    '.gallery-section .gallery-strips-image-link::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,26,16,.82) 0%,rgba(12,26,16,.30) 42%,rgba(12,26,16,0) 68%);pointer-events:none;z-index:1}' +
+    '.gallery-section .gallery-strips-item img{transition:transform .45s ease}' +
+    '.gallery-section .gallery-strips-item:hover img{transform:scale(1.05)}' +
+    '.gallery-section figcaption{position:absolute!important;left:0;right:0;bottom:0;z-index:2;padding:0 20px 18px!important;text-align:left!important;margin:0!important;background:none!important}' +
+    '.gallery-section figcaption,.gallery-section figcaption *{color:#F8F9F0!important;font-family:"Palatino Linotype","Book Antiqua",Georgia,serif!important;font-size:21px!important;font-weight:400!important;line-height:1.18!important;letter-spacing:.01em!important}' +
+    '.gallery-section figcaption::after{content:"Browse →";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#E0A53F!important;margin-top:6px}' +
+    /* --- latest-from-the-garden card grid --- */
+    '.ah-latest-sec .summary-item-list{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:24px!important;float:none!important;width:100%!important;position:static!important;height:auto!important}' +
+    '.ah-latest-sec .summary-item{position:static!important;left:auto!important;top:auto!important;width:100%!important;margin:0!important;padding:0!important;float:none!important;background:#fff;border:1px solid #e3e7da;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:flex!important;flex-direction:column!important}' +
+    '.ah-latest-sec .summary-item:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
+    '.ah-latest-sec .summary-item > *{float:none!important;width:100%!important;margin:0!important}' +
+    '.ah-latest-sec .summary-thumbnail-outer-container{width:100%!important;padding:0!important}' +
+    '.ah-latest-sec .summary-thumbnail{padding-bottom:60%!important;width:100%!important;border-radius:0!important}' +
+    '.ah-latest-sec .summary-content{padding:14px 16px 18px!important;text-align:left!important;display:block!important}' +
+    '.ah-latest-sec .summary-title{font-family:"Palatino Linotype",Georgia,serif!important;font-size:16px!important;line-height:1.25!important;margin:0 0 5px!important;font-weight:400!important}' +
+    '.ah-latest-sec .summary-title a{color:#1A3B2A!important;font-weight:400!important;border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
+    '.ah-latest-sec .summary-metadata,.ah-latest-sec .summary-metadata a{font-size:11px!important;color:#7c8378!important;border-bottom:0!important}' +
+    '.ah-latest-sec .summary-excerpt{display:none!important}' +
+    '@media(max-width:900px){.ah-latest-sec .summary-item-list{grid-template-columns:repeat(2,1fr)!important}}' +
+    '@media(max-width:560px){.ah-latest-sec .summary-item-list{grid-template-columns:1fr!important}}';
+
+    var st = document.createElement('style'); st.id = 'ah-home-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    // The summary block positions items absolutely via inline styles; neutralize so
+    // the CSS grid can lay them out. Re-run a few times in case the block re-flows.
+    function relayout() {
+      if (!latest) return;
+      [].slice.call(latest.querySelectorAll('.summary-item')).forEach(function (it) {
+        it.style.position = 'static'; it.style.left = ''; it.style.top = ''; it.style.width = '';
+      });
+      var l = latest.querySelector('.summary-item-list');
+      if (l) { l.style.height = 'auto'; l.style.position = 'static'; }
+    }
+    relayout(); setTimeout(relayout, 800); setTimeout(relayout, 2000);
+    if (latest && window.MutationObserver) {
+      var t, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(relayout, 200); });
+      mo.observe(latest, { attributes: true, subtree: true, attributeFilter: ['style'] });
+      setTimeout(function () { mo.disconnect(); }, 6000);
+    }
+  }
+
+  function boot() {
+    if (onHome()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onHome()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
