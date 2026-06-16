@@ -1257,12 +1257,26 @@ function ahIsFlockArticle(slug) {
     var faq = find(/Frequently Asked/i), dl = find(/Free Downloadable Resources/i), rel = find(/Related Articles/i);
     var sections = h2s.filter(function (h) { return /^What /i.test(h.textContent); });
 
+    // Normalize the repetitive "What Is .../What Should You Know About ..." scaffolding
+    // into clean topic headers so the section list reads with variety, not repetition.
+    // Original text is preserved on data-orig-heading (display-only change, reversible).
+    function cleanHeading(s) {
+      return s.replace(/^What (Is|Are|Should You Know About|Do You Need to Know About) /i, '')
+              .replace(/\s*\?\s*$/, '').trim();
+    }
+    sections.forEach(function (h) {
+      var orig = h.textContent.trim(), clean = cleanHeading(orig);
+      if (clean && clean !== orig) {
+        h.setAttribute('data-orig-heading', orig);
+        h.textContent = clean.charAt(0).toUpperCase() + clean.slice(1);
+      }
+    });
+
     if (sections.length >= 3) {
       var box = document.createElement('div'); box.className = 'ah-toc';
       var items = sections.map(function (h, k) {
         h.id = h.id || 'ahs' + k;
-        var label = h.textContent.replace(/^What (Is|Are|Should You Know About|Do You Need to Know About) /i, '').replace(/\?$/, '');
-        return '<li><a href="#' + h.id + '">' + label + '</a></li>';
+        return '<li><a href="#' + h.id + '">' + h.textContent + '</a></li>';
       }).join('');
       box.innerHTML = '<h6>In this guide</h6><ul>' + items + '</ul>';
       sections[0].parentElement.insertBefore(box, sections[0]);
