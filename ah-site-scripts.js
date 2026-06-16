@@ -1173,3 +1173,157 @@ function ahIsFlockArticle(slug) {
     else articleBody.appendChild(box);
   }, 1600);
 })();
+
+// === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — STAGED: CITRUS ONLY ===
+// Redesign of the article reading + conversion experience. Adds an "In this
+// guide" jump box, marigold H2 accents, a card-with-cover product CTA, an
+// author box, a green downloads box, and image-based related cards.
+// STAGED ROLLOUT: gated to the citrus-cold-protection article for live review.
+// To roll out site-wide: delete the `if (slug.indexOf('citrus-cold-protection')`
+// guard below, and move product-card duties into the contextual callout block.
+// Fully reversible: remove this whole block.
+(function () {
+  var STAGE_SLUG = 'citrus-cold-protection';
+  function onArticle() {
+    return location.pathname.indexOf('/learn/') === 0 &&
+           location.pathname.indexOf('/learn/category/') !== 0 &&
+           document.querySelector('.blog-item-content');
+  }
+  function init() {
+    if (!onArticle() || document.getElementById('ah-enh-style')) return;
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (slug.indexOf(STAGE_SLUG) === -1) return; // <-- remove for site-wide rollout
+
+    var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    // Citrus/cold articles route to the Microclimate guide ($12.99 per existing P map).
+    var prod = {
+      t: 'Microclimate Mastery Guide',
+      u: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition',
+      c: 'b3c3da63-ceef-4b34-910e-2943b9a4bbab/microclimate-mastery-guide-1-cover.jpeg',
+      p: '$12.99',
+      b: 'Map your property’s cold pockets, frost dates, and warm walls so every plant lands where it will thrive.'
+    };
+    var cov = function (c, w) { return CDN + c + '?format=' + w + 'w'; };
+
+    var css =
+    '.blog-item-content{--ahg:#1A3B2A;--ahm:#E0A53F;--aht:#BD6438;--ahline:#dce0d2}' +
+    '.blog-item-content h2:not(.ah-keep){font-family:"Palatino Linotype","Book Antiqua",Georgia,serif!important;padding-top:6px;margin-top:1.7em!important}' +
+    '.blog-item-content h2:not(.ah-keep):before{content:"";display:block;width:46px;height:3px;background:var(--ahm);border-radius:2px;margin-bottom:13px}' +
+    '.ah-toc{background:#fff;border:1px solid var(--ahline);border-left:4px solid var(--ahg);border-radius:0 10px 10px 0;padding:18px 22px;margin:26px 0 30px}' +
+    '.ah-toc h6{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#525a51;margin:0 0 12px}' +
+    '.ah-toc ul{list-style:none!important;margin:0!important;padding:0!important;columns:2;column-gap:30px}' +
+    '.ah-toc li{margin:0 0 8px!important;padding:0!important;break-inside:avoid}.ah-toc li:before{display:none!important}' +
+    '.ah-toc a{font:14px/1.3 Montserrat,sans-serif;color:var(--ahg)!important;text-decoration:none!important;border-bottom:1px solid transparent}' +
+    '.ah-toc a:hover{border-color:var(--ahm)}' +
+    '.ah-prod{display:flex;gap:20px;align-items:center;background:#fff;border:1px solid var(--ahline);border-radius:12px;padding:20px;margin:34px 0;box-shadow:0 8px 30px rgba(28,33,29,.10)}' +
+    '.ah-prod .cov{flex:0 0 124px;border-radius:6px;overflow:hidden;border:1px solid var(--ahline);box-shadow:0 4px 14px rgba(28,33,29,.12)}' +
+    '.ah-prod .cov img{width:100%;display:block;aspect-ratio:7/9;object-fit:cover}' +
+    '.ah-prod .eb{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--aht);margin-bottom:7px}' +
+    '.ah-prod h4{font-family:"Palatino Linotype",Georgia,serif;font-size:21px;color:var(--ahg)!important;margin:0 0 6px}' +
+    '.ah-prod p{font:14px/1.5 Montserrat,sans-serif;color:#525a51!important;margin:0 0 13px}' +
+    '.ah-prod .price{font-family:"Palatino Linotype",Georgia,serif;font-size:20px;color:var(--ahg)!important;margin-right:14px;vertical-align:middle}' +
+    '.ah-cta{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:13px 22px;border-radius:3px;background:var(--ahg);color:#F8F9F0!important;text-decoration:none!important}' +
+    '.ah-lead{background:var(--ahg);border-radius:12px;padding:26px 28px;margin:34px 0;position:relative;overflow:hidden}' +
+    '.ah-lead:after{content:"";position:absolute;right:-40px;bottom:-50px;width:180px;height:180px;border-radius:50%;background:rgba(224,165,63,.16)}' +
+    '.ah-lead h3{font-family:"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:22px;margin:0 0 4px}' +
+    '.ah-lead .sub{color:#cdd6c8!important;font:14px/1.5 Montserrat,sans-serif;margin:0 0 16px}' +
+    '.ah-lead ul{list-style:none!important;margin:0!important;padding:0!important;display:flex;flex-wrap:wrap;gap:10px;position:relative}' +
+    '.ah-lead li{margin:0!important;padding:0!important}.ah-lead li:before{display:none!important}' +
+    '.ah-lead li a{display:inline-block;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28);color:#fff!important;text-decoration:none!important;font:600 13px/1 Montserrat,sans-serif;padding:11px 16px;border-radius:30px}' +
+    '.ah-lead li a:hover{background:var(--ahm);color:#2a2208!important;border-color:var(--ahm)}' +
+    '.ah-bio{display:flex;gap:18px;align-items:center;background:#F1F2E6;border:1px solid var(--ahline);border-radius:12px;padding:20px 22px;margin:38px 0}' +
+    '.ah-bio .av{flex:0 0 64px;height:64px;border-radius:50%;background:var(--ahg);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Palatino Linotype",Georgia,serif;font-size:24px}' +
+    '.ah-bio h4{font-family:"Palatino Linotype",Georgia,serif;color:var(--ahg)!important;font-size:18px;margin:0 0 4px}' +
+    '.ah-bio p{font:13.5px/1.5 Montserrat,sans-serif;color:#525a51!important;margin:0}' +
+    '.ah-relwrap{margin:40px 0 0}' +
+    '.ah-rel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}' +
+    '.ah-rel a{background:#fff;border:1px solid var(--ahline);border-radius:10px;overflow:hidden;text-decoration:none!important;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:block}' +
+    '.ah-rel a:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
+    '.ah-rel .ph{aspect-ratio:16/10;background:linear-gradient(135deg,#E8EBE1,#dbe3d6);overflow:hidden;display:flex;align-items:center;justify-content:center}' +
+    '.ah-rel .ph svg{width:40px;height:40px;opacity:.5}.ah-rel .ph img{width:100%;height:100%;object-fit:cover}' +
+    '.ah-rel .b{padding:13px 15px 16px}' +
+    '.ah-rel h5{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:var(--ahg)!important;font-size:15.5px;line-height:1.25;margin:0}' +
+    '@media(max-width:760px){.ah-rel{grid-template-columns:1fr}.ah-prod{flex-direction:column;text-align:center}.ah-prod .cov{flex:none;width:150px;margin:0 auto}.ah-toc ul{columns:1}}';
+    var st = document.createElement('style'); st.id = 'ah-enh-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var root = document.querySelector('.blog-item-content');
+    var h2s = [].slice.call(root.querySelectorAll('h2'));
+    var find = function (re) { for (var j = 0; j < h2s.length; j++) if (re.test(h2s[j].textContent)) return h2s[j]; return null; };
+    var faq = find(/Frequently Asked/i), dl = find(/Free Downloadable Resources/i), rel = find(/Related Articles/i);
+    var sections = h2s.filter(function (h) { return /^What /i.test(h.textContent); });
+
+    if (sections.length >= 3) {
+      var box = document.createElement('div'); box.className = 'ah-toc';
+      var items = sections.map(function (h, k) {
+        h.id = h.id || 'ahs' + k;
+        var label = h.textContent.replace(/^What (Is|Are|Should You Know About|Do You Need to Know About) /i, '').replace(/\?$/, '');
+        return '<li><a href="#' + h.id + '">' + label + '</a></li>';
+      }).join('');
+      box.innerHTML = '<h6>In this guide</h6><ul>' + items + '</ul>';
+      sections[0].parentElement.insertBefore(box, sections[0]);
+    }
+
+    var anchor = faq || dl || rel;
+    if (anchor && !document.querySelector('.ah-product-callout')) {
+      var card = document.createElement('div'); card.className = 'ah-prod ah-product-callout';
+      card.innerHTML = '<div class="cov"><img src="' + cov(prod.c, 400) + '" alt=""></div>' +
+        '<div><div class="eb">Go deeper · Recommended guide</div><h4>' + prod.t + '</h4>' +
+        '<p>' + prod.b + '</p><span class="price">' + prod.p + '</span>' +
+        '<a class="ah-cta" href="' + prod.u + '">View the guide</a></div>';
+      anchor.parentElement.insertBefore(card, anchor);
+    }
+
+    if (dl) {
+      var bio = document.createElement('div'); bio.className = 'ah-bio';
+      bio.innerHTML = '<div class="av">A</div><div><h4>Adrienne Gaughan</h4>' +
+        '<p>Gardenary-certified with 20+ years growing food in Santa Cruz. Ambitious Harvest turns hard-won local experience into guides built for California’s microclimates.</p></div>';
+      dl.parentElement.insertBefore(bio, dl);
+      var ul = dl.nextElementSibling;
+      var lead = document.createElement('div'); lead.className = 'ah-lead';
+      lead.innerHTML = '<h3>Free downloads to take with you</h3><p class="sub">Printable companions for this guide. No cost, no spam.</p>';
+      dl.style.display = 'none';
+      dl.parentElement.insertBefore(lead, dl);
+      if (ul && ul.tagName === 'UL') lead.appendChild(ul);
+    }
+
+    if (rel) {
+      var links = [], n = rel.nextElementSibling, g = 0;
+      while (n && g < 8) {
+        if (n.querySelectorAll) [].slice.call(n.querySelectorAll('a')).forEach(function (a) { links.push(a); });
+        if (n.tagName === 'A') links.push(n);
+        n = n.nextElementSibling; g++;
+      }
+      links = links.filter(function (a) { return /\/learn\//.test(a.getAttribute('href') || ''); }).slice(0, 3);
+      if (links.length) {
+        var wrap = document.createElement('div'); wrap.className = 'ah-relwrap';
+        var grid = document.createElement('div'); grid.className = 'ah-rel';
+        rel.classList.add('ah-keep');
+        rel.parentElement.insertBefore(wrap, rel); wrap.appendChild(rel); wrap.appendChild(grid);
+        var leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="#1A3B2A" stroke-width="1.4"><path d="M12 2C7 5 4 9 4 14a8 8 0 0016 0c0-5-3-9-8-12z"/><path d="M12 5v13"/></svg>';
+        links.forEach(function (a) {
+          var href = a.getAttribute('href'), title = a.textContent.trim();
+          var c = document.createElement('a'); c.href = href;
+          c.innerHTML = '<div class="ph">' + leaf + '</div><div class="b"><h5>' + title + '</h5></div>';
+          grid.appendChild(c); a.style.display = 'none';
+          fetch(href).then(function (r) { return r.text(); }).then(function (t) {
+            var m = t.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+            if (m && !/AHC|logo/i.test(m[1])) {
+              c.querySelector('.ph').innerHTML = '<img src="' + m[1].replace(/^http:/, 'https:').split('?')[0] + '?format=600w" alt="">';
+            }
+          }).catch(function () {});
+        });
+        var lc = links[0].closest('ul'); if (lc) lc.style.display = 'none';
+      }
+    }
+  }
+  function boot() {
+    if (onArticle()) return init();
+    var tries = 0, iv = setInterval(function () {
+      if (onArticle()) { clearInterval(iv); init(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
