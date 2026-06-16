@@ -1425,12 +1425,12 @@ function ahIsFlockArticle(slug) {
     '.ah-badge{position:absolute;top:10px;left:10px;z-index:3;font:700 10.5px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px}' +
     '.ah-badge.pop{background:#E0A53F;color:#2a2208}' +
     '.ah-badge.start{background:#1A3B2A;color:#F8F9F0}' +
-    '.product-list-item{position:relative;padding:10px;border-radius:12px;transition:.2s}' +
-    '.product-list-item:hover{background:#fff;box-shadow:0 8px 26px rgba(28,33,29,.10)}' +
-    '.ah-tint-0 .product-list-image-wrapper,.ah-tint-0 figure{background:linear-gradient(160deg,#f4f1e4,#e9ece0)!important;border-radius:8px;overflow:hidden}' +
-    '.ah-tint-1 .product-list-image-wrapper,.ah-tint-1 figure{background:linear-gradient(160deg,#e7ede3,#dbe3d6)!important;border-radius:8px;overflow:hidden}' +
-    '.ah-tint-2 .product-list-image-wrapper,.ah-tint-2 figure{background:linear-gradient(160deg,#f7efe0,#f1e7d4)!important;border-radius:8px;overflow:hidden}' +
-    '.ah-tint-3 .product-list-image-wrapper,.ah-tint-3 figure{background:linear-gradient(160deg,#e8eef0,#dde7ea)!important;border-radius:8px;overflow:hidden}' +
+    // Framed cards: opaque covers don't show a tinted panel behind them, so we
+    // frame each card instead (border + soft shadow + rounded cover) to stop the
+    // light covers from blending into the page.
+    '.product-list-item{position:relative;background:#fff!important;border:1px solid #e3e7da!important;border-radius:12px!important;padding:16px 16px 18px!important;box-shadow:0 1px 2px rgba(28,33,29,.05),0 6px 18px rgba(28,33,29,.06)!important;transition:.2s ease!important}' +
+    '.product-list-item:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(28,33,29,.13)!important;border-color:#cfd6c4!important}' +
+    '.product-list-item .product-list-image-wrapper{border-radius:8px!important;overflow:hidden!important;background:#fbfbf6!important;border:1px solid #eceee3!important}' +
     '.ah-why{background:#1A3B2A;color:#d7e0d2;border-radius:14px;padding:40px 36px;margin:44px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}' +
     '.ah-why h3{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:19px;margin:10px 0 6px}' +
     '.ah-why p{font:14px/1.55 Montserrat,sans-serif;color:#cdd6c8!important;margin:0}' +
@@ -1477,7 +1477,6 @@ function ahIsFlockArticle(slug) {
   function applyCards() {
     var items = [].slice.call(document.querySelectorAll('.product-list-item'));
     items.forEach(function (it, i) {
-      if (!/ah-tint-/.test(it.className)) it.classList.add('ah-tint-' + (i % 4));
       if (it.querySelector('.ah-badge')) return;
       var link = it.querySelector('a[href*="/store/p/"]');
       var href = link ? link.getAttribute('href') : '';
