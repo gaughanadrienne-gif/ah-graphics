@@ -477,6 +477,21 @@ document.addEventListener("DOMContentLoaded", function() {
   // Generated from graphics_mapping.json by generate-cluster-pages.js
   // =========================================================================
   var SLUG_TO_CLUSTER = {
+    "bush-bean-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bush-bean-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bush-bean-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "everbearing-strawberry-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "everbearing-strawberry-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "everbearing-strawberry-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "romaine-lettuce-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "romaine-lettuce-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "romaine-lettuce-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sungold-cherry-tomato-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sungold-cherry-tomato-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sungold-cherry-tomato-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "zucchini-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "zucchini-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "zucchini-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
     "blueberry-southern-highbush-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
     "blueberry-southern-highbush-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
     "blueberry-southern-highbush-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
