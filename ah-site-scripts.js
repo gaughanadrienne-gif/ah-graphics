@@ -1935,3 +1935,71 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === LEARN LIBRARY + CATEGORY GRID (2026-06-16, session 41) ===
+// /learn index and /learn/category/* only (NOT individual articles). Converts
+// the sparse single-column "side by side" blog list into a multi-column card
+// grid, force-loads the lazy items (the list rendered blank-first), and paints
+// each thumbnail as a background (the native <img> collapses in this layout).
+// Reversible.
+(function () {
+  function onList() {
+    var p = location.pathname.replace(/\/$/, '');
+    return (p === '/learn' || p.indexOf('/learn/category/') === 0) && document.querySelector('.blog-side-by-side-wrapper');
+  }
+
+  function gridify() {
+    [].slice.call(document.querySelectorAll('.blog-item')).forEach(function (it) {
+      it.classList.add('is-loaded');
+      if (it.getAttribute('data-ah-grid')) return;
+      var img = it.querySelector('.blog-image-wrapper img');
+      if (img) {
+        var url = img.getAttribute('data-image') || img.getAttribute('data-src') || img.getAttribute('src');
+        var a = img.closest('a.image-wrapper') || img.parentElement;
+        if (a && url) {
+          a.style.backgroundImage = 'url("' + url.split('?')[0] + '?format=750w")';
+          a.classList.add('ah-bgimg');
+        }
+      }
+      it.setAttribute('data-ah-grid', '1');
+    });
+  }
+
+  function build() {
+    if (document.getElementById('ah-learn-style')) { gridify(); return; }
+    var css =
+    '.blog-side-by-side-wrapper{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:26px!important;max-width:1180px;margin:0 auto}' +
+    '.blog-item{display:flex!important;flex-direction:column!important;background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;overflow:hidden!important;box-shadow:0 4px 14px rgba(28,33,29,.07)!important;margin:0!important;padding:0!important;width:100%!important;opacity:1!important;transition:.2s}' +
+    '.blog-item:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)!important}' +
+    '.blog-item .blog-image-wrapper{width:100%!important;margin:0!important;padding:0!important;flex:none!important}' +
+    '.blog-item .ah-bgimg{display:block!important;width:100%!important;aspect-ratio:16/10!important;background-size:cover!important;background-position:center!important}' +
+    '.blog-item .ah-bgimg img{display:none!important}' +
+    '.blog-item .blog-item-summary{width:100%!important;padding:14px 16px 18px!important;margin:0!important;flex:none!important}' +
+    '.blog-item .blog-title{font-family:"Palatino Linotype",Georgia,serif!important;font-size:17px!important;line-height:1.25!important;margin:0 0 6px!important}' +
+    '.blog-item .blog-title a{color:#1A3B2A!important}' +
+    '.blog-item .blog-excerpt,.blog-item .blog-excerpt p{font-size:13px!important;line-height:1.5!important;color:#525a51!important}' +
+    '.blog-item .blog-excerpt{display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 6px!important}' +
+    '.blog-item .blog-meta,.blog-item .blog-meta-item{font-size:11.5px!important;color:#7c8378!important}' +
+    '@media(max-width:900px){.blog-side-by-side-wrapper{grid-template-columns:repeat(2,1fr)!important}}' +
+    '@media(max-width:560px){.blog-side-by-side-wrapper{grid-template-columns:1fr!important}}';
+    var st = document.createElement('style'); st.id = 'ah-learn-style'; st.textContent = css;
+    document.head.appendChild(st);
+    gridify();
+    setTimeout(gridify, 800); setTimeout(gridify, 2000);
+    var wrap = document.querySelector('.blog-side-by-side-wrapper');
+    if (wrap && window.MutationObserver) {
+      var t, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(gridify, 200); });
+      mo.observe(wrap, { childList: true, subtree: true });
+    }
+  }
+
+  function boot() {
+    if (onList()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onList()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
