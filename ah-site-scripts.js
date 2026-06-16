@@ -1756,49 +1756,76 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === LOCAL RESOURCES POLISH (2026-06-16, session 41) ===
-// /local-resources only. Turns each resource entry (a <p> that starts with a
-// <strong> name) into a card, lays each category out as a 2-column grid, and
-// adds marigold heading accents. Reversible.
+// /local-resources only. Groups each resource entry (a bold-led name + its
+// following description/location/website paragraphs) into a card, lays each
+// category out in a uniform auto-fill grid, adds marigold heading accents, makes
+// the hero title readable, and rebuilds the messy "On this page" jump-links into
+// a clean chip bar. Robust to the page's inconsistent authoring. Reversible.
 (function () {
   function onPage() { return location.pathname.replace(/\/$/, '') === '/local-resources' && document.querySelector('#sections'); }
+  function isTitleP(el) { return el.tagName === 'P' && el.firstElementChild && el.firstElementChild.tagName === 'STRONG' && !el.classList.contains('sqsrte-large'); }
 
   function build() {
-    if (document.getElementById('ah-lr-style')) return;
+    if (document.getElementById('ah-lr-style')) { markup(); chips(); return; }
     var css =
     '#sections h2{position:relative}' +
     '#sections h2:not(.ah-keep)::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px 0 0}' +
-    '.ah-res-grid{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:18px!important;align-items:start!important}' +
-    '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;margin:0!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
-    '.ah-res-card strong:first-child{font-family:"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block;margin-bottom:5px}' +
+    '.ah-res-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important;gap:18px!important;align-items:start!important;margin-top:8px!important}' +
+    '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important}' +
+    '.ah-res-card p{margin:0 0 6px!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
+    '.ah-res-card p:last-child{margin-bottom:0!important}' +
+    '.ah-res-card > p:first-child strong:first-child{font-family:"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block!important;margin-bottom:5px!important}' +
     '.ah-res-card a{color:#BD6438!important;text-decoration:none!important;border-bottom:1px solid rgba(189,100,56,.4)!important;background-image:none!important}' +
+    /* clean category chip bar (replaces the split "On this page" links) */
+    '.ah-lr-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:6px auto 10px;padding:0 20px}' +
+    '.ah-lr-chips a{display:inline-block;white-space:nowrap;font:600 13px Montserrat,sans-serif;color:#1A3B2A!important;background:#fff;border:1.5px solid #dce0d2!important;border-radius:30px;padding:8px 16px;text-decoration:none!important;background-image:none!important}' +
+    '.ah-lr-chips a:hover{background:#1A3B2A;color:#F8F9F0!important;border-color:#1A3B2A!important}' +
     /* hero title readability over the photo */
     '#sections > .page-section:first-child .section-background::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,26,16,.18),rgba(12,26,16,.52));z-index:1}' +
-    '#sections > .page-section:first-child h1{text-shadow:0 2px 18px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.5)!important;position:relative;z-index:2}' +
-    '@media(max-width:760px){.ah-res-grid{grid-template-columns:1fr!important}}';
+    '#sections > .page-section:first-child h1{text-shadow:0 2px 18px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.5)!important;position:relative;z-index:2}';
     var st = document.createElement('style'); st.id = 'ah-lr-style'; st.textContent = css;
     document.head.appendChild(st);
-    markup();
+    markup(); chips();
   }
 
+  // Group a bold-led name + its following (non-title) paragraphs into one card.
   function markup() {
-    // Only card-ify a block that is an actual resource LIST (2+ bold-led entries).
-    // A single bold-led paragraph (e.g. the intro explainer) must stay full-width.
     [].slice.call(document.querySelectorAll('#sections .sqs-html-content')).forEach(function (block) {
-      var entries = [].slice.call(block.querySelectorAll('p')).filter(function (p) {
-        var f = p.firstElementChild;
-        return f && f.tagName === 'STRONG' && p.textContent.trim().length > 10;
+      if (block.querySelector('.ah-res-grid')) return;
+      var children = [].slice.call(block.children);
+      if (children.filter(isTitleP).length < 2) return; // not a real list
+      var firstTitle = children.filter(isTitleP)[0];
+      var grid = document.createElement('div'); grid.className = 'ah-res-grid';
+      block.insertBefore(grid, firstTitle);
+      var current = null;
+      children.forEach(function (el) {
+        if (el === grid) return;
+        if (el.tagName === 'H2' || el.tagName === 'H3' || el.classList.contains('sqsrte-large')) { current = null; return; }
+        if (isTitleP(el)) { current = document.createElement('div'); current.className = 'ah-res-card'; grid.appendChild(current); current.appendChild(el); }
+        else if (current && el.tagName === 'P') { current.appendChild(el); }
       });
-      if (entries.length >= 2) {
-        block.classList.add('ah-res-grid');
-        entries.forEach(function (p) { p.classList.add('ah-res-card'); });
-      }
     });
   }
 
+  // Replace the split "On this page" jump-links with clean chips from the H2s.
+  function chips() {
+    if (document.getElementById('ah-lr-chips')) return;
+    var bm = [].slice.call(document.querySelectorAll('.sqs-html-content')).find(function (b) {
+      return b.querySelectorAll('a[href*="#"]').length >= 5 && /On this page/i.test(b.textContent);
+    });
+    if (!bm) return;
+    var h2s = [].slice.call(document.querySelectorAll('#sections h2')).filter(function (h) { return !h.closest('.ah-res-card'); });
+    if (h2s.length < 3) return;
+    var bar = document.createElement('div'); bar.id = 'ah-lr-chips'; bar.className = 'ah-lr-chips';
+    h2s.forEach(function (h, i) { h.id = h.id || 'lrcat' + i; var a = document.createElement('a'); a.href = '#' + h.id; a.textContent = h.textContent.trim(); bar.appendChild(a); });
+    bm.style.display = 'none';
+    bm.parentNode.insertBefore(bar, bm);
+  }
+
   function boot() {
-    if (onPage()) { build(); setTimeout(markup, 1200); return; }
+    if (onPage()) { build(); setTimeout(function () { markup(); chips(); }, 1200); return; }
     var tries = 0, iv = setInterval(function () {
-      if (onPage()) { clearInterval(iv); build(); setTimeout(markup, 1200); }
+      if (onPage()) { clearInterval(iv); build(); setTimeout(function () { markup(); chips(); }, 1200); }
       if (++tries > 40) clearInterval(iv);
     }, 250);
   }
