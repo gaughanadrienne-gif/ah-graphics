@@ -2003,3 +2003,51 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === CONTENT-PAGE POLISH (2026-06-16, session 41) ===
+// /about + the tool pages. Adds alignment-aware marigold heading accents and the
+// brand button style, but ONLY to real page-section headings -- never headings
+// inside a tool/code block (the Garden Conditions dashboard and Planting Calendar
+// are .sqs-block-code tools and are left completely untouched) and never the hero.
+// Reversible.
+(function () {
+  var PATHS = ['/about', '/garden-events', '/garden-conditions', '/planting-calendar'];
+  function onPage() {
+    return PATHS.indexOf(location.pathname.replace(/\/$/, '')) >= 0 && document.querySelector('#sections');
+  }
+
+  function accentize() {
+    var heroSec = document.querySelector('#sections > .page-section');
+    [].slice.call(document.querySelectorAll('#sections h1, #sections h2, #sections h3')).forEach(function (h) {
+      if (h.getAttribute('data-ah-acc')) return;
+      if (h.closest('.sqs-block-code')) return;          // never touch tool internals
+      if (h.closest('.page-section') === heroSec) return; // never the hero
+      var ta = getComputedStyle(h).textAlign;
+      h.classList.add((ta === 'center' || ta === 'middle') ? 'ah-hac-c' : 'ah-hac-l');
+      h.setAttribute('data-ah-acc', '1');
+    });
+  }
+
+  function build() {
+    if (document.getElementById('ah-content-style')) { accentize(); return; }
+    var css =
+    '#sections h1.ah-hac-l::after,#sections h2.ah-hac-l::after,#sections h3.ah-hac-l::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px 0 0}' +
+    '#sections h1.ah-hac-c::after,#sections h2.ah-hac-c::after,#sections h3.ah-hac-c::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px auto 0}' +
+    '#sections .sqs-block-button-element{background:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;font-size:13px!important;padding:15px 30px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
+    '#sections .sqs-block-button-element:hover{background:#2c5d42!important;transform:translateY(-2px)}';
+    var st = document.createElement('style'); st.id = 'ah-content-style'; st.textContent = css;
+    document.head.appendChild(st);
+    accentize();
+    setTimeout(accentize, 1000);
+  }
+
+  function boot() {
+    if (onPage()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
