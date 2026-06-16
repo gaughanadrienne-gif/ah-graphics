@@ -1238,7 +1238,10 @@ function ahIsFlockArticle(slug) {
     '.ah-relwrap{margin:40px 0 0}' +
     '.ah-rel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}' +
     '.ah-rel a{background:#fff;border:1px solid var(--ahline);border-radius:10px;overflow:hidden;text-decoration:none!important;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:block}' +
-    '.ah-rel a,.ah-rel h5{border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
+    // High-specificity overrides: the theme styles content links with border-bottom + underline at a specificity that beats a bare .class selector.
+    '.blog-item-content .ah-rel a,.blog-item-content .ah-rel a:hover,.blog-item-content .ah-rel h5,.blog-item-content .ah-lead li a{border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
+    '.blog-item-content .ah-lead li a{border:1px solid rgba(255,255,255,.28)!important}' +
+    '.blog-item-content .ah-lead li a:hover{border-color:var(--ahm)!important;background:var(--ahm)!important;color:#2a2208!important}' +
     '.ah-rel a:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
     '.ah-rel .ph{aspect-ratio:16/10;background:linear-gradient(135deg,#E8EBE1,#dbe3d6);overflow:hidden;display:flex;align-items:center;justify-content:center}' +
     '.ah-rel .ph svg{width:40px;height:40px;opacity:.5}.ah-rel .ph img{width:100%;height:100%;object-fit:cover}' +
