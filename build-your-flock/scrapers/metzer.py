@@ -65,7 +65,10 @@ def parse(html):
         source  - "Metzer Farms"
         animal  - "duck", "goose", or "chicken"
         breed   - breed / product name from the table
-        status  - availability text for the soonest hatch date
+        status  - availability text for the nearest hatch date the breed is
+                  available or limited (scanning left-to-right).  Format:
+                  "Available (<date>)" or "Limited (<date>)".  Only if every
+                  date cell is sold out (or empty) is "Sold Out" reported.
         link    - URL (availability page; no per-breed deep links in the table)
     """
     if not html:
@@ -114,27 +117,33 @@ def parse(html):
         if not breed:
             continue
 
-        # Find the soonest hatch date and its availability
-        status = None
-        status_date = None
+        # Find the nearest hatch date on which the breed is available or limited.
+        # Scan left-to-right; skip sold-out cells.  Only fall back to "Sold Out"
+        # when every date cell is availableOut (or has no div at all).
+        status_str = None
+        last_out_date = None  # track the last sold-out date in case all are out
+
         for idx, td in enumerate(tds[1:]):
             div = td.find("div")
-            if div:
-                cls = (div.get("class") or [""])[0]
-                status = _STATUS_MAP.get(cls, cls)
-                # Use the matching column label if available
-                if idx < len(date_labels):
-                    status_date = date_labels[idx]
+            if not div:
+                continue
+            cls = (div.get("class") or [""])[0]
+            date_label = date_labels[idx] if idx < len(date_labels) else None
+
+            if cls in ("available", "availableLim"):
+                # First upcoming available/limited date — use it and stop.
+                human = _STATUS_MAP[cls]
+                status_str = f"{human} ({date_label})" if date_label else human
                 break
+            elif cls == "availableOut":
+                # Record it as a fallback so we can report sold-out with a date
+                # if that turns out to be the only option.
+                if last_out_date is None and date_label:
+                    last_out_date = date_label
 
-        if status is None:
-            status = "Check site"
-
-        # Combine status with date if we have one
-        if status_date:
-            status_str = f"{status} ({status_date})"
-        else:
-            status_str = status
+        if status_str is None:
+            # No available/limited cell found — breed is fully sold out.
+            status_str = "Sold Out"
 
         records.append(
             {

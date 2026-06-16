@@ -24,6 +24,14 @@ def test_only_target_species():
 
 
 def test_finds_waterfowl():
-    # The whole point of Metzer is ducks/geese; the captured fixture should yield at least one
+    # The whole point of Metzer is ducks/geese; the captured fixture must yield BOTH
     animals = {r["animal"] for r in metzer.parse(FIXTURE.read_text(encoding="utf-8"))}
-    assert "duck" in animals or "goose" in animals
+    assert "duck" in animals and "goose" in animals
+
+
+def test_status_prefers_upcoming_availability_over_first_column():
+    # A breed sold out on the first date(s) but available later must NOT report Sold Out.
+    records = {r["breed"]: r["status"] for r in metzer.parse(FIXTURE.read_text(encoding="utf-8"))}
+    status = records.get("Jumbo Pekin Duckling Unsexed")
+    assert status is not None, "expected breed missing from fixture parse"
+    assert "Sold Out" not in status, f"expected upcoming availability, got {status!r}"
