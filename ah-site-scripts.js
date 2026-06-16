@@ -2139,3 +2139,30 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === CONTACT PAGE POLISH (2026-06-16, session 41) ===
+// /contact only. Marigold accent under the "Get in Touch" title + brand styling
+// on the form's Send button (was muted sage). CSS only -- the form is untouched.
+// Reversible.
+(function () {
+  function onPage() { return location.pathname.replace(/\/$/, '') === '/contact' && document.querySelector('#sections'); }
+  function build() {
+    if (document.getElementById('ah-contact-style')) return;
+    var css =
+    '#sections h1{position:relative}' +
+    '#sections h1::after{content:"";display:block;width:48px;height:3px;background:#E0A53F;border-radius:2px;margin:16px auto 0}' +
+    '#sections .sqs-block-form .form-submit-button button,#sections .sqs-block-form button.sqs-system-button,#sections form button.button{background:#1A3B2A!important;background-color:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;padding:15px 34px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
+    '#sections .sqs-block-form button.sqs-system-button:hover,#sections form button.button:hover{background:#2c5d42!important;background-color:#2c5d42!important;transform:translateY(-2px)}';
+    var st = document.createElement('style'); st.id = 'ah-contact-style'; st.textContent = css;
+    document.head.appendChild(st);
+  }
+  function boot() {
+    if (onPage()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
