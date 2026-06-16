@@ -1,0 +1,44 @@
+name: Build Your Flock data refresh
+
+# Refreshes build-your-flock-data.json once a day.
+# 13:00 UTC is ~6 AM Pacific (6 AM PDT in summer, 5 AM PST in winter) - the
+# closest single fixed-UTC time to "6 AM Pacific" year-round.
+# Petfinder is NOT fetched here (its endpoint blocks datacenter IPs); it is read
+# from the committed petfinder_cache.json, refreshed manually via a browser.
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r build-your-flock/requirements.txt
+
+      - name: Build data
+        working-directory: build-your-flock
+        run: python build_data.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "ah-flock-bot"
+          git config user.email "actions@github.com"
+          git add build-your-flock-data.json
+          if git diff --staged --quiet; then
+            echo "No availability changes today."
+          else
+            git commit -m "data: refresh build-your-flock availability"
+            git push
+          fi
