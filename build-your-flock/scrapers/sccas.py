@@ -66,15 +66,14 @@ def parse(html):
         # Build detail string from all visible text in the card
         detail = " ".join(grid.get_text(" ", strip=True).split())
 
-        # Build link — 24PetConnect uses JS onclick; construct detail URL from known pattern
-        # onclick="Details('SantaCruzAdoptable', 'SNCR', 'A331672')"
+        # Build a deep link to the specific animal. 24PetConnect's onclick
+        # Details('SantaCruzAdoptable', 'SNCR', 'A331672') maps to the detail URL
+        # /{urlName}/Details/{shelterCode}/{animalId} (verified live).
         onclick = grid.get("onclick", "")
         onclick_match = re.search(r"Details\('([^']+)',\s*'([^']+)',\s*'([^']+)'\)", onclick)
-        if onclick_match and animal_id:
-            link = (
-                f"https://24petconnect.com/{onclick_match.group(1)}"
-                f"?animalID={animal_id}"
-            )
+        if onclick_match:
+            url_name, shelter_code, oc_animal_id = onclick_match.groups()
+            link = f"https://24petconnect.com/{url_name}/Details/{shelter_code}/{oc_animal_id}"
         else:
             link = URL
 

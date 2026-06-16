@@ -24,3 +24,13 @@ def test_excludes_non_poultry():
     html = FIXTURE.read_text(encoding="utf-8")
     names = " ".join(r["name"].lower() for r in sccas.parse(html))
     assert "rabbit" not in names and "guinea pig" not in names
+
+
+def test_links_deep_link_to_specific_animal():
+    # Links must point to the per-animal Details page, not the generic listing.
+    records = sccas.parse(FIXTURE.read_text(encoding="utf-8"))
+    assert records
+    for r in records:
+        assert "/Details/" in r["link"], r["link"]
+        if r["id"]:
+            assert r["id"] in r["link"]
