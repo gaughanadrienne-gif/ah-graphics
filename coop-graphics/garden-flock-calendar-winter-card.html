@@ -1,0 +1,173 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+.ah-winter-wrapper {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  margin: 32px 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ah-winter-header {
+  background-color: #1c3c2c;
+  padding: 20px 24px;
+  border-radius: 8px 8px 0 0;
+}
+
+.ah-winter-header h2 {
+  color: #f8f9f0 !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.ah-winter-header p {
+  color: #dde2d8 !important;
+  font-size: 0.82rem !important;
+  margin: 0 !important;
+}
+
+.ah-winter-body {
+  border: 2px solid #1c3c2c;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  background-color: #f8f9f0;
+}
+
+.ah-winter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ah-winter-card {
+  padding: 18px 20px;
+  border-right: 1px solid #dde2d8;
+  border-bottom: 1px solid #dde2d8;
+}
+
+.ah-winter-card:nth-child(even) {
+  border-right: none;
+}
+
+.ah-winter-card:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.ah-winter-card-title {
+  color: #1a3b2a !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px 0 !important;
+}
+
+.ah-winter-risk {
+  display: inline-block;
+  background-color: #c9a84c;
+  color: #1a3b2a !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.ah-winter-card p {
+  color: #1a3b2a !important;
+  font-size: 0.8rem !important;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.ah-winter-card ul {
+  margin: 6px 0 0 0;
+  padding: 0 0 0 16px;
+}
+
+.ah-winter-card li {
+  color: #1a3b2a !important;
+  font-size: 0.78rem !important;
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.ah-winter-footer {
+  background-color: #dde2d8;
+  padding: 8px 20px;
+  text-align: right;
+  border-top: 1px solid #dde2d8;
+}
+
+.ah-winter-footer span {
+  color: #1a3b2a !important;
+  font-size: 0.72rem !important;
+}
+
+@media (max-width: 600px) {
+  .ah-winter-grid {
+    grid-template-columns: 1fr;
+  }
+  .ah-winter-card {
+    border-right: none;
+  }
+  .ah-winter-card:nth-last-child(-n+2) {
+    border-bottom: 1px solid #dde2d8;
+  }
+  .ah-winter-card:last-child {
+    border-bottom: none;
+  }
+}
+</style>
+
+<div class="ah-winter-wrapper">
+  <div class="ah-winter-header">
+    <h2>Winter Flock Health: What to Watch and What to Do</h2>
+    <p>Santa Cruz County specific (December through March)</p>
+  </div>
+  <div class="ah-winter-body">
+    <div class="ah-winter-grid">
+      <div class="ah-winter-card">
+        <p class="ah-winter-card-title">Mud and Wet Litter</p>
+        <span class="ah-winter-risk">High risk in SLV and inland</span>
+        <p>Wet soil concentrates coccidia, bacteria, and ammonia. Spread coarse wood chips or rice hulls over run floor. Elevate feeders. Check coop floor stays dry -- wet bedding under roost bars is the biggest winter health threat.</p>
+      </div>
+      <div class="ah-winter-card">
+        <p class="ah-winter-card-title">Respiratory Disease</p>
+        <span class="ah-winter-risk">Watch entire county</span>
+        <p>Cold-season Mycoplasma and Pasteurella thrive in damp, poorly ventilated coops. Keep ventilation open above roost level. Early signs: bubbling eyes, gurgling breath, nasal discharge. Isolate and contact your vet promptly.</p>
+      </div>
+      <div class="ah-winter-card">
+        <p class="ah-winter-card-title">Parasites in Wet Soil</p>
+        <span class="ah-winter-risk">Inspect monthly</span>
+        <p>Northern fowl mites remain active in winter. Wet soil extends survival of intestinal parasite eggs. Check for mites under wing and at vent. If worm burden is suspected, consult your vet about fecal testing before treating.</p>
+        <ul>
+          <li>Part feathers at vent area monthly</li>
+          <li>Inspect roost bars at night for red mites</li>
+        </ul>
+      </div>
+      <div class="ah-winter-card">
+        <p class="ah-winter-card-title">Rodent Pressure</p>
+        <span class="ah-winter-risk">Rises Nov through Feb</span>
+        <p>Rain drives rats and mice toward coop warmth and feed. Store all feed in metal bins with lids. Use treadle feeders or remove feeders at night. UC IPM recommends sanitation over rodenticides near poultry to prevent secondary poisoning of birds.</p>
+      </div>
+      <div class="ah-winter-card">
+        <p class="ah-winter-card-title">Egg Production</p>
+        <span class="ah-winter-risk">Expect reduction</span>
+        <p>Natural light drives laying. At under 10 hours of daylight (Dec-Jan), many hens slow or stop. This is normal and beneficial: rest improves longevity. If you want winter eggs, add artificial light to bring total hours to 14-16. A simple timer and LED bulb work well.</p>
+      </div>
+      <div class="ah-winter-card">
+        <p class="ah-winter-card-title">Predator Risk Shifts</p>
+        <span class="ah-winter-risk">Verify hardware cloth</span>
+        <p>Coyote and raccoon activity increases in winter as natural food sources thin. Shorter days mean birds lock up earlier and earlier. Verify all hardware cloth is intact after wind and rain storms. Check aprons and under-coop gaps where digging predators probe.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ah-winter-footer">
+    <span>ambitiousharvest.com | Sources: UC ANR Small Flock Poultry; UC IPM Poultry Pest Management; Western Regional Climate Center</span>
+  </div>
+</div>

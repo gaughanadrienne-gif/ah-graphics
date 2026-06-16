@@ -1,0 +1,138 @@
+<div class="ah-zone-wrapper" style="font-family: 'Montserrat', sans-serif; width: 100%; margin: 32px 0; padding: 0; box-sizing: border-box;">
+  <style>
+    .ah-zone-wrapper * { box-sizing: border-box; }
+    .ah-zone-header {
+      background-color: #1a3b2a;
+      padding: 20px 24px;
+      border-radius: 6px 6px 0 0;
+    }
+    .ah-zone-header h2 {
+      color: #f8f9f0 !important;
+      font-size: 1.25rem !important;
+      font-weight: 700 !important;
+      margin: 0 0 4px 0 !important;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    .ah-zone-header p {
+      color: #dde2d8 !important;
+      font-size: 0.82rem !important;
+      margin: 0 !important;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    .ah-zone-body {
+      border: 2px solid #1a3b2a;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      overflow: hidden;
+    }
+    .ah-zone-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid #dde2d8;
+    }
+    .ah-zone-row:last-child { border-bottom: none; }
+    .ah-zone-row:nth-child(even) { background-color: #f8f9f0; }
+    .ah-zone-row:nth-child(odd) { background-color: #ffffff; }
+    .ah-zone-label {
+      background-color: #1c3c2c;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ah-zone-label-name {
+      color: #f8f9f0 !important;
+      font-weight: 700 !important;
+      font-size: 0.84rem !important;
+      font-family: 'Montserrat', sans-serif !important;
+      margin-bottom: 3px;
+    }
+    .ah-zone-label-loc {
+      color: #dde2d8 !important;
+      font-size: 0.74rem !important;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    .ah-zone-detail {
+      padding: 14px 16px;
+    }
+    .ah-zone-detail p {
+      color: #1a3b2a !important;
+      font-size: 0.80rem !important;
+      margin: 0 0 6px 0 !important;
+      font-family: 'Montserrat', sans-serif !important;
+      line-height: 1.5;
+    }
+    .ah-zone-detail p:last-child { margin-bottom: 0 !important; }
+    .ah-zone-detail strong {
+      color: #1c3c2c !important;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    .ah-zone-footer3 {
+      background-color: #dde2d8;
+      padding: 8px 16px;
+      text-align: center;
+      border-top: 1px solid #1a3b2a;
+    }
+    .ah-zone-footer3 p {
+      color: #1a3b2a !important;
+      font-size: 0.72rem !important;
+      margin: 0 !important;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    @media (max-width: 600px) {
+      .ah-zone-row { grid-template-columns: 1fr; }
+      .ah-zone-label { padding: 10px 14px; border-bottom: 1px solid #2d5a3e; }
+      .ah-zone-label-name { font-size: 0.82rem !important; }
+      .ah-zone-header h2 { font-size: 1.05rem !important; }
+    }
+  </style>
+  <div class="ah-zone-header">
+    <h2>Priority Predator Risks by Santa Cruz County Habitat Zone</h2>
+    <p>Your top threat varies by location. Source: CDFW; UC IPM; Bay Nature Santa Cruz Mountains wildlife monitoring; KQED.</p>
+  </div>
+  <div class="ah-zone-body">
+    <div class="ah-zone-row">
+      <div class="ah-zone-label">
+        <span class="ah-zone-label-name">Coastal Urban</span>
+        <span class="ah-zone-label-loc">Santa Cruz City, Capitola, Aptos, Soquel</span>
+      </div>
+      <div class="ah-zone-detail">
+        <p><strong>Top threats:</strong> Raccoon (high density along creek corridors), roof rat (dominant rat species in coastal areas), opossum (ubiquitous), Cooper's hawk (year-round in riparian corridors and parks).</p>
+        <p>Gray fox present in brushy margins. Mountain lion rare but CDFW documents corridors through even urban edges. Priority: raccoon-proof latch hardware and buried apron; rodent exclusion and metal feed storage.</p>
+      </div>
+    </div>
+    <div class="ah-zone-row">
+      <div class="ah-zone-label">
+        <span class="ah-zone-label-name">San Lorenzo Valley</span>
+        <span class="ah-zone-label-loc">Boulder Creek, Ben Lomond, Felton, Scotts Valley</span>
+      </div>
+      <div class="ah-zone-detail">
+        <p><strong>Top threats:</strong> Mountain lion (CDFW 2023 alert; UC Davis Puma Project GPS-confirmed corridors); bobcat (active in chaparral and forest edges); gray fox (abundant in mixed forest and chaparral).</p>
+        <p>Long-tailed weasel likely more common here than coastal sightings suggest. Priority: dusk lockup is non-negotiable; structural exclusion for weasels; no outdoor overnight situations of any kind.</p>
+      </div>
+    </div>
+    <div class="ah-zone-row">
+      <div class="ah-zone-label">
+        <span class="ah-zone-label-name">Pajaro Valley / Agricultural</span>
+        <span class="ah-zone-label-loc">Watsonville, Corralitos, Freedom, La Selva Beach</span>
+      </div>
+      <div class="ah-zone-detail">
+        <p><strong>Top threats:</strong> Coyote (high density due to rodent prey base in agricultural fields); red-tailed hawk (highest density in county in open agricultural land); Norway rat (more common in agricultural settings than coastal urban).</p>
+        <p>Uncovered pasture situations carry the greatest hawk predation risk of any zone in the county. Priority: covered runs for any free-range situation; coyote-proof fence with buried apron and outward overhang.</p>
+      </div>
+    </div>
+    <div class="ah-zone-row">
+      <div class="ah-zone-label">
+        <span class="ah-zone-label-name">Coastal North County</span>
+        <span class="ah-zone-label-loc">Davenport, Bonny Doon, Swanton</span>
+      </div>
+      <div class="ah-zone-detail">
+        <p><strong>Top threats:</strong> Gray fox (chaparral and coastal scrub habitat); coyote (coastal terrace and ridgeline); long-tailed weasel (directly observed at Bonny Doon Beach, July 2020).</p>
+        <p>More rural and less urban-adapted predator community than coastal Santa Cruz City. Priority: hardware cloth exclusion at 1/2-inch or finer on all openings; raised coop floor to prevent weasel entry via rat tunnels.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ah-zone-footer3">
+    <p>ambitiousharvest.com | The Garden Coop</p>
+  </div>
+</div>

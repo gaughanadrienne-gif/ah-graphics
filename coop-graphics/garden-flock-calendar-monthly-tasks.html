@@ -1,0 +1,259 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+.ah-cal-wrapper {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  margin: 32px 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ah-cal-header {
+  background-color: #1a3b2a;
+  padding: 20px 24px;
+  border-radius: 8px 8px 0 0;
+}
+
+.ah-cal-header h2 {
+  color: #f8f9f0 !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.ah-cal-header p {
+  color: #dde2d8 !important;
+  font-size: 0.85rem !important;
+  margin: 0 !important;
+}
+
+.ah-cal-body {
+  border: 2px solid #1a3b2a;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+.ah-cal-season {
+  border-bottom: 1px solid #dde2d8;
+}
+
+.ah-cal-season:last-child {
+  border-bottom: none;
+}
+
+.ah-cal-season-label {
+  background-color: #1c3c2c;
+  padding: 10px 20px;
+}
+
+.ah-cal-season-label span {
+  color: #c9a84c !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ah-cal-months {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ah-cal-month {
+  padding: 14px 16px;
+  border-right: 1px solid #dde2d8;
+  border-top: 1px solid #dde2d8;
+}
+
+.ah-cal-month:last-child {
+  border-right: none;
+}
+
+.ah-cal-month-name {
+  color: #1a3b2a !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 6px 0 !important;
+}
+
+.ah-cal-month ul {
+  margin: 0;
+  padding: 0 0 0 14px;
+  list-style-type: disc;
+}
+
+.ah-cal-month li {
+  color: #1a3b2a !important;
+  font-size: 0.78rem !important;
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.ah-cal-footer {
+  background-color: #f8f9f0;
+  border-top: 1px solid #dde2d8;
+  padding: 8px 20px;
+  text-align: right;
+}
+
+.ah-cal-footer span {
+  color: #8c9c8c !important;
+  font-size: 0.72rem !important;
+}
+
+@media (max-width: 600px) {
+  .ah-cal-months {
+    grid-template-columns: 1fr;
+  }
+  .ah-cal-month {
+    border-right: none;
+  }
+  .ah-cal-header h2 {
+    font-size: 1.1rem !important;
+  }
+}
+</style>
+
+<div class="ah-cal-wrapper">
+  <div class="ah-cal-header">
+    <h2>Santa Cruz County Flock Care Calendar</h2>
+    <p>Key monthly tasks tuned to our coastal California climate</p>
+  </div>
+  <div class="ah-cal-body">
+    <div class="ah-cal-season">
+      <div class="ah-cal-season-label"><span>Winter</span></div>
+      <div class="ah-cal-months">
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">January</p>
+          <ul>
+            <li>Mud management: add wood chips to run</li>
+            <li>Check ventilation; clear blockages</li>
+            <li>Inspect for mites and lice</li>
+            <li>Order spring chicks from hatchery</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">February</p>
+          <ul>
+            <li>Deep-clean coop if not done in fall</li>
+            <li>Set up brooder equipment for chicks</li>
+            <li>Verify predator-proofing before breeding season</li>
+            <li>First chick arrivals (late Feb)</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">March</p>
+          <ul>
+            <li>Chick season peak; brood indoors or in protected space</li>
+            <li>Egg production increases with longer days</li>
+            <li>Start supplementing calcium as laying ramps up</li>
+            <li>First spring parasite check</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ah-cal-season">
+      <div class="ah-cal-season-label"><span>Spring</span></div>
+      <div class="ah-cal-months">
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">April</p>
+          <ul>
+            <li>Move chicks to outdoor grow pen (weather permitting)</li>
+            <li>Manage garden-flock integration; fence vegetable beds</li>
+            <li>Inspect coop hardware cloth for winter damage</li>
+            <li>Coccidiosis risk rises with wet soil</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">May</p>
+          <ul>
+            <li>Coast fog season begins; monitor humidity in coop</li>
+            <li>Peak laying for most adult hens</li>
+            <li>Transition pullets to layer or all-flock feed at 18 weeks</li>
+            <li>Check for mite infestations; treat if needed</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">June</p>
+          <ul>
+            <li>Summer molt watch begins in older hens</li>
+            <li>Inland flocks: set up shade structures</li>
+            <li>Deep-clean waterers; heat accelerates algae</li>
+            <li>Monitor pullets for first eggs (if hatched in Feb-March)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ah-cal-season">
+      <div class="ah-cal-season-label"><span>Summer</span></div>
+      <div class="ah-cal-months">
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">July</p>
+          <ul>
+            <li>Inland heat events: freeze water in treat dishes; add misters</li>
+            <li>Coast: fog keeps temps moderate; watch for respiratory issues from humidity</li>
+            <li>Keep feed fresh; summer heat turns feed rancid faster</li>
+            <li>Red mite pressure peaks; inspect roost bars</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">August</p>
+          <ul>
+            <li>Watch for heat stress signs in inland flocks</li>
+            <li>Garden harvest season: safe scraps abundant</li>
+            <li>Predator pressure rises as coyotes and raccoons seek water</li>
+            <li>Lock-up times shift earlier; adjust evening routine</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">September</p>
+          <ul>
+            <li>Fall molt begins in many hens (days shortening)</li>
+            <li>Increase protein: mealworms, sunflower seeds during molt</li>
+            <li>Egg production drops; this is normal</li>
+            <li>Begin annual coop deep-clean before rainy season</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ah-cal-season">
+      <div class="ah-cal-season-label"><span>Fall and Winter</span></div>
+      <div class="ah-cal-months">
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">October</p>
+          <ul>
+            <li>Deep-clean coop; refresh bedding before rains</li>
+            <li>Repair coop roof, hardware cloth, and vents</li>
+            <li>Full molt in progress; hens look rough (normal)</li>
+            <li>Add fresh bedding to roost areas for warmth</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">November</p>
+          <ul>
+            <li>Rainy season arrives; mud management begins</li>
+            <li>Most hens resuming lay as molt concludes</li>
+            <li>Add supplemental light if desired (14 hours triggers laying)</li>
+            <li>Rodent pressure increases as rains push mice indoors</li>
+          </ul>
+        </div>
+        <div class="ah-cal-month">
+          <p class="ah-cal-month-name">December</p>
+          <ul>
+            <li>Shortest days; expect minimum egg production</li>
+            <li>Scratch grain before roost for overnight warmth</li>
+            <li>Monitor for respiratory illness in damp conditions</li>
+            <li>Plan spring flock additions; review breed notes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ah-cal-footer">
+    <span>ambitiousharvest.com | Source: UC ANR Small Flock Poultry guidelines; NOAA Santa Cruz sunrise data</span>
+  </div>
+</div>
