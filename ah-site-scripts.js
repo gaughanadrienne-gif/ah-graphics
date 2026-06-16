@@ -1773,3 +1773,72 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === HOMEPAGE SHOP CALLOUT (2026-06-16, session 41) ===
+// Homepage only. Inserts a "From the Garden Shop" featured-products band after
+// the tools section (the homepage had no link to the store at all). Reversible.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-shopcallout') || document.getElementById('ah-shopcallout-sec')) return;
+    var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    var prods = [
+      { t: 'Tomato Growing MasterKit', c: 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg', p: '$14.99', u: '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6', badge: 'Bestseller' },
+      { t: 'First Harvest Kit', c: 'dd2f6938-54ca-4c68-9aa8-240e26854d4c/first-harvest-kit-1-cover.jpeg', p: '$14.99', u: '/store/p/first-harvest-kit-california-edition', badge: '' },
+      { t: 'Water-Wise Garden Workbook', c: '3929876c-ddbc-48a5-ae55-ec2794fb4bf6/water-wise-garden-workbook-1-cover.jpeg', p: '$9.99', u: '/store/p/water-wise-garden-workbook-california-edition', badge: '' },
+      { t: 'Seed Starting Success Kit', c: 'fbc91ab7-4aec-42af-8ef9-f77d7ae2d425/seed-starting-success-kit-1-cover.jpeg', p: '$9.99', u: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', badge: '' }
+    ];
+    var css =
+    '#ah-shopcallout-sec{background:#1A3B2A;padding:64px 28px 70px}' +
+    '#ah-shopcallout{max-width:1140px;margin:0 auto;text-align:center}' +
+    '#ah-shopcallout .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E0A53F!important;margin-bottom:12px}' +
+    '#ah-shopcallout h2{font-family:"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:33px;margin:0 0 12px}' +
+    '#ah-shopcallout .sub{font:16px/1.6 Montserrat,sans-serif;color:#cdd6c8!important;max-width:56ch;margin:0 auto 36px}' +
+    '#ah-shopcallout .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:36px}' +
+    '#ah-shopcallout .pc{background:#fff;border-radius:12px;overflow:hidden;text-decoration:none!important;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:.2s;display:block;position:relative}' +
+    '#ah-shopcallout .pc:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(0,0,0,.26)}' +
+    '#ah-shopcallout .pc .cov{background:linear-gradient(160deg,#f4f1e4,#e9ece0);padding:18px;display:flex;align-items:center;justify-content:center}' +
+    '#ah-shopcallout .pc .cov img{width:78%;border-radius:5px;box-shadow:0 8px 20px rgba(28,33,29,.18)}' +
+    '#ah-shopcallout .pc .b{padding:14px 16px 18px;text-align:left}' +
+    '#ah-shopcallout .pc h3{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:16px!important;line-height:1.22;margin:0 0 6px;font-weight:400!important}' +
+    '#ah-shopcallout .pc .price{font-family:"Palatino Linotype",Georgia,serif;color:#1A3B2A!important;font-size:17px}' +
+    '#ah-shopcallout .badge{position:absolute;top:10px;left:10px;background:#E0A53F;color:#2a2208;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px;z-index:2}' +
+    '#ah-shopcallout .shopall{display:inline-block;background:#E0A53F!important;color:#2a2208!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:3px;text-decoration:none!important;border-bottom:0!important}' +
+    '#ah-shopcallout .shopall:hover{background:#d3982f!important}' +
+    '@media(max-width:900px){#ah-shopcallout .grid{grid-template-columns:repeat(2,1fr)}}';
+    var st = document.createElement('style'); st.id = 'ah-shopcallout'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var cards = prods.map(function (p) {
+      return '<a class="pc" href="' + p.u + '">' + (p.badge ? '<span class="badge">' + p.badge + '</span>' : '') +
+        '<div class="cov"><img src="' + CDN + p.c + '?format=500w" alt="' + p.t + '"></div>' +
+        '<div class="b"><h3>' + p.t + '</h3><span class="price">' + p.p + '</span></div></a>';
+    }).join('');
+    var sec = document.createElement('section'); sec.id = 'ah-shopcallout-sec';
+    sec.innerHTML = '<div id="ah-shopcallout"><div class="eb">From the Garden Shop</div>' +
+      '<h2>California-Specific Guides &amp; Kits</h2>' +
+      '<p class="sub">Printable, microclimate-tuned guides to take the guesswork out of your garden. Instant download, 30-day money-back guarantee.</p>' +
+      '<div class="grid">' + cards + '</div>' +
+      '<a class="shopall" href="/store">Shop all 16 guides &amp; kits →</a></div>';
+
+    // Insert after the tools section (heading "Plan your garden..."); fall back to
+    // before the category gallery, else append to #sections.
+    var secs = [].slice.call(document.querySelectorAll('#sections > .page-section'));
+    var tools = secs.find(function (s) { var h = s.querySelector('h1,h2,h3'); return h && /plan your garden/i.test(h.textContent); });
+    var gallery = document.querySelector('.gallery-section');
+    if (tools && tools.parentNode) tools.parentNode.insertBefore(sec, tools.nextSibling);
+    else if (gallery && gallery.parentNode) gallery.parentNode.insertBefore(sec, gallery);
+    else document.querySelector('#sections').appendChild(sec);
+  }
+
+  function boot() {
+    if (onHome()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onHome()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
