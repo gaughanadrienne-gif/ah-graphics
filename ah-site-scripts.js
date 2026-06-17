@@ -2467,9 +2467,10 @@ function ahIsFlockArticle(slug) {
   function boot() {
     if (!onHub()) return;
     var t = 0, iv = setInterval(function () {
-      if (document.querySelector('h2')) { clearInterval(iv); build(); }
+      build(); // idempotent (skips already-carded headings); re-run to catch late-rendered sections
       if (++t > 40) clearInterval(iv);
-    }, 250);
+    }, 300);
+    window.addEventListener('load', build);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
