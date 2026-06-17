@@ -801,6 +801,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "adding-new-hens-flock-integration-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
     "keeping-the-coop-dry-mud-mold-santa-cruz-winters": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
     "diy-predator-proof-coop-run-plans-small-santa-cruz-lot": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "best-ducks-for-the-santa-cruz-fog-belt": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
     "avocado-cold-protection-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
     "avocado-problems-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
     "avocado-tree-care-calendar-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
