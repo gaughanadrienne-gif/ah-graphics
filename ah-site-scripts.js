@@ -1206,29 +1206,60 @@ document.addEventListener("DOMContentLoaded", function() {
 // Shared so the product callout below can step aside on these articles.
 function ahIsFlockArticle(slug) {
   var FLOCK = {
-    'starting-a-backyard-flock-in-santa-cruz-county': 1,
-    'choosing-the-right-breeds-for-coastal-california-gardens': 1,
-    'designing-a-predator-proof-run-for-your-garden-flock': 1,
-    'raising-chicks-and-ducklings-in-santa-cruz': 1,
-    'what-to-feed-your-backyard-flock-year-round-in-california': 1,
-    'common-health-issues-backyard-chickens-ducks-geese': 1,
+    'adding-new-hens-flock-integration-santa-cruz': 1,
     'adopting-rescue-birds-quarantine-deworming-flock-introduction': 1,
-    'keeping-a-mixed-flock-chickens-ducks-geese-together': 1,
-    'how-your-flock-can-work-your-garden': 1,
-    'composting-with-chicken-and-duck-waste': 1,
-    'managing-free-range-time-protecting-plants': 1,
+    'avian-flu-santa-cruz-county-backyard-flock': 1,
+    'backyard-chicken-rules-santa-cruz-county-city-by-city': 1,
+    'backyard-flock-first-aid-kit-california': 1,
     'best-and-worst-garden-plants-for-free-range-flock': 1,
-    'keeping-ducks-in-your-california-garden': 1,
-    'keeping-a-goose-single-goose-flocks': 1,
-    'heritage-and-rescue-chicken-breeds-santa-cruz': 1,
-    'predator-proofing-your-flock-santa-cruz-county': 1,
+    'best-chicken-breeds-for-the-santa-cruz-fog-belt': 1,
+    'best-ducks-for-the-santa-cruz-fog-belt': 1,
+    'can-one-goose-protect-a-backyard-flock': 1,
+    'chicken-tractors-mobile-coops-santa-cruz-garden': 1,
+    'chicken-wire-vs-hardware-cloth': 1,
+    'chickens-or-ducks-for-a-santa-cruz-backyard': 1,
+    'choosing-the-right-breeds-for-coastal-california-gardens': 1,
+    'common-health-issues-backyard-chickens-ducks-geese': 1,
+    'composting-with-chicken-and-duck-waste': 1,
+    'deep-litter-or-sand-coop-bedding-coastal-california': 1,
+    'designing-a-predator-proof-run-for-your-garden-flock': 1,
+    'diy-predator-proof-coop-run-plans-small-santa-cruz-lot': 1,
+    'do-motion-sensor-lights-actually-deter-predators': 1,
+    'finding-a-poultry-avian-vet-santa-cruz-monterey-bay': 1,
+    'flock-natural-pest-control-coastal-santa-cruz-garden': 1,
+    'growing-flock-treats-best-garden-crops-for-chickens-ducks-geese': 1,
     'hardware-cloth-coop-locks-night-safety': 1,
-    'what-to-do-when-a-predator-gets-in': 1,
+    'hatchery-chicks-or-rescue-hens': 1,
+    'heritage-and-rescue-chicken-breeds-santa-cruz': 1,
+    'how-do-i-keep-my-flock-cool-during-inland-california-heat': 1,
+    'how-do-i-protect-free-range-birds-from-hawks': 1,
+    'how-often-should-i-clean-my-chicken-run': 1,
+    'how-your-flock-can-work-your-garden': 1,
+    'keeping-a-flock-in-the-san-lorenzo-valley': 1,
+    'keeping-a-goose-single-goose-flocks': 1,
+    'keeping-a-mixed-flock-chickens-ducks-geese-together': 1,
+    'keeping-ducks-in-your-california-garden': 1,
+    'keeping-the-coop-dry-mud-mold-santa-cruz-winters': 1,
+    'keeping-your-flock-cool-in-santa-cruz-summer-heat': 1,
+    'managing-free-range-time-protecting-plants': 1,
+    'predator-proofing-your-flock-santa-cruz-county': 1,
+    'raising-chicks-and-ducklings-in-santa-cruz': 1,
+    'santa-cruz-county-backyard-flock-predator-guide': 1,
+    'santa-cruz-county-flock-care-calendar-month-by-month': 1,
+    'seasonal-flock-care-fall-winter-coastal-california': 1,
     'seasonal-flock-care-spring-summer-coastal-california': 1,
-    'seasonal-flock-care-fall-winter-coastal-california': 1
+    'selling-and-storing-backyard-eggs-in-california': 1,
+    'should-i-worry-about-bird-flu-in-my-backyard-flock': 1,
+    'standard-or-bantam-chicken-breeds-small-backyard': 1,
+    'starting-a-backyard-flock-in-santa-cruz-county': 1,
+    'what-predator-is-getting-into-my-coop-at-night': 1,
+    'what-to-do-when-a-predator-gets-in': 1,
+    'what-to-feed-your-backyard-flock-year-round-in-california': 1,
+    'where-to-buy-chicks-feed-coop-supplies-santa-cruz-county': 1,
+    'why-is-my-hen-sitting-on-the-nest-all-day': 1
   };
   if (FLOCK[slug]) return true;
-  return /flock|coop|chicken|duckling|ducks|goose|geese|poultry|pullet|backyard-bird|hatchling/.test(slug);
+  return /flock|coop|chicken|duckling|ducks|goose|geese|poultry|pullet|rooster|hatchery|hatchling|free-range|brooder|broody|avian|chicks|bird-flu/.test(slug);
 }
 (function() {
   if (location.pathname.indexOf('/learn/') !== 0) return;
@@ -1243,13 +1274,15 @@ function ahIsFlockArticle(slug) {
     if (!articleBody) return;
 
     var box = document.createElement('div');
-    box.className = 'ah-flock-callout';
+    box.className = 'ah-prod ah-flock-callout';
     box.innerHTML = '' +
-      '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#f8f9f0;border:1px solid #dde2d8;border-left:4px solid #4A7A5B;border-radius:8px;padding:1.5rem 1.75rem;margin:2.5rem 0;">' +
-        '<p style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#4A7A5B !important;margin:0 0 0.4rem 0;">Local Resource</p>' +
-        '<p style="font-family:Georgia,serif;font-size:1.25rem;color:#1a3b2a !important;margin:0 0 0.4rem 0;">Build Your Flock</p>' +
-        '<p style="font-size:0.9rem;color:#5a6c5a !important;margin:0 0 1rem 0;line-height:1.55;">See which chickens, ducks, and geese are available right now from Santa Cruz County shelters, feed stores, and breeders.</p>' +
-        '<a href="/build-your-flock" style="display:inline-block;background-color:#1a3b2a;color:#f8f9f0 !important;text-decoration:none;padding:0.65rem 1.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;">Browse local availability &rarr;</a>' +
+      '<div class="cov"><img src="https://gaughanadrienne-gif.github.io/ah-graphics/flock-guide-cover.jpg" alt=""></div>' +
+      '<div><div class="eb">Go deeper · The complete guide</div>' +
+        '<h4>The California Backyard Flock Starter Guide</h4>' +
+        '<p>Everything for chickens, ducks, and geese in one place: choosing your birds, a predator-proof coop, feeding, eggs, health, and a year-round calendar, plus printable resources.</p>' +
+        '<span class="price">$12.99</span>' +
+        '<a class="ah-cta" href="/store/p/the-california-backyard-flock-starter-guide">View the guide</a>' +
+        '<p style="margin:0.85rem 0 0 0;font-size:0.8rem;color:#5a6c5a !important;line-height:1.5;">Looking for birds right now? <a href="/build-your-flock" style="color:#4A7A5B !important;font-weight:700;text-decoration:underline;">Browse local availability with Build Your Flock &rarr;</a></p>' +
       '</div>';
 
     var faqHeading = null;
