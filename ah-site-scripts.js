@@ -1076,32 +1076,70 @@ document.addEventListener("DOMContentLoaded", function() {
   // Determine which cluster this article needs
   var clusterPage = SLUG_TO_CLUSTER[slug];
 
-  // Two triggers for loading:
-  // 1. Article has placeholder divs (already migrated)
-  // 2. Article slug is in the lookup table (proactive, for future migration)
+  // Self-healing manifest: per-slug list of {gid, after} (the heading each graphic sits under).
+  // Lets the loader RE-INJECT any placeholder the Squarespace editor strips on save, so graphics
+  // never silently vanish again. Hosted alongside the clusters.
+  var MANIFEST_URL = 'https://gaughanadrienne-gif.github.io/ah-graphics/ah-graphics-manifest.json';
+
   var placeholders = document.querySelectorAll('.ah-graphic[data-graphic]');
   var hasPlaceholders = placeholders.length > 0;
 
-  // If no placeholders and no cluster mapping, nothing to do
+  // Nothing to do if this slug has no placeholders AND no cluster mapping.
   if (!hasPlaceholders && !clusterPage) return;
 
-  // If there are placeholders but no cluster mapping, still try to render
-  // from any previously loaded graphics (for cross-cluster placeholder testing)
-  if (hasPlaceholders && !clusterPage) {
-    renderPlaceholders();
-    return;
-  }
-
-  // If cluster is already cached, render immediately
-  if (window._ahClusterCache[clusterPage]) {
-    renderPlaceholders();
-    return;
-  }
-
-  // Fetch the cluster page and extract the graphics script
-  loadCluster(clusterPage, function() {
-    renderPlaceholders();
+  // Load the manifest, then the cluster, then render existing placeholders + self-heal missing ones.
+  ensureManifest(function () {
+    if (!clusterPage) { renderAndHeal(); return; }
+    if (window._ahClusterCache[clusterPage] === 'loaded') { renderAndHeal(); return; }
+    loadCluster(clusterPage, renderAndHeal);
   });
+
+  function renderAndHeal() {
+    renderPlaceholders();           // fill placeholders that survived
+    selfHeal();                     // re-inject any the editor stripped
+    renderPlaceholders();           // fill the freshly re-injected ones
+  }
+
+  // Fetch the manifest once, cache on window, and always call cb (even on failure -> {}).
+  function ensureManifest(cb) {
+    if (window._ahManifest) { cb(); return; }
+    if (window._ahManifestLoading) { window._ahManifestLoading.push(cb); return; }
+    window._ahManifestLoading = [cb];
+    fetch(MANIFEST_URL).then(function (r) { return r.ok ? r.json() : {}; })
+      .catch(function () { return {}; })
+      .then(function (j) {
+        window._ahManifest = j || {};
+        var q = window._ahManifestLoading || []; window._ahManifestLoading = null;
+        for (var i = 0; i < q.length; i++) { try { q[i](); } catch (e) {} }
+      });
+  }
+
+  // Re-inject any expected graphic whose placeholder is gone, after its section heading.
+  function selfHeal() {
+    var spec = window._ahManifest && window._ahManifest[slug];
+    if (!spec || !spec.length) return;
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    for (var k = 0; k < spec.length; k++) {
+      var gid = spec[k].gid;
+      var after = (spec[k].after || '').replace(/\s+/g, ' ').trim();
+      if (!gid) continue;
+      if (document.querySelector('[data-graphic="' + gid + '"]')) continue; // still present, leave it
+      var h2s = root.querySelectorAll('h2');
+      var target = null;
+      for (var j = 0; j < h2s.length; j++) {
+        var txt = (h2s[j].getAttribute('data-orig-heading') || h2s[j].textContent || '').replace(/\s+/g, ' ').trim();
+        if (!txt) continue;
+        // match against the original heading text, tolerant of the redesign's display-time normalization
+        if (txt === after || (after && txt.indexOf(after) > -1) || (after.length > 12 && after.indexOf(txt) > -1)) { target = h2s[j]; break; }
+      }
+      if (!target) continue; // anchor heading not found -> skip rather than misplace the graphic
+      var div = document.createElement('div');
+      div.className = 'ah-graphic';
+      div.setAttribute('data-graphic', gid);
+      if (target.nextSibling) target.parentNode.insertBefore(div, target.nextSibling);
+      else target.parentNode.appendChild(div);
+    }
+  }
 
   /**
    * Fetch a cluster HTML file from GitHub Pages, extract the script content,
@@ -2356,6 +2394,81 @@ function ahIsFlockArticle(slug) {
     var tries = 0, iv = setInterval(function () {
       if (onPage()) { clearInterval(iv); build(); setTimeout(socials, 1000); }
       if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === PLANT GUIDE HUB: photo cards (added 2026-06-17) ===
+// Turns the text-link "Plant Guides by Microclimate" hub into a photo directory.
+// For each crop <h2> followed by /learn/ guide links, inserts a clickable banner
+// image (that crop's featured photo) linking to the first guide. Image map is baked
+// from each crop's current featured image; if a crop's featured image is swapped,
+// refresh its URL here (regenerate via the crop->og:image sweep).
+(function () {
+  function onHub() { return /\/learn\/plant-guides-by-microclimate\/?$/.test(location.pathname); }
+  var CROP_IMG = {
+      "artichoke": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef7e92731e4dc6e0efbb/1781735816256/artichoke-plants-with-silvery-foliage-in-coastal-clay.jpg?format=750w",
+      "avocado": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef80b9ff76225b5e868e/1781735818264/Avocado+Tree.png?format=750w",
+      "beefsteak-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8179f2903073306f81/1781735820390/Tomato.png?format=750w",
+      "bell-pepper": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef827c0e4f0def71ddc4/1781735822433/Peppers+%2814%29.JPG?format=750w",
+      "blueberry-southern-highbush": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a4c9ca437e0da09132/1781659207140/blueberry-southern-highbush-coastal-fog-belt-santa-cruz.jpg?format=750w",
+      "broccoli": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8407cf281b59e90dbb/1781735824404/growing-broccoli-santa-cruz.jpg?format=750w",
+      "brussels-sprouts": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef85e65b3d6f374d6739/1781735826451/growing-brussels-sprouts-santa-cruz.jpg?format=750w",
+      "bush-bean": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d627951aff6cb79caf3f/1781735828541/best-bean-varieties-santa-cruz.jpg?format=750w",
+      "eureka-lemon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef873a1b0f25d1c4b33a/1781735830571/growing-meyer-lemons-santa-cruz.jpg?format=750w",
+      "everbearing-strawberry": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62887944957a2321a84/1781735832720/Strawberry.jpg?format=750w",
+      "feijoa-pineapple-guava": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef88d0305a47cc348e3a/1781736534078/pg-feijoa-pineapple-guava.jpg?format=750w",
+      "grapes": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8ad0305a47cc348e66/1781736528584/pg-grapes.jpg?format=750w",
+      "heritage-apple": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8ba6b79330e05bb0bf/1781735834806/best-apple-varieties-santa-cruz.jpg?format=750w",
+      "jalapeno": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a10d96d8090a99473e/1781729029055/24-companion-plants-peppers.jpg?format=750w",
+      "low-chill-peach": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8d64969441a99f9486/1781735836849/growing-stone-fruit-santa-cruz.jpg?format=750w",
+      "meyer-lemon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a55092893df6a8b996/1781661469336/meyer-lemon-banana-belt-santa-cruz.jpg?format=750w",
+      "persimmon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8e47c094685082093c/1781736530647/pg-persimmon.jpg?format=750w",
+      "potato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef900188286be06bd3e5/1781736526792/pg-potato.jpg?format=750w",
+      "ranunculus": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef918e3f597e42106fae/1781735839493/growing-ranunculus-santa-cruz.jpg?format=750w",
+      "roma-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a73ab4dd5fd33a5abb/1781661389669/roma-tomato-banana-belt-santa-cruz.jpg?format=750w",
+      "romaine-lettuce": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62a9edb270341c26a52/1781735841729/Felton+garden+shaded+by+redwoods+with+winter+greens.jpg?format=750w",
+      "satsuma-mandarin": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef9307cf281b59e91425/1781735843998/growing-mandarins-satsumas.jpg?format=750w",
+      "sugar-snap-pea": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a35092893df6a8b96f/1781735850055/growing-sugar-snap-peas.jpg?format=750w",
+      "sungold-cherry-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62b7c0e4f0def695825/1781735845919/Tomato.png?format=750w",
+      "zucchini": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62d47c0946850788fd2/1781735848070/best-zucchini-varieties-santa-cruz.jpg?format=750w"
+  };
+  function build() {
+    var scope = document.querySelector('.blog-item-content, .entry-content, [data-content-field="main-content"]') || document.querySelector('article') || document.body;
+    var hs = scope.querySelectorAll('h2');
+    Array.prototype.forEach.call(hs, function (h) {
+      var prev = h.previousElementSibling;
+      if (prev && prev.className && String(prev.className).indexOf('ah-pg-card') !== -1) return;
+      var link = null, n = h.nextElementSibling;
+      while (n && n.tagName !== 'H2') {
+        var a = (n.matches && n.matches('a[href*="/learn/"]')) ? n : (n.querySelector ? n.querySelector('a[href*="/learn/"]') : null);
+        if (a) { link = a; break; }
+        n = n.nextElementSibling;
+      }
+      if (!link) return;
+      var m = (link.getAttribute('href') || '').match(/\/learn\/(.+?)-(banana-belt|coastal-fog-belt|san-lorenzo-valley|pajaro-valley)-santa-cruz/);
+      if (!m) return;
+      var img = CROP_IMG[m[1]];
+      if (!img) return;
+      var card = document.createElement('a');
+      card.href = link.getAttribute('href');
+      card.className = 'ah-pg-card';
+      card.setAttribute('aria-label', (h.textContent || '').trim());
+      card.style.cssText = 'display:block;margin:22px 0 4px;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(26,59,42,.14);line-height:0;';
+      var im = document.createElement('img');
+      im.src = img; im.alt = (h.textContent || '').trim(); im.loading = 'lazy';
+      im.style.cssText = 'width:100%;height:210px;object-fit:cover;display:block;';
+      card.appendChild(im);
+      h.parentNode.insertBefore(card, h);
+    });
+  }
+  function boot() {
+    if (!onHub()) return;
+    var t = 0, iv = setInterval(function () {
+      if (document.querySelector('h2')) { clearInterval(iv); build(); }
+      if (++t > 40) clearInterval(iv);
     }, 250);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
