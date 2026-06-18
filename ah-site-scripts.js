@@ -1098,6 +1098,47 @@ document.addEventListener("DOMContentLoaded", function() {
     renderPlaceholders();           // fill placeholders that survived
     selfHeal();                     // re-inject any the editor stripped
     renderPlaceholders();           // fill the freshly re-injected ones
+    redistributeStacked();          // spread out any graphics stored stacked together
+  }
+
+  // Some older articles have several graphic placeholders stored stacked together (all
+  // after one heading) instead of distributed through the article, forcing readers to
+  // scroll past a wall of graphics before any content. This spreads a stacked run across
+  // later section headings at render time. Only the 2nd+ graphic under a heading moves;
+  // graphic-internal headings are ignored so a graphic's own title can't be mistaken for
+  // a section anchor.
+  function redistributeStacked() {
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    var SKIP = /frequently asked|related articles|downloadable guides|local resources/i;
+    var allH2 = [].slice.call(root.querySelectorAll('h2')).filter(function (h) { return !h.closest('[data-graphic]'); });
+    var contentHeadings = allH2.filter(function (h, i) {
+      return i > 0 && !SKIP.test((h.getAttribute('data-orig-heading') || h.textContent || ''));
+    });
+    if (!contentHeadings.length) return;
+    var nodes = [].slice.call(root.querySelectorAll('h2, .ah-graphic[data-graphic]')).filter(function (n) {
+      return n.hasAttribute('data-graphic') || !n.closest('[data-graphic]');
+    });
+    var used = [], moves = [], current = null;
+    function inUsed(el) { return used.indexOf(el) > -1; }
+    nodes.forEach(function (n) {
+      if (n.tagName === 'H2') { current = n; return; }
+      if (!current) return;
+      if (!inUsed(current) && contentHeadings.indexOf(current) > -1) { used.push(current); }
+      else { moves.push({ ph: n, from: current }); }
+    });
+    function nextUnused(from) {
+      var start = contentHeadings.indexOf(from);
+      for (var c = start + 1; c < contentHeadings.length; c++) { if (!inUsed(contentHeadings[c])) return contentHeadings[c]; }
+      for (var c2 = 0; c2 < contentHeadings.length; c2++) { if (!inUsed(contentHeadings[c2])) return contentHeadings[c2]; }
+      return null;
+    }
+    moves.forEach(function (m) {
+      var nh = nextUnused(m.from);
+      if (!nh) return;
+      used.push(nh);
+      if (nh.nextSibling) nh.parentNode.insertBefore(m.ph, nh.nextSibling);
+      else nh.parentNode.appendChild(m.ph);
+    });
   }
 
   // Fetch the manifest once, cache on window, and always call cb (even on failure -> {}).
