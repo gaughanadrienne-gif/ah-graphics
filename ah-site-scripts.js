@@ -2579,3 +2579,61 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === BARE TABLE BEAUTIFIER (2026-06-18) ===
+// Some older articles carry de-styled inline tables (their CSS was stripped by the
+// Squarespace editor) that render jumbled. Style them with the brand palette at render
+// time. Non-destructive: the stored table data is untouched; this only restyles in the
+// browser. Skips tables that already have inline styling (cluster graphics, already-
+// styled tables) so it never double-styles or overrides intentional designs.
+(function () {
+  var FOREST = '#1a3b2a', CREAM = '#f8f9f0', SAGE_LIGHT = '#dde2d8', INK = '#1c3c2c';
+  function isBare(t) {
+    if (t.getAttribute('data-ah-tablestyled')) return false;
+    if (t.closest('[data-graphic]')) return false;            // inside a cluster graphic (already styled)
+    if (/background/i.test(t.getAttribute('style') || '')) return false;
+    var cell = t.querySelector('td,th');
+    if (cell && /background/i.test(cell.getAttribute('style') || '')) return false;
+    return true;
+  }
+  function style(t) {
+    t.setAttribute('data-ah-tablestyled', '1');
+    t.style.width = '100%'; t.style.borderCollapse = 'collapse';
+    t.style.fontFamily = "'Montserrat', system-ui, sans-serif"; t.style.fontSize = '0.9rem';
+    var rows = t.querySelectorAll('tr'), first = true, ri = 0;
+    rows.forEach(function (r) {
+      var headerRow = (r.parentNode && r.parentNode.tagName === 'THEAD') || (first && r.querySelector('th')) || first;
+      var cells = r.children;
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        c.style.padding = '10px 12px'; c.style.textAlign = 'left'; c.style.verticalAlign = 'top';
+        if (c.tagName === 'TH' || headerRow) {
+          c.style.setProperty('background-color', FOREST, 'important');
+          c.style.setProperty('color', CREAM, 'important');
+          c.style.fontWeight = '700'; c.style.fontSize = '0.82rem';
+        } else {
+          c.style.borderBottom = '1px solid ' + SAGE_LIGHT;
+          c.style.setProperty('color', INK, 'important');
+          if (i === 0) { c.style.fontWeight = '700'; c.style.setProperty('color', FOREST, 'important'); }
+          c.style.setProperty('background-color', (ri % 2 ? CREAM : '#ffffff'), 'important');
+        }
+      }
+      if (!headerRow) ri++;
+      first = false;
+    });
+    // wrap for horizontal scroll on narrow screens
+    if (t.parentNode && (!t.parentNode.getAttribute || t.parentNode.getAttribute('data-ah-tablewrap') !== '1')) {
+      var w = document.createElement('div');
+      w.setAttribute('data-ah-tablewrap', '1');
+      w.style.overflowX = 'auto'; w.style.margin = '24px 0';
+      t.parentNode.insertBefore(w, t); w.appendChild(t); t.style.margin = '0';
+    }
+  }
+  function run() {
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    var tables = root.querySelectorAll('table');
+    for (var i = 0; i < tables.length; i++) { if (isBare(tables[i])) style(tables[i]); }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 400); });
+  else setTimeout(run, 400);
+})();
