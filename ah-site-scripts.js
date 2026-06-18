@@ -1421,6 +1421,51 @@ function ahIsFlockArticle(slug) {
   }, 1600);
 })();
 
+// === FAST GROWING TREES AFFILIATE CALLOUT (2026-06-18) ===
+// Contextual affiliate card on fruit-tree / citrus / berry articles.
+// Adrienne is a genuine Fast Growing Trees customer (AH's own fruit trees and
+// tropical pond plants). Code-based program: the link carries reader code
+// FGTAMBITIOUS20 plus referral attribution (resolves to FGT's ambassador page).
+// Fully reversible: remove this whole block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (slug.indexOf('tomato') !== -1) return; // cherry-tomato etc. are not FGT
+    var FRUIT = /bare-root|grafted|own-root|fruit-tree|stone-fruit|citrus|meyer|lemon|orange|mandarin|tangerine|grapefruit|kumquat|avocado|apple|peach|nectarine|plum|pear|fig|apricot|cherry|persimmon|pomegranate|mulberry|blueberr|raspberr|blackberr|strawberr|elderberr/;
+    if (!FRUIT.test(slug)) return;
+    if (document.querySelector('.ah-fgt-callout')) return;
+
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+
+    var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+    var box = document.createElement('aside');
+    box.className = 'ah-fgt-callout';
+    box.setAttribute('style', 'display:block;margin:30px 0;padding:22px 24px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Where we buy our trees &middot; Affiliate partner</div>' +
+      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Fast Growing Trees</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">We have ordered from Fast Growing Trees many times and genuinely recommend them. All of our tropical pond plants come from them, and they ship established, ready-to-plant trees and shrubs straight to your door.</p>' +
+      '<a href="' + LINK + '" target="_blank" rel="sponsored nofollow noopener" style="display:inline-block;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px;border-radius:4px;text-decoration:none!important;border-bottom:0!important;">Shop Fast Growing Trees</a>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:13px;">Reader code FGTAMBITIOUS20 is built into this link. As an affiliate, we may earn a commission at no extra cost to you.</div>';
+
+    var h2s = articleBody.querySelectorAll('h2');
+    var nonFaq = [], faqH = null;
+    for (var i = 0; i < h2s.length; i++) {
+      var t = h2s[i].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; }
+      else nonFaq.push(h2s[i]);
+    }
+    if (nonFaq.length >= 2) nonFaq[1].parentNode.insertBefore(box, nonFaq[1]);
+    else if (faqH) faqH.parentNode.insertBefore(box, faqH);
+    else articleBody.appendChild(box);
+  }, 1700);
+})();
+
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
 // Redesign of the article reading experience on every /learn/ article. Adds an
 // "In this guide" jump box, marigold H2 accents, normalized section headers, an
