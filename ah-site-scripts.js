@@ -1115,36 +1115,52 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Re-inject any expected graphic whose placeholder is gone, after its section heading.
+  // Robust against bad manifests: never stacks multiple graphics on one heading -- if the
+  // anchor is the article title, a non-content heading, or already taken, it falls through
+  // to the next available content heading so graphics stay distributed through the article.
   function selfHeal() {
     var spec = window._ahManifest && window._ahManifest[slug];
     if (!spec || !spec.length) return;
     var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    var h2s = root.querySelectorAll('h2');
+    if (!h2s.length) return;
+    var SKIP = /frequently asked|related articles|downloadable guides|local resources/i;
+    var texts = [], contentIdx = [];
+    for (var j = 0; j < h2s.length; j++) {
+      texts[j] = (h2s[j].getAttribute('data-orig-heading') || h2s[j].textContent || '').replace(/\s+/g, ' ').trim();
+      // content headings = everything except the first (article title) and trailing boilerplate
+      if (j > 0 && texts[j] && !SKIP.test(texts[j])) contentIdx.push(j);
+    }
+    var used = {};
+    function nextUnusedFrom(start) {
+      for (var c = 0; c < contentIdx.length; c++) { if (contentIdx[c] >= start && !used[contentIdx[c]]) return contentIdx[c]; }
+      for (var c2 = 0; c2 < contentIdx.length; c2++) { if (!used[contentIdx[c2]]) return contentIdx[c2]; }
+      return null;
+    }
     for (var k = 0; k < spec.length; k++) {
       var gid = spec[k].gid;
       var after = (spec[k].after || '').replace(/\s+/g, ' ').trim();
       if (!gid) continue;
       if (document.querySelector('[data-graphic="' + gid + '"]')) continue; // still present, leave it
-      var h2s = root.querySelectorAll('h2');
-      var target = null, texts = [];
-      for (var j = 0; j < h2s.length; j++) {
-        texts[j] = (h2s[j].getAttribute('data-orig-heading') || h2s[j].textContent || '').replace(/\s+/g, ' ').trim();
-      }
-      // Pass 1: prefer an EXACT heading match (avoids grabbing the longer article title,
-      // which can contain a section heading as a substring and pull graphics to the top).
-      for (var j1 = 0; j1 < h2s.length; j1++) {
-        if (texts[j1] && texts[j1] === after) { target = h2s[j1]; break; }
-      }
-      // Pass 2: fall back to a substring match, tolerant of display-time normalization.
-      if (!target) {
+      var ti = null;
+      // Pass 1: exact heading match (avoids grabbing the longer article title via substring).
+      for (var j1 = 0; j1 < h2s.length; j1++) { if (texts[j1] && texts[j1] === after) { ti = j1; break; } }
+      // Pass 2: substring match, tolerant of display-time normalization.
+      if (ti === null) {
         for (var j2 = 0; j2 < h2s.length; j2++) {
           if (!texts[j2]) continue;
-          if (texts[j2].indexOf(after) > -1 || (after.length > 12 && after.indexOf(texts[j2]) > -1)) { target = h2s[j2]; break; }
+          if (texts[j2].indexOf(after) > -1 || (after.length > 12 && after.indexOf(texts[j2]) > -1)) { ti = j2; break; }
         }
       }
-      if (!target) continue; // anchor heading not found -> skip rather than misplace the graphic
+      // If unmatched, the title (index 0), or already used by an earlier graphic this run,
+      // fall through to the next available content heading so nothing stacks.
+      if (ti === null || ti === 0 || used[ti]) ti = nextUnusedFrom(ti === null ? 0 : ti);
+      if (ti === null) continue;
+      used[ti] = true;
       var div = document.createElement('div');
       div.className = 'ah-graphic';
       div.setAttribute('data-graphic', gid);
+      var target = h2s[ti];
       if (target.nextSibling) target.parentNode.insertBefore(div, target.nextSibling);
       else target.parentNode.appendChild(div);
     }
