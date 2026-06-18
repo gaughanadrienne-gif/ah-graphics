@@ -1466,6 +1466,57 @@ function ahIsFlockArticle(slug) {
   }, 1700);
 })();
 
+// === FAST GROWING TREES INLINE TEXT LINKS (2026-06-18) ===
+// Adds one in-prose affiliate link (rel=sponsored nofollow) to a specific phrase
+// on key fruit-tree articles, complementing the .ah-fgt-callout card. Client-side
+// and fully reversible. Links the FIRST in-prose occurrence only; skips headings,
+// existing links, and the callout card. Add slugs/phrases to MAP to extend.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+  var MAP = {
+    'bare-root-vs-container-fruit-trees': 'missed the bare-root season',
+    'grafted-vs-own-root-fruit-trees': 'grafted trees',
+    'meyer-lemon-vs-eureka-lemon': 'Improved Meyer Lemon'
+  };
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    var phrase = MAP[slug];
+    if (!phrase) return;
+    var body = document.querySelector('.blog-item-content-wrapper') ||
+               document.querySelector('[data-content-field="body"]') ||
+               document.querySelector('.entry-content');
+    if (!body || body.querySelector('a.ah-fgt-inline')) return;
+
+    var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while ((node = walker.nextNode())) {
+      var skip = false;
+      for (var el = node.parentNode; el && el !== body; el = el.parentNode) {
+        var tn = el.nodeName.toLowerCase();
+        if (tn === 'a' || tn === 'h1' || tn === 'h2' || tn === 'h3' || tn === 'h4' || tn === 'h5' || tn === 'h6') { skip = true; break; }
+        if (el.className && ('' + el.className).indexOf('ah-fgt') !== -1) { skip = true; break; }
+      }
+      if (skip) continue;
+      var idx = node.nodeValue.indexOf(phrase);
+      if (idx === -1) continue;
+      var before = node.nodeValue.slice(0, idx);
+      var after = node.nodeValue.slice(idx + phrase.length);
+      var a = document.createElement('a');
+      a.className = 'ah-fgt-inline';
+      a.href = LINK; a.target = '_blank'; a.rel = 'sponsored nofollow noopener';
+      a.textContent = phrase;
+      a.setAttribute('style', 'color:#1A3B2A!important;text-decoration:underline;');
+      var frag = document.createDocumentFragment();
+      if (before) frag.appendChild(document.createTextNode(before));
+      frag.appendChild(a);
+      if (after) frag.appendChild(document.createTextNode(after));
+      node.parentNode.replaceChild(frag, node);
+      return;
+    }
+  }, 1800);
+})();
+
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
 // Redesign of the article reading experience on every /learn/ article. Adds an
 // "In this guide" jump box, marigold H2 accents, normalized section headers, an
