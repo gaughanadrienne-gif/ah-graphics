@@ -1125,12 +1125,21 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!gid) continue;
       if (document.querySelector('[data-graphic="' + gid + '"]')) continue; // still present, leave it
       var h2s = root.querySelectorAll('h2');
-      var target = null;
+      var target = null, texts = [];
       for (var j = 0; j < h2s.length; j++) {
-        var txt = (h2s[j].getAttribute('data-orig-heading') || h2s[j].textContent || '').replace(/\s+/g, ' ').trim();
-        if (!txt) continue;
-        // match against the original heading text, tolerant of the redesign's display-time normalization
-        if (txt === after || (after && txt.indexOf(after) > -1) || (after.length > 12 && after.indexOf(txt) > -1)) { target = h2s[j]; break; }
+        texts[j] = (h2s[j].getAttribute('data-orig-heading') || h2s[j].textContent || '').replace(/\s+/g, ' ').trim();
+      }
+      // Pass 1: prefer an EXACT heading match (avoids grabbing the longer article title,
+      // which can contain a section heading as a substring and pull graphics to the top).
+      for (var j1 = 0; j1 < h2s.length; j1++) {
+        if (texts[j1] && texts[j1] === after) { target = h2s[j1]; break; }
+      }
+      // Pass 2: fall back to a substring match, tolerant of display-time normalization.
+      if (!target) {
+        for (var j2 = 0; j2 < h2s.length; j2++) {
+          if (!texts[j2]) continue;
+          if (texts[j2].indexOf(after) > -1 || (after.length > 12 && after.indexOf(texts[j2]) > -1)) { target = h2s[j2]; break; }
+        }
       }
       if (!target) continue; // anchor heading not found -> skip rather than misplace the graphic
       var div = document.createElement('div');
