@@ -1422,7 +1422,7 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === FAST GROWING TREES AFFILIATE CALLOUT (2026-06-18) ===
-// Contextual affiliate card on fruit-tree / citrus / berry articles.
+// Contextual affiliate card on fruit-tree / avocado / berry articles (citrus excluded).
 // Adrienne is a genuine Fast Growing Trees customer (AH's own fruit trees and
 // tropical pond plants). Code-based program: the link carries reader code
 // FGTAMBITIOUS20 plus referral attribution (resolves to FGT's ambassador page).
@@ -1433,7 +1433,10 @@ function ahIsFlockArticle(slug) {
   setTimeout(function () {
     var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
     if (slug.indexOf('tomato') !== -1) return; // cherry-tomato etc. are not FGT
-    var FRUIT = /bare-root|grafted|own-root|fruit-tree|stone-fruit|citrus|meyer|lemon|orange|mandarin|tangerine|grapefruit|kumquat|avocado|apple|peach|nectarine|plum|pear|fig|apricot|cherry|persimmon|pomegranate|mulberry|blueberr|raspberr|blackberr|strawberr|elderberr/;
+    // citrus terms (lemon/orange/mandarin/etc.) intentionally EXCLUDED: FGT cannot
+    // ship citrus to California (state citrus quarantine), so a citrus FGT link is a
+    // dead end for our CA audience. Avocado/deciduous/fig/berries ship to CA fine.
+    var FRUIT = /bare-root|grafted|own-root|fruit-tree|stone-fruit|avocado|apple|peach|nectarine|plum|pear|fig|apricot|cherry|persimmon|pomegranate|mulberry|blueberr|raspberr|blackberr|strawberr|elderberr/;
     if (!FRUIT.test(slug)) return;
     if (document.querySelector('.ah-fgt-callout')) return;
 
@@ -1474,10 +1477,15 @@ function ahIsFlockArticle(slug) {
 (function () {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+  // No citrus articles here: FGT can't ship citrus to California.
   var MAP = {
     'bare-root-vs-container-fruit-trees': 'missed the bare-root season',
     'grafted-vs-own-root-fruit-trees': 'grafted trees',
-    'meyer-lemon-vs-eureka-lemon': 'Improved Meyer Lemon'
+    'best-avocado-varieties-santa-cruz': 'avocado tree',
+    'growing-avocados-santa-cruz': 'avocado tree',
+    'growing-avocados-containers-california': 'avocado tree',
+    'fire-resistant-fruit-trees-for-santa-cruz-gardens': 'fruit trees',
+    'garden-myth-cant-grow-blueberries-california': 'blueberries'
   };
   setTimeout(function () {
     var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
