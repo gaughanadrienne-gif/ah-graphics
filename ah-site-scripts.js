@@ -2705,14 +2705,24 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === MOBILE SPACING QC (2026-06-18) ===
-// Squarespace fluid-engine grids reserve fixed-height rows from the desktop layout, so on
-// phones short blocks (footer links, search, CTAs) leave large dead space and pages read
-// as half-empty. Collapse fluid-engine blocks to their content height on mobile so sections
-// and the footer tighten up. Verified safe across home / about / contact / store at 390px.
+// Two TARGETED phone fixes. (A first attempt collapsed every fluid-engine globally, which
+// was too broad -- it shrank in-body images and the home hero -- so this is scoped.)
+//   1. Footer: its fluid-engine kept desktop fixed-row heights, leaving the lower links
+//      (search, Terms, Privacy, copyright) spread across ~1500px of dead space. Collapse
+//      footer blocks to content height. The footer is links/text only, so nothing shrinks.
+//   2. Home hero: on mobile its content overflowed the fixed section height and clipped the
+//      two CTA buttons. Let the hero content flow and give the section a tall min-height so
+//      the background image keeps presence AND both buttons fit. Scoped to body.homepage so
+//      other pages' first sections (simple title bands) are untouched.
+// Content sections are intentionally NOT collapsed -- doing so shrank in-body images (e.g.
+// the About portrait), which matters more than trimming a little section whitespace.
 (function () {
   var css = '@media (max-width: 767px){'
-    + '.fluid-engine{ grid-template-rows: auto !important; row-gap: 10px !important; }'
-    + '.fluid-engine > .fe-block{ grid-row: auto !important; min-height: 0 !important; }'
+    + 'footer .fluid-engine{ grid-template-rows: auto !important; row-gap: 6px !important; }'
+    + 'footer .fluid-engine > .fe-block{ grid-row: auto !important; min-height: 0 !important; }'
+    + 'body.homepage #sections > .page-section:first-child{ min-height: 86vh !important; height: auto !important; }'
+    + 'body.homepage #sections > .page-section:first-child .fluid-engine{ grid-template-rows: auto !important; }'
+    + 'body.homepage #sections > .page-section:first-child .fluid-engine > .fe-block{ grid-row: auto !important; min-height: 0 !important; }'
     + '}';
   var st = document.createElement('style');
   st.id = 'ah-mobile-qc';
