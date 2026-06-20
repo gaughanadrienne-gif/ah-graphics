@@ -2703,3 +2703,19 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 400); });
   else setTimeout(run, 400);
 })();
+
+// === MOBILE SPACING QC (2026-06-18) ===
+// Squarespace fluid-engine grids reserve fixed-height rows from the desktop layout, so on
+// phones short blocks (footer links, search, CTAs) leave large dead space and pages read
+// as half-empty. Collapse fluid-engine blocks to their content height on mobile so sections
+// and the footer tighten up. Verified safe across home / about / contact / store at 390px.
+(function () {
+  var css = '@media (max-width: 767px){'
+    + '.fluid-engine{ grid-template-rows: auto !important; row-gap: 10px !important; }'
+    + '.fluid-engine > .fe-block{ grid-row: auto !important; min-height: 0 !important; }'
+    + '}';
+  var st = document.createElement('style');
+  st.id = 'ah-mobile-qc';
+  st.textContent = css;
+  (document.head || document.documentElement).appendChild(st);
+})();
