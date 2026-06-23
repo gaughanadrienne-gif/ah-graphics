@@ -2635,7 +2635,7 @@ function ahIsFlockArticle(slug) {
 // accent, the "Last updated" line as a muted subtitle, give the body a readable
 // size/measure, and tint links marigold. Keeps the existing dark theme. Reversible.
 (function () {
-  var PATHS = ['/terms-of-use', '/privacy-policy', '/disclosure'];
+  var PATHS = ['/terms-of-use', '/privacy-policy', '/disclosure', '/refund-policy'];
   function onPage() {
     return PATHS.indexOf(location.pathname.replace(/\/$/, '')) >= 0 && document.querySelector('#sections .sqs-html-content');
   }
