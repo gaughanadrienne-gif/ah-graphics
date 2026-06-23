@@ -1943,6 +1943,30 @@ function ahIsFlockArticle(slug) {
     var st = document.createElement('style'); st.id = 'ah-enh-style'; st.textContent = css;
     document.head.appendChild(st);
 
+    // Shared related-cards renderer (used by Keep Reading + the hand-pick path).
+    // links = [{title, url}]; appends an ah-relwrap (heading + 3 cards) to container.
+    window.ahRenderRelatedCards = function (container, links, label) {
+      if (!links || !links.length || !container) return;
+      var wrap = document.createElement('div'); wrap.className = 'ah-relwrap';
+      var hh = document.createElement('h2'); hh.className = 'ah-keep'; hh.textContent = label || 'Keep Reading';
+      var grid = document.createElement('div'); grid.className = 'ah-rel';
+      wrap.appendChild(hh); wrap.appendChild(grid); container.appendChild(wrap);
+      var leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="#1A3B2A" stroke-width="1.4"><path d="M12 2C7 5 4 9 4 14a8 8 0 0016 0c0-5-3-9-8-12z"/><path d="M12 5v13"/></svg>';
+      var drop = function (c) { if (c.parentNode) c.parentNode.removeChild(c); if (!grid.children.length && wrap.parentNode) wrap.parentNode.removeChild(wrap); };
+      links.slice(0, 3).forEach(function (l) {
+        if (!l || !l.url) return;
+        var c = document.createElement('a'); c.href = l.url;
+        c.innerHTML = '<div class="ph">' + leaf + '</div><div class="b"><h5>' + l.title + '</h5></div>';
+        grid.appendChild(c);
+        fetch(l.url).then(function (r) { if (!r.ok) { drop(c); return null; } return r.text(); })
+          .then(function (t) {
+            if (!t) return;
+            var m = t.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+            if (m && !/AHC|logo/i.test(m[1])) c.querySelector('.ph').innerHTML = '<img src="' + m[1].replace(/^http:/, 'https:').split('?')[0] + '?format=600w" alt="">';
+          }).catch(function () { drop(c); });
+      });
+    };
+
     var root = document.querySelector('.blog-item-content');
     var h2s = [].slice.call(root.querySelectorAll('h2'));
     var find = function (re) { for (var j = 0; j < h2s.length; j++) if (re.test(h2s[j].textContent)) return h2s[j]; return null; };
