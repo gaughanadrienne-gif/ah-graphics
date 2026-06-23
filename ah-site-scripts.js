@@ -1594,7 +1594,7 @@ function ahIsFlockArticle(slug) {
 // === BERRY CHEAT SHEET — INLINE EMAIL CAPTURE (2026-06-22) ===
 // Offers the free lead magnet "The California Berry Growing Cheat Sheet" (PDF)
 // on berry articles. Subscribes to MailerLite group "Lead Magnet: Berry Cheat
-// Sheet" via embedded form 191025992190395411 (account 1974108, double opt-in).
+// Sheet" via embedded form 191027595236607473 (account 1974108, double opt-in).
 // Same verified fetch/no-cors mechanism as the live toolkit form. Delivery is
 // handled by the "Deliver: Berry Cheat Sheet" automation. Inserts before the FAQ
 // (or last non-FAQ H2) so it never collides with the FGT card at H2 #2.
@@ -1613,7 +1613,7 @@ function ahIsFlockArticle(slug) {
                document.querySelector('.entry-content');
     if (!body) return;
 
-    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/191025992190395411/subscribe';
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/191027595236607473/subscribe';
     var box = document.createElement('aside');
     box.className = 'ah-berry-optin';
     box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
@@ -1675,15 +1675,15 @@ function ahIsFlockArticle(slug) {
   if (location.pathname.indexOf('/learn/category/') === 0) return;
   var MAGNETS = [
     { re: /pepper|jalapeno|serrano|habanero|shishito|padron|poblano|cayenne|anaheim|capsicum/,
-      form: '191027594340074741',
+      form: '191102223840707604',
       title: 'The California Pepper Growing Cheat Sheet',
       blurb: 'A free one-page quick reference for growing sweet and hot peppers in coastal California, from variety picks to timing and harvest. Enter your email and I will send the PDF straight to your inbox.' },
     { re: /\bnative|drought|water-wise|low-water|ceanothus|manzanita|\btoyon|california-lilac|california-poppy|buckwheat|hummingbird-sage|xeriscape/,
-      form: '191027595236607473',
+      form: '191102305832011313',
       title: 'The California Native & Drought-Tolerant Plant Cheat Sheet',
       blurb: 'A free one-page quick reference for choosing and growing California native and low-water plants on the Central Coast. Enter your email and I will send the PDF straight to your inbox.' },
     { re: /seed-starting|starting-seeds|start-seeds|seeds-indoors|direct-sow|start-from-seed|seed-start|winter-sow|germinat|seedling|damping-off/,
-      form: '191027595800741415',
+      form: '191102468073981272',
       title: 'The California Seed Starting Cheat Sheet',
       blurb: 'A free one-page quick reference for starting seeds in coastal California: what to start and when, plus light, warmth, and hardening off. Enter your email and I will send the PDF straight to your inbox.' }
   ];
