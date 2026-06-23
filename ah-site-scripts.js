@@ -2916,14 +2916,17 @@ function ahIsFlockArticle(slug) {
   (document.head || document.documentElement).appendChild(st);
 })();
 
-// === FOOTER: REFUND POLICY LINK (2026-06-23) ===
+// === FOOTER: LEGAL LINKS (Refund Policy + Disclosure) (2026-06-23) ===
 // The footer's Terms of Use + Privacy Policy links are native Squarespace
-// collection-link blocks. Add a matching "Refund Policy" link directly beneath
-// "Privacy Policy" by cloning its styled markup (so it inherits the exact look
-// without touching the fluid-engine grid). Idempotent + reversible.
+// collection-link blocks. Add matching "Refund Policy" and "Disclosure" links
+// beneath "Privacy Policy" by cloning its styled markup (so they inherit the
+// exact look without touching the fluid-engine grid). Rendered order in the
+// legal group becomes: Privacy Policy, Refund Policy, Disclosure, Terms of Use.
+// Idempotent + reversible.
 (function () {
-  function addLink() {
-    if (document.getElementById('ah-refund-footer-link')) return true;
+  function addLinks() {
+    // Already done once both are present.
+    if (document.getElementById('ah-refund-footer-link') && document.getElementById('ah-disclosure-footer-link')) return true;
     var links = [].slice.call(document.querySelectorAll('#footer-sections a, footer a'));
     var pp = null;
     links.forEach(function (a) { if (/privacy policy/i.test(a.textContent)) pp = a; });
@@ -2931,19 +2934,24 @@ function ahIsFlockArticle(slug) {
     var titleDiv = pp.closest('.collectionlink-title');
     var contentDiv = pp.closest('.collectionlink-content');
     if (!titleDiv || !contentDiv) return false;
-    var clone = titleDiv.cloneNode(true);
-    var a = clone.querySelector('a');
-    if (!a) return false;
-    a.textContent = 'Refund Policy';
-    a.setAttribute('href', '/refund-policy');
-    a.id = 'ah-refund-footer-link';
-    contentDiv.appendChild(clone);
+    function add(label, href, id) {
+      if (document.getElementById(id)) return;
+      var clone = titleDiv.cloneNode(true);
+      var a = clone.querySelector('a');
+      if (!a) return;
+      a.textContent = label;
+      a.setAttribute('href', href);
+      a.id = id;
+      contentDiv.appendChild(clone);
+    }
+    add('Refund Policy', '/refund-policy', 'ah-refund-footer-link');
+    add('Disclosure', '/disclosure', 'ah-disclosure-footer-link');
     return true;
   }
   function boot() {
-    if (addLink()) return;
+    if (addLinks()) return;
     var n = 0;
-    var iv = setInterval(function () { if (addLink() || ++n > 20) clearInterval(iv); }, 500);
+    var iv = setInterval(function () { if (addLinks() || ++n > 20) clearInterval(iv); }, 500);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
