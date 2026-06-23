@@ -1750,6 +1750,58 @@ function ahIsFlockArticle(slug) {
   }, 1700);
 })();
 
+// === PROMO BOX DE-STACK (2026-06-23) ===
+// Several promo boxes are each inserted by their own block: the FGT affiliate
+// card (before the 2nd H2), the contextual product callout, the flock-tool
+// callout, the tomato-quiz callout, and the lead-magnet email-capture boxes (all
+// before the FAQ). On long articles those land far apart, but on SHORT articles
+// (few headings, or no FAQ heading) two targets collapse onto the same / adjacent
+// heading and the boxes render stacked. This pass runs after the others and, for
+// any two promo boxes with no real content between them, keeps the higher-value
+// one and removes the other (so they are either separated or, on a too-short
+// article, a single box). Runs twice to catch late insertions. Fully reversible.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  // Lower index = lower value = dropped first when two boxes collide.
+  var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin'];
+  var SEL = '.' + PRIORITY.join(', .');
+  function rank(el) { for (var i = 0; i < PRIORITY.length; i++) { if (el.classList.contains(PRIORITY[i])) return i; } return -1; }
+
+  // Real readable content (paragraphs, lists, figures, tables, long text) between
+  // two same-parent boxes? Headings alone do not count as separation.
+  function contentBetween(a, b) {
+    var n = a.nextElementSibling, txt = 0, guard = 0;
+    while (n && n !== b && guard < 500) {
+      guard++;
+      if (!(n.matches && n.matches(SEL))) {
+        if (/^(P|UL|OL|FIGURE|TABLE|BLOCKQUOTE)$/.test(n.tagName)) txt += ((n.textContent || '').trim().length || 30);
+        else txt += (n.textContent || '').trim().length;
+      }
+      n = n.nextElementSibling;
+    }
+    return txt > 60;
+  }
+
+  function dedupe() {
+    var boxes = [].slice.call(document.querySelectorAll(SEL));
+    if (boxes.length < 2) return;
+    boxes.sort(function (x, y) { return (x.compareDocumentPosition(y) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1; });
+    for (var i = 1; i < boxes.length; i++) {
+      var prev = boxes[i - 1], cur = boxes[i];
+      if (!prev.isConnected || !cur.isConnected) continue;
+      if (prev.parentElement !== cur.parentElement) continue;   // only de-stack within one container
+      if (contentBetween(prev, cur)) continue;                  // genuinely separated -> keep both
+      var loser = rank(prev) <= rank(cur) ? prev : cur;
+      if (loser.parentNode) loser.parentNode.removeChild(loser);
+      boxes.splice(boxes.indexOf(loser), 1);
+      i = 0;                                                    // rescan from the top after a removal
+    }
+  }
+  setTimeout(dedupe, 2300);
+  setTimeout(dedupe, 3800);
+})();
+
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
 // Redesign of the article reading experience on every /learn/ article. Adds an
 // "In this guide" jump box, marigold H2 accents, normalized section headers, an
