@@ -105,8 +105,7 @@ def compute_related(articles):
 
 if __name__ == "__main__":
     arts = fetch_articles()
+    assert len(arts) > 100, "too few articles -- check pagination"
     rel = compute_related(arts)
-    for s in ["grow-blackberries-containers", "garden-highlight-california-poppy",
-              "blackberry-growth-stages", "grow-manzano-peppers-santa-cruz"]:
-        if s in rel:
-            print(s, "->", [p["title"] for p in rel[s]])
+    json.dump(rel, open("related-manifest.json", "w", encoding="utf-8"), ensure_ascii=False)
+    print("wrote related-manifest.json with", len(rel), "slugs")
