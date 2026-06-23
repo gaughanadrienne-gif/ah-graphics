@@ -1591,6 +1591,79 @@ function ahIsFlockArticle(slug) {
   }, 1800);
 })();
 
+// === BERRY CHEAT SHEET — INLINE EMAIL CAPTURE (2026-06-22) ===
+// Offers the free lead magnet "The California Berry Growing Cheat Sheet" (PDF)
+// on berry articles. Subscribes to MailerLite group "Lead Magnet: Berry Cheat
+// Sheet" via embedded form 191025992190395411 (account 1974108, double opt-in).
+// Same verified fetch/no-cors mechanism as the live toolkit form. Delivery is
+// handled by the "Deliver: Berry Cheat Sheet" automation. Inserts before the FAQ
+// (or last non-FAQ H2) so it never collides with the FGT card at H2 #2.
+// Fully reversible: remove this whole block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  var BERRY = /strawberr|blueberr|blackberr|raspberr|mulberr|olallieberr|boysenberr/;
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (!BERRY.test(slug)) return;
+    if (document.querySelector('.ah-berry-optin')) return;
+
+    var body = document.querySelector('.blog-item-content-wrapper') ||
+               document.querySelector('[data-content-field="body"]') ||
+               document.querySelector('.entry-content');
+    if (!body) return;
+
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/191025992190395411/subscribe';
+    var box = document.createElement('aside');
+    box.className = 'ah-berry-optin';
+    box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Berry Growing Cheat Sheet</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">A free one-page quick reference for growing strawberries, blueberries, blackberries, raspberries, and mulberries in coastal California. Enter your email and I will send the PDF straight to your inbox.</p>' +
+      '<form class="ah-berry-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
+      '</form>' +
+      '<div class="ah-berry-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>';
+
+    var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
+    for (var i = 0; i < h2s.length; i++) {
+      var t = h2s[i].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; }
+      else lastNon = h2s[i];
+    }
+    if (faqH) faqH.parentNode.insertBefore(box, faqH);
+    else if (lastNon) lastNon.parentNode.insertBefore(box, lastNon);
+    else body.appendChild(box);
+
+    var form = box.querySelector('.ah-berry-form');
+    var msg = box.querySelector('.ah-berry-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button');
+      var input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) {
+        msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
+      }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          box.innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your California Berry Growing Cheat Sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () {
+          msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.';
+          btn.textContent = 'Send me the cheat sheet'; btn.disabled = false;
+        });
+    });
+  }, 1700);
+})();
+
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
 // Redesign of the article reading experience on every /learn/ article. Adds an
 // "In this guide" jump box, marigold H2 accents, normalized section headers, an
