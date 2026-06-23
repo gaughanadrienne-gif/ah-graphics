@@ -2888,3 +2888,30 @@ function ahIsFlockArticle(slug) {
   st.textContent = css;
   (document.head || document.documentElement).appendChild(st);
 })();
+
+// === HOME "LATEST FROM THE GARDEN" GAP FIX (2026-06-23) ===
+// The homepage summary block ("Latest from the Garden") lives in a fluid-engine
+// grid whose cell was sized for far more / taller content than it now shows (8
+// compact post cards, ~660px), while the "View All" button is pinned to grid row
+// 119. With 121 explicit ~30px rows the section rendered ~3,770px tall, leaving a
+// ~2,400px empty band between the last post and the footer. We collapse it on
+// DESKTOP by shrinking the grid to content-sized rows and pulling the summary +
+// button up directly beneath the heading. Scoped to this one section id (which
+// exists only on the homepage) and to >=768px so the separate mobile fluid grid
+// is left alone (see MOBILE SPACING QC above). minmax(8px,auto) keeps the
+// content-bearing rows free to grow, so longer post titles never clip. Verified
+// live: section 3,768px -> 1,005px, no overlap, no clipping. Fully reversible:
+// remove this block.
+(function () {
+  var SEC = '[data-section-id="6416251a82bfa26c010c2d53"]';
+  var css = '@media (min-width:768px){'
+    + SEC + ' .fluid-engine{ grid-template-rows: repeat(34, minmax(8px,auto)) !important; }'
+    + SEC + ' .fe-block:has(.sqs-block-summary-v2){ grid-row: 8 / 31 !important; }'
+    + SEC + ' .fe-block:has(.sqs-block-button-container),'
+    + SEC + ' .fe-block:has(.sqs-block-button){ grid-row: 31 / 34 !important; }'
+    + '}';
+  var st = document.createElement('style');
+  st.id = 'ah-home-latest-gap';
+  st.textContent = css;
+  (document.head || document.documentElement).appendChild(st);
+})();
