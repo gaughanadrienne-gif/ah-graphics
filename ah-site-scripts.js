@@ -2011,41 +2011,27 @@ function ahIsFlockArticle(slug) {
       if (ul && ul.tagName === 'UL') lead.appendChild(ul);
     }
 
+    // Hand-picked "Related Articles" section: collect its /learn links onto
+    // window.ahHandPicked and HIDE the mid-body section. The Keep Reading module
+    // (end of file) renders these as cards at the very end -> no duplicates, and
+    // curated picks are honored over the auto manifest.
     if (rel) {
-      var links = [], n = rel.nextElementSibling, g = 0;
+      var hp = [], sibs = [], n = rel.nextElementSibling, g = 0;
       while (n && g < 8) {
-        if (n.querySelectorAll) [].slice.call(n.querySelectorAll('a')).forEach(function (a) { links.push(a); });
-        if (n.tagName === 'A') links.push(n);
+        var found = false;
+        if (n.querySelectorAll) [].slice.call(n.querySelectorAll('a')).forEach(function (a) {
+          if (/\/learn\//.test(a.getAttribute('href') || '')) { hp.push(a); found = true; }
+        });
+        if (n.tagName === 'A' && /\/learn\//.test(n.getAttribute('href') || '')) { hp.push(n); found = true; }
+        if (found) sibs.push(n);
+        if (/^H[1-3]$/.test(n.tagName)) break;  // do not swallow the next section
         n = n.nextElementSibling; g++;
       }
-      links = links.filter(function (a) { return /\/learn\//.test(a.getAttribute('href') || ''); }).slice(0, 3);
-      if (links.length) {
-        var wrap = document.createElement('div'); wrap.className = 'ah-relwrap';
-        var grid = document.createElement('div'); grid.className = 'ah-rel';
-        rel.classList.add('ah-keep');
-        rel.parentElement.insertBefore(wrap, rel); wrap.appendChild(rel); wrap.appendChild(grid);
-        var leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="#1A3B2A" stroke-width="1.4"><path d="M12 2C7 5 4 9 4 14a8 8 0 0016 0c0-5-3-9-8-12z"/><path d="M12 5v13"/></svg>';
-        var dropCard = function (c) { if (c.parentNode) c.parentNode.removeChild(c); if (!grid.children.length && wrap.parentNode) wrap.parentNode.removeChild(wrap); };
-        links.forEach(function (a) {
-          var href = a.getAttribute('href'), title = a.textContent.trim();
-          var c = document.createElement('a'); c.href = href;
-          c.innerHTML = '<div class="ph">' + leaf + '</div><div class="b"><h5>' + title + '</h5></div>';
-          grid.appendChild(c); a.style.display = 'none';
-          // Validate the link: a broken (404) related link is dropped so we never
-          // render a dead card. Otherwise pull the article's og:image for the thumb.
-          fetch(href).then(function (r) {
-            if (!r.ok) { dropCard(c); return null; }
-            return r.text();
-          }).then(function (t) {
-            if (!t) return;
-            var m = t.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
-            if (m && !/AHC|logo/i.test(m[1])) {
-              c.querySelector('.ph').innerHTML = '<img src="' + m[1].replace(/^http:/, 'https:').split('?')[0] + '?format=600w" alt="">';
-            }
-          }).catch(function () { dropCard(c); });
-        });
-        var lc = links[0].closest('ul'); if (lc) lc.style.display = 'none';
-      }
+      window.ahHandPicked = hp.slice(0, 3).map(function (a) {
+        return { title: a.textContent.trim(), url: a.getAttribute('href') };
+      });
+      rel.style.display = 'none';
+      sibs.forEach(function (s) { s.style.display = 'none'; });
     }
   }
   function boot() {
@@ -3085,6 +3071,39 @@ function ahIsFlockArticle(slug) {
     if (run()) return;
     var n = 0;
     var iv = setInterval(function () { if (run() || ++n > 20) clearInterval(iv); }, 500);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === KEEP READING — related guides at the end of every /learn article (2026-06-23) ===
+// Appends 3 related-guide cards (ahRenderRelatedCards) as the LAST element of the
+// article. Honors a hand-picked section (window.ahHandPicked, set by the article-
+// enhancement IIFE) over the auto manifest. Staged via ALLOW; set ALLOW=null for site-wide.
+(function () {
+  var MANIFEST = 'https://gaughanadrienne-gif.github.io/ah-graphics/related-manifest.json';
+  var ALLOW = ['grow-blackberries-containers', 'garden-highlight-california-poppy', 'blackberry-growth-stages', 'asparagus-growth-stages', 'best-mulberry-varieties-santa-cruz'];
+  function slug() { return location.pathname.replace(/\/$/, '').split('/').pop(); }
+  function onArt() { return /^\/learn\//.test(location.pathname) && document.querySelector('.blog-item-content'); }
+  function ready() { return onArt() && window.ahRenderRelatedCards; }
+  function go() {
+    if (document.getElementById('ah-keepreading')) return true;
+    if (ALLOW && ALLOW.indexOf(slug()) < 0) return true;
+    if (!ready()) return false;
+    var root = document.querySelector('.blog-item-content');
+    var marker = document.createElement('span'); marker.id = 'ah-keepreading'; marker.style.display = 'none'; root.appendChild(marker);
+    function render(links) { if (links && links.length) window.ahRenderRelatedCards(root, links, 'Keep Reading'); }
+    if (window.ahHandPicked && window.ahHandPicked.length) { render(window.ahHandPicked); return true; }
+    fetch(MANIFEST).then(function (r) { return r.json(); }).then(function (d) { render(d[slug()]); }).catch(function () {});
+    return true;
+  }
+  function boot() {
+    var t = 0;
+    var iv = setInterval(function () {
+      t++;
+      if (t < 3) return;
+      if (go() || t > 60) clearInterval(iv);
+    }, 300);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
