@@ -1682,7 +1682,7 @@ function ahIsFlockArticle(slug) {
       form: '191027595236607473',
       title: 'The California Native & Drought-Tolerant Plant Cheat Sheet',
       blurb: 'A free one-page quick reference for choosing and growing California native and low-water plants on the Central Coast. Enter your email and I will send the PDF straight to your inbox.' },
-    { re: /seed-starting|starting-seeds|start-from-seed|seed-start|winter-sow|germinat|seedling|damping-off/,
+    { re: /seed-starting|starting-seeds|start-seeds|seeds-indoors|direct-sow|start-from-seed|seed-start|winter-sow|germinat|seedling|damping-off/,
       form: '191027595800741415',
       title: 'The California Seed Starting Cheat Sheet',
       blurb: 'A free one-page quick reference for starting seeds in coastal California: what to start and when, plus light, warmth, and hardening off. Enter your email and I will send the PDF straight to your inbox.' }
