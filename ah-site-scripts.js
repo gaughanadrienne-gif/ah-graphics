@@ -2252,7 +2252,7 @@ function ahIsFlockArticle(slug) {
       '<a href="https://www.pinterest.com/AmbitiousHarvest" aria-label="Pinterest">' + pin + '</a>' +
       '<a href="https://www.facebook.com/AmbitiousHarvest/" aria-label="Facebook">' + fb + '</a>' +
       '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
-      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a><a href="/disclosure">Disclosure</a></div>' +
+      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a></div>' +
       '<div><h4>Grow with the seasons</h4><p>Get the free Santa Cruz planting calendar, plus seasonal reminders and new guides.</p><a class="ah-fe-btn" href="/your-garden-toolkit">Get the free calendar →</a></div>';
     foot.insertBefore(band, foot.firstChild);
   }
@@ -2924,16 +2924,23 @@ function ahIsFlockArticle(slug) {
 // legal group becomes: Privacy Policy, Refund Policy, Disclosure, Terms of Use.
 // Idempotent + reversible.
 (function () {
-  function addLinks() {
-    // Already done once both are present.
-    if (document.getElementById('ah-refund-footer-link') && document.getElementById('ah-disclosure-footer-link')) return true;
+  function done() {
+    return document.getElementById('ah-refund-footer-link') &&
+           document.getElementById('ah-disclosure-footer-link') &&
+           document.querySelector('[data-ah-terms-moved]');
+  }
+  function run() {
+    if (done()) return true;
     var links = [].slice.call(document.querySelectorAll('#footer-sections a, footer a'));
-    var pp = null;
-    links.forEach(function (a) { if (/privacy policy/i.test(a.textContent)) pp = a; });
+    var pp = null, terms = null;
+    links.forEach(function (a) {
+      if (/privacy policy/i.test(a.textContent)) pp = a;
+      if (/terms of use/i.test(a.textContent)) terms = a;
+    });
     if (!pp) return false;
     var titleDiv = pp.closest('.collectionlink-title');
-    var contentDiv = pp.closest('.collectionlink-content');
-    if (!titleDiv || !contentDiv) return false;
+    var host = pp.closest('.collectionlink-content');
+    if (!titleDiv || !host) return false;
     function add(label, href, id) {
       if (document.getElementById(id)) return;
       var clone = titleDiv.cloneNode(true);
@@ -2942,16 +2949,29 @@ function ahIsFlockArticle(slug) {
       a.textContent = label;
       a.setAttribute('href', href);
       a.id = id;
-      contentDiv.appendChild(clone);
+      host.appendChild(clone);
     }
     add('Refund Policy', '/refund-policy', 'ah-refund-footer-link');
     add('Disclosure', '/disclosure', 'ah-disclosure-footer-link');
-    return true;
+    // Consolidate Terms of Use into the same block so all four legal links sit as
+    // evenly-spaced siblings (removes the larger inter-block gap before Terms),
+    // then hide its now-empty original fluid-engine cell. Order: Privacy, Refund,
+    // Disclosure, Terms.
+    if (terms && !document.querySelector('[data-ah-terms-moved]')) {
+      var termsTitle = terms.closest('.collectionlink-title');
+      var termsFe = terms.closest('.fe-block');
+      if (termsTitle && host !== terms.closest('.collectionlink-content')) {
+        termsTitle.setAttribute('data-ah-terms-moved', '1');
+        host.appendChild(termsTitle);
+        if (termsFe) termsFe.style.display = 'none';
+      }
+    }
+    return done();
   }
   function boot() {
-    if (addLinks()) return;
+    if (run()) return;
     var n = 0;
-    var iv = setInterval(function () { if (addLinks() || ++n > 20) clearInterval(iv); }, 500);
+    var iv = setInterval(function () { if (run() || ++n > 20) clearInterval(iv); }, 500);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
