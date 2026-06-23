@@ -1095,10 +1095,26 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   function renderAndHeal() {
+    dedupeGids();                   // collapse accidental duplicate placeholders for one graphic
     renderPlaceholders();           // fill placeholders that survived
     selfHeal();                     // re-inject any the editor stripped
     renderPlaceholders();           // fill the freshly re-injected ones
+    dedupeGids();                   // drop any duplicate re-introduced along the way
     redistributeStacked();          // spread out any graphics stored stacked together
+  }
+
+  // Some article bodies accidentally contain the SAME graphic placeholder several
+  // times (a paste or build slip). The duplicates render the same graphic over and
+  // over or leave empty divs, and they stack into a block. Keep the first occurrence
+  // of each gid and remove the rest, so every graphic appears exactly once.
+  function dedupeGids() {
+    var seen = {}, els = document.querySelectorAll('.ah-graphic[data-graphic]');
+    for (var i = 0; i < els.length; i++) {
+      var id = els[i].getAttribute('data-graphic');
+      if (!id) continue;
+      if (seen[id]) { if (els[i].parentNode) els[i].parentNode.removeChild(els[i]); }
+      else seen[id] = true;
+    }
   }
 
   // Some older articles have several graphic placeholders stored stacked together (all
