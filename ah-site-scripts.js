@@ -1096,11 +1096,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function renderAndHeal() {
     dedupeGids();                   // collapse accidental duplicate placeholders for one graphic
+    removeRebuiltOrphans();         // on consolidated articles, drop superseded fragment placeholders
     renderPlaceholders();           // fill placeholders that survived
     selfHeal();                     // re-inject any the editor stripped
     renderPlaceholders();           // fill the freshly re-injected ones
     dedupeGids();                   // drop any duplicate re-introduced along the way
     redistributeStacked();          // spread out any graphics stored stacked together
+  }
+
+  // For articles whose graphics we have CONSOLIDATED (many fragmented placeholders
+  // merged into a few composite cards), the stored body still holds the OLD fragment
+  // placeholders. Once the manifest is repointed to the new merged gids, anything in
+  // the body that is NOT in the manifest for this slug is a superseded fragment, so
+  // remove it and let selfHeal inject the clean cards. Scoped to an allowlist so it
+  // can never strip a legitimate graphic on any other article.
+  function removeRebuiltOrphans() {
+    var REBUILT = { 'olallieberry-troubleshooting-guide': 1 };
+    if (!REBUILT[slug]) return;
+    var spec = window._ahManifest && window._ahManifest[slug];
+    if (!spec || !spec.length) return;
+    var keep = {};
+    for (var i = 0; i < spec.length; i++) keep[spec[i].gid] = 1;
+    var els = document.querySelectorAll('.ah-graphic[data-graphic]');
+    for (var j = 0; j < els.length; j++) {
+      var id = els[j].getAttribute('data-graphic');
+      if (id && !keep[id] && els[j].parentNode) els[j].parentNode.removeChild(els[j]);
+    }
   }
 
   // Some article bodies accidentally contain the SAME graphic placeholder several
