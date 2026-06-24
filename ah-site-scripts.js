@@ -2011,28 +2011,20 @@ function ahIsFlockArticle(slug) {
       if (ul && ul.tagName === 'UL') lead.appendChild(ul);
     }
 
-    // Hand-picked "Related Articles" section: collect its /learn links onto
-    // window.ahHandPicked and HIDE the mid-body section. The Keep Reading module
-    // (end of file) renders these as cards at the very end -> no duplicates, and
-    // curated picks are honored over the auto manifest.
-    if (rel) {
-      var hp = [], sibs = [], n = rel.nextElementSibling, g = 0;
-      while (n && g < 8) {
-        var found = false;
-        if (n.querySelectorAll) [].slice.call(n.querySelectorAll('a')).forEach(function (a) {
-          if (/\/learn\//.test(a.getAttribute('href') || '')) { hp.push(a); found = true; }
-        });
-        if (n.tagName === 'A' && /\/learn\//.test(n.getAttribute('href') || '')) { hp.push(n); found = true; }
-        if (found) sibs.push(n);
-        if (/^H[1-3]$/.test(n.tagName)) break;  // do not swallow the next section
-        n = n.nextElementSibling; g++;
+    // Remove any legacy "Related Articles" section (an H2/H3/H4 heading OR a
+    // "Related Articles:" paragraph + its following link list), in any format.
+    // The Keep Reading module (end of file) replaces it with the auto cards.
+    // Anchored ^ so an incidental mention of "related articles" in prose is safe.
+    [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
+      if (!/^\s*related articles\b/i.test(el.textContent || '')) return;
+      if (el.querySelectorAll('a[href*="/learn/"]').length > 1) { el.style.display = 'none'; return; }
+      el.style.display = 'none';
+      var nx = el.nextElementSibling;
+      if (nx && (nx.tagName === 'UL' || nx.tagName === 'OL' ||
+                 (nx.querySelector && nx.querySelector('a[href*="/learn/"]')))) {
+        nx.style.display = 'none';
       }
-      window.ahHandPicked = hp.slice(0, 3).map(function (a) {
-        return { title: a.textContent.trim(), url: a.getAttribute('href') };
-      });
-      rel.style.display = 'none';
-      sibs.forEach(function (s) { s.style.display = 'none'; });
-    }
+    });
   }
   function boot() {
     if (onArticle()) return init();
@@ -3078,8 +3070,9 @@ function ahIsFlockArticle(slug) {
 
 // === KEEP READING — related guides at the end of every /learn article (2026-06-23) ===
 // Appends 3 related-guide cards (ahRenderRelatedCards) as the LAST element of the
-// article. Honors a hand-picked section (window.ahHandPicked, set by the article-
-// enhancement IIFE) over the auto manifest. Staged via ALLOW; set ALLOW=null for site-wide.
+// article, from the auto manifest. The article-enhancement IIFE removes any legacy
+// "Related Articles" section so these cards are the single related block. Staged via
+// ALLOW; set ALLOW=null for site-wide.
 (function () {
   var MANIFEST = 'https://gaughanadrienne-gif.github.io/ah-graphics/related-manifest.json';
   var ALLOW = ['grow-blackberries-containers', 'garden-highlight-california-poppy', 'blackberry-growth-stages', 'asparagus-growth-stages', 'best-mulberry-varieties-santa-cruz'];
@@ -3093,7 +3086,6 @@ function ahIsFlockArticle(slug) {
     var root = document.querySelector('.blog-item-content');
     var marker = document.createElement('span'); marker.id = 'ah-keepreading'; marker.style.display = 'none'; root.appendChild(marker);
     function render(links) { if (links && links.length) window.ahRenderRelatedCards(root, links, 'Keep Reading'); }
-    if (window.ahHandPicked && window.ahHandPicked.length) { render(window.ahHandPicked); return true; }
     fetch(MANIFEST).then(function (r) { return r.json(); }).then(function (d) { render(d[slug()]); }).catch(function () {});
     return true;
   }
