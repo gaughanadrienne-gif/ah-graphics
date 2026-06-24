@@ -2142,20 +2142,73 @@ function ahIsFlockArticle(slug) {
       if (ul && ul.tagName === 'UL') lead.appendChild(ul);
     }
 
-    // Remove any legacy "Related Articles" section (an H2/H3/H4 heading OR a
-    // "Related Articles:" paragraph + its following link list), in any format.
-    // The Keep Reading module (end of file) replaces it with the auto cards.
-    // Anchored ^ so an incidental mention of "related articles" in prose is safe.
-    [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
-      if (!/^\s*related articles\b/i.test(el.textContent || '')) return;
-      if (el.querySelectorAll('a[href*="/learn/"]').length > 1) { el.style.display = 'none'; return; }
-      el.style.display = 'none';
-      var nx = el.nextElementSibling;
-      if (nx && (nx.tagName === 'UL' || nx.tagName === 'OL' ||
-                 (nx.querySelector && nx.querySelector('a[href*="/learn/"]')))) {
-        nx.style.display = 'none';
+    // Remove any legacy related-links section that duplicates the auto "Keep Reading"
+    // module appended at the end of every article. Covers all stored variants -- "Related
+    // Articles", "Keep Reading", "Related Guides/Reading/Posts", "You might also like",
+    // "Further reading", etc. -- whether a heading (H2/H3/H4) or a "...:" label paragraph.
+    // EXCLUDES the injected module (.ah-relwrap / h2.ah-keep). Hides the heading + its
+    // following content up to the next same-or-higher heading, so a later legitimate
+    // section (e.g. a Free Downloads block) is preserved. Display-only, reversible.
+    function ahHideSection(start) {
+      start.style.display = 'none';
+      var lvl = (/^H([1-6])$/.exec(start.tagName) || [])[1];
+      var n = start.nextElementSibling;
+      while (n) {
+        if (n.id === 'ah-keepreading') break;
+        if (n.classList && (n.classList.contains('ah-relwrap') || n.classList.contains('ah-keep'))) break;
+        if (lvl) {
+          var m = /^H([1-6])$/.exec(n.tagName);
+          if (m && parseInt(m[1], 10) <= parseInt(lvl, 10)) break;            // next section heading
+        } else {
+          var hasLearn = n.querySelector && n.querySelector('a[href*="/learn/"]');
+          if (!(n.tagName === 'UL' || n.tagName === 'OL' || hasLearn)) break;  // paragraph start: link lists only
+        }
+        var nx = n.nextElementSibling; n.style.display = 'none'; n = nx;
       }
+    }
+    var RELRE = /^(keep reading|related (articles|reading|guides|posts|stories|topics)|you might also( like)?|you may also( like)?|more (guides|articles|to read|from)|further reading|recommended (reading|guides|articles)|continue reading|explore more|other (guides|articles)|see also)\b/i;
+    [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
+      if (el.style.display === 'none') return;
+      if (el.closest('.ah-relwrap') || (el.classList && el.classList.contains('ah-keep'))) return;
+      var t = (el.textContent || '').trim();
+      if (!RELRE.test(t)) return;
+      if (/^H[2-4]$/.test(el.tagName)) { if (t.length <= 80) ahHideSection(el); }
+      else if (el.tagName === 'P') { if (/:\s*$/.test(t) || el.querySelector('a[href*="/learn/"]')) ahHideSection(el); }
     });
+
+    // FAQ de-duplication. Some bodies carry two FAQ sections (the styled H2 "Frequently
+    // Asked Questions" plus a stray duplicate as a second H2, an H3, or a bold-paragraph
+    // heading). Keep the first H2 FAQ (canonical + schema-backed) and hide any FAQ section
+    // that comes AFTER it, so mid-article content is never touched. Display-only, reversible.
+    function ahHideFaqDupe(start) {
+      start.style.display = 'none';
+      var n = start.nextElementSibling;
+      while (n) {
+        if (n.id === 'ah-keepreading') break;
+        if (n.classList && (n.classList.contains('ah-relwrap') || n.classList.contains('ah-keep'))) break;
+        if (n.tagName === 'H2') break;                                         // dup FAQ runs to the next section
+        var nx = n.nextElementSibling; n.style.display = 'none'; n = nx;
+      }
+    }
+    var FAQRE = /frequently asked|^\s*faq\b|common questions/i;
+    var faqStarts = [].slice.call(root.querySelectorAll('h2, h3, h4, p')).filter(function (el) {
+      if (el.style.display === 'none' || el.closest('.ah-relwrap')) return false;
+      var t = (el.textContent || '').trim(); if (!t || t.length > 80 || !FAQRE.test(t)) return false;
+      var heading = /^H[2-4]$/.test(el.tagName);
+      var strongP = el.tagName === 'P' && el.firstElementChild && el.firstElementChild.tagName === 'STRONG'
+        && el.firstElementChild.textContent.trim().length >= t.length - 3;
+      return heading || strongP;
+    });
+    if (faqStarts.length > 1) {
+      var canon = null;
+      for (var fi = 0; fi < faqStarts.length; fi++) { if (faqStarts[fi].tagName === 'H2') { canon = faqStarts[fi]; break; } }
+      if (!canon) canon = faqStarts[0];
+      var seenCanon = false;
+      faqStarts.forEach(function (el) {
+        if (el === canon) { seenCanon = true; return; }
+        if (seenCanon) ahHideFaqDupe(el);                                      // only hide FAQs after the canonical
+      });
+    }
   }
   function boot() {
     if (onArticle()) return init();
