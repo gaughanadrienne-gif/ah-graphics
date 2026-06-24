@@ -1111,7 +1111,17 @@ document.addEventListener("DOMContentLoaded", function() {
   // remove it and let selfHeal inject the clean cards. Scoped to an allowlist so it
   // can never strip a legitimate graphic on any other article.
   function removeRebuiltOrphans() {
-    var REBUILT = { 'olallieberry-troubleshooting-guide': 1 };
+    var REBUILT = {
+      'olallieberry-troubleshooting-guide': 1,
+      'raspberry-problems-pests-diseases-and-common-issues': 1,
+      'growing-raspberries-in-containers': 1,
+      'how-to-prune-raspberries-a-step-by-step-guide': 1,
+      'organic-pest-control-santa-cruz': 1,
+      'growing-manzanita-santa-cruz': 1,
+      'grow-herbs-santa-cruz': 1,
+      'california-herb-garden-cocktails': 1,
+      'dry-farmed-tomatoes-in-santa-cruz-growing-intense-flavor-with-less-water': 1
+    };
     if (!REBUILT[slug]) return;
     var spec = window._ahManifest && window._ahManifest[slug];
     if (!spec || !spec.length) return;
