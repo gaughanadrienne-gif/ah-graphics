@@ -1104,6 +1104,30 @@ document.addEventListener("DOMContentLoaded", function() {
     dedupeByContent();              // drop different-gid placeholders that render IDENTICAL content
     redistributeStacked();          // spread out any graphics stored stacked together
     relocateGraphics();             // per-slug: move a graphic stored under the wrong section
+    cleanGraphicHeadings();         // strip "What Should You Know About ...?" scaffolding from graphic titles
+  }
+
+  // The body-heading normalizer (article-enhancement init) cleans the repetitive
+  // "What Is/Are/Should You Know About ...?" scaffolding into plain topic headers, but it
+  // runs BEFORE graphics inject, so a graphic's OWN templated title (e.g. "What Should You
+  // Know About Apple Pollination Compatibility?") slips through and reads clunky. Run the
+  // same cleanup over headings inside just-injected graphics. Display-only: the original is
+  // kept on data-orig-heading, and these graphic-internal headings are never used as TOC
+  // entries or injection anchors, so cleaning their text changes nothing else. Reversible.
+  function cleanGraphicHeadings() {
+    var root = document.querySelector('.blog-item-content') || document;
+    var hs = root.querySelectorAll('.ah-graphic h2, .ah-graphic h3');
+    for (var i = 0; i < hs.length; i++) {
+      var h = hs[i];
+      if (h.getAttribute('data-orig-heading')) continue;
+      var orig = (h.textContent || '').trim();
+      var clean = orig.replace(/^What (Is|Are|Should You Know About|Do You Need to Know About) /i, '')
+                      .replace(/\s*\?\s*$/, '').trim();
+      if (clean && clean !== orig) {
+        h.setAttribute('data-orig-heading', orig);
+        h.textContent = clean.charAt(0).toUpperCase() + clean.slice(1);
+      }
+    }
   }
 
   // Some article bodies hold two DIFFERENT graphic placeholders that render the SAME
