@@ -1102,6 +1102,32 @@ document.addEventListener("DOMContentLoaded", function() {
     renderPlaceholders();           // fill the freshly re-injected ones
     dedupeGids();                   // drop any duplicate re-introduced along the way
     redistributeStacked();          // spread out any graphics stored stacked together
+    relocateGraphics();             // per-slug: move a graphic stored under the wrong section
+  }
+
+  // Per-slug position correction: relocate a baked placeholder to right after the
+  // section heading whose text contains a snippet. For the rare article where a
+  // graphic was stored under the wrong heading (e.g. a pollination chart sitting
+  // several sections before the pollination section). Slug-scoped, reversible.
+  function relocateGraphics() {
+    var FIX = {
+      'best-apple-varieties-for-santa-cruz-microclimates': [
+        { gid: 'best-apple-varieties-for-santa-cruz-microclimates-g2', afterHeadingContains: 'pollination requirements' }
+      ]
+    };
+    var jobs = FIX[slug]; if (!jobs) return;
+    var root = document.querySelector('.blog-item-content') || document;
+    jobs.forEach(function (job) {
+      var ph = document.querySelector('.ah-graphic[data-graphic="' + job.gid + '"]');
+      if (!ph) return;
+      var h2s = [].slice.call(root.querySelectorAll('h2')).filter(function (h) { return !h.closest('[data-graphic]'); });
+      for (var i = 0; i < h2s.length; i++) {
+        if (h2s[i].textContent.toLowerCase().indexOf(job.afterHeadingContains) !== -1) {
+          h2s[i].parentNode.insertBefore(ph, h2s[i].nextSibling);
+          break;
+        }
+      }
+    });
   }
 
   // For articles whose graphics we have CONSOLIDATED (many fragmented placeholders
@@ -1120,7 +1146,12 @@ document.addEventListener("DOMContentLoaded", function() {
       'growing-manzanita-santa-cruz': 1,
       'grow-herbs-santa-cruz': 1,
       'california-herb-garden-cocktails': 1,
-      'dry-farmed-tomatoes-in-santa-cruz-growing-intense-flavor-with-less-water': 1
+      'dry-farmed-tomatoes-in-santa-cruz-growing-intense-flavor-with-less-water': 1,
+      // Apple varieties: the body had FOUR baked placeholders that are really two
+      // topics duplicated (g1+chill-hours-by = the same chill table; g2+apple-
+      // pollination-chart = the same pollination chart). Manifest now lists only
+      // g1 + g2, so the two duplicate shared-gid placeholders get dropped here.
+      'best-apple-varieties-for-santa-cruz-microclimates': 1
     };
     if (!REBUILT[slug]) return;
     var spec = window._ahManifest && window._ahManifest[slug];
