@@ -3161,3 +3161,41 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === FAQ FORMAT NORMALIZE — render all FAQ questions as H3 (2026-06-24) ===
+// 154 articles used bold-paragraph FAQ questions (<p><strong>Q?</strong></p>) and
+// 17 had mixed H3/bold; normalize them to <h3> so FAQ formatting is uniform
+// site-wide. Scoped to the FAQ section only (between the "Frequently Asked
+// Questions" h2 and the next h2); only converts a <p> whose first child is
+// <strong> and whose text ends in "?". An audit confirmed NO plain-paragraph FAQ
+// questions exist, so detection is unambiguous. Idempotent + reversible.
+(function () {
+  function run() {
+    var root = document.querySelector('.blog-item-content');
+    if (!root) return;
+    var h2s = [].slice.call(root.querySelectorAll('h2')), faq = null;
+    for (var i = 0; i < h2s.length; i++) {
+      if (/frequently asked questions|^\s*faq\b/i.test(h2s[i].textContent)) { faq = h2s[i]; break; }
+    }
+    if (!faq) return;
+    var n = faq.nextElementSibling;
+    while (n && n.tagName !== 'H2') {
+      var nxt = n.nextElementSibling;
+      if (n.tagName === 'P' && n.firstElementChild && n.firstElementChild.tagName === 'STRONG'
+          && /\?\s*$/.test((n.textContent || '').trim())) {
+        var h3 = document.createElement('h3');
+        h3.textContent = n.textContent.trim();
+        n.parentNode.replaceChild(h3, n);
+      }
+      n = nxt;
+    }
+  }
+  function boot() {
+    if (document.querySelector('.blog-item-content')) return run();
+    var t = 0, iv = setInterval(function () {
+      if (document.querySelector('.blog-item-content')) { clearInterval(iv); run(); }
+      if (++t > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
