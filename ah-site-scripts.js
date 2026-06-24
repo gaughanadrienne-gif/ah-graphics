@@ -1849,14 +1849,15 @@ function ahIsFlockArticle(slug) {
   setTimeout(dedupe, 3800);
 })();
 
-// === PLANTING CALENDAR — INLINE EMAIL CAPTURE (2026-06-24) ===
-// Non-gating opt-in box dropped BELOW the Planting Calendar tool (the tool stays
-// fully open). Offers the Seed Starting cheat sheet (the natural companion to a
-// planting calendar), wired to the live MailerLite form 191102468073981272
+// === PLANTING CALENDAR + GARDEN CONDITIONS — INLINE EMAIL CAPTURE (2026-06-24) ===
+// Non-gating opt-in box dropped BELOW the tool on /planting-calendar and
+// /garden-conditions (the tools stay fully open). Offers the Seed Starting cheat
+// sheet (the natural timing companion), wired to the live MailerLite form 191102468073981272
 // (group "Lead Magnet: Seed Starting Cheat Sheet", double opt-in) via the same
 // jsonp/no-cors mechanism as the article opt-in boxes. Fully reversible.
 (function () {
-  if (location.pathname.replace(/\/$/, '') !== '/planting-calendar') return;
+  var _cp = location.pathname.replace(/\/$/, '');
+  if (_cp !== '/planting-calendar' && _cp !== '/garden-conditions') return;
   var FORM = '191102468073981272';
   setTimeout(function () {
     if (document.querySelector('.ah-cal-optin')) return;
