@@ -3075,7 +3075,7 @@ function ahIsFlockArticle(slug) {
 // ALLOW; set ALLOW=null for site-wide.
 (function () {
   var MANIFEST = 'https://gaughanadrienne-gif.github.io/ah-graphics/related-manifest.json';
-  var ALLOW = ['grow-blackberries-containers', 'garden-highlight-california-poppy', 'blackberry-growth-stages', 'asparagus-growth-stages', 'best-mulberry-varieties-santa-cruz'];
+  var ALLOW = null; // site-wide (was a 5-slug staged allowlist during rollout)
   function slug() { return location.pathname.replace(/\/$/, '').split('/').pop(); }
   function onArt() { return /^\/learn\//.test(location.pathname) && document.querySelector('.blog-item-content'); }
   function ready() { return onArt() && window.ahRenderRelatedCards; }
