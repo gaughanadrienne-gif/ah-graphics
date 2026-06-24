@@ -1849,6 +1849,57 @@ function ahIsFlockArticle(slug) {
   setTimeout(dedupe, 3800);
 })();
 
+// === PLANTING CALENDAR — INLINE EMAIL CAPTURE (2026-06-24) ===
+// Non-gating opt-in box dropped BELOW the Planting Calendar tool (the tool stays
+// fully open). Offers the Seed Starting cheat sheet (the natural companion to a
+// planting calendar), wired to the live MailerLite form 191102468073981272
+// (group "Lead Magnet: Seed Starting Cheat Sheet", double opt-in) via the same
+// jsonp/no-cors mechanism as the article opt-in boxes. Fully reversible.
+(function () {
+  if (location.pathname.replace(/\/$/, '') !== '/planting-calendar') return;
+  var FORM = '191102468073981272';
+  setTimeout(function () {
+    if (document.querySelector('.ah-cal-optin')) return;
+    var secs = document.querySelectorAll('section.page-section'), toolSec = null;
+    for (var i = 0; i < secs.length; i++) { if (secs[i].querySelector('.sqs-block-code')) { toolSec = secs[i]; break; } }
+    if (!toolSec) return;
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
+    var wrap = document.createElement('div');
+    wrap.className = 'ah-cal-optin';
+    wrap.setAttribute('style', 'max-width:760px;margin:0 auto 44px;padding:0 24px;');
+    wrap.innerHTML =
+      '<aside style="display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;">' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Working out your planting dates? Grab the free one-page seed starting cheat sheet: what to start indoors versus sow direct, sow-depth and timing, and how to avoid damping off, tuned to coastal California. Enter your email and I will send the PDF.</p>' +
+      '<form class="ah-cal-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
+      '</form>' +
+      '<div class="ah-cal-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>' +
+      '</aside>';
+    if (toolSec.nextSibling) toolSec.parentNode.insertBefore(wrap, toolSec.nextSibling);
+    else toolSec.parentNode.appendChild(wrap);
+    var form = wrap.querySelector('.ah-cal-form'), msg = wrap.querySelector('.ah-cal-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button'), input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) { msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return; }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          wrap.querySelector('aside').innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your cheat sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the cheat sheet'; btn.disabled = false; });
+    });
+  }, 1200);
+})();
+
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
 // Redesign of the article reading experience on every /learn/ article. Adds an
 // "In this guide" jump box, marigold H2 accents, normalized section headers, an
