@@ -2219,20 +2219,43 @@ function ahIsFlockArticle(slug) {
         var nx = n.nextElementSibling; n.style.display = 'none'; n = nx;
       }
     }
-    // Tightened to the related-link labels that actually occur (a 218-article scan
-    // found Keep Reading / Related Reading / Related Guides / Related Articles, plus
-    // "Go deeper" on the 33 microclimate plant-guide articles) plus the standard
-    // "you might also like / further reading" forms, so a legitimate prose heading
-    // ("More from the coast", "See also...") is never swept up. The injected product
-    // callout's "Go deeper - Recommended guide" label lives in a <div class="eb">, not
-    // an h2/h3/h4/p, so it is never matched by this scan.
-    var RELRE = /^(keep reading|go deeper|related (articles|reading|guides|posts|content)|you might also (like|enjoy)|you may also like|further reading|more related (guides|articles)|recommended (reading|guides|articles))\b/i;
+    // Related-link labels that actually occur, found by a full-site structural scan
+    // (heading whose section is a /learn/ link list): Keep Reading / Go deeper /
+    // Related Reading|Guides|Articles, plus per-cluster variants the GEO optimizer and
+    // crop series produced -- "More <crop> Growing Guides", its question form "Where can
+    // you find more <crop> guides?", "Related <topic> Articles", "Related/Additional
+    // Resources", "What should you read next?", "What other <topic> guides should you
+    // read?". All duplicate the auto Keep Reading module at the bottom. A legitimate
+    // prose heading ("More from the coast", "See also...") is never swept up because the
+    // broad patterns are gated by ahSectionHasLearn() below (the section must actually
+    // contain a /learn/ link). This also protects the plant-guides-by-microclimate hub
+    // page, whose crop-name headings introduce real /learn/ lists but never match these
+    // labels. The injected product callout's "Go deeper - Recommended guide" label lives
+    // in a <div class="eb">, not an h2/h3/h4/p, so it is never matched by this scan.
+    var RELRE = /^(keep reading|go deeper|related (articles|reading|guides|posts|content)|related\s+\w+\s+(articles?|guides?)|(related|additional)\s+resources?|you might also (like|enjoy)|you may also like|further reading|more related (guides|articles)|more\b.*\bguides?|where can you find\b.*\bguides?|what should you read next|what other\b.*\bguides? should you read|recommended (reading|guides|articles))\b/i;
+    // A heading-led section qualifies for removal only if it actually contains an
+    // internal /learn/ link (i.e. it is a related-guides list, not a prose section that
+    // merely starts with a matching word). Walks siblings to the next same-or-higher
+    // heading, stopping at the injected Keep Reading module.
+    function ahSectionHasLearn(start) {
+      var lvl = parseInt((/^H([1-6])$/.exec(start.tagName) || [])[1], 10);
+      var n = start.nextElementSibling;
+      while (n) {
+        if (n.id === 'ah-keepreading') break;
+        if (n.classList && (n.classList.contains('ah-relwrap') || n.classList.contains('ah-keep'))) break;
+        var m = /^H([1-6])$/.exec(n.tagName);
+        if (m && parseInt(m[1], 10) <= lvl) break;
+        if (n.querySelector && n.querySelector('a[href*="/learn/"]')) return true;
+        n = n.nextElementSibling;
+      }
+      return false;
+    }
     [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
       if (el.style.display === 'none') return;
       if (el.closest('.ah-relwrap') || (el.classList && el.classList.contains('ah-keep'))) return;
       var t = (el.textContent || '').trim();
       if (!RELRE.test(t)) return;
-      if (/^H[2-4]$/.test(el.tagName)) { if (t.length <= 80) ahHideSection(el); }
+      if (/^H[2-4]$/.test(el.tagName)) { if (t.length <= 80 && ahSectionHasLearn(el)) ahHideSection(el); }
       else if (el.tagName === 'P') { if (/:\s*$/.test(t) || el.querySelector('a[href*="/learn/"]')) ahHideSection(el); }
     });
 
@@ -2548,7 +2571,25 @@ function ahIsFlockArticle(slug) {
       while (p && p !== root) { if (p.__ahStr !== undefined) return false; p = p.parentElement; }
       return true;
     });
+    // A stranded inline table whose content is the bare-data version of a managed cluster
+    // graphic is a DUPLICATE (e.g. 10-fire-resistant-plants baked the traits/zone tables
+    // inline AND as ah-graphics, which carry a title so they are not byte-identical). The
+    // bare table's text is a substring of the graphic's, so test containment -- hide the
+    // duplicate rather than relocate a second copy into the article.
+    function sigFull(el) {
+      var c = el.cloneNode(true), j = c.querySelectorAll('style, script');
+      for (var i = 0; i < j.length; i++) { if (j[i].parentNode) j[i].parentNode.removeChild(j[i]); }
+      return (c.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+    var gfxFull = [].slice.call(root.querySelectorAll('.ah-graphic[data-graphic]')).map(sigFull).filter(function (s) { return s.length >= 60; });
+    function dupOfGraphic(g) {
+      var t = sigFull(g); if (t.length < 60) return false;
+      var key = t.slice(0, 200);
+      for (var i = 0; i < gfxFull.length; i++) { if (gfxFull[i].indexOf(key) !== -1) return true; }
+      return false;
+    }
     cands.forEach(function (g) {
+      if (dupOfGraphic(g)) { g.style.setProperty('display', 'none', 'important'); return; }  // bare-data duplicate of a managed graphic
       if (idx.get(g) <= bpos) return;                           // only graphics after the content boundary
       var ph = precedingH2(g);
       if (!ph || !BOILER.test(htext(ph))) return;               // only under a boilerplate heading
