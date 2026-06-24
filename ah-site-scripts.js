@@ -2298,7 +2298,12 @@ function ahIsFlockArticle(slug) {
     return (0.299 * +m[0] + 0.587 * +m[1] + 0.114 * +m[2]) / 255;
   }
   function isTransparent(c) { return !c || c === 'rgba(0, 0, 0, 0)' || c === 'transparent'; }
-  function isDarkBg(c) { return !isTransparent(c) && lum(c) < 0.45; }
+  // Alpha of an rgba()/rgb() string (1 if no alpha component). A low-alpha fill
+  // composites over the (light) page/card, so it must NOT count as a dark box even
+  // when its raw RGB is dark -- otherwise we'd flip dark text to cream on a tint box
+  // (e.g. a subtle rgba(139,68,68,0.06) "challenge note") and make it unreadable.
+  function alphaOf(c) { var m = (c || '').match(/rgba\([^)]*,\s*([\d.]+)\s*\)/); return m ? parseFloat(m[1]) : 1; }
+  function isDarkBg(c) { return !isTransparent(c) && alphaOf(c) >= 0.6 && lum(c) < 0.45; }
   function isDarkText(c) { return lum(c) < 0.5; }
 
   function fixContrast(root) {
