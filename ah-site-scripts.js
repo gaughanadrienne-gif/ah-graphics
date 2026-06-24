@@ -2181,13 +2181,20 @@ function ahIsFlockArticle(slug) {
     var h2s = [].slice.call(root.querySelectorAll('h2'));
     var find = function (re) { for (var j = 0; j < h2s.length; j++) if (re.test(h2s[j].textContent)) return h2s[j]; return null; };
     var faq = find(/Frequently Asked/i), dl = find(/Free Downloadable Resources/i), rel = find(/Related Articles/i);
-    var sections = h2s.filter(function (h) { return /^What /i.test(h.textContent); });
+    // TOC sections = real content headings. (Was: only the GEO "What ..." templated headings,
+    // which broke when those headings got cleaned at the source.) Exclude boilerplate and any
+    // graphic-internal title so the "In this guide" list stays clean.
+    var TOC_SKIP = /^(frequently asked|faq\b|free download|related (articles|reading|guides|posts)|keep reading|you might also like|further reading|recommended reading|in this guide)\b/i;
+    var sections = h2s.filter(function (h) {
+      var t = (h.textContent || '').trim();
+      return t && !TOC_SKIP.test(t) && !(h.closest && h.closest('.ah-graphic'));
+    });
 
-    // Normalize the repetitive "What Is .../What Should You Know About ..." scaffolding
-    // into clean topic headers so the section list reads with variety, not repetition.
-    // Original text is preserved on data-orig-heading (display-only change, reversible).
+    // Normalize the repetitive "What Is .../What Should You Know ..." scaffolding into clean
+    // topic headers so the section list reads with variety, not repetition. Original text is
+    // preserved on data-orig-heading (display-only change, reversible).
     function cleanHeading(s) {
-      return s.replace(/^What (Is|Are|Should You Know About|Do You Need to Know About) /i, '')
+      return s.replace(/^What (Is|Are|Should You Know(?: About)?|Do You Need to Know About) /i, '')
               .replace(/\s*\?\s*$/, '').trim();
     }
     sections.forEach(function (h) {
@@ -2198,7 +2205,12 @@ function ahIsFlockArticle(slug) {
       }
     });
 
-    if (sections.length >= 3) {
+    // Only build the "In this guide" TOC on GEO-structured articles -- those that carried a
+    // "What ..." templated heading (now cleaned, marked by data-orig-heading). This keeps the
+    // TOC on articles that always had it (incl. ones whose headings were cleaned at the source)
+    // without adding a TOC to unrelated articles.
+    var isStructured = sections.some(function (h) { return h.getAttribute('data-orig-heading'); });
+    if (isStructured && sections.length >= 3) {
       var box = document.createElement('div'); box.className = 'ah-toc';
       var items = sections.map(function (h, k) {
         h.id = h.id || 'ahs' + k;
