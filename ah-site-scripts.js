@@ -1101,8 +1101,31 @@ document.addEventListener("DOMContentLoaded", function() {
     selfHeal();                     // re-inject any the editor stripped
     renderPlaceholders();           // fill the freshly re-injected ones
     dedupeGids();                   // drop any duplicate re-introduced along the way
+    dedupeByContent();              // drop different-gid placeholders that render IDENTICAL content
     redistributeStacked();          // spread out any graphics stored stacked together
     relocateGraphics();             // per-slug: move a graphic stored under the wrong section
+  }
+
+  // Some article bodies hold two DIFFERENT graphic placeholders that render the SAME
+  // content (a slug-specific gid duplicating a shared graphic, or a graphic pasted
+  // twice under two gids). dedupeGids only catches identical gids; this catches
+  // identical CONTENT. Keep the first occurrence, drop later identical ones. Empty/
+  // tiny placeholders are ignored so blanks are never treated as duplicates.
+  function dedupeByContent() {
+    var els = document.querySelectorAll('.ah-graphic[data-graphic]');
+    var seen = {};
+    for (var i = 0; i < els.length; i++) {
+      // Compare VISIBLE text only -- strip <style>/<script> so two distinct tables
+      // that share the same CSS prefix are not mistaken for duplicates.
+      var clone = els[i].cloneNode(true);
+      var junk = clone.querySelectorAll('style, script');
+      for (var k = 0; k < junk.length; k++) { if (junk[k].parentNode) junk[k].parentNode.removeChild(junk[k]); }
+      var txt = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+      if (txt.length < 40) continue;
+      var key = txt.slice(0, 500);
+      if (seen[key]) { if (els[i].parentNode) els[i].parentNode.removeChild(els[i]); }
+      else seen[key] = true;
+    }
   }
 
   // Per-slug position correction: relocate a baked placeholder to right after the
@@ -2197,10 +2220,13 @@ function ahIsFlockArticle(slug) {
       }
     }
     // Tightened to the related-link labels that actually occur (a 218-article scan
-    // found only Keep Reading / Related Reading / Related Guides / Related Articles)
-    // plus the standard "you might also like / further reading" forms, so a legitimate
-    // prose heading ("More from the coast", "See also...") is never swept up.
-    var RELRE = /^(keep reading|related (articles|reading|guides|posts|content)|you might also (like|enjoy)|you may also like|further reading|more related (guides|articles)|recommended (reading|guides|articles))\b/i;
+    // found Keep Reading / Related Reading / Related Guides / Related Articles, plus
+    // "Go deeper" on the 33 microclimate plant-guide articles) plus the standard
+    // "you might also like / further reading" forms, so a legitimate prose heading
+    // ("More from the coast", "See also...") is never swept up. The injected product
+    // callout's "Go deeper - Recommended guide" label lives in a <div class="eb">, not
+    // an h2/h3/h4/p, so it is never matched by this scan.
+    var RELRE = /^(keep reading|go deeper|related (articles|reading|guides|posts|content)|you might also (like|enjoy)|you may also like|further reading|more related (guides|articles)|recommended (reading|guides|articles))\b/i;
     [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
       if (el.style.display === 'none') return;
       if (el.closest('.ah-relwrap') || (el.classList && el.classList.contains('ah-keep'))) return;
