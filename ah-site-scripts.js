@@ -1811,7 +1811,7 @@ function ahIsFlockArticle(slug) {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   if (location.pathname.indexOf('/learn/category/') === 0) return;
   // Lower index = lower value = dropped first when two boxes collide.
-  var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin'];
+  var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin', 'ah-flock-optin'];
   var SEL = '.' + PRIORITY.join(', .');
   function rank(el) { for (var i = 0; i < PRIORITY.length; i++) { if (el.classList.contains(PRIORITY[i])) return i; } return -1; }
 
@@ -1900,6 +1900,74 @@ function ahIsFlockArticle(slug) {
         .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the cheat sheet'; btn.disabled = false; });
     });
   })();
+})();
+
+// === FLOCK LEAD MAGNET — INLINE EMAIL CAPTURE (2026-06-24) ===
+// Predator-Proof Coop Checklist opt-in on coop/flock /learn articles (before the
+// FAQ) and below the Build Your Flock tool. Wired to MailerLite form
+// 191180688515401447 (group "Lead Magnet: Predator-Proof Coop Checklist", double
+// opt-in) via the same jsonp/no-cors mechanism. Non-gating on the tool. Reversible.
+(function () {
+  var FORM = '191180688515401447';
+  var onTool = location.pathname.replace(/\/$/, '') === '/build-your-flock';
+  var isLearn = location.pathname.indexOf('/learn/') === 0 && location.pathname.indexOf('/learn/category/') !== 0;
+  var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+  var onFlockArticle = isLearn && typeof ahIsFlockArticle === 'function' && ahIsFlockArticle(slug);
+  if (!onTool && !onFlockArticle) return;
+  var BOXSTYLE = 'display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;';
+  function inner() {
+    return '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Keep your flock safe at night. Grab the free one-page predator-proofing checklist for Santa Cruz County coops: hardware cloth, the buried apron, raccoon-proof latches, and a simple nightly lock-up routine. Enter your email and I will send the PDF.</p>' +
+      '<form class="ah-flock-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the checklist</button>' +
+      '</form>' +
+      '<div class="ah-flock-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening and flock tips about twice a month. Unsubscribe anytime.</div>';
+  }
+  function wire(container, asideEl) {
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
+    var form = container.querySelector('.ah-flock-form'), msg = container.querySelector('.ah-flock-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button'), input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) { msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return; }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          asideEl.innerHTML = '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your checklist is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the checklist'; btn.disabled = false; });
+    });
+  }
+  if (onFlockArticle) {
+    setTimeout(function () {
+      if (document.querySelector('.ah-flock-optin')) return;
+      var body = document.querySelector('.blog-item-content-wrapper') || document.querySelector('[data-content-field="body"]') || document.querySelector('.entry-content');
+      if (!body) return;
+      var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
+      for (var i = 0; i < h2s.length; i++) { var t = h2s[i].textContent.toLowerCase(); if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; } else lastNon = h2s[i]; }
+      var box = document.createElement('aside'); box.className = 'ah-flock-optin'; box.setAttribute('style', 'margin:30px 0;' + BOXSTYLE); box.innerHTML = inner();
+      if (faqH) faqH.parentNode.insertBefore(box, faqH); else if (lastNon) lastNon.parentNode.insertBefore(box, lastNon); else body.appendChild(box);
+      wire(box, box);
+    }, 1700);
+  } else {
+    var tries = 0;
+    (function place() {
+      if (document.querySelector('.ah-flock-optin')) return;
+      var secs = document.querySelectorAll('section.page-section'), toolSec = null;
+      for (var i = 0; i < secs.length; i++) { if (secs[i].querySelector('.sqs-block-code')) { toolSec = secs[i]; break; } }
+      if (!toolSec) { if (++tries < 30) setTimeout(place, 400); return; }
+      var wrap = document.createElement('div'); wrap.className = 'ah-flock-optin'; wrap.setAttribute('style', 'max-width:760px;margin:0 auto 44px;padding:0 24px;');
+      wrap.innerHTML = '<aside style="' + BOXSTYLE + '">' + inner() + '</aside>';
+      if (toolSec.nextSibling) toolSec.parentNode.insertBefore(wrap, toolSec.nextSibling); else toolSec.parentNode.appendChild(wrap);
+      wire(wrap, wrap.querySelector('aside'));
+    })();
+  }
 })();
 
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
