@@ -2522,6 +2522,24 @@ function ahIsFlockArticle(slug) {
       for (var k = 0; k < h2s.length; k++) { if (idx.get(h2s[k]) < p) last = h2s[k]; else break; }
       return last;
     }
+    // Distribute each rescued graphic UNDER the content heading it belongs to (by title
+    // keyword overlap) instead of stacking them all before the FAQ. Falls back to the
+    // end of the content only when no heading is a confident, unique match.
+    var contentH2 = h2s.filter(function (h) { return idx.get(h) < bpos && !BOILER.test(htext(h)) && !FAQRE.test(htext(h)); });
+    var STOP = { santa: 1, cruz: 1, county: 1, california: 1, what: 1, should: 1, your: 1, does: 1, best: 1, growing: 1, guide: 1, guides: 1, this: 1, that: 1, with: 1, from: 1, have: 1, here: 1, them: 1, microclimate: 1, microclimates: 1, area: 1, areas: 1 };
+    function toks(s) { return (s.toLowerCase().match(/[a-z]{4,}/g) || []); }
+    function bestHeading(g) {
+      var gt = toks((g.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 90)).filter(function (w) { return !STOP[w]; });
+      if (!gt.length) return null;
+      var best = null, bestScore = 0, second = 0;
+      contentH2.forEach(function (h) {
+        var ht = toks(htext(h)), score = 0;
+        gt.forEach(function (w) { for (var i = 0; i < ht.length; i++) { if (ht[i].slice(0, 5) === w.slice(0, 5)) { score++; break; } } });
+        if (score > bestScore) { second = bestScore; bestScore = score; best = h; }
+        else if (score > second) { second = score; }
+      });
+      return (bestScore >= 1 && bestScore > second) ? best : null;   // unique most-related heading only (ties fall back)
+    }
     var SKIP = '.ah-graphic, .ah-relwrap, .ah-prod, .ah-fgt-callout, .ah-lead, .ah-tomato-quiz-callout, .ah-lm-optin, .ah-berry-optin, .ah-flock-optin, form, .sqs-block-form';
     var cands = [].slice.call(root.querySelectorAll('table, div[style*="background"]')).filter(function (g) { return !g.closest(SKIP); });
     cands.forEach(function (g, i) { g.__ahStr = i; });          // tag for outermost-only filter
@@ -2540,7 +2558,9 @@ function ahIsFlockArticle(slug) {
         return;
       }
       g.style.setProperty('display', '', '');                   // rescue if a prior pass hid it
-      boundary.parentNode.insertBefore(g, boundary);            // move to the end of the content
+      var target = bestHeading(g);
+      if (target) target.parentNode.insertBefore(g, target.nextSibling);   // under its matching heading
+      else boundary.parentNode.insertBefore(g, boundary);                  // fallback: end of content
     });
   }
   function go() { run(); setTimeout(run, 1500); }               // 2nd pass catches late re-renders; idempotent
