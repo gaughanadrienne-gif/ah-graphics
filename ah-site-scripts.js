@@ -1859,11 +1859,12 @@ function ahIsFlockArticle(slug) {
   var _cp = location.pathname.replace(/\/$/, '');
   if (_cp !== '/planting-calendar' && _cp !== '/garden-conditions') return;
   var FORM = '191102468073981272';
-  setTimeout(function () {
+  var _tries = 0;
+  (function place() {
     if (document.querySelector('.ah-cal-optin')) return;
     var secs = document.querySelectorAll('section.page-section'), toolSec = null;
     for (var i = 0; i < secs.length; i++) { if (secs[i].querySelector('.sqs-block-code')) { toolSec = secs[i]; break; } }
-    if (!toolSec) return;
+    if (!toolSec) { if (++_tries < 30) setTimeout(place, 400); return; }
     var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
     var wrap = document.createElement('div');
     wrap.className = 'ah-cal-optin';
@@ -1898,7 +1899,7 @@ function ahIsFlockArticle(slug) {
         })
         .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the cheat sheet'; btn.disabled = false; });
     });
-  }, 1200);
+  })();
 })();
 
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
