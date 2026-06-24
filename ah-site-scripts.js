@@ -1572,6 +1572,7 @@ function ahIsFlockArticle(slug) {
     var h2s = articleBody.querySelectorAll('h2');
     var nonFaq = [], faqH = null;
     for (var i = 0; i < h2s.length; i++) {
+      if (h2s[i].closest('[data-graphic]')) continue;   // skip titles rendered INSIDE a graphic (else the card merges into a graphic)
       var t = h2s[i].textContent.toLowerCase();
       if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; }
       else nonFaq.push(h2s[i]);
@@ -2129,17 +2130,15 @@ function ahIsFlockArticle(slug) {
       sections[0].parentElement.insertBefore(box, sections[0]);
     }
 
+    // The auto-injected "Adrienne Gaughan" bio card and the "Free downloads to take with
+    // you" card were judged off-brand and removed (2026-06-24). Rather than styling the
+    // stored "Free Downloadable Resources" block into a card, simply hide it (the heading
+    // and its following link list). Display-only and reversible -- the stored body is
+    // untouched; restore the previous bio/lead injection to bring the cards back.
     if (dl) {
-      var bio = document.createElement('div'); bio.className = 'ah-bio';
-      bio.innerHTML = '<div class="av">A</div><div><h4>Adrienne Gaughan</h4>' +
-        '<p>Gardenary-certified with 20+ years growing food in Santa Cruz. Ambitious Harvest turns hard-won local experience into guides built for California’s microclimates.</p></div>';
-      dl.parentElement.insertBefore(bio, dl);
-      var ul = dl.nextElementSibling;
-      var lead = document.createElement('div'); lead.className = 'ah-lead';
-      lead.innerHTML = '<h3>Free downloads to take with you</h3><p class="sub">Printable companions for this guide. No cost, no spam.</p>';
+      var dlUl = dl.nextElementSibling;
       dl.style.display = 'none';
-      dl.parentElement.insertBefore(lead, dl);
-      if (ul && ul.tagName === 'UL') lead.appendChild(ul);
+      if (dlUl && (dlUl.tagName === 'UL' || dlUl.tagName === 'OL')) dlUl.style.display = 'none';
     }
 
     // Remove any legacy related-links section that duplicates the auto "Keep Reading"
