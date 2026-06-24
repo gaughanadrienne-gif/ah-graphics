@@ -2478,6 +2478,76 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
+// === RELOCATE BAKED GRAPHICS STRANDED AT THE ARTICLE BOTTOM (2026-06-24) ===
+// A handful of older articles have inline graphics (comparison tables / styled cards) baked into the
+// body BELOW the boilerplate bottom ("Related Articles" / "Downloadable Guides" / "Additional
+// Resources" / "More ... Guides") instead of in the content, so they render as a stack of graphics at
+// the very end. For an allowlisted set of slugs (found via a 653-article scan), move each real stranded
+// graphic up to the end of the content (just before the FAQ) and hide empty off-brand junk divs /
+// duplicate promo boxes left behind. Display-only, reversible, slug-scoped so it can never touch another
+// article; a boilerplate-heading guard means tables under a real content heading (e.g. "Quick Reference
+// Tables") are never moved.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0 || location.pathname.indexOf('/learn/category/') === 0) return;
+  var SLUGS = {
+    'best-blueberry-varieties-for-santa-cruz': 1,
+    'growing-blueberries-in-containers-a-california-gardeners-guide': 1,
+    'best-blackberry-varieties-santa-cruz': 1,
+    'growing-raspberries-in-santa-cruz-county-a-complete-guide': 1,
+    'best-raspberry-varieties-for-santa-cruz-county-gardens': 1,
+    'growing-strawberries-santa-cruz': 1,
+    '10-fire-resistant-plants-for-santa-cruz-gardens': 1,
+    'grow-chiltepin-peppers-in-santa-cruz': 1
+  };
+  var slug = location.pathname.replace('/learn/', '').replace(/\/+$/, '');
+  if (!SLUGS[slug]) return;
+  var BOILER = /related articles|related reading|related guides|downloadable|additional resources|keep reading|more [a-z'&\- ]*guides|free (california )?(gardening )?(resources|downloads?)/i;
+  var FAQRE = /frequently asked/i;
+
+  function run() {
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main');
+    if (!root) return;
+    var order = [].slice.call(root.querySelectorAll('*'));
+    var idx = new Map(); order.forEach(function (n, i) { idx.set(n, i); });
+    var h2s = [].slice.call(root.querySelectorAll('h2')).filter(function (h) { return !h.closest('.ah-graphic, .ah-relwrap'); });
+    function htext(h) { return (h.getAttribute('data-orig-heading') || h.textContent || '').replace(/\s+/g, ' ').trim(); }
+    // boundary = end of real content = the FAQ heading; fall back to the first boilerplate heading
+    var boundary = null;
+    for (var i = 0; i < h2s.length; i++) { if (FAQRE.test(htext(h2s[i]))) { boundary = h2s[i]; break; } }
+    if (!boundary) { for (var j = 0; j < h2s.length; j++) { if (BOILER.test(htext(h2s[j]))) { boundary = h2s[j]; break; } } }
+    if (!boundary) return;
+    var bpos = idx.get(boundary);
+    function precedingH2(el) {
+      var p = idx.get(el), last = null;
+      for (var k = 0; k < h2s.length; k++) { if (idx.get(h2s[k]) < p) last = h2s[k]; else break; }
+      return last;
+    }
+    var SKIP = '.ah-graphic, .ah-relwrap, .ah-prod, .ah-fgt-callout, .ah-lead, .ah-tomato-quiz-callout, .ah-lm-optin, .ah-berry-optin, .ah-flock-optin, form, .sqs-block-form';
+    var cands = [].slice.call(root.querySelectorAll('table, div[style*="background"]')).filter(function (g) { return !g.closest(SKIP); });
+    cands.forEach(function (g, i) { g.__ahStr = i; });          // tag for outermost-only filter
+    cands = cands.filter(function (g) {                          // drop a candidate nested inside another candidate
+      var p = g.parentElement;
+      while (p && p !== root) { if (p.__ahStr !== undefined) return false; p = p.parentElement; }
+      return true;
+    });
+    cands.forEach(function (g) {
+      if (idx.get(g) <= bpos) return;                           // only graphics after the content boundary
+      var ph = precedingH2(g);
+      if (!ph || !BOILER.test(htext(ph))) return;               // only under a boilerplate heading
+      var txt = (g.textContent || '').replace(/\s+/g, ' ').trim();
+      if (txt.length < 25 || (/free (california )?gardening resources/i.test(txt) && txt.length < 600)) {
+        g.style.setProperty('display', 'none', 'important');    // empty junk div / duplicate promo box
+        return;
+      }
+      g.style.setProperty('display', '', '');                   // rescue if a prior pass hid it
+      boundary.parentNode.insertBefore(g, boundary);            // move to the end of the content
+    });
+  }
+  function go() { run(); setTimeout(run, 1500); }               // 2nd pass catches late re-renders; idempotent
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(go, 400); });
+  else setTimeout(go, 400);
+})();
+
 // === HOMEPAGE POLISH (2026-06-16, session 41) ===
 // Homepage only. Two wins:
 //  1. Category gallery: overlay bold serif labels on the images (with a gradient
