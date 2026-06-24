@@ -2166,7 +2166,11 @@ function ahIsFlockArticle(slug) {
         var nx = n.nextElementSibling; n.style.display = 'none'; n = nx;
       }
     }
-    var RELRE = /^(keep reading|related (articles|reading|guides|posts|stories|topics)|you might also( like)?|you may also( like)?|more (guides|articles|to read|from)|further reading|recommended (reading|guides|articles)|continue reading|explore more|other (guides|articles)|see also)\b/i;
+    // Tightened to the related-link labels that actually occur (a 218-article scan
+    // found only Keep Reading / Related Reading / Related Guides / Related Articles)
+    // plus the standard "you might also like / further reading" forms, so a legitimate
+    // prose heading ("More from the coast", "See also...") is never swept up.
+    var RELRE = /^(keep reading|related (articles|reading|guides|posts|content)|you might also (like|enjoy)|you may also like|further reading|more related (guides|articles)|recommended (reading|guides|articles))\b/i;
     [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
       if (el.style.display === 'none') return;
       if (el.closest('.ah-relwrap') || (el.classList && el.classList.contains('ah-keep'))) return;
