@@ -410,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function() {
         '<p style="font-size:0.9rem;color:#dde2d8 !important;margin:0 0 1.25rem 0;line-height:1.6;">Answer 4 quick questions and get zone-matched variety recommendations, plus a free Tomato Variety Selector PDF.</p>' +
         '<a href="/tomato-quiz" style="display:inline-block;background-color:#f8f9f0;color:#1a3b2a !important;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-family:Montserrat,Arial,sans-serif;font-size:0.9rem;font-weight:700;">Take the Quiz</a>' +
         '<p style="font-size:0.85rem;color:#dde2d8 !important;margin:1.25rem 0 0 0;">Ready to grow more tomatoes this season? ' +
-          '<a href="/tomato-masterkit" style="color:#c9a84c !important;font-weight:700;text-decoration:underline;">Get the Tomato Growing MasterKit</a>' +
+          '<a href="/tomato-masterkit" style="color:#d2a097 !important;font-weight:700;text-decoration:underline;">Get the Tomato Growing MasterKit</a>' +
         '</p>' +
       '</div>';
 
@@ -1641,7 +1641,7 @@ function ahIsFlockArticle(slug) {
     box.className = 'ah-fgt-callout';
     box.setAttribute('style', 'display:block;margin:30px 0;padding:22px 24px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
-      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Where we buy our trees &middot; Affiliate partner</div>' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Where we buy our trees &middot; Affiliate partner</div>' +
       '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Fast Growing Trees</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">We have ordered from Fast Growing Trees many times and genuinely recommend them. All of our tropical pond plants come from them, and they ship established, ready-to-plant trees and shrubs straight to your door.</p>' +
       '<a href="' + LINK + '" target="_blank" rel="sponsored nofollow noopener" style="display:inline-block;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px;border-radius:4px;text-decoration:none!important;border-bottom:0!important;">Shop Fast Growing Trees</a>' +
@@ -1744,7 +1744,7 @@ function ahIsFlockArticle(slug) {
     box.className = 'ah-berry-optin';
     box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
-      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Berry Growing Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">A free one-page quick reference for growing strawberries, blueberries, blackberries, raspberries, and mulberries in coastal California. Enter your email and I will send the PDF straight to your inbox.</p>' +
       '<form class="ah-berry-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
@@ -1778,7 +1778,7 @@ function ahIsFlockArticle(slug) {
       fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
         .then(function () {
           box.innerHTML =
-            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
             '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your California Berry Growing Cheat Sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
@@ -1830,7 +1830,7 @@ function ahIsFlockArticle(slug) {
     box.className = 'ah-lm-optin';
     box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
-      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">' + m.title + '</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">' + m.blurb + '</p>' +
       '<form class="ah-lm-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
@@ -1864,7 +1864,7 @@ function ahIsFlockArticle(slug) {
       fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
         .then(function () {
           box.innerHTML =
-            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
             '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your cheat sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
@@ -1950,7 +1950,7 @@ function ahIsFlockArticle(slug) {
     wrap.setAttribute('style', 'max-width:760px;margin:0 auto 44px;padding:0 24px;');
     wrap.innerHTML =
       '<aside style="display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;">' +
-      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Working out your planting dates? Grab the free one-page seed starting cheat sheet: what to start indoors versus sow direct, sow-depth and timing, and how to avoid damping off, tuned to coastal California. Enter your email and I will send the PDF.</p>' +
       '<form class="ah-cal-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
@@ -1972,7 +1972,7 @@ function ahIsFlockArticle(slug) {
       fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
         .then(function () {
           wrap.querySelector('aside').innerHTML =
-            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
             '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your cheat sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
@@ -1995,7 +1995,7 @@ function ahIsFlockArticle(slug) {
   if (!onTool && !onFlockArticle) return;
   var BOXSTYLE = 'display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;';
   function inner() {
-    return '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Free download</div>' +
+    return '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Keep your flock safe at night. Grab the free one-page predator-proofing checklist for Santa Cruz County coops: hardware cloth, the buried apron, raccoon-proof latches, and a simple nightly lock-up routine. Enter your email and I will send the PDF.</p>' +
       '<form class="ah-flock-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
@@ -2016,7 +2016,7 @@ function ahIsFlockArticle(slug) {
       btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
       fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
         .then(function () {
-          asideEl.innerHTML = '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#7a6a3a!important;margin-bottom:9px;">Almost there</div>' +
+          asideEl.innerHTML = '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
             '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your checklist is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
@@ -2108,7 +2108,7 @@ function ahIsFlockArticle(slug) {
 
 
     var css =
-    '.blog-item-content{--ahg:#1A3B2A;--ahm:#E0A53F;--aht:#BD6438;--ahline:#dce0d2}' +
+    '.blog-item-content{--ahg:#1A3B2A;--ahm:#8f4f45;--aht:#8f4f45;--ahline:#dce0d2}' +
     '.blog-item-content h2:not(.ah-keep){font-family:"Palatino Linotype","Book Antiqua",Georgia,serif!important;padding-top:6px;margin-top:1.7em!important}' +
     '.blog-item-content h2:not(.ah-keep):before{content:"";display:block;width:46px;height:3px;background:var(--ahm);border-radius:2px;margin-bottom:13px}' +
     '.ah-toc{background:#fff;border:1px solid var(--ahline);border-left:4px solid var(--ahg);border-radius:0 10px 10px 0;padding:18px 22px;margin:26px 0 30px}' +
@@ -2126,13 +2126,13 @@ function ahIsFlockArticle(slug) {
     '.ah-prod .price{font-family:"Palatino Linotype",Georgia,serif;font-size:20px;color:var(--ahg)!important;margin-right:14px;vertical-align:middle}' +
     '.ah-cta{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:13px 22px;border-radius:3px;background:var(--ahg);color:#F8F9F0!important;text-decoration:none!important}' +
     '.ah-lead{background:var(--ahg);border-radius:12px;padding:26px 28px;margin:34px 0;position:relative;overflow:hidden}' +
-    '.ah-lead:after{content:"";position:absolute;right:-40px;bottom:-50px;width:180px;height:180px;border-radius:50%;background:rgba(224,165,63,.16)}' +
+    '.ah-lead:after{content:"";position:absolute;right:-40px;bottom:-50px;width:180px;height:180px;border-radius:50%;background:rgba(221,226,216,.12)}' +
     '.ah-lead h3{font-family:"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:22px;margin:0 0 4px}' +
     '.ah-lead .sub{color:#cdd6c8!important;font:14px/1.5 Montserrat,sans-serif;margin:0 0 16px}' +
     '.ah-lead ul{list-style:none!important;margin:0!important;padding:0!important;display:flex;flex-wrap:wrap;gap:10px;position:relative}' +
     '.ah-lead li{margin:0!important;padding:0!important}.ah-lead li:before{display:none!important}' +
     '.ah-lead li a{display:inline-block;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28)!important;border-bottom:1px solid rgba(255,255,255,.28)!important;color:#fff!important;text-decoration:none!important;font:600 13px/1 Montserrat,sans-serif;padding:11px 16px;border-radius:30px}' +
-    '.ah-lead li a:hover{background:var(--ahm);color:#2a2208!important;border-color:var(--ahm)}' +
+    '.ah-lead li a:hover{background:var(--ahm);color:#f8f9f0!important;border-color:var(--ahm)}' +
     '.ah-bio{display:flex;gap:18px;align-items:center;background:#F1F2E6;border:1px solid var(--ahline);border-radius:12px;padding:20px 22px;margin:38px 0}' +
     '.ah-bio .av{flex:0 0 64px;height:64px;border-radius:50%;background:var(--ahg);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Palatino Linotype",Georgia,serif;font-size:24px}' +
     '.ah-bio h4{font-family:"Palatino Linotype",Georgia,serif;color:var(--ahg)!important;font-size:18px;margin:0 0 4px}' +
@@ -2143,7 +2143,7 @@ function ahIsFlockArticle(slug) {
     // High-specificity overrides: the theme styles content links with border-bottom + underline at a specificity that beats a bare .class selector.
     '.blog-item-content .ah-rel a,.blog-item-content .ah-rel a:hover,.blog-item-content .ah-rel h5,.blog-item-content .ah-lead li a,.blog-item-content .ah-prod a.ah-cta,.blog-item-content .ah-prod a.ah-cta:hover{border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
     '.blog-item-content .ah-lead li a{border:1px solid rgba(255,255,255,.28)!important}' +
-    '.blog-item-content .ah-lead li a:hover{border-color:var(--ahm)!important;background:var(--ahm)!important;color:#2a2208!important}' +
+    '.blog-item-content .ah-lead li a:hover{border-color:var(--ahm)!important;background:var(--ahm)!important;color:#f8f9f0!important}' +
     '.ah-rel a:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
     '.ah-rel .ph{aspect-ratio:16/10;background:linear-gradient(135deg,#E8EBE1,#dbe3d6);overflow:hidden;display:flex;align-items:center;justify-content:center}' +
     '.ah-rel .ph svg{width:40px;height:40px;opacity:.5}.ah-rel .ph img{width:100%;height:100%;object-fit:cover}' +
@@ -2358,17 +2358,17 @@ function ahIsFlockArticle(slug) {
     var css =
     '.product-list-header{display:none!important}' +
     '.ah-shop-hero{background:linear-gradient(180deg,#1A3B2A,#163322);color:#F8F9F0;border-radius:14px;padding:42px 36px 40px;text-align:center;margin:0 0 28px;position:relative;overflow:hidden}' +
-    '.ah-shop-hero .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E0A53F!important;margin-bottom:12px}' +
+    '.ah-shop-hero .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#dde2d8!important;margin-bottom:12px}' +
     '.ah-shop-hero h1{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:36px;margin:0 0 12px}' +
     '.ah-shop-hero p{color:#cdd6c8!important;max-width:56ch;margin:0 auto;font:16px/1.6 Montserrat,sans-serif}' +
     '.ah-trust{display:flex;justify-content:center;gap:30px;margin-top:22px;flex-wrap:wrap}' +
     '.ah-trust span{font:600 12.5px/1.2 Montserrat,sans-serif;color:#d7e0d2!important;display:flex;align-items:center;gap:8px}' +
-    '.ah-trust svg{width:16px;height:16px;color:#E0A53F;flex:0 0 auto}' +
+    '.ah-trust svg{width:16px;height:16px;color:#dde2d8;flex:0 0 auto}' +
     '.ah-feat{display:grid;grid-template-columns:1fr 1.2fr;background:#fff;border:1px solid #dce0d2;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(28,33,29,.12);margin:0 0 36px}' +
     '.ah-feat .cov{background:radial-gradient(circle at 50% 35%,#fbf6e9,#eef0e2);display:flex;align-items:center;justify-content:center;padding:32px;position:relative}' +
     '.ah-feat .cov img{width:72%;border-radius:8px;box-shadow:0 16px 40px rgba(28,33,29,.22)}' +
     '.ah-feat .bod{padding:36px 40px;display:flex;flex-direction:column;justify-content:center}' +
-    '.ah-feat .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#BD6438!important;margin-bottom:10px}' +
+    '.ah-feat .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:10px}' +
     '.ah-feat h2{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#1A3B2A!important;font-size:30px;margin:0 0 12px}' +
     '.ah-feat p{font:15px/1.6 Montserrat,sans-serif;color:#525a51!important;margin:0 0 16px}' +
     '.ah-feat ul{list-style:none!important;padding:0!important;margin:0 0 20px!important}' +
@@ -2377,10 +2377,10 @@ function ahIsFlockArticle(slug) {
     '.ah-feat .pr{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}' +
     '.ah-feat .now{font-family:"Palatino Linotype",Georgia,serif;font-size:30px;color:#1A3B2A!important}' +
     '.ah-feat .was{font:16px Montserrat,sans-serif;color:#7c8378!important;text-decoration:line-through}' +
-    '.ah-feat .save{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid #BD6438;color:#BD6438!important;padding:4px 9px;border-radius:3px}' +
+    '.ah-feat .save{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid #8f4f45;color:#8f4f45!important;padding:4px 9px;border-radius:3px}' +
     '.ah-cta2{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 24px;border-radius:3px;background:#1A3B2A;color:#F8F9F0!important;text-decoration:none!important;border-bottom:0!important;width:fit-content}' +
     '.ah-badge{position:absolute;top:10px;left:10px;z-index:3;font:700 10.5px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px}' +
-    '.ah-badge.pop{background:#E0A53F;color:#2a2208}' +
+    '.ah-badge.pop{background:#8f4f45;color:#f8f9f0}' +
     '.ah-badge.start{background:#1A3B2A;color:#F8F9F0}' +
     // Framed cards: opaque covers don't show a tinted panel behind them, so we
     // frame each card instead (border + soft shadow + rounded cover) to stop the
@@ -2391,7 +2391,7 @@ function ahIsFlockArticle(slug) {
     '.ah-why{background:#1A3B2A;color:#d7e0d2;border-radius:14px;padding:40px 36px;margin:44px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}' +
     '.ah-why h3{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:19px;margin:10px 0 6px}' +
     '.ah-why p{font:14px/1.55 Montserrat,sans-serif;color:#cdd6c8!important;margin:0}' +
-    '.ah-why .ic{width:40px;height:40px;border-radius:10px;background:rgba(224,165,63,.18);display:flex;align-items:center;justify-content:center;color:#E0A53F}' +
+    '.ah-why .ic{width:40px;height:40px;border-radius:10px;background:rgba(221,226,216,.14);display:flex;align-items:center;justify-content:center;color:#dde2d8}' +
     '.ah-why .ic svg{width:21px;height:21px}' +
     '@media(max-width:880px){.ah-feat{grid-template-columns:1fr}.ah-why{grid-template-columns:1fr;gap:22px}.ah-shop-hero h1{font-size:28px}}';
     var st = document.createElement('style'); st.id = 'ah-store-style'; st.textContent = css;
@@ -2672,7 +2672,7 @@ function ahIsFlockArticle(slug) {
     '.gallery-section .gallery-strips-item:hover img{transform:scale(1.05)}' +
     '.gallery-section figcaption{position:absolute!important;left:0;right:0;bottom:0;z-index:2;padding:0 20px 18px!important;text-align:left!important;margin:0!important;background:none!important}' +
     '.gallery-section figcaption,.gallery-section figcaption *{color:#F8F9F0!important;font-family:"Palatino Linotype","Book Antiqua",Georgia,serif!important;font-size:21px!important;font-weight:400!important;line-height:1.18!important;letter-spacing:.01em!important}' +
-    '.gallery-section figcaption::after{content:"Browse →";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#E0A53F!important;margin-top:6px}' +
+    '.gallery-section figcaption::after{content:"Browse →";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#dde2d8!important;margin-top:6px}' +
     /* --- latest-from-the-garden card grid --- */
     '.ah-latest-sec .summary-item-list{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:24px!important;float:none!important;width:100%!important;position:static!important;height:auto!important}' +
     '.ah-latest-sec .summary-item{position:static!important;left:auto!important;top:auto!important;width:100%!important;margin:0!important;padding:0!important;float:none!important;background:#fff;border:1px solid #e3e7da;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:flex!important;flex-direction:column!important}' +
@@ -2740,8 +2740,8 @@ function ahIsFlockArticle(slug) {
     '.ah-fe-social a{width:36px;height:36px;border:1px solid rgba(255,255,255,.28);border-radius:50%;display:flex!important;align-items:center;justify-content:center;padding:0!important}' +
     '.ah-fe-social a:hover{background:rgba(255,255,255,.12)}' +
     '.ah-fe-social svg{width:16px;height:16px;color:#dfe6da}' +
-    '.ah-fe-btn{display:inline-block!important;background:#E0A53F!important;color:#2a2208!important;font:700 12px/1 Montserrat,sans-serif!important;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px!important;border-radius:3px;margin-top:4px}' +
-    '.ah-fe-btn:hover{background:#d3982f!important;color:#2a2208!important}' +
+    '.ah-fe-btn{display:inline-block!important;background:#8f4f45!important;color:#f8f9f0!important;font:700 12px/1 Montserrat,sans-serif!important;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px!important;border-radius:3px;margin-top:4px}' +
+    '.ah-fe-btn:hover{background:#754038!important;color:#f8f9f0!important}' +
     '@media(max-width:760px){.ah-foot-enhance{grid-template-columns:1fr;gap:28px}}';
     var st = document.createElement('style'); st.id = 'ah-foot-style'; st.textContent = css;
     document.head.appendChild(st);
@@ -2784,9 +2784,9 @@ function ahIsFlockArticle(slug) {
     if (document.getElementById('ah-sh-style')) return;
     var css =
     '#sections .page-section h2{position:relative}' +
-    '#sections .page-section h2:not(.ah-keep)::after{content:"";display:block;width:48px;height:3px;background:#E0A53F;border-radius:2px;margin:16px auto 0}' +
-    '#sections .sqs-block-button-element{background:#E0A53F!important;color:#2a2208!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;font-size:13px!important;padding:15px 30px!important;transition:.18s ease!important;box-shadow:0 4px 14px rgba(0,0,0,.18)!important}' +
-    '#sections .sqs-block-button-element:hover{background:#d3982f!important;color:#2a2208!important;transform:translateY(-2px)!important}';
+    '#sections .page-section h2:not(.ah-keep)::after{content:"";display:block;width:48px;height:3px;background:#8f4f45;border-radius:2px;margin:16px auto 0}' +
+    '#sections .sqs-block-button-element{background:#8f4f45!important;color:#f8f9f0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;font-size:13px!important;padding:15px 30px!important;transition:.18s ease!important;box-shadow:0 4px 14px rgba(0,0,0,.18)!important}' +
+    '#sections .sqs-block-button-element:hover{background:#754038!important;color:#f8f9f0!important;transform:translateY(-2px)!important}';
     var st = document.createElement('style'); st.id = 'ah-sh-style'; st.textContent = css;
     document.head.appendChild(st);
   }
@@ -2815,13 +2815,13 @@ function ahIsFlockArticle(slug) {
     if (document.getElementById('ah-lr-style')) { markup(); chips(); return; }
     var css =
     '#sections h2{position:relative}' +
-    '#sections h2:not(.ah-keep)::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px 0 0}' +
+    '#sections h2:not(.ah-keep)::after{content:"";display:block;width:46px;height:3px;background:#8f4f45;border-radius:2px;margin:14px 0 0}' +
     '.ah-res-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important;gap:18px!important;align-items:start!important;margin-top:8px!important}' +
     '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important}' +
     '.ah-res-card p{margin:0 0 6px!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
     '.ah-res-card p:last-child{margin-bottom:0!important}' +
     '.ah-res-card > p:first-child strong:first-child{font-family:"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block!important;margin-bottom:5px!important}' +
-    '.ah-res-card a{color:#BD6438!important;text-decoration:none!important;border-bottom:1px solid rgba(189,100,56,.4)!important;background-image:none!important}' +
+    '.ah-res-card a{color:#2e6b46!important;text-decoration:none!important;border-bottom:1px solid rgba(46,107,70,.4)!important;background-image:none!important}' +
     /* clean category chip bar (replaces the split "On this page" links) */
     '.ah-lr-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:6px auto 10px;padding:0 20px}' +
     '.ah-lr-chips a{display:inline-block;white-space:nowrap;font:600 13px Montserrat,sans-serif;color:#1A3B2A!important;background:#fff;border:1.5px solid #dce0d2!important;border-radius:30px;padding:8px 16px;text-decoration:none!important;background-image:none!important}' +
@@ -2897,7 +2897,7 @@ function ahIsFlockArticle(slug) {
     var css =
     '#ah-shopcallout-sec{background:#1A3B2A;padding:64px 28px 70px}' +
     '#ah-shopcallout{max-width:1140px;margin:0 auto;text-align:center}' +
-    '#ah-shopcallout .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E0A53F!important;margin-bottom:12px}' +
+    '#ah-shopcallout .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#dde2d8!important;margin-bottom:12px}' +
     '#ah-shopcallout h2{font-family:"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:33px;margin:0 0 12px}' +
     '#ah-shopcallout .sub{font:16px/1.6 Montserrat,sans-serif;color:#cdd6c8!important;max-width:56ch;margin:0 auto 36px}' +
     '#ah-shopcallout .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:36px}' +
@@ -2908,9 +2908,9 @@ function ahIsFlockArticle(slug) {
     '#ah-shopcallout .pc .b{padding:14px 16px 18px;text-align:left}' +
     '#ah-shopcallout .pc h3{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:16px!important;line-height:1.22;margin:0 0 6px;font-weight:400!important}' +
     '#ah-shopcallout .pc .price{font-family:"Palatino Linotype",Georgia,serif;color:#1A3B2A!important;font-size:17px}' +
-    '#ah-shopcallout .badge{position:absolute;top:10px;left:10px;background:#E0A53F;color:#2a2208;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px;z-index:2}' +
-    '#ah-shopcallout .shopall{display:inline-block;background:#E0A53F!important;color:#2a2208!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:3px;text-decoration:none!important;border-bottom:0!important}' +
-    '#ah-shopcallout .shopall:hover{background:#d3982f!important}' +
+    '#ah-shopcallout .badge{position:absolute;top:10px;left:10px;background:#8f4f45;color:#f8f9f0;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px;z-index:2}' +
+    '#ah-shopcallout .shopall{display:inline-block;background:#8f4f45!important;color:#f8f9f0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:3px;text-decoration:none!important;border-bottom:0!important}' +
+    '#ah-shopcallout .shopall:hover{background:#754038!important}' +
     '@media(max-width:900px){#ah-shopcallout .grid{grid-template-columns:repeat(2,1fr)}}';
     var st = document.createElement('style'); st.id = 'ah-shopcallout'; st.textContent = css;
     document.head.appendChild(st);
@@ -2960,9 +2960,9 @@ function ahIsFlockArticle(slug) {
     if (document.getElementById('ah-why3-style')) return;
     var css =
     /* hero */
-    '#sections > .page-section:first-child h1{font-size:15px!important;font-family:Montserrat,sans-serif!important;font-weight:700!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#E0A53F!important;margin:0 0 14px!important;line-height:1!important}' +
+    '#sections > .page-section:first-child h1{font-size:15px!important;font-family:Montserrat,sans-serif!important;font-weight:700!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#dde2d8!important;margin:0 0 14px!important;line-height:1!important}' +
     '#sections > .page-section:first-child h4{font-family:"Palatino Linotype",Georgia,serif!important;font-size:50px!important;font-weight:400!important;color:#F8F9F0!important;line-height:1.08!important;margin:0 0 16px!important}' +
-    '#sections > .page-section:first-child .sqs-block-button-element{background:#E0A53F!important;color:#2a2208!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;padding:15px 30px!important}' +
+    '#sections > .page-section:first-child .sqs-block-button-element{background:#8f4f45!important;color:#f8f9f0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;padding:15px 30px!important}' +
     '#ah-hero-cta2{display:inline-block;margin-left:12px;background:transparent;color:#F8F9F0!important;border:1.5px solid rgba(255,255,255,.7)!important;border-radius:3px;text-transform:uppercase;letter-spacing:.08em;font:700 13px/1 Montserrat,sans-serif;padding:14px 28px;text-decoration:none!important;vertical-align:middle}' +
     '#ah-hero-cta2:hover{background:rgba(255,255,255,.14)!important}' +
     /* why value grid */
@@ -2972,7 +2972,7 @@ function ahIsFlockArticle(slug) {
     '#ah-why-wrap .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}' +
     '#ah-why-wrap .col{text-align:center}' +
     '#ah-why-wrap .ic{width:54px;height:54px;border-radius:14px;background:#1A3B2A;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}' +
-    '#ah-why-wrap .ic svg{width:26px;height:26px;color:#E0A53F}' +
+    '#ah-why-wrap .ic svg{width:26px;height:26px;color:#dde2d8}' +
     '#ah-why-wrap h3{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:20px!important;margin:0 0 8px!important;font-weight:400!important}' +
     '#ah-why-wrap .col p{font:14.5px/1.6 Montserrat,sans-serif!important;color:#525a51!important;margin:0!important}' +
     '@media(max-width:760px){#ah-why-wrap .grid{grid-template-columns:1fr;gap:26px}#sections > .page-section:first-child h4{font-size:34px!important}}';
@@ -3115,8 +3115,8 @@ function ahIsFlockArticle(slug) {
   function build() {
     if (document.getElementById('ah-content-style')) { accentize(); return; }
     var css =
-    '#sections h1.ah-hac-l::after,#sections h2.ah-hac-l::after,#sections h3.ah-hac-l::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px 0 0}' +
-    '#sections h1.ah-hac-c::after,#sections h2.ah-hac-c::after,#sections h3.ah-hac-c::after{content:"";display:block;width:46px;height:3px;background:#E0A53F;border-radius:2px;margin:14px auto 0}' +
+    '#sections h1.ah-hac-l::after,#sections h2.ah-hac-l::after,#sections h3.ah-hac-l::after{content:"";display:block;width:46px;height:3px;background:#8f4f45;border-radius:2px;margin:14px 0 0}' +
+    '#sections h1.ah-hac-c::after,#sections h2.ah-hac-c::after,#sections h3.ah-hac-c::after{content:"";display:block;width:46px;height:3px;background:#8f4f45;border-radius:2px;margin:14px auto 0}' +
     '#sections .sqs-block-button-element{background:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;font-size:13px!important;padding:15px 30px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
     '#sections .sqs-block-button-element:hover{background:#2c5d42!important;transform:translateY(-2px)}';
     var st = document.createElement('style'); st.id = 'ah-content-style'; st.textContent = css;
@@ -3155,10 +3155,10 @@ function ahIsFlockArticle(slug) {
     '#sections .sqs-html-content .sqsrte-text-color--lightAccent{color:#dfe6da!important}' +
     '#sections .sqs-html-content .ah-legal-title{margin-bottom:4px!important;font-family:"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important}' +
     '#sections .sqs-html-content .ah-legal-title .sqsrte-text-color--lightAccent{font-family:inherit!important;font-size:inherit!important;line-height:inherit!important;font-weight:400!important;color:#F8F9F0!important}' +
-    '#sections .sqs-html-content .ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#E0A53F;border-radius:2px;margin:18px 0 6px}' +
+    '#sections .sqs-html-content .ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#8f4f45;border-radius:2px;margin:18px 0 6px}' +
     '#sections .sqs-html-content .ah-legal-sub{margin-bottom:26px!important}' +
     '#sections .sqs-html-content .ah-legal-sub,#sections .sqs-html-content .ah-legal-sub .sqsrte-text-color--lightAccent{font-family:Montserrat,sans-serif!important;font-size:12px!important;letter-spacing:.1em!important;text-transform:uppercase!important;color:#9fb09a!important}' +
-    '#sections .sqs-html-content a,#sections .sqs-html-content a .sqsrte-text-color--lightAccent{color:#E0A53F!important}';
+    '#sections .sqs-html-content a,#sections .sqs-html-content a .sqsrte-text-color--lightAccent{color:#2e6b46!important}';
     var st = document.createElement('style'); st.id = 'ah-legal-style'; st.textContent = css;
     document.head.appendChild(st);
     mark();
@@ -3214,13 +3214,13 @@ function ahIsFlockArticle(slug) {
     if (document.getElementById('ah-contact-style')) { socials(); return; }
     var css =
     '#sections h1{position:relative}' +
-    '#sections h1::after{content:"";display:block;width:48px;height:3px;background:#E0A53F;border-radius:2px;margin:16px auto 0}' +
+    '#sections h1::after{content:"";display:block;width:48px;height:3px;background:#8f4f45;border-radius:2px;margin:16px auto 0}' +
     '#sections .sqs-block-form .form-submit-button button,#sections .sqs-block-form button.sqs-system-button,#sections form button.button{background:#1A3B2A!important;background-color:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;padding:15px 34px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
     '#sections .sqs-block-form button.sqs-system-button:hover,#sections form button.button:hover{background:#2c5d42!important;background-color:#2c5d42!important;transform:translateY(-2px)}' +
     '#sections .sqs-svg-icon--wrapper.ah-soc{width:42px!important;height:42px!important;border-radius:50%!important;background:#1A3B2A!important;display:inline-flex!important;align-items:center;justify-content:center;margin:0 6px!important;transition:.18s;vertical-align:middle}' +
     '#sections .sqs-svg-icon--wrapper.ah-soc svg{width:19px;height:19px;color:#F8F9F0}' +
-    '#sections .sqs-svg-icon--wrapper.ah-soc:hover{background:#E0A53F!important}' +
-    '#sections .sqs-svg-icon--wrapper.ah-soc:hover svg{color:#2a2208}';
+    '#sections .sqs-svg-icon--wrapper.ah-soc:hover{background:#8f4f45!important}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc:hover svg{color:#f8f9f0}';
     var st = document.createElement('style'); st.id = 'ah-contact-style'; st.textContent = css;
     document.head.appendChild(st);
     socials();
