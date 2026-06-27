@@ -477,6 +477,11 @@ document.addEventListener("DOMContentLoaded", function() {
   // Generated from graphics_mapping.json by generate-cluster-pages.js
   // =========================================================================
   var SLUG_TO_CLUSTER = {
+    "grow-cleveland-sage-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-narrowleaf-milkweed-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-western-redbud-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-douglas-iris-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-california-fuchsia-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
     "garden-myth-adding-lime-to-california-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
     "garden-myth-adding-sand-to-clay-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
     "garden-myth-all-bees-sting-keep-away": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
