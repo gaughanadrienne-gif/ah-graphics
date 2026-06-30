@@ -103,9 +103,90 @@ def compute_related(articles):
     return result
 
 
+def _inbound_counts(result):
+    import collections
+    c = collections.Counter()
+    for picks in result.values():
+        for p in picks:
+            c[p["url"].replace("/learn/", "").strip("/")] += 1
+    return c
+
+
+def enforce_min_inbound(result, articles, min_inbound=2):
+    """Guarantee every article receives >= min_inbound internal links.
+
+    Orphaned/under-linked pages are the top cause of 'Discovered/Crawled - not
+    indexed'. For each under-linked article we find the most topically-relevant
+    HOST (same category first, then keyword overlap) and swap in a link to the
+    orphan -- but only by displacing a pick that is itself already well-linked
+    (inbound > min_inbound), so the swap never creates a new orphan. Relevance is
+    preserved by always choosing the best-matching host available.
+    """
+    by_slug = {a["slug"]: a for a in articles}
+    by_cat = {}
+    for a in articles:
+        by_cat.setdefault(a["category"], []).append(a)
+    inbound = _inbound_counts(result)
+    swaps = 0
+
+    # process the most-orphaned first
+    for a in sorted(articles, key=lambda x: inbound[x["slug"]]):
+        slug = a["slug"]
+        # candidate hosts: prefer same category + highest title overlap
+        hosts = [h for h in by_cat.get(a["category"], []) if h["slug"] != slug]
+        hosts += [h for h in articles
+                  if h["category"] != a["category"] and h["slug"] != slug]
+        hosts.sort(key=lambda h: score(a["title"], h["title"]), reverse=True)
+        hi = 0
+        while inbound[slug] < min_inbound and hi < len(hosts):
+            h = hosts[hi]; hi += 1
+            picks = result[h["slug"]]
+            # already links to the orphan? skip
+            if any(p["url"] == a["url"] for p in picks):
+                continue
+            # find a displaceable pick: one that stays >= min_inbound after removal,
+            # taking the weakest match to the host so we drop the least-relevant link
+            cand = sorted(
+                [p for p in picks
+                 if inbound[p["url"].replace("/learn/", "").strip("/")] > min_inbound],
+                key=lambda p: score(h["title"], p.get("title", "")))
+            if not cand:
+                continue
+            drop = cand[0]
+            ds = drop["url"].replace("/learn/", "").strip("/")
+            picks[picks.index(drop)] = {"title": a["title"], "url": a["url"]}
+            inbound[slug] += 1; inbound[ds] -= 1; swaps += 1
+
+    return result, swaps
+
+
+def _selftest_minlink():
+    arts = [{"slug": f"s{i}", "title": t, "category": "C", "url": f"/learn/s{i}",
+             "publishOn": i} for i, t in enumerate([
+        "Tomato Growing Guide", "Tomato Pests", "Tomato Varieties",
+        "Pepper Growing Guide", "Lonely Orphan Article About Nothing Common"])]
+    rel = compute_related(arts)
+    rel, _ = enforce_min_inbound(rel, arts, min_inbound=2)
+    inb = _inbound_counts(rel)
+    assert all(inb[a["slug"]] >= 2 for a in arts), inb
+    print("min-inbound selftest OK")
+
+
 if __name__ == "__main__":
+    _selftest()
+    _selftest_minlink()
     arts = fetch_articles()
     assert len(arts) > 100, "too few articles -- check pagination"
     rel = compute_related(arts)
+    before = _inbound_counts(rel)
+    orphans_before = sum(1 for a in arts if before[a["slug"]] == 0)
+    weak_before = sum(1 for a in arts if before[a["slug"]] < 2)
+    rel, swaps = enforce_min_inbound(rel, arts, min_inbound=2)
+    after = _inbound_counts(rel)
+    orphans_after = sum(1 for a in arts if after[a["slug"]] == 0)
+    weak_after = sum(1 for a in arts if after[a["slug"]] < 2)
     json.dump(rel, open("related-manifest.json", "w", encoding="utf-8"), ensure_ascii=False)
     print("wrote related-manifest.json with", len(rel), "slugs")
+    print(f"  inbound swaps: {swaps}")
+    print(f"  orphans (0 inbound): {orphans_before} -> {orphans_after}")
+    print(f"  weak (<2 inbound):  {weak_before} -> {weak_after}")
