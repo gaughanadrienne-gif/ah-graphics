@@ -1428,9 +1428,13 @@ document.addEventListener("DOMContentLoaded", function() {
 // before the product existed. Rewrite them to the real product URL.
 (function() {
   var DEAD = '/store/the-tomato-growing-masterkit-california-edition';
-  var REAL = '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6';
+  var REAL = '/store/p/tomato-growing-masterkit-california-edition';
+  // Old hash product URL (pre 2026-07-01 slug fix): rewrite any leftover links too.
+  var OLDHASH = '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6';
   function fixButtons() {
-    var links = document.querySelectorAll('a[href="' + DEAD + '"], a[href^="' + DEAD + '?"]');
+    var links = document.querySelectorAll(
+      'a[href="' + DEAD + '"], a[href^="' + DEAD + '?"], a[href="' + OLDHASH + '"], a[href^="' + OLDHASH + '?"]'
+    );
     for (var i = 0; i < links.length; i++) links[i].setAttribute('href', REAL);
     if (links.length) console.log('[AH] fixed ' + links.length + ' MasterKit buy link(s)');
   }
@@ -1438,6 +1442,29 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(fixButtons, 300); });
   } else {
     setTimeout(fixButtons, 300);
+  }
+})();
+
+// === MASTERKIT TESTIMONIALS REMOVED (2026-07-01) ===
+// "What early readers are saying" (section.social-proof#proof on /tomato-masterkit)
+// removed per Adrienne: quotes predate any ebook sale and cannot be attributed.
+// Reversible: delete this block to restore.
+(function() {
+  if (window.location.pathname.replace(/\/$/, '') !== '/tomato-masterkit') return;
+  var st = document.createElement('style');
+  st.id = 'ah-mk-noproof';
+  st.textContent = '#proof, section.social-proof { display: none !important; }';
+  (document.head || document.documentElement).appendChild(st);
+  function drop() {
+    var s = document.getElementById('proof') || document.querySelector('section.social-proof');
+    if (s) { s.parentNode.removeChild(s); console.log('[AH] removed MasterKit testimonials section'); }
+    var anchors = document.querySelectorAll('a[href="#proof"]');
+    for (var i = 0; i < anchors.length; i++) anchors[i].style.display = 'none';
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(drop, 200); });
+  } else {
+    setTimeout(drop, 200);
   }
 })();
 
@@ -2382,7 +2409,7 @@ function ahIsFlockArticle(slug) {
     if (document.getElementById('ah-store-style')) return;
     document.title = 'Shop Garden Guides & Kits | Ambitious Harvest';
     var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
-    var MK = '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6';
+    var MK = '/store/p/tomato-growing-masterkit-california-edition';
     var css =
     '.product-list-header{display:none!important}' +
     '.ah-shop-hero{background:linear-gradient(180deg,#1A3B2A,#163322);color:#F8F9F0;border-radius:14px;padding:42px 36px 40px;text-align:center;margin:0 0 28px;position:relative;overflow:hidden}' +
@@ -2917,7 +2944,7 @@ function ahIsFlockArticle(slug) {
     if (document.getElementById('ah-shopcallout') || document.getElementById('ah-shopcallout-sec')) return;
     var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
     var prods = [
-      { t: 'Tomato Growing MasterKit', c: 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg', p: '$14.99', u: '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6', badge: 'Bestseller' },
+      { t: 'Tomato Growing MasterKit', c: 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg', p: '$14.99', u: '/store/p/tomato-growing-masterkit-california-edition', badge: 'Bestseller' },
       { t: 'First Harvest Kit', c: 'dd2f6938-54ca-4c68-9aa8-240e26854d4c/first-harvest-kit-1-cover.jpeg', p: '$14.99', u: '/store/p/first-harvest-kit-california-edition', badge: '' },
       { t: 'Water-Wise Garden Workbook', c: '3929876c-ddbc-48a5-ae55-ec2794fb4bf6/water-wise-garden-workbook-1-cover.jpeg', p: '$9.99', u: '/store/p/water-wise-garden-workbook-california-edition', badge: '' },
       { t: 'Seed Starting Success Kit', c: 'fbc91ab7-4aec-42af-8ef9-f77d7ae2d425/seed-starting-success-kit-1-cover.jpeg', p: '$9.99', u: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', badge: '' }
