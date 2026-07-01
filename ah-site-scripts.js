@@ -1682,7 +1682,7 @@ function ahIsFlockArticle(slug) {
     box.setAttribute('style', 'display:block;margin:30px 0;padding:22px 24px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Where we buy our trees &middot; Affiliate partner</div>' +
-      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Fast Growing Trees</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Fast Growing Trees</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">We have ordered from Fast Growing Trees many times and genuinely recommend them. All of our tropical pond plants come from them, and they ship established, ready-to-plant trees and shrubs straight to your door.</p>' +
       '<a href="' + LINK + '" target="_blank" rel="sponsored nofollow noopener" style="display:inline-block;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px;border-radius:4px;text-decoration:none!important;border-bottom:0!important;">Shop Fast Growing Trees</a>' +
       '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:13px;">Reader code FGTAMBITIOUS20 is built into this link. As an affiliate, we may earn a commission at no extra cost to you.</div>';
@@ -1785,7 +1785,7 @@ function ahIsFlockArticle(slug) {
     box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
-      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Berry Growing Cheat Sheet</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Berry Growing Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">A free one-page quick reference for growing strawberries, blueberries, blackberries, raspberries, and mulberries in coastal California. Enter your email and I will send the PDF straight to your inbox.</p>' +
       '<form class="ah-berry-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
@@ -1819,7 +1819,7 @@ function ahIsFlockArticle(slug) {
         .then(function () {
           box.innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
-            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your California Berry Growing Cheat Sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
         .catch(function () {
@@ -1871,7 +1871,7 @@ function ahIsFlockArticle(slug) {
     box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
-      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">' + m.title + '</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">' + m.title + '</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">' + m.blurb + '</p>' +
       '<form class="ah-lm-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
@@ -1905,7 +1905,7 @@ function ahIsFlockArticle(slug) {
         .then(function () {
           box.innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
-            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your cheat sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
         .catch(function () {
@@ -2006,7 +2006,7 @@ function ahIsFlockArticle(slug) {
     wrap.innerHTML =
       '<aside style="display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;">' +
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
-      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Working out your planting dates? Grab the free one-page seed starting cheat sheet: what to start indoors versus sow direct, sow-depth and timing, and how to avoid damping off, tuned to coastal California. Enter your email and I will send the PDF.</p>' +
       '<form class="ah-cal-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
@@ -2028,7 +2028,7 @@ function ahIsFlockArticle(slug) {
         .then(function () {
           wrap.querySelector('aside').innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
-            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your cheat sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
         .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the cheat sheet'; btn.disabled = false; });
@@ -2051,7 +2051,7 @@ function ahIsFlockArticle(slug) {
   var BOXSTYLE = 'display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;';
   function inner() {
     return '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
-      '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Keep your flock safe at night. Grab the free one-page predator-proofing checklist for Santa Cruz County coops: hardware cloth, the buried apron, raccoon-proof latches, and a simple nightly lock-up routine. Enter your email and I will send the PDF.</p>' +
       '<form class="ah-flock-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
@@ -2072,7 +2072,7 @@ function ahIsFlockArticle(slug) {
       fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
         .then(function () {
           asideEl.innerHTML = '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
-            '<div style="font-family:Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
             '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your checklist is on its way. If you do not see it, check your spam or promotions folder.</p>';
         })
         .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the checklist'; btn.disabled = false; });
@@ -2164,7 +2164,7 @@ function ahIsFlockArticle(slug) {
 
     var css =
     '.blog-item-content{--ahg:#1A3B2A;--ahm:#8f4f45;--aht:#8f4f45;--ahline:#dce0d2}' +
-    '.blog-item-content h2:not(.ah-keep){font-family:"Palatino Linotype","Book Antiqua",Georgia,serif!important;padding-top:6px;margin-top:1.7em!important}' +
+    '.blog-item-content h2:not(.ah-keep){font-family:Fraunces,"Palatino Linotype","Book Antiqua",Georgia,serif!important;padding-top:6px;margin-top:1.7em!important}' +
     '.blog-item-content h2:not(.ah-keep):before{content:"";display:block;width:46px;height:3px;background:var(--ahm);border-radius:2px;margin-bottom:13px}' +
     '.ah-toc{background:#fff;border:1px solid var(--ahline);border-left:4px solid var(--ahg);border-radius:0 10px 10px 0;padding:18px 22px;margin:26px 0 30px}' +
     '.ah-toc h6{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#525a51;margin:0 0 12px}' +
@@ -2176,21 +2176,21 @@ function ahIsFlockArticle(slug) {
     '.ah-prod .cov{flex:0 0 124px;border-radius:6px;overflow:hidden;border:1px solid var(--ahline);box-shadow:0 4px 14px rgba(28,33,29,.12)}' +
     '.ah-prod .cov img{width:100%;display:block;aspect-ratio:7/9;object-fit:cover}' +
     '.ah-prod .eb{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--aht);margin-bottom:7px}' +
-    '.ah-prod h4{font-family:"Palatino Linotype",Georgia,serif;font-size:21px;color:var(--ahg)!important;margin:0 0 6px}' +
+    '.ah-prod h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:21px;color:var(--ahg)!important;margin:0 0 6px}' +
     '.ah-prod p{font:14px/1.5 Montserrat,sans-serif;color:#525a51!important;margin:0 0 13px}' +
-    '.ah-prod .price{font-family:"Palatino Linotype",Georgia,serif;font-size:20px;color:var(--ahg)!important;margin-right:14px;vertical-align:middle}' +
+    '.ah-prod .price{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:20px;color:var(--ahg)!important;margin-right:14px;vertical-align:middle}' +
     '.ah-cta{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:13px 22px;border-radius:3px;background:var(--ahg);color:#F8F9F0!important;text-decoration:none!important}' +
     '.ah-lead{background:var(--ahg);border-radius:12px;padding:26px 28px;margin:34px 0;position:relative;overflow:hidden}' +
     '.ah-lead:after{content:"";position:absolute;right:-40px;bottom:-50px;width:180px;height:180px;border-radius:50%;background:rgba(221,226,216,.12)}' +
-    '.ah-lead h3{font-family:"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:22px;margin:0 0 4px}' +
+    '.ah-lead h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:22px;margin:0 0 4px}' +
     '.ah-lead .sub{color:#cdd6c8!important;font:14px/1.5 Montserrat,sans-serif;margin:0 0 16px}' +
     '.ah-lead ul{list-style:none!important;margin:0!important;padding:0!important;display:flex;flex-wrap:wrap;gap:10px;position:relative}' +
     '.ah-lead li{margin:0!important;padding:0!important}.ah-lead li:before{display:none!important}' +
     '.ah-lead li a{display:inline-block;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28)!important;border-bottom:1px solid rgba(255,255,255,.28)!important;color:#fff!important;text-decoration:none!important;font:600 13px/1 Montserrat,sans-serif;padding:11px 16px;border-radius:30px}' +
     '.ah-lead li a:hover{background:var(--ahm);color:#f8f9f0!important;border-color:var(--ahm)}' +
     '.ah-bio{display:flex;gap:18px;align-items:center;background:#F1F2E6;border:1px solid var(--ahline);border-radius:12px;padding:20px 22px;margin:38px 0}' +
-    '.ah-bio .av{flex:0 0 64px;height:64px;border-radius:50%;background:var(--ahg);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Palatino Linotype",Georgia,serif;font-size:24px}' +
-    '.ah-bio h4{font-family:"Palatino Linotype",Georgia,serif;color:var(--ahg)!important;font-size:18px;margin:0 0 4px}' +
+    '.ah-bio .av{flex:0 0 64px;height:64px;border-radius:50%;background:var(--ahg);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:24px}' +
+    '.ah-bio h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:var(--ahg)!important;font-size:18px;margin:0 0 4px}' +
     '.ah-bio p{font:13.5px/1.5 Montserrat,sans-serif;color:#525a51!important;margin:0}' +
     '.ah-relwrap{margin:40px 0 0}' +
     '.ah-rel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}' +
@@ -2203,7 +2203,7 @@ function ahIsFlockArticle(slug) {
     '.ah-rel .ph{aspect-ratio:16/10;background:linear-gradient(135deg,#E8EBE1,#dbe3d6);overflow:hidden;display:flex;align-items:center;justify-content:center}' +
     '.ah-rel .ph svg{width:40px;height:40px;opacity:.5}.ah-rel .ph img{width:100%;height:100%;object-fit:cover}' +
     '.ah-rel .b{padding:13px 15px 16px}' +
-    '.ah-rel h5{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:var(--ahg)!important;font-size:15.5px;line-height:1.25;margin:0}' +
+    '.ah-rel h5{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:var(--ahg)!important;font-size:15.5px;line-height:1.25;margin:0}' +
     '@media(max-width:760px){.ah-rel{grid-template-columns:1fr}.ah-prod{flex-direction:column;text-align:center}.ah-prod .cov{flex:none;width:150px;margin:0 auto}.ah-toc ul{columns:1}}';
     var st = document.createElement('style'); st.id = 'ah-enh-style'; st.textContent = css;
     document.head.appendChild(st);
@@ -2414,7 +2414,7 @@ function ahIsFlockArticle(slug) {
     '.product-list-header{display:none!important}' +
     '.ah-shop-hero{background:linear-gradient(180deg,#1A3B2A,#163322);color:#F8F9F0;border-radius:14px;padding:42px 36px 40px;text-align:center;margin:0 0 28px;position:relative;overflow:hidden}' +
     '.ah-shop-hero .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#dde2d8!important;margin-bottom:12px}' +
-    '.ah-shop-hero h1{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:36px;margin:0 0 12px}' +
+    '.ah-shop-hero h1{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:36px;margin:0 0 12px}' +
     '.ah-shop-hero p{color:#cdd6c8!important;max-width:56ch;margin:0 auto;font:16px/1.6 Montserrat,sans-serif}' +
     '.ah-trust{display:flex;justify-content:center;gap:30px;margin-top:22px;flex-wrap:wrap}' +
     '.ah-trust span{font:600 12.5px/1.2 Montserrat,sans-serif;color:#d7e0d2!important;display:flex;align-items:center;gap:8px}' +
@@ -2424,13 +2424,13 @@ function ahIsFlockArticle(slug) {
     '.ah-feat .cov img{width:72%;border-radius:8px;box-shadow:0 16px 40px rgba(28,33,29,.22)}' +
     '.ah-feat .bod{padding:36px 40px;display:flex;flex-direction:column;justify-content:center}' +
     '.ah-feat .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:10px}' +
-    '.ah-feat h2{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#1A3B2A!important;font-size:30px;margin:0 0 12px}' +
+    '.ah-feat h2{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:#1A3B2A!important;font-size:30px;margin:0 0 12px}' +
     '.ah-feat p{font:15px/1.6 Montserrat,sans-serif;color:#525a51!important;margin:0 0 16px}' +
     '.ah-feat ul{list-style:none!important;padding:0!important;margin:0 0 20px!important}' +
     '.ah-feat li{position:relative;padding-left:24px;margin:0 0 8px!important;font:14px/1.4 Montserrat,sans-serif;color:#2c3327!important}' +
     '.ah-feat li:before{content:"\\2713";position:absolute;left:0;color:#3a7256;font-weight:700}' +
     '.ah-feat .pr{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}' +
-    '.ah-feat .now{font-family:"Palatino Linotype",Georgia,serif;font-size:30px;color:#1A3B2A!important}' +
+    '.ah-feat .now{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:30px;color:#1A3B2A!important}' +
     '.ah-feat .was{font:16px Montserrat,sans-serif;color:#7c8378!important;text-decoration:line-through}' +
     '.ah-feat .save{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid #8f4f45;color:#8f4f45!important;padding:4px 9px;border-radius:3px}' +
     '.ah-cta2{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 24px;border-radius:3px;background:#1A3B2A;color:#F8F9F0!important;text-decoration:none!important;border-bottom:0!important;width:fit-content}' +
@@ -2444,7 +2444,7 @@ function ahIsFlockArticle(slug) {
     '.product-list-item:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(28,33,29,.13)!important;border-color:#cfd6c4!important}' +
     '.product-list-item .product-list-image-wrapper{border-radius:8px!important;overflow:hidden!important;background:#fbfbf6!important;border:1px solid #eceee3!important}' +
     '.ah-why{background:#1A3B2A;color:#d7e0d2;border-radius:14px;padding:40px 36px;margin:44px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}' +
-    '.ah-why h3{font-family:"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:19px;margin:10px 0 6px}' +
+    '.ah-why h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:19px;margin:10px 0 6px}' +
     '.ah-why p{font:14px/1.55 Montserrat,sans-serif;color:#cdd6c8!important;margin:0}' +
     '.ah-why .ic{width:40px;height:40px;border-radius:10px;background:rgba(221,226,216,.14);display:flex;align-items:center;justify-content:center;color:#dde2d8}' +
     '.ah-why .ic svg{width:21px;height:21px}' +
@@ -2726,7 +2726,7 @@ function ahIsFlockArticle(slug) {
     '.gallery-section .gallery-strips-item img{transition:transform .45s ease}' +
     '.gallery-section .gallery-strips-item:hover img{transform:scale(1.05)}' +
     '.gallery-section figcaption{position:absolute!important;left:0;right:0;bottom:0;z-index:2;padding:0 20px 18px!important;text-align:left!important;margin:0!important;background:none!important}' +
-    '.gallery-section figcaption,.gallery-section figcaption *{color:#F8F9F0!important;font-family:"Palatino Linotype","Book Antiqua",Georgia,serif!important;font-size:21px!important;font-weight:400!important;line-height:1.18!important;letter-spacing:.01em!important}' +
+    '.gallery-section figcaption,.gallery-section figcaption *{color:#F8F9F0!important;font-family:Fraunces,"Palatino Linotype","Book Antiqua",Georgia,serif!important;font-size:21px!important;font-weight:400!important;line-height:1.18!important;letter-spacing:.01em!important}' +
     '.gallery-section figcaption::after{content:"Browse →";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#dde2d8!important;margin-top:6px}' +
     /* --- latest-from-the-garden card grid --- */
     '.ah-latest-sec .summary-item-list{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:24px!important;float:none!important;width:100%!important;position:static!important;height:auto!important}' +
@@ -2736,7 +2736,7 @@ function ahIsFlockArticle(slug) {
     '.ah-latest-sec .summary-thumbnail-outer-container{width:100%!important;padding:0!important}' +
     '.ah-latest-sec .summary-thumbnail{padding-bottom:60%!important;width:100%!important;border-radius:0!important}' +
     '.ah-latest-sec .summary-content{padding:14px 16px 18px!important;text-align:left!important;display:block!important}' +
-    '.ah-latest-sec .summary-title{font-family:"Palatino Linotype",Georgia,serif!important;font-size:16px!important;line-height:1.25!important;margin:0 0 5px!important;font-weight:400!important}' +
+    '.ah-latest-sec .summary-title{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:16px!important;line-height:1.25!important;margin:0 0 5px!important;font-weight:400!important}' +
     '.ah-latest-sec .summary-title a{color:#1A3B2A!important;font-weight:400!important;border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
     '.ah-latest-sec .summary-metadata,.ah-latest-sec .summary-metadata a{font-size:11px!important;color:#7c8378!important;border-bottom:0!important}' +
     '.ah-latest-sec .summary-excerpt{display:none!important}' +
@@ -2786,7 +2786,7 @@ function ahIsFlockArticle(slug) {
 
     var css =
     '.ah-foot-enhance{display:grid;grid-template-columns:1.5fr 1fr 1.3fr;gap:40px;max-width:1100px;margin:0 auto;padding:48px 28px 40px;border-bottom:1px solid rgba(255,255,255,.13)}' +
-    '.ah-foot-enhance .ah-fe-logo{font-family:"Palatino Linotype",Georgia,serif;font-size:22px;color:#F8F9F0!important;margin-bottom:10px}' +
+    '.ah-foot-enhance .ah-fe-logo{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:22px;color:#F8F9F0!important;margin-bottom:10px}' +
     '.ah-foot-enhance p{font:14px/1.55 Montserrat,sans-serif;color:#b9c7b6!important;margin:0 0 16px;max-width:32ch}' +
     '.ah-foot-enhance h4{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#F8F9F0!important;margin:0 0 14px}' +
     '.ah-foot-enhance a{display:block;font:14px/1.4 Montserrat,sans-serif;color:#cdd6c8!important;text-decoration:none!important;border-bottom:0!important;padding:5px 0;background-image:none!important}' +
@@ -2875,7 +2875,7 @@ function ahIsFlockArticle(slug) {
     '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important}' +
     '.ah-res-card p{margin:0 0 6px!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
     '.ah-res-card p:last-child{margin-bottom:0!important}' +
-    '.ah-res-card > p:first-child strong:first-child{font-family:"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block!important;margin-bottom:5px!important}' +
+    '.ah-res-card > p:first-child strong:first-child{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block!important;margin-bottom:5px!important}' +
     '.ah-res-card a{color:#2e6b46!important;text-decoration:none!important;border-bottom:1px solid rgba(46,107,70,.4)!important;background-image:none!important}' +
     /* clean category chip bar (replaces the split "On this page" links) */
     '.ah-lr-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:6px auto 10px;padding:0 20px}' +
@@ -2953,7 +2953,7 @@ function ahIsFlockArticle(slug) {
     '#ah-shopcallout-sec{background:#1A3B2A;padding:64px 28px 70px}' +
     '#ah-shopcallout{max-width:1140px;margin:0 auto;text-align:center}' +
     '#ah-shopcallout .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#dde2d8!important;margin-bottom:12px}' +
-    '#ah-shopcallout h2{font-family:"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:33px;margin:0 0 12px}' +
+    '#ah-shopcallout h2{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:33px;margin:0 0 12px}' +
     '#ah-shopcallout .sub{font:16px/1.6 Montserrat,sans-serif;color:#cdd6c8!important;max-width:56ch;margin:0 auto 36px}' +
     '#ah-shopcallout .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:36px}' +
     '#ah-shopcallout .pc{background:#fff;border-radius:12px;overflow:hidden;text-decoration:none!important;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:.2s;display:block;position:relative}' +
@@ -2961,8 +2961,8 @@ function ahIsFlockArticle(slug) {
     '#ah-shopcallout .pc .cov{background:linear-gradient(160deg,#f4f1e4,#e9ece0);padding:18px;display:flex;align-items:center;justify-content:center}' +
     '#ah-shopcallout .pc .cov img{width:78%;border-radius:5px;box-shadow:0 8px 20px rgba(28,33,29,.18)}' +
     '#ah-shopcallout .pc .b{padding:14px 16px 18px;text-align:left}' +
-    '#ah-shopcallout .pc h3{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:16px!important;line-height:1.22;margin:0 0 6px;font-weight:400!important}' +
-    '#ah-shopcallout .pc .price{font-family:"Palatino Linotype",Georgia,serif;color:#1A3B2A!important;font-size:17px}' +
+    '#ah-shopcallout .pc h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:16px!important;line-height:1.22;margin:0 0 6px;font-weight:400!important}' +
+    '#ah-shopcallout .pc .price{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:#1A3B2A!important;font-size:17px}' +
     '#ah-shopcallout .badge{position:absolute;top:10px;left:10px;background:#8f4f45;color:#f8f9f0;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px;z-index:2}' +
     '#ah-shopcallout .shopall{display:inline-block;background:#8f4f45!important;color:#f8f9f0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:3px;text-decoration:none!important;border-bottom:0!important}' +
     '#ah-shopcallout .shopall:hover{background:#754038!important}' +
@@ -3016,19 +3016,19 @@ function ahIsFlockArticle(slug) {
     var css =
     /* hero */
     '#sections > .page-section:first-child h1{font-size:15px!important;font-family:Montserrat,sans-serif!important;font-weight:700!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#dde2d8!important;margin:0 0 14px!important;line-height:1!important}' +
-    '#sections > .page-section:first-child h4{font-family:"Palatino Linotype",Georgia,serif!important;font-size:50px!important;font-weight:400!important;color:#F8F9F0!important;line-height:1.08!important;margin:0 0 16px!important}' +
+    '#sections > .page-section:first-child h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:50px!important;font-weight:400!important;color:#F8F9F0!important;line-height:1.08!important;margin:0 0 16px!important}' +
     '#sections > .page-section:first-child .sqs-block-button-element{background:#8f4f45!important;color:#f8f9f0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;padding:15px 30px!important}' +
     '#ah-hero-cta2{display:inline-block;margin-left:12px;background:transparent;color:#F8F9F0!important;border:1.5px solid rgba(255,255,255,.7)!important;border-radius:3px;text-transform:uppercase;letter-spacing:.08em;font:700 13px/1 Montserrat,sans-serif;padding:14px 28px;text-decoration:none!important;vertical-align:middle}' +
     '#ah-hero-cta2:hover{background:rgba(255,255,255,.14)!important}' +
     /* why value grid */
     '#ah-why-wrap{max-width:1040px;margin:0 auto;text-align:center;padding:8px 28px}' +
-    '#ah-why-wrap h2{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:32px!important;margin:0 0 10px!important;font-weight:400!important}' +
+    '#ah-why-wrap h2{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:32px!important;margin:0 0 10px!important;font-weight:400!important}' +
     '#ah-why-wrap .lead{font:16px/1.6 Montserrat,sans-serif;color:#525a51!important;max-width:60ch;margin:0 auto 38px}' +
     '#ah-why-wrap .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}' +
     '#ah-why-wrap .col{text-align:center}' +
     '#ah-why-wrap .ic{width:54px;height:54px;border-radius:14px;background:#1A3B2A;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}' +
     '#ah-why-wrap .ic svg{width:26px;height:26px;color:#dde2d8}' +
-    '#ah-why-wrap h3{font-family:"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:20px!important;margin:0 0 8px!important;font-weight:400!important}' +
+    '#ah-why-wrap h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:20px!important;margin:0 0 8px!important;font-weight:400!important}' +
     '#ah-why-wrap .col p{font:14.5px/1.6 Montserrat,sans-serif!important;color:#525a51!important;margin:0!important}' +
     '@media(max-width:760px){#ah-why-wrap .grid{grid-template-columns:1fr;gap:26px}#sections > .page-section:first-child h4{font-size:34px!important}}';
     var st = document.createElement('style'); st.id = 'ah-why3-style'; st.textContent = css;
@@ -3114,7 +3114,7 @@ function ahIsFlockArticle(slug) {
     '.blog-item .ah-bgimg{display:block!important;width:100%!important;aspect-ratio:16/10!important;background-size:cover!important;background-position:center!important}' +
     '.blog-item .ah-bgimg img{display:none!important}' +
     '.blog-item .blog-item-summary{width:100%!important;padding:14px 16px 18px!important;margin:0!important;flex:none!important}' +
-    '.blog-item .blog-title{font-family:"Palatino Linotype",Georgia,serif!important;font-size:17px!important;line-height:1.25!important;margin:0 0 6px!important}' +
+    '.blog-item .blog-title{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:17px!important;line-height:1.25!important;margin:0 0 6px!important}' +
     '.blog-item .blog-title a{color:#1A3B2A!important}' +
     '.blog-item .blog-excerpt,.blog-item .blog-excerpt p{font-size:13px!important;line-height:1.5!important;color:#525a51!important}' +
     '.blog-item .blog-excerpt{display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 6px!important}' +
@@ -3208,7 +3208,7 @@ function ahIsFlockArticle(slug) {
     '#sections .sqs-html-content{max-width:760px;margin:0 auto}' +
     '#sections .sqs-html-content > p{font-size:15px!important;line-height:1.72!important}' +
     '#sections .sqs-html-content .sqsrte-text-color--lightAccent{color:#dfe6da!important}' +
-    '#sections .sqs-html-content .ah-legal-title{margin-bottom:4px!important;font-family:"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important}' +
+    '#sections .sqs-html-content .ah-legal-title{margin-bottom:4px!important;font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important}' +
     '#sections .sqs-html-content .ah-legal-title .sqsrte-text-color--lightAccent{font-family:inherit!important;font-size:inherit!important;line-height:inherit!important;font-weight:400!important;color:#F8F9F0!important}' +
     '#sections .sqs-html-content .ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#8f4f45;border-radius:2px;margin:18px 0 6px}' +
     '#sections .sqs-html-content .ah-legal-sub{margin-bottom:26px!important}' +
@@ -3674,6 +3674,73 @@ function ahIsFlockArticle(slug) {
     var t = 0, iv = setInterval(function () {
       if (run() || ++t > 40) clearInterval(iv);
     }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === BRAND TYPOGRAPHY: LOAD FRAUNCES SITE-WIDE (2026-07-01, Adrienne-approved) ===
+// Brand guide v1.1 specifies Fraunces for headings but the font was never
+// loaded; headings rendered as Palatino (system serif) or Montserrat depending
+// on the page. Load Fraunces from Google Fonts and apply it to all headings
+// (Palatino stays as fallback). All module font stacks above already lead with
+// Fraunces. Reversible: remove this block + the Fraunces, prefixes.
+(function () {
+  if (document.getElementById('ah-fraunces')) return;
+  var pre1 = document.createElement('link');
+  pre1.rel = 'preconnect'; pre1.href = 'https://fonts.googleapis.com';
+  var pre2 = document.createElement('link');
+  pre2.rel = 'preconnect'; pre2.href = 'https://fonts.gstatic.com'; pre2.crossOrigin = 'anonymous';
+  var css = document.createElement('link');
+  css.id = 'ah-fraunces'; css.rel = 'stylesheet';
+  css.href = 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&display=swap';
+  var st = document.createElement('style');
+  st.id = 'ah-fraunces-headings';
+  st.textContent = 'h1,h2,h3,h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif !important}';
+  var head = document.head || document.documentElement;
+  head.appendChild(pre1); head.appendChild(pre2); head.appendChild(css); head.appendChild(st);
+})();
+
+// === NAV: "LEARN" LINK -> /learn (2026-07-01) ===
+// The LEARN nav folder's landing URL is /articles, which 302s to the
+// Getting Started category filter instead of the full library. The folder
+// slug cannot be /learn (taken by the blog collection), so rewrite the
+// nav hrefs client-side. Reversible.
+(function () {
+  function fix() {
+    var n = 0;
+    [].slice.call(document.querySelectorAll('a[href="/articles"], a[href="/articles/"]')).forEach(function (a) {
+      a.setAttribute('href', '/learn'); n++;
+    });
+    return n;
+  }
+  function boot() {
+    fix();
+    var t = 0, iv = setInterval(function () { fix(); if (++t > 20) clearInterval(iv); }, 400);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === /tomato-quiz: "300+" GUIDE COUNT -> 600+ (2026-07-01) ===
+// The page undersold the library (673 live guides). Text-node swap; no-ops
+// if the page copy is rewritten. NOTE: the "Answer 5 quick questions" line
+// inside the quiz widget lives in the Interact quiz cover (their dashboard),
+// not on this page; real count = 4 (confirmed by Adrienne).
+(function () {
+  if (location.pathname.replace(/\/$/, '') !== '/tomato-quiz') return;
+  function run() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var n, hit = false;
+    while ((n = w.nextNode())) {
+      if (n.nodeValue.indexOf('Browse 300+ Growing Guides') !== -1) {
+        n.nodeValue = n.nodeValue.replace('Browse 300+ Growing Guides', 'Browse 600+ Growing Guides');
+        hit = true;
+      }
+    }
+    return hit;
+  }
+  function boot() {
+    if (run()) return;
+    var t = 0, iv = setInterval(function () { if (run() || ++t > 40) clearInterval(iv); }, 250);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
