@@ -31,6 +31,12 @@ PLANTS = {
     "garden-highlight-lupine": "California Lupine: A Wildflower That Feeds Your Soil",
     "growing-manzanita-santa-cruz": "Why Manzanita Is the Crown Jewel of California Native Gardens",
     "california-poppy-meaning-benefits-and-uses-beyond-the-garden": "California Poppy: Meaning, Benefits, and Uses Beyond the Garden",
+    "grow-yarrow-santa-cruz": "Common Yarrow: A Tough California Native to Grow",
+    "grow-hummingbird-sage-santa-cruz": "Hummingbird Sage: A Native for California Dry Shade",
+    "grow-coyote-mint-santa-cruz": "Coyote Mint: A Fragrant Santa Cruz Native",
+    "grow-california-buckwheat-santa-cruz": "California Buckwheat: A Native Pollinator Shrub",
+    "grow-deergrass-santa-cruz": "Deergrass: A Tough California Native Bunchgrass",
+    "grow-california-aster-santa-cruz": "California Aster: A Late-Season Native to Grow",
 }
 
 # Native overview / how-to guides (the "why & where" companions). slug -> title.
