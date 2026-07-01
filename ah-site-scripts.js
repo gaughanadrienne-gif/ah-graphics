@@ -1593,12 +1593,16 @@ function ahIsFlockArticle(slug) {
       micro:     { url: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition', title: 'Microclimate Mastery Guide', line: 'The five real growing zones of Santa Cruz County, decoded.', price: '$12.99', cover: 'b3c3da63-ceef-4b34-910e-2943b9a4bbab/microclimate-mastery-guide-1-cover.jpeg' },
       seasonal:  { url: '/store/p/seasonal-planting-master-guide-santa-cruz-county-edition', title: 'Seasonal Planting Master Guide', line: 'Twelve months of planting mapped to your microclimate.', price: '$12.99', cover: 'fc77da29-add8-40e5-9fcb-49f23f9720e1/seasonal-planting-master-guide-1-cover.jpeg' },
       first:     { url: '/store/p/first-harvest-kit-california-edition', title: 'First Harvest Kit', line: 'From bare ground to your first harvest, every decision in order.', price: '$14.99', cover: 'dd2f6938-54ca-4c68-9aa8-240e26854d4c/first-harvest-kit-1-cover.jpeg' },
-      planner:   { url: '/store/p/garden-planner-journal-santa-cruz-county-edition', title: 'Garden Planner & Journal', line: 'Twelve monthly spreads designed to print, with local planting windows.', price: '$7.99', cover: '0993fac6-834e-4747-b62d-8ba39939350c/garden-planner-journal-1-cover.jpeg' }
+      planner:   { url: '/store/p/garden-planner-journal-santa-cruz-county-edition', title: 'Garden Planner & Journal', line: 'Twelve monthly spreads designed to print, with local planting windows.', price: '$7.99', cover: '0993fac6-834e-4747-b62d-8ba39939350c/garden-planner-journal-1-cover.jpeg' },
+      berry:     { url: '/store/p/california-berry-growing-guide', title: 'The California Berry Growing Guide', line: 'Strawberries to mulberries, matched to your zone and pruned without fear.', price: '$12.99', cover: '0582921e-b84c-4526-be21-e63a7387ea86/california-berry-growing-guide-1-cover.jpeg' }
     };
 
     var RULES = [
       [/kids|sensory|dinosaur|fairy|pizza-garden|butterfly-way|moonlight|peter-rabbit|seuss|sunflower-fort/, 'kids'],
       [/dahlia/, 'dahlia'],
+      // Berry SKU (launched 2026-07-01) owns the whole berry cluster; must sit
+      // above container/preserve/pest so berry pages route to it first.
+      [/berr|currant/, 'berry'],
       [/herb|basil|mint-|-mint|dill|thyme|oregano|parsley|chives|cilantro|sage|rosemary/, 'herb'],
       [/firewise|fire-wise|fire-safe|defensible|ember|wildfire|after-the-fire/, 'firewise'],
       [/water-wise|drought|irrigation|greywater|ollas|rainwater|watering/, 'water'],
@@ -1932,13 +1936,12 @@ function ahIsFlockArticle(slug) {
   // Lower index = lower value = dropped first when two boxes collide.
   var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin', 'ah-flock-optin'];
   var SEL = '.' + PRIORITY.join(', .');
-  // On berry pages with a DIRECT product fit (container growing, preserving,
-  // harvest-and-use), the store product callout outranks the berry cheat-sheet
-  // opt-in when they collide (conversion-first; the opt-in still runs on the
-  // rest of the berry cluster: growth stages, varieties, troubleshooting).
+  // On berry pages the product callout (the Berry Growing Guide SKU, launched
+  // 2026-07-01) outranks the berry cheat-sheet opt-in when they collide:
+  // conversion-first now that a direct berry product exists. The opt-in still
+  // renders wherever it does not collide with a product callout.
   var destackSlug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
-  var berryProductWins = /berr/.test(destackSlug) &&
-    /container|pots|grow-bag|preserv|canning|freez|drying|ferment|pickl|harvesting/.test(destackSlug);
+  var berryProductWins = /berr|currant/.test(destackSlug);
   function rank(el) {
     for (var i = 0; i < PRIORITY.length; i++) {
       if (el.classList.contains(PRIORITY[i])) {
