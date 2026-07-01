@@ -2953,7 +2953,7 @@ function ahIsFlockArticle(slug) {
       '<h2>California-Specific Guides &amp; Kits</h2>' +
       '<p class="sub">Printable, microclimate-tuned guides to take the guesswork out of your garden. Instant download, 30-day money-back guarantee.</p>' +
       '<div class="grid">' + cards + '</div>' +
-      '<a class="shopall" href="/store">Shop all 16 guides &amp; kits →</a></div>';
+      '<a class="shopall" href="/store">Shop all 17 guides &amp; kits →</a></div>';
 
     // Insert after the tools section (heading "Plan your garden..."); fall back to
     // before the category gallery, else append to #sections.
@@ -3578,6 +3578,74 @@ function ahIsFlockArticle(slug) {
     var t = 0, iv = setInterval(function () {
       if (document.querySelector('.blog-item-content')) { clearInterval(iv); run(); }
       if (++t > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === HEADER: CART OFF-SCREEN FIX (2026-07-01, site review P1) ===
+// The 4 boxed social buttons in .header-actions--right total ~445px and push
+// the cart block past the right edge at desktop widths (document.scrollWidth
+// 1576 on a 1440 viewport; still +29px at 1920), hiding the cart and adding a
+// horizontal scrollbar on every page. Hide the desktop header social group;
+// the same icons remain in the footer. Reversible: remove this block.
+(function () {
+  if (document.getElementById('ah-header-cart-fix')) return;
+  var st = document.createElement('style');
+  st.id = 'ah-header-cart-fix';
+  st.textContent = '.header-actions--right .header-actions-action--social{display:none !important}';
+  (document.head || document.documentElement).appendChild(st);
+})();
+
+// === /tomato-masterkit: MONTH-AWARE "TIME-SENSITIVE" BAND (2026-07-01) ===
+// The band was written in spring ("California's spring planting season is
+// underway", every zone chip says a window is open "now") and goes stale the
+// moment windows close. Swap those exact strings for month-correct copy.
+// Zone transplant windows per the page: Desert Feb-Mar, Inland Valley Mar-May,
+// Coastal + Mountain Apr-Jun. Text-node swaps only; if the page copy is ever
+// rewritten the matchers find nothing and this no-ops.
+(function () {
+  if (location.pathname.replace(/\/$/, '') !== '/tomato-masterkit') return;
+  var m = new Date().getMonth() + 1; // 1..12
+  function zone(openM, closeM, reopenLabel) {
+    if (m >= openM && m <= closeM) return 'Window open now';
+    var pre1 = openM - 1 || 12, pre2 = openM - 2 > 0 ? openM - 2 : openM - 2 + 12;
+    if (m === pre1 || m === pre2) return 'Start seeds indoors now';
+    return 'Closed for this year. Reopens ' + reopenLabel;
+  }
+  var anyOpen = (m >= 2 && m <= 6);
+  var swaps = [
+    ["California's spring planting season is underway.",
+      anyOpen ? "California's tomato planting season is underway."
+              : "This year's planting windows have closed. The best next-season harvests are planned now."],
+    ['Spring window open now', zone(2, 3, 'February')],
+    ['Start seeds indoors now', zone(3, 5, 'March')],
+    ['Prep time is now', zone(4, 6, 'April')],
+    ['Every week you wait is a week less of harvest at the end of your season.',
+      anyOpen ? 'Every week you wait is a week less of harvest at the end of your season.'
+              : 'Gardeners who plan in the off-season hit day one of their window ready.']
+  ];
+  function run() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var n, hit = false;
+    while ((n = w.nextNode())) {
+      // At most ONE swap per text node: a chip's replacement text can equal
+      // another chip's original (e.g. "Start seeds indoors now"), and a second
+      // pass over the same node would corrupt the fresh copy.
+      for (var i = 0; i < swaps.length; i++) {
+        if (n.nodeValue.indexOf(swaps[i][0]) !== -1 && swaps[i][0] !== swaps[i][1]) {
+          n.nodeValue = n.nodeValue.replace(swaps[i][0], swaps[i][1]);
+          hit = true;
+          break;
+        }
+      }
+    }
+    return hit;
+  }
+  function boot() {
+    if (run()) return;
+    var t = 0, iv = setInterval(function () {
+      if (run() || ++t > 40) clearInterval(iv);
     }, 250);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
