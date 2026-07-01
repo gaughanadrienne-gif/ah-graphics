@@ -1578,7 +1578,7 @@ function ahIsFlockArticle(slug) {
       [/gopher|pest|slug|snail|aphid|deer-|rodent|squirrel|vole|earwig|powdery-mildew|hornworm|owl-box|owls-as/, 'pest'],
       [/compost|vermicompost|soil|mulch|amendment|fertiliz/, 'compost'],
       [/container|grow-bag|windowsill|balcony|pots/, 'container'],
-      [/preserv|canning|freez|drying|ferment|pickl/, 'preserve'],
+      [/preserv|canning|freez|drying|ferment|pickl|harvesting-and-using|harvesting-using/, 'preserve'],
       [/seed/, 'seed'],
       [/companion/, 'companion'],
       // Microclimate guide now also covers citrus, fruit trees, and cold/frost topics
@@ -1638,7 +1638,9 @@ function ahIsFlockArticle(slug) {
     // citrus terms (lemon/orange/mandarin/etc.) intentionally EXCLUDED: FGT cannot
     // ship citrus to California (state citrus quarantine), so a citrus FGT link is a
     // dead end for our CA audience. Avocado/deciduous/fig/berries ship to CA fine.
-    var FRUIT = /bare-root|grafted|own-root|fruit-tree|stone-fruit|avocado|apple|peach|nectarine|plum|pear|fig|apricot|cherry|persimmon|pomegranate|mulberry|blueberr|raspberr|blackberr|strawberr|elderberr/;
+    // NOTE: berry stems must be truncated at "berr" so both singular and plural
+    // slugs match ("mulberry" missed harvesting-using-mulberries-* entirely).
+    var FRUIT = /bare-root|grafted|own-root|fruit-tree|stone-fruit|avocado|apple|peach|nectarine|plum|pear|fig|apricot|cherry|persimmon|pomegranate|mulberr|blueberr|raspberr|blackberr|strawberr|elderberr|olallieberr|boysenberr/;
     if (!FRUIT.test(slug)) return;
     if (document.querySelector('.ah-fgt-callout')) return;
 
@@ -1739,7 +1741,7 @@ function ahIsFlockArticle(slug) {
 (function () {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   if (location.pathname.indexOf('/learn/category/') === 0) return;
-  var BERRY = /strawberr|blueberr|blackberr|raspberr|mulberr|olallieberr|boysenberr/;
+  var BERRY = /strawberr|blueberr|blackberr|raspberr|mulberr|olallieberr|boysenberr|elderberr|gooseberr|huckleberr|currant|best-berries/;
   setTimeout(function () {
     var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
     if (!BERRY.test(slug)) return;
@@ -1903,7 +1905,22 @@ function ahIsFlockArticle(slug) {
   // Lower index = lower value = dropped first when two boxes collide.
   var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin', 'ah-flock-optin'];
   var SEL = '.' + PRIORITY.join(', .');
-  function rank(el) { for (var i = 0; i < PRIORITY.length; i++) { if (el.classList.contains(PRIORITY[i])) return i; } return -1; }
+  // On berry pages with a DIRECT product fit (container growing, preserving,
+  // harvest-and-use), the store product callout outranks the berry cheat-sheet
+  // opt-in when they collide (conversion-first; the opt-in still runs on the
+  // rest of the berry cluster: growth stages, varieties, troubleshooting).
+  var destackSlug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+  var berryProductWins = /berr/.test(destackSlug) &&
+    /container|pots|grow-bag|preserv|canning|freez|drying|ferment|pickl|harvesting/.test(destackSlug);
+  function rank(el) {
+    for (var i = 0; i < PRIORITY.length; i++) {
+      if (el.classList.contains(PRIORITY[i])) {
+        if (berryProductWins && PRIORITY[i] === 'ah-product-callout') return 5.5; // just above ah-berry-optin (5)
+        return i;
+      }
+    }
+    return -1;
+  }
 
   // Real readable content (paragraphs, lists, figures, tables, long text) between
   // two same-parent boxes? Headings alone do not count as separation.
