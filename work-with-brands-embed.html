@@ -1,0 +1,202 @@
+<!-- Ambitious Harvest Co - Work With Brands / UGC Portfolio (Squarespace Embed) -->
+<!-- Paste this entire block into a Squarespace Code Block on the /work-with-brands page. -->
+<!-- Videos, packages, and add-ons are fetched from work-with-brands-data.json in the ah-graphics repo. -->
+<!-- To add a portfolio video: upload it unlisted to YouTube, copy the embed URL -->
+<!-- (https://www.youtube.com/embed/VIDEO_ID), paste it into the video's "embed" field, -->
+<!-- and set "comingSoon" to false. Or host an mp4 and use the "mp4" field instead. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.wb-wrap *, .wb-wrap *::before, .wb-wrap *::after { box-sizing:border-box; margin:0; padding:0; }
+.sqs-block-code, .sqs-block-code .sqs-block-content, .sqs-block-code .sqs-code-container,
+.fe-block, .fluid-engine { max-width:none !important; width:100% !important; }
+.wb-wrap {
+  --forest:#1c3c2c; --forest-light:#2a5a3a; --cream:#f8f9f0; --cream-dark:#eef0e6;
+  --sage:#dde2d8; --sage-dark:#c5ccc0; --muted:#8c9c8c; --white:#ffffff; --ink:#1a3b2a;
+  --btn:#5B7F5E;
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;
+  max-width:1100px; margin:0 auto; padding:28px 18px; color:var(--ink) !important;
+}
+.wb-wrap h2, .wb-wrap h3 { font-family:'Fraunces','Palatino Linotype',Georgia,serif; }
+.wb-hero { text-align:center; margin-bottom:26px; }
+.wb-hero .wb-kicker { font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--forest-light) !important; margin-bottom:10px; }
+.wb-hero h2 { font-size:2.3rem; line-height:1.12; color:var(--forest) !important; margin-bottom:12px; }
+.wb-hero p { color:#3a5446 !important; max-width:680px; margin:0 auto; font-size:1.02rem; line-height:1.55; }
+.wb-cred { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:22px 0 8px; }
+.wb-cred span { background:var(--cream); border:1px solid var(--sage); border-radius:999px;
+  padding:8px 16px; font-size:0.82rem; font-weight:600; color:var(--forest) !important; }
+.wb-section { margin-top:44px; }
+.wb-section > h3 { font-size:1.5rem; color:var(--forest) !important; text-align:center; margin-bottom:6px; }
+.wb-section > .wb-subhead { font-size:0.92rem; color:#3a5446 !important; text-align:center;
+  max-width:620px; margin:0 auto 22px; line-height:1.5; }
+.wb-formats { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+.wb-format { background:var(--white); border:1px solid var(--sage); border-radius:14px; padding:18px 16px;
+  box-shadow:0 2px 6px rgba(26,59,42,0.06); }
+.wb-format h4 { font-size:1rem; color:var(--forest) !important; margin-bottom:6px; }
+.wb-format p { font-size:0.85rem; color:#3a5446 !important; line-height:1.45; }
+.wb-videos { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+.wb-video { background:var(--white); border:1px solid var(--sage); border-radius:14px; overflow:hidden;
+  display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(26,59,42,0.06); }
+.wb-frame { position:relative; width:100%; aspect-ratio:9/16; background:var(--cream-dark); }
+.wb-frame iframe, .wb-frame video { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.wb-frame.wb-soon { display:flex; align-items:center; justify-content:center; }
+.wb-frame.wb-soon span { font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--muted) !important; }
+.wb-vmeta { padding:12px 14px 14px; display:flex; flex-direction:column; gap:4px; }
+.wb-vtag { font-size:0.72rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--forest-light) !important; }
+.wb-vmeta h4 { font-size:0.98rem; color:var(--forest) !important; line-height:1.25; }
+.wb-vmeta p { font-size:0.83rem; color:#3a5446 !important; line-height:1.4; }
+.wb-packs { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; align-items:stretch; }
+.wb-pack { background:var(--white); border:1px solid var(--sage); border-radius:16px; padding:22px 20px;
+  display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(26,59,42,0.06); }
+.wb-pack.wb-featured { border:2px solid var(--forest); position:relative; }
+.wb-pack.wb-featured::before { content:"Most popular"; position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+  background:var(--forest); color:var(--white); font-size:0.68rem; font-weight:700; letter-spacing:0.08em;
+  text-transform:uppercase; padding:4px 12px; border-radius:999px; }
+.wb-pack h4 { font-size:1.05rem; color:var(--forest) !important; margin-bottom:8px; }
+.wb-price { font-family:'Fraunces','Palatino Linotype',Georgia,serif; font-size:1.9rem;
+  color:var(--forest) !important; line-height:1; }
+.wb-unit { font-size:0.78rem; color:var(--muted) !important; margin:4px 0 14px; }
+.wb-pack ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.wb-pack li { font-size:0.85rem; color:#3a5446 !important; line-height:1.4; padding-left:20px; position:relative; }
+.wb-pack li::before { content:"\2713"; position:absolute; left:0; color:var(--forest-light); font-weight:700; }
+.wb-addons { max-width:560px; margin:20px auto 0; background:var(--cream); border:1px solid var(--sage);
+  border-radius:14px; padding:18px 20px; }
+.wb-addons h4 { font-size:0.92rem; color:var(--forest) !important; margin-bottom:10px; text-align:center; }
+.wb-addons div { display:flex; justify-content:space-between; gap:12px; font-size:0.85rem;
+  color:#3a5446 !important; padding:5px 0; border-bottom:1px dashed var(--sage-dark); }
+.wb-addons div:last-child { border-bottom:none; }
+.wb-addons b { color:var(--forest) !important; white-space:nowrap; }
+.wb-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; counter-reset:wbstep; }
+.wb-step { background:var(--white); border:1px solid var(--sage); border-radius:14px; padding:18px 16px; }
+.wb-step::before { counter-increment:wbstep; content:counter(wbstep);
+  display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px;
+  border-radius:50%; background:var(--forest); color:var(--white); font-weight:700; font-size:0.85rem; margin-bottom:10px; }
+.wb-step h4 { font-size:0.95rem; color:var(--forest) !important; margin-bottom:5px; }
+.wb-step p { font-size:0.83rem; color:#3a5446 !important; line-height:1.45; }
+.wb-cta { text-align:center; background:var(--forest); border-radius:16px; padding:36px 24px; margin-top:44px; }
+.wb-cta h3 { font-size:1.5rem; color:var(--cream) !important; margin-bottom:8px; }
+.wb-cta p { font-size:0.95rem; color:var(--sage) !important; max-width:560px; margin:0 auto 18px; line-height:1.5; }
+.wb-cta a.wb-btn { display:inline-block; background:var(--cream); color:var(--forest) !important;
+  font-weight:700; font-size:0.92rem; letter-spacing:0.04em; text-transform:uppercase;
+  padding:14px 34px; border-radius:6px; text-decoration:none; }
+.wb-cta .wb-alt { display:block; margin-top:14px; font-size:0.85rem; color:var(--sage) !important; }
+.wb-cta .wb-alt a { color:var(--cream) !important; font-weight:600; }
+.wb-stamp { display:block; text-align:center; margin-top:16px; font-size:0.78rem; color:var(--muted) !important; }
+@media (max-width:520px) { .wb-hero h2 { font-size:1.7rem; } .wb-section > h3 { font-size:1.3rem; } }
+</style>
+<div class="wb-wrap">
+  <div class="wb-hero">
+    <div class="wb-kicker">UGC for Garden &amp; Homestead Brands</div>
+    <h2>Real garden. Real flock.<br>Content your customers trust.</h2>
+    <p>I'm Adrienne, a certified garden consultant growing food year-round on the foggy Central Coast of California. I create honest, scroll-stopping short-form video for garden tool, seed, soil, and backyard-poultry brands, shot in a real working garden your customers recognize as their own.</p>
+    <div class="wb-cred">
+      <span>&#127793; Certified Garden Consultant</span>
+      <span>&#127749; Zone 9b/10a coastal garden, Santa Cruz CA</span>
+      <span>&#128020; Working backyard flock</span>
+      <span>&#11088; Experienced brand product reviewer</span>
+    </div>
+  </div>
+
+  <div class="wb-section">
+    <h3>What I Create</h3>
+    <p class="wb-subhead">Vertical 30&ndash;60 second videos for TikTok, Reels, and Shorts, delivered ready to post on your channels. No follower minimums, no algorithm gamble, just content that shows your product working.</p>
+    <div class="wb-formats">
+      <div class="wb-format"><h4>Product Demos</h4><p>Your product doing its job in real soil, with real hands, in real weather.</p></div>
+      <div class="wb-format"><h4>Unboxings &amp; First Impressions</h4><p>Authentic first-look reactions from someone who has tested a lot of gear.</p></div>
+      <div class="wb-format"><h4>How-To &amp; Tutorials</h4><p>Teaching content that positions your product as the natural solution.</p></div>
+      <div class="wb-format"><h4>Testimonials &amp; Results</h4><p>Before-and-after stories with real harvest footage, not stock clips.</p></div>
+    </div>
+  </div>
+
+  <div class="wb-section">
+    <h3>Recent Work</h3>
+    <p class="wb-subhead">A sample of formats and styles. Every video is shot on location in my garden with natural light.</p>
+    <div class="wb-videos" id="wb-videos"></div>
+  </div>
+
+  <div class="wb-section">
+    <h3>Packages</h3>
+    <p class="wb-subhead">Flat-rate pricing, fast turnaround, no surprises. All packages include organic usage on your owned social channels.</p>
+    <div class="wb-packs" id="wb-packs"></div>
+    <div class="wb-addons" id="wb-addons"></div>
+  </div>
+
+  <div class="wb-section">
+    <h3>How It Works</h3>
+    <div class="wb-steps">
+      <div class="wb-step"><h4>Brief</h4><p>You share the product, key selling points, and any must-say lines. I pitch 2&ndash;3 concepts.</p></div>
+      <div class="wb-step"><h4>Ship</h4><p>You send the product to my garden. Seasonal timing gets planned around real planting windows.</p></div>
+      <div class="wb-step"><h4>Create</h4><p>I shoot and edit in my garden. Delivery within 7 business days of product arrival.</p></div>
+      <div class="wb-step"><h4>Refine</h4><p>One round of revisions included. You get final files ready to post or run as ads.</p></div>
+    </div>
+  </div>
+
+  <div class="wb-cta">
+    <h3>Let's put your product in the garden.</h3>
+    <p>Tell me about your product and what you're launching. I'll reply within one business day with concept ideas and availability.</p>
+    <a class="wb-btn" id="wb-email-btn" href="/contact">Start a Project</a>
+    <span class="wb-alt">Prefer a form? Reach out through the <a href="/contact">contact page</a>.</span>
+  </div>
+  <span class="wb-stamp" id="wb-stamp"></span>
+</div>
+<script>
+(function () {
+  var DATA_URL = "https://gaughanadrienne-gif.github.io/ah-graphics/work-with-brands-data.json";
+
+  function esc(s){ var d=document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+
+  function videoCard(v){
+    var frame;
+    if (v.comingSoon || (!v.embed && !v.mp4)) {
+      frame = '<div class="wb-frame wb-soon"><span>New work<br>coming soon</span></div>';
+    } else if (v.embed) {
+      frame = '<div class="wb-frame"><iframe src="'+esc(v.embed)+'" title="'+esc(v.title)+'" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>';
+    } else {
+      frame = '<div class="wb-frame"><video controls preload="metadata" playsinline'+(v.poster?' poster="'+esc(v.poster)+'"':'')+'><source src="'+esc(v.mp4)+'" type="video/mp4"></video></div>';
+    }
+    return '<div class="wb-video">'+frame+
+      '<div class="wb-vmeta">'+
+      (v.tag?'<span class="wb-vtag">'+esc(v.tag)+'</span>':'')+
+      '<h4>'+esc(v.title)+'</h4>'+
+      (v.blurb?'<p>'+esc(v.blurb)+'</p>':'')+
+      '</div></div>';
+  }
+
+  function packCard(p){
+    var feats = (p.features||[]).map(function(f){ return '<li>'+esc(f)+'</li>'; }).join('');
+    return '<div class="wb-pack'+(p.featured?' wb-featured':'')+'">'+
+      '<h4>'+esc(p.name)+'</h4>'+
+      '<div class="wb-price">'+esc(p.price)+'</div>'+
+      '<div class="wb-unit">'+esc(p.unit||'')+'</div>'+
+      '<ul>'+feats+'</ul></div>';
+  }
+
+  function render(data){
+    document.getElementById('wb-videos').innerHTML = (data.videos||[]).map(videoCard).join('');
+    document.getElementById('wb-packs').innerHTML = (data.packages||[]).map(packCard).join('');
+    var addons = (data.addons||[]).map(function(a){
+      return '<div><span>'+esc(a.name)+'</span><b>'+esc(a.price)+'</b></div>';
+    }).join('');
+    document.getElementById('wb-addons').innerHTML = addons ? '<h4>Add-Ons</h4>'+addons : '';
+    if (data.contactEmail) {
+      var btn = document.getElementById('wb-email-btn');
+      btn.href = 'mailto:'+data.contactEmail+'?subject='+encodeURIComponent('UGC project inquiry - Ambitious Harvest');
+    }
+    if (data.updated) {
+      document.getElementById('wb-stamp').textContent = 'Rates current as of '+data.updated+'.';
+    }
+  }
+
+  fetch(DATA_URL, { cache: 'no-store' })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(render)
+    .catch(function(){
+      document.getElementById('wb-videos').innerHTML =
+        '<p style="grid-column:1/-1;color:#8c9c8c;font-style:italic;">Portfolio is loading slowly. Please refresh, or reach out through the contact page.</p>';
+    });
+})();
+</script>
