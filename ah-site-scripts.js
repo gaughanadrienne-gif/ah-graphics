@@ -1445,6 +1445,37 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 })();
 
+// === GARDEN REVIEW CALLOUT ON ABOUT + CONTACT (2026-07-02) ===
+// Compact card linking to the /garden-review sales page (Virtual Garden Review $49 /
+// Virtual Garden Design). GUARDED: a HEAD probe confirms /garden-review exists before
+// injecting, so this stays dormant until Adrienne creates the page, then activates on
+// its own. Reversible: delete this block.
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  if (path !== '/about' && path !== '/contact') return;
+  function inject() {
+    if (document.getElementById('ah-gr-callout')) return;
+    var host = document.querySelector('#page') || document.querySelector('main') || document.body;
+    if (!host) return;
+    var card = document.createElement('div');
+    card.id = 'ah-gr-callout';
+    card.style.cssText = 'max-width:680px;margin:2.2rem auto 3rem;padding:1.6rem 1.8rem;background:#dde2d8;border-radius:12px;text-align:center;font-family:Montserrat,sans-serif;';
+    card.innerHTML =
+      '<p style="margin:0 0 .5rem;font-size:1.15rem;font-weight:600;color:#1a3b2a !important;">Want expert eyes on your garden?</p>' +
+      '<p style="margin:0 0 1rem;font-size:.95rem;line-height:1.6;color:#1a3b2a !important;">Send photos and questions, get a written plan back within 5 business days. Reviews from $49; full custom garden designs available.</p>' +
+      '<a href="/garden-review" style="display:inline-block;background:#8f4f45;color:#f8f9f0 !important;font-size:.95rem;font-weight:600;text-decoration:none;padding:.7rem 1.6rem;border-radius:6px;">Learn about Garden Reviews</a>';
+    host.appendChild(card);
+  }
+  fetch('/garden-review', { method: 'HEAD' }).then(function(r) {
+    if (!r.ok) return;
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { setTimeout(inject, 400); });
+    } else {
+      setTimeout(inject, 400);
+    }
+  }).catch(function() {});
+})();
+
 // === MASTERKIT TESTIMONIALS REMOVED (2026-07-01) ===
 // "What early readers are saying" (section.social-proof#proof on /tomato-masterkit)
 // removed per Adrienne: quotes predate any ebook sale and cannot be attributed.
