@@ -1445,6 +1445,18 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 })();
 
+// === GARDEN REVIEW PAGE: FAQ card contrast fix (2026-07-02) ===
+// The pasted code block predates the .ah-gr-faq card style; the page section bg is
+// dark green so the FAQ text was green-on-green. Injecting the card rule here.
+// (Canonical block incl. this rule: Commercialization/Garden Review Service/Garden_Review_Page.html)
+(function() {
+  if (window.location.pathname.replace(/\/$/, '') !== '/garden-review') return;
+  var st = document.createElement('style');
+  st.id = 'ah-gr-faq-fix';
+  st.textContent = '.ah-gr-faq { background: #ffffff !important; border: 1px solid #dde2d8; border-radius: 12px; padding: 32px 34px; }';
+  (document.head || document.documentElement).appendChild(st);
+})();
+
 // === GARDEN REVIEW CALLOUT ON ABOUT + CONTACT (2026-07-02) ===
 // Compact card linking to the /garden-review sales page (Virtual Garden Review $49 /
 // Virtual Garden Design). GUARDED: a HEAD probe confirms /garden-review exists before
