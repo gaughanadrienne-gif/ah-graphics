@@ -1,0 +1,38 @@
+name: Garden Events refresh
+
+on:
+  schedule:
+    # Four times daily keeps recurring cards current without hammering sources.
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: garden-events-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Refresh public event feeds and recurring dates
+        run: node scripts/refresh-garden-events.mjs
+      - name: Validate event feed
+        run: node -e "const d=require('./garden-events-data.json'); if(!Array.isArray(d.events)||!d.events.length) process.exit(1); console.log(d.events.length+' events validated')"
+      - name: Commit changes
+        run: |
+          git config user.name "ah-events-bot"
+          git config user.email "actions@github.com"
+          git add garden-events-data.json
+          if git diff --staged --quiet; then
+            echo "No event changes."
+          else
+            git commit -m "data: refresh garden events"
+            git push
+          fi

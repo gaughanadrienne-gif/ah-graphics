@@ -1,0 +1,21 @@
+name: Check local resource links
+
+on:
+  schedule:
+    - cron: '41 16 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check current directory links
+        run: node scripts/check-local-resources.mjs
