@@ -120,7 +120,8 @@
   function boot(data){
     DATA = data;
     var stamp = document.getElementById('lr-stamp');
-    var when = new Date(data.updated);
+    // Parse date-only values at local noon so Pacific time does not display the prior day.
+    var when = new Date(data.updated + 'T12:00:00');
     stamp.textContent = isNaN(when) ? '' : 'Last verified: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
     document.getElementById('lr-search').addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); render(); });
     render();
