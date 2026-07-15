@@ -2043,18 +2043,7 @@ function ahIsFlockArticle(slug) {
     { re: /seed-starting|starting-seeds|start-seeds|seeds-indoors|direct-sow|start-from-seed|seed-start|winter-sow|germinat|seedling|damping-off/,
       form: '191102468073981272',
       title: 'The California Seed Starting Cheat Sheet',
-      blurb: 'A free one-page quick reference for starting seeds in coastal California: what to start and when, plus light, warmth, and hardening off. Enter your email and I will send the PDF straight to your inbox.' },
-    // Fruit trees (2026-07-13). `not` guard is REQUIRED: without it this steals the
-    // cherry-TOMATO articles (they must keep the MasterKit CTA), bare-root
-    // STRAWBERRIES (berry magnet), and the citrus-COMPOSTING myth article.
-    // Validated against the live sitemap: 49 matches, 0 false positives.
-    { re: /fruit-tree|bare-root|stone-fruit|\bapple|\bpear\b|peach|nectarine|\bplum\b|pluot|apricot|cherry(?!-tomato)|\bfigs?\b|persimmon|pomegranate|citrus|lemon|mandarin|satsuma/,
-      not: /tomato|berry|berries|compost/,
-      form: '192902278100812879',
-      title: 'The California Fruit Tree Planting Guide',
-      cta: 'Send me the guide',
-      noun: 'guide',
-      blurb: 'A free one-page guide to choosing and planting fruit trees that actually produce in coastal California: chill hours by fruit, which trees need a pollination partner, and the planting mistakes that kill trees years later. Enter your email and I will send the PDF straight to your inbox.' }
+      blurb: 'A free one-page quick reference for starting seeds in coastal California: what to start and when, plus light, warmth, and hardening off. Enter your email and I will send the PDF straight to your inbox.' }
   ];
   setTimeout(function () {
     var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
