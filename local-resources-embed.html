@@ -1,0 +1,137 @@
+<!-- Ambitious Harvest Co - Local Resources Directory (Squarespace Embed) -->
+<!-- Paste this entire block into a Squarespace Code Block on the /local-resources page. -->
+<!-- Data is fetched from the ah-graphics GitHub Pages repo. Edit local-resources-data.json to update. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.lr-wrap *, .lr-wrap *::before, .lr-wrap *::after { box-sizing:border-box; margin:0; padding:0; }
+.sqs-block-code, .sqs-block-code .sqs-block-content, .sqs-block-code .sqs-code-container,
+.fe-block, .fluid-engine { max-width:none !important; width:100% !important; }
+.lr-wrap {
+  --forest:#1c3c2c; --forest-light:#2a5a3a; --cream:#f8f9f0; --cream-dark:#eef0e6;
+  --sage:#dde2d8; --sage-dark:#c5ccc0; --muted:#8c9c8c; --white:#ffffff; --ink:#1a3b2a;
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;
+  max-width:1100px; margin:0 auto; padding:28px 18px; color:var(--ink) !important;
+}
+.lr-hero { text-align:center; margin-bottom:18px; }
+.lr-hero h2 { font-size:2rem; line-height:1.15; color:var(--forest) !important; margin-bottom:10px; }
+.lr-hero p { color:#3a5446 !important; max-width:680px; margin:0 auto; font-size:1rem; line-height:1.5; }
+.lr-controls { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin:18px 0 6px; }
+.lr-filter { border:1px solid var(--sage-dark); background:var(--white); color:var(--forest) !important;
+  font-family:inherit; font-size:0.85rem; font-weight:600; padding:7px 14px; border-radius:999px; cursor:pointer; }
+.lr-filter:hover { background:var(--cream); }
+.lr-filter.active { background:var(--forest) !important; color:var(--white) !important; border-color:var(--forest); }
+.lr-search { flex:1 1 240px; max-width:300px; border:1px solid var(--sage-dark); border-radius:999px;
+  padding:8px 16px; font-family:inherit; font-size:0.88rem; color:var(--ink) !important; }
+.lr-search::placeholder { color:var(--muted) !important; }
+.lr-count { text-align:center; font-size:0.82rem; color:var(--muted) !important; margin-bottom:12px; }
+.lr-section { margin-top:30px; }
+.lr-section > h3 { font-size:1.3rem; color:var(--forest) !important;
+  border-bottom:2px solid var(--sage); padding-bottom:8px; margin-bottom:4px; }
+.lr-section > .lr-subhead { font-size:0.88rem; color:var(--muted) !important; margin-bottom:16px; }
+.lr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+.lr-card { background:var(--white); border:1px solid var(--sage); border-radius:14px; padding:16px;
+  display:flex; flex-direction:column; gap:6px; box-shadow:0 2px 6px rgba(26,59,42,0.06); }
+.lr-card h4 { font-size:1.05rem; color:var(--forest) !important; line-height:1.2; }
+.lr-where { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted) !important; }
+.lr-blurb { font-size:0.88rem; color:#3a5446 !important; line-height:1.45; }
+.lr-contact { font-size:0.84rem; color:#3a5446 !important; line-height:1.5; margin-top:2px; }
+.lr-card a.lr-link { font-size:0.85rem; color:var(--forest-light) !important; font-weight:600;
+  text-decoration:none; margin-top:auto; padding-top:6px; }
+.lr-card a.lr-link:hover { text-decoration:underline; }
+.lr-empty { color:var(--muted) !important; font-style:italic; padding:8px 0; grid-column:1 / -1; }
+.lr-note { text-align:center; font-size:0.85rem; color:#3a5446 !important; background:var(--cream);
+  border-radius:12px; padding:16px; margin-top:34px; line-height:1.5; }
+.lr-stamp { display:block; text-align:center; margin-top:16px; font-size:0.78rem; color:var(--muted) !important; }
+@media (max-width:520px) { .lr-hero h2 { font-size:1.6rem; } }
+</style>
+<div class="lr-wrap">
+  <div class="lr-hero">
+    <h2>Santa Cruz County Gardening Resources</h2>
+    <p>Trusted local nurseries, soil and compost yards, seed sources, feed stores, farmers markets, classes, and community gardens, all in one place. Every listing is a real, currently-open Santa Cruz County resource. Call ahead before you go, as hours and seasonal stock change.</p>
+  </div>
+  <div class="lr-controls" id="lr-filters"></div>
+  <input type="text" class="lr-search" id="lr-search" placeholder="Search by name, city, or type..." aria-label="Search resources" style="display:block;margin:10px auto 0;">
+  <div class="lr-count" id="lr-count"></div>
+  <div id="lr-results"></div>
+  <div class="lr-note">Run a Santa Cruz County nursery, feed store, farm, or garden program and want to be listed? Reach out through our <a href="/contact">Contact page</a> and we will add you.</div>
+  <span class="lr-stamp" id="lr-stamp"></span>
+</div>
+<script>
+(function () {
+  var DATA_URL = "https://gaughanadrienne-gif.github.io/ah-graphics/local-resources-data.json";
+  var state = { cat: "all", q: "" };
+  var DATA = null;
+
+  function esc(s){ var d=document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+
+  function matches(item, cat){
+    if(state.cat !== "all" && cat.key !== state.cat) return false;
+    if(!state.q) return true;
+    var hay = (item.name+' '+item.city+' '+(item.blurb||'')+' '+cat.label).toLowerCase();
+    return hay.indexOf(state.q) > -1;
+  }
+
+  function card(item){
+    var loc = [item.address, item.city].filter(Boolean).join(', ');
+    var contact = [];
+    if(loc) contact.push(esc(loc));
+    if(item.phone) contact.push(esc(item.phone));
+    var host = '';
+    if(item.website){ try { host = item.website.replace(/^https?:\/\//,'').replace(/\/$/,''); } catch(e){ host = item.website; } }
+    var link = item.website ? '<a class="lr-link" href="'+esc(item.website)+'" target="_blank" rel="noopener">Visit website &rarr;</a>' : '';
+    return '<div class="lr-card">'+
+      '<h4>'+esc(item.name)+'</h4>'+
+      (item.city?'<div class="lr-where">'+esc(item.city)+'</div>':'')+
+      (item.blurb?'<div class="lr-blurb">'+esc(item.blurb)+'</div>':'')+
+      (contact.length?'<div class="lr-contact">'+contact.join('<br>')+'</div>':'')+
+      link+'</div>';
+  }
+
+  function renderFilters(){
+    var box = document.getElementById('lr-filters');
+    var btns = ['<button class="lr-filter'+(state.cat==='all'?' active':'')+'" data-cat="all">All</button>'];
+    DATA.categories.forEach(function(c){
+      btns.push('<button class="lr-filter'+(state.cat===c.key?' active':'')+'" data-cat="'+esc(c.key)+'">'+esc(c.label)+'</button>');
+    });
+    box.innerHTML = btns.join('');
+    Array.prototype.forEach.call(box.querySelectorAll('.lr-filter'), function(b){
+      b.addEventListener('click', function(){ state.cat = b.getAttribute('data-cat'); render(); });
+    });
+  }
+
+  function render(){
+    renderFilters();
+    var out = '', total = 0;
+    DATA.categories.forEach(function(c){
+      var items = c.items.filter(function(it){ return matches(it, c); });
+      if(!items.length) return;
+      total += items.length;
+      out += '<div class="lr-section"><h3>'+esc(c.label)+'</h3>'+
+        (c.blurb?'<div class="lr-subhead">'+esc(c.blurb)+'</div>':'')+
+        '<div class="lr-grid">'+items.map(card).join('')+'</div></div>';
+    });
+    if(!out) out = '<div class="lr-grid"><div class="lr-empty">No resources match your search. Try a different term or category.</div></div>';
+    document.getElementById('lr-results').innerHTML = out;
+    document.getElementById('lr-count').textContent = total + (total===1?' resource':' resources') + (state.q||state.cat!=='all'?' shown':' listed');
+  }
+
+  function boot(data){
+    DATA = data;
+    var stamp = document.getElementById('lr-stamp');
+    var when = new Date(data.updated);
+    stamp.textContent = isNaN(when) ? '' : 'Last verified: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    document.getElementById('lr-search').addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); render(); });
+    render();
+  }
+
+  if (window.__LR_DATA) { try { boot(window.__LR_DATA); return; } catch(e){} }
+  fetch(DATA_URL, {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('fetch failed'); return r.json(); })
+    .then(boot)
+    .catch(function(){
+      document.getElementById('lr-results').innerHTML = '<div class="lr-grid"><div class="lr-empty">The directory is being updated. Please check back shortly.</div></div>';
+    });
+})();
+</script>

@@ -1,0 +1,4180 @@
+// === NOINDEX THIN TAG LISTING PAGES (added 2026-06-16) ===
+// Tag pages (/learn/tag/...) are thin, duplicative aggregations and are being
+// deprecated (tag links stripped in the session-41 link audit; BlogToPin tag
+// pages off). Keep them out of the search index. Runs immediately (this file is
+// header-injected) so the robots meta is in the DOM as early as possible for
+// crawlers, which render JS and honor a JS-set robots meta. Categories are left
+// indexed as browse hubs per the 2026-06-16 decision.
+(function () {
+  try {
+    if (location.pathname.indexOf("/learn/tag/") === 0) {
+      var m = document.querySelector('meta[name="robots"]');
+      if (!m) {
+        m = document.createElement("meta");
+        m.setAttribute("name", "robots");
+        (document.head || document.documentElement).appendChild(m);
+      }
+      m.setAttribute("content", "noindex, follow");
+    }
+  } catch (e) {}
+})();
+
+// === FOOTER LINKS, CROSS-LINKS, HEADING UPGRADES ===
+/*
+ * Ambitious Harvest - Footer Code Injection Updates
+ * March 2026 - Tasks: Footer links, Cross-links, H2/H3 headings
+ *
+ * This is the UPDATED footer code injection content.
+ * Deploy via POST /api/config/SaveInjectionSettings
+ * IMPORTANT: Must send both `postItem` and `footer` fields together.
+ */
+
+// ============================================================
+// EXISTING: Hero CTA + Footer Links (UPDATED with new links)
+// ============================================================
+document.addEventListener("DOMContentLoaded", function() {
+  // Hero "Start Here" CTA button
+  var heroSection = document.querySelector('section[data-section-id="6402865e8544e5fc30e1d9b6"]');
+  if (heroSection) {
+    var blocks = heroSection.querySelectorAll(".sqs-block");
+    var lastBlock = blocks[blocks.length - 1];
+    if (lastBlock) {
+      var ctaDiv = document.createElement("div");
+      ctaDiv.className = "ah-hero-cta";
+      ctaDiv.style.cssText = "text-align:center;margin-top:28px;padding:0 20px;";
+      var btn = document.createElement("a");
+      btn.href = "/start-here";
+      btn.className = "sqs-block-button-element";
+      btn.textContent = "Start Here";
+      btn.style.cssText = "display:inline-block;background-color:#5B7F5E;color:#f8f9f0;border:none;border-radius:6px;font-family:Montserrat,sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.04em;text-transform:uppercase;padding:16px 40px;text-decoration:none;transition:background-color 0.3s ease,transform 0.2s ease;box-shadow:0 2px 8px rgba(0,0,0,0.15);";
+      btn.onmouseover = function() { this.style.backgroundColor = "#4A6B4D"; };
+      btn.onmouseout = function() { this.style.backgroundColor = "#5B7F5E"; };
+      ctaDiv.appendChild(btn);
+      lastBlock.parentNode.insertBefore(ctaDiv, lastBlock.nextSibling);
+    }
+  }
+
+  // UPDATED Footer links - now includes all 5 key pages
+  var footer = document.querySelector("footer");
+  if (footer) {
+    var linkRow = document.createElement("div");
+    linkRow.className = "ah-footer-links";
+    linkRow.style.cssText = "text-align:center;padding:16px 20px 8px;font-family:Montserrat,sans-serif;font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.08);margin-bottom:8px;";
+    var sep = '<span style="color:#8c9c8c;margin:0 6px;">&#124;</span>';
+    var linkStyle = 'color:#5B7F5E;text-decoration:none;margin:0 8px;font-weight:600;letter-spacing:0.02em;';
+    linkRow.innerHTML =
+      '<a href="/start-here" style="' + linkStyle + '">Start Here</a>' + sep +
+      '<a href="/garden-conditions" style="' + linkStyle + '">Garden Conditions</a>' + sep +
+      '<a href="/your-garden-toolkit" style="' + linkStyle + '">Garden Toolkit</a>' + sep +
+      '<a href="/garden-events" style="' + linkStyle + '">Garden Events</a>' + sep +
+      '<a href="/your-garden-toolkit" style="' + linkStyle + '">Free Planting Calendar</a>';
+    var firstChild = footer.querySelector("[class*='footer-'] > div, footer > section, footer > div");
+    if (firstChild) {
+      firstChild.parentNode.insertBefore(linkRow, firstChild);
+    } else {
+      footer.insertBefore(linkRow, footer.firstChild);
+    }
+  }
+
+  // ============================================================
+  // NEW: Cross-link "More Free Resources" on resource pages
+  // ============================================================
+  var path = window.location.pathname;
+  var resourcePages = {
+    "/garden-events": {
+      title: "Garden Events",
+      others: [
+        { href: "/garden-conditions", name: "Garden Conditions Dashboard", desc: "Live weather, rainfall, and garden tips for Santa Cruz, San Lorenzo Valley, and Watsonville." },
+        { href: "/your-garden-toolkit", name: "Your Garden Toolkit", desc: "12 free printable guides, checklists, and planting calendars for Santa Cruz County." }
+      ]
+    },
+    "/your-garden-toolkit": {
+      title: "Garden Toolkit",
+      others: [
+        { href: "/garden-conditions", name: "Garden Conditions Dashboard", desc: "Live weather, rainfall, and garden tips for Santa Cruz, San Lorenzo Valley, and Watsonville." },
+        { href: "/garden-events", name: "Garden Events Calendar", desc: "Plant sales, workshops, volunteer days, and garden tours happening in Santa Cruz County." }
+      ]
+    },
+    "/garden-conditions": {
+      title: "Garden Conditions",
+      others: [
+        { href: "/your-garden-toolkit", name: "Your Garden Toolkit", desc: "12 free printable guides, checklists, and planting calendars for Santa Cruz County." },
+        { href: "/garden-events", name: "Garden Events Calendar", desc: "Plant sales, workshops, volunteer days, and garden tours happening in Santa Cruz County." }
+      ]
+    }
+  };
+
+  var pageConfig = resourcePages[path];
+  if (pageConfig) {
+    var crossDiv = document.createElement("div");
+    crossDiv.className = "ah-cross-links";
+    crossDiv.style.cssText = "max-width:800px;margin:40px auto 20px;padding:30px 28px;background:#f8f9f0;border:1px solid #dde2d8;border-radius:8px;font-family:Montserrat,sans-serif;";
+    var html = '<h3 style="color:#1a3b2a;font-size:1.1rem;font-weight:600;margin:0 0 16px;text-align:center;">More Free Resources</h3>';
+    pageConfig.others.forEach(function(r) {
+      html += '<div style="margin-bottom:14px;text-align:center;">' +
+        '<a href="' + r.href + '" style="color:#1c3c2c;font-weight:600;text-decoration:none;font-size:0.95rem;">' + r.name + '</a>' +
+        '<p style="color:#8c9c8c;font-size:0.85rem;margin:4px 0 0;line-height:1.4;">' + r.desc + '</p></div>';
+    });
+    crossDiv.innerHTML = html;
+
+    // Insert before the footer
+    var mainContent = document.querySelector("article.sections, main, #sections");
+    if (mainContent) {
+      mainContent.appendChild(crossDiv);
+    }
+  }
+
+  // ============================================================
+  // NEW: H2/H3 heading upgrades for resource pages
+  // ============================================================
+
+  // Events page: Upgrade key text to H2s
+  if (path === "/garden-events") {
+    // Find and wrap key content in H2s
+    var eventsH2s = [
+      { find: "Looking for a specific kind of event?", tag: "h2", text: "Find Events by Type" },
+      { find: "Never miss an event", tag: "h2", text: "Never Miss an Event" },
+      { find: "Know of an event we should add?", tag: "h2", text: "Submit an Event" }
+    ];
+    eventsH2s.forEach(function(item) {
+      var strongs = document.querySelectorAll("strong");
+      strongs.forEach(function(el) {
+        if (el.textContent.trim() === item.find) {
+          var h2 = document.createElement(item.tag);
+          h2.textContent = item.text;
+          h2.style.cssText = "color:#1a3b2a;font-family:Montserrat,sans-serif;font-weight:600;font-size:1.3rem;margin:0 0 8px;";
+          var parentP = el.closest("p");
+          if (parentP) {
+            parentP.parentNode.insertBefore(h2, parentP);
+            // Remove the bold text from the paragraph since it's now a heading
+            el.parentNode.removeChild(el);
+            // Clean up any leading <br> in the remaining paragraph
+            if (parentP.innerHTML.trim().startsWith("<br>")) {
+              parentP.innerHTML = parentP.innerHTML.replace(/^\s*<br\s*\/?>\s*/, "");
+            }
+          }
+        }
+      });
+    });
+  }
+
+  // Toolkit page: Upgrade resource names from <strong> to H2s
+  if (path === "/your-garden-toolkit") {
+    var toolkitNames = [
+      "Know Your Microclimate Worksheet",
+      "Fire-Wise Gardening Guide",
+      "Companion Planting Guide",
+      "Seasonal Planting Calendar",
+      "Seed Starting Guide",
+      "Gopher Control Guide",
+      "Tomato Variety Selector",
+      "Water-Wise Gardening Guide",
+      "Garden Troubleshooting Guide",
+      "Raised Bed Planning Guide",
+      "Seasonal Tasks Checklist"
+    ];
+    var allStrongs = document.querySelectorAll("p strong");
+    allStrongs.forEach(function(el) {
+      var text = el.textContent.trim();
+      if (toolkitNames.indexOf(text) !== -1) {
+        var h2 = document.createElement("h2");
+        h2.textContent = text;
+        h2.style.cssText = "color:#1a3b2a;font-family:Montserrat,sans-serif;font-weight:600;font-size:1.2rem;margin:0 0 6px;text-align:center;";
+        var parentP = el.closest("p");
+        if (parentP) {
+          parentP.parentNode.insertBefore(h2, parentP);
+          parentP.parentNode.removeChild(parentP);
+        }
+      }
+    });
+  }
+
+  // Conditions page: Add H2 for garden tip section (others already have H2s)
+  if (path === "/garden-conditions") {
+    var tipEl = document.querySelector(".garden-tip, .tip-title, [class*='tip']");
+    if (!tipEl) {
+      // Look for the garden tip by content
+      var allH3s = document.querySelectorAll("h3");
+      // The conditions page already has H2s for Rainfall and 7-Day Forecast
+      // Just ensure the dashboard title and tip are properly structured
+    }
+  }
+});
+
+
+// === GEO SCHEMA: FAQ + ARTICLE ===
+// ============================================================
+// GEO Schema Injection Code for Ambitious Harvest Co
+// Append this to the existing postItem code injection field
+// in Squarespace (Settings > Advanced > Code Injection > Post Item)
+//
+// Contains:
+//   1. FAQPage schema auto-generation
+//   2. Enhanced Article schema (dateModified, author, spatialCoverage)
+//
+// Size: ~2.5KB (well within limits when added to existing 63.5KB)
+// Date: March 2026
+// ============================================================
+
+// --- 1. FAQPage Schema ---
+// Detects FAQ sections by heading text, extracts Q&A pairs (H3=question, next <p>=answer)
+(function(){
+  try {
+    var entry = document.querySelector('.blog-item-content-wrapper') || document.querySelector('[data-content-field="main-content"]');
+    if (!entry) return;
+    var headings = entry.querySelectorAll('h1, h2, h3, h4');
+    var faqStart = null;
+    for (var i = 0; i < headings.length; i++) {
+      var txt = headings[i].textContent.toLowerCase();
+      if (txt.indexOf('faq') > -1 || txt.indexOf('frequently asked') > -1 || txt.indexOf('common questions') > -1) {
+        faqStart = headings[i];
+        break;
+      }
+    }
+    if (!faqStart) return;
+    var qas = [];
+    var node = faqStart.nextElementSibling;
+    var currentQ = null;
+    while (node) {
+      var tag = node.tagName;
+      // Stop if we hit another H1 or H2 that is NOT an FAQ question (new major section)
+      if ((tag === 'H1' || tag === 'H2') && node !== faqStart) break;
+      if (tag === 'H3') {
+        if (currentQ && currentQ.a) qas.push(currentQ);
+        currentQ = { q: node.textContent.trim(), a: '' };
+      } else if (tag === 'P' && currentQ && !currentQ.a) {
+        currentQ.a = node.textContent.trim();
+      }
+      node = node.nextElementSibling;
+    }
+    if (currentQ && currentQ.a) qas.push(currentQ);
+    if (qas.length === 0) return;
+    var schema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': qas.map(function(qa) {
+        return {
+          '@type': 'Question',
+          'name': qa.q,
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': qa.a
+          }
+        };
+      })
+    };
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(schema);
+    document.head.appendChild(s);
+  } catch(e) {}
+})();
+
+// --- 2. Enhanced Article Schema ---
+// Finds existing Squarespace Article JSON-LD and enriches it with
+// dateModified, author details, and spatialCoverage
+(function(){
+  try {
+    var scripts = document.querySelectorAll('script[type="application/ld+json"]');
+    for (var i = 0; i < scripts.length; i++) {
+      var data;
+      try { data = JSON.parse(scripts[i].textContent); } catch(e) { continue; }
+      // Handle both single object and @graph array
+      var articles = [];
+      if (data['@type'] === 'Article' || data['@type'] === 'BlogPosting' || data['@type'] === 'NewsArticle') {
+        articles.push(data);
+      } else if (data['@graph']) {
+        for (var g = 0; g < data['@graph'].length; g++) {
+          var item = data['@graph'][g];
+          if (item['@type'] === 'Article' || item['@type'] === 'BlogPosting' || item['@type'] === 'NewsArticle') {
+            articles.push(item);
+          }
+        }
+      }
+      if (articles.length === 0) continue;
+
+      for (var a = 0; a < articles.length; a++) {
+        var art = articles[a];
+
+        // dateModified: try meta tag, then visible "Updated" text, then fall back to datePublished
+        var modDate = null;
+        var metaMod = document.querySelector('meta[property="article:modified_time"]') || document.querySelector('meta[name="last-modified"]');
+        if (metaMod && metaMod.content) {
+          modDate = metaMod.content;
+        }
+        if (!modDate) {
+          // Look for visible "Updated" or "Last updated" text in the article
+          var entry = document.querySelector('.blog-item-content-wrapper') || document.querySelector('[data-content-field="main-content"]');
+          if (entry) {
+            var allText = entry.textContent;
+            var updMatch = allText.match(/(?:updated|last updated|revised)[:\s]*(\w+ \d{1,2},?\s*\d{4}|\d{4}-\d{2}-\d{2})/i);
+            if (updMatch) {
+              var parsed = new Date(updMatch[1]);
+              if (!isNaN(parsed.getTime())) modDate = parsed.toISOString().split('T')[0];
+            }
+          }
+        }
+        if (!modDate && art.datePublished) modDate = art.datePublished;
+        if (modDate) art.dateModified = modDate;
+
+        // Author enrichment
+        if (!art.author || typeof art.author === 'string') {
+          art.author = { '@type': 'Person', 'name': 'Adrienne Gaughan' };
+        }
+        if (typeof art.author === 'object' && !Array.isArray(art.author)) {
+          art.author.name = art.author.name || 'Adrienne Gaughan';
+          art.author.description = 'Gardenary-certified garden coach with 20+ years of experience gardening in Santa Cruz County';
+          art.author.url = 'https://www.ambitiousharvest.com/about';
+        }
+
+        // spatialCoverage
+        art.spatialCoverage = {
+          '@type': 'Place',
+          'name': 'Santa Cruz County, California',
+          'geo': {
+            '@type': 'GeoCoordinates',
+            'latitude': 36.9741,
+            'longitude': -122.0308
+          },
+          'containedInPlace': {
+            '@type': 'AdministrativeArea',
+            'name': 'California, United States'
+          }
+        };
+      }
+
+      // Write back the enhanced schema
+      scripts[i].textContent = JSON.stringify(data);
+    }
+  } catch(e) {}
+})();
+
+
+// === TOMATO QUIZ CALLOUT ===
+// Automatically inserts a quiz callout at the end of all tomato articles.
+// Detects articles by URL slug. New tomato articles get the callout automatically.
+
+
+(function() {
+  // Wait for DOM to be ready
+  setTimeout(function() {
+    var path = window.location.pathname;
+
+    // Only run on /learn/ article pages
+    if (path.indexOf('/learn/') === -1) return;
+
+    // Tomato article slugs (exact matches + keyword match)
+    var tomatoSlugs = [
+      'best-tomatoes-by-microclimate-what-to-grow-where-in-santa-cruz-county',
+      'growing-tomatoes-santa-cruz',
+      'growing-tomatoes-containers-santa-cruz',
+      'heirloom-tomatoes-santa-cruz',
+      'harvest-tomatoes-peak-flavor',
+      'determinate-vs-indeterminate-tomatoes',
+      'starting-tomatoes-from-seed-santa-cruz',
+      'saving-tomato-seeds',
+      'extending-tomato-season-santa-cruz',
+      'watering-tomatoes-in-santa-cruz',
+      'california-tomato-gardening-guide',
+      'grow-pineapple-tomatoes-santa-cruz',
+      'tomato-problems-troubleshooting-santa-cruz',
+      'tomato-trellising-techniques-in-your-california-garden',
+      'tomato-fertilizing-soil-preparation-santa-cruz',
+      'dry-farmed-tomatoes-in-santa-cruz-growing-intense-flavor-with-less-water'
+    ];
+
+    var slug = path.replace('/learn/', '').replace(/\/$/, '');
+
+    // Check exact match OR slug contains "tomato" (catches future articles)
+    var isTomato = tomatoSlugs.indexOf(slug) !== -1 || slug.indexOf('tomato') !== -1;
+
+    if (!isTomato) return;
+
+    // Don't insert if callout already exists
+    if (document.querySelector('.ah-tomato-quiz-callout')) return;
+
+    // Find the article body
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+
+    if (!articleBody) return;
+
+    // Create callout
+    var callout = document.createElement('div');
+    callout.className = 'ah-tomato-quiz-callout';
+    callout.innerHTML = '' +
+      '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#1a3b2a;border-radius:10px;padding:2rem;margin:2.5rem 0;text-align:center;">' +
+        '<p style="font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8c9c8c !important;margin:0 0 0.5rem 0;">Free Quiz</p>' +
+        '<p style="font-family:Georgia,serif;font-size:1.4rem;font-weight:normal;color:#f8f9f0 !important;margin:0 0 0.75rem 0;line-height:1.3;">Not sure which tomato varieties grow best in your zone?</p>' +
+        '<p style="font-size:0.9rem;color:#dde2d8 !important;margin:0 0 1.25rem 0;line-height:1.6;">Answer 4 quick questions and get zone-matched variety recommendations, plus a free Tomato Variety Selector PDF.</p>' +
+        '<a href="/tomato-quiz" style="display:inline-block;background-color:#f8f9f0;color:#1a3b2a !important;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-family:Montserrat,Arial,sans-serif;font-size:0.9rem;font-weight:700;">Take the Quiz</a>' +
+        '<p style="font-size:0.85rem;color:#dde2d8 !important;margin:1.25rem 0 0 0;">Ready to grow more tomatoes this season? ' +
+          '<a href="/tomato-masterkit" style="color:#d2a097 !important;font-weight:700;text-decoration:underline;">Get the Tomato Growing MasterKit</a>' +
+        '</p>' +
+      '</div>';
+
+    // Insert before the FAQ section if it exists, otherwise at the end
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var i = 0; i < headings.length; i++) {
+      var text = headings[i].textContent.toLowerCase();
+      if (text.indexOf('frequently asked') !== -1 || text.indexOf('faq') !== -1) {
+        faqHeading = headings[i];
+        break;
+      }
+    }
+
+    if (faqHeading) {
+      faqHeading.parentNode.insertBefore(callout, faqHeading);
+    } else {
+      articleBody.appendChild(callout);
+    }
+
+  }, 1500);
+})();
+
+// === GRAPHICS LOADER v2 ===
+/**
+ * Ambitious Harvest - Graphics Loader v2 (postItem injection)
+ *
+ * PURPOSE:
+ * Protects branded HTML graphics from the Squarespace visual editor.
+ * Articles store lightweight placeholder divs instead of full graphic HTML.
+ * This loader fetches the graphic HTML from cluster pages at runtime.
+ *
+ * ARCHITECTURE:
+ * - Each article cluster has its own HTML file hosted on GitHub Pages
+ * - Each file contains a  that assigns graphics to window.AH_GRAPHICS
+ * - This loader determines which cluster an article needs, fetches the file,
+ *   extracts the script content, executes it, and renders all placeholder divs
+ * - GitHub Pages URL: https://gaughanadrienne-gif.github.io/ah-graphics/
+ *
+ * PLACEHOLDER FORMAT:
+ * <div class="ah-graphic" data-graphic="graphic-id"></div>
+ *
+ * DEPLOYMENT:
+ * Wrap this entire file in ... tags and add to:
+ * Settings > Advanced > Code Injection > Blog Post Item (postItem)
+ *
+ * This replaces the pilot loader (ah-graphics-loader.js) and pilot registry.
+ */
+
+// Wait for DOM ready, then run loader
+(function() {
+  function runLoader() {
+    // Only run on article pages under /learn/
+    var path = window.location.pathname;
+    if (path.indexOf('/learn/') !== 0) return;
+
+  // Extract the article slug from the URL
+  var slug = path.replace('/learn/', '').replace(/\/$/, '');
+  if (!slug) return;
+
+  // =========================================================================
+  // SLUG-TO-CLUSTER LOOKUP TABLE
+  // Maps article slugs to their cluster page paths.
+  // Generated from graphics_mapping.json by generate-cluster-pages.js
+  // =========================================================================
+  var SLUG_TO_CLUSTER = {
+    "heat-wave-garden-survival-guide-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-july.html",
+    "fall-vegetable-planting-guide-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-july.html",
+    "houseplant-care-for-beginners-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "best-low-light-houseplants-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "how-to-repot-a-houseplant": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "spider-mites-on-houseplants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "houseplant-yellow-leaves-troubleshooting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "tomato-hornworms-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "gopher-mole-vole-damage-identification": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "damping-off-seedlings-prevention": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "best-california-native-plants-small-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "replace-lawn-with-california-native-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-07.html",
+    "beekeeping-in-california-for-beginners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "beekeeping-laws-california-registration": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "best-bee-friendly-plants-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "california-beekeeping-calendar": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "cost-to-start-beekeeping-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "first-year-beekeeping-california-timeline": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "harvesting-honey-first-time": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "how-to-get-your-first-bees-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "langstroth-vs-top-bar-vs-flow-hive": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "supporting-native-bees-california-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "urban-small-space-beekeeping-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "varroa-mites-bee-problems-beginners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beekeeping.html",
+    "best-houseplants-for-beginners-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "fungus-gnats-houseplants-no-spray": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "grow-lights-for-indoor-plants-explained": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "growing-dwarf-meyer-lemon-indoors": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "growing-herbs-indoors-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "growing-lettuce-greens-indoors": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "indoor-gardening-california-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "kratky-hydroponics-beginners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "regrowing-vegetables-from-scraps": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "starting-seeds-indoors-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-indoor.html",
+    "fastest-crops-to-grow-with-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "gardening-projects-elementary-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "gardening-with-preschoolers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "gardening-with-toddlers-ages-2-4": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "gardening-with-tweens-teens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "growing-pumpkins-with-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "growing-strawberries-with-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "rainy-day-indoor-garden-projects-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "starting-a-school-garden-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "worm-bin-composting-with-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-kids.html",
+    "grow-cleveland-sage-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-narrowleaf-milkweed-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-western-redbud-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-douglas-iris-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-california-fuchsia-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-yarrow-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-hummingbird-sage-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-coyote-mint-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-california-buckwheat-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-deergrass-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "grow-california-aster-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-natives.html",
+    "garden-myth-adding-lime-to-california-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-adding-sand-to-clay-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-all-bees-sting-keep-away": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-banana-peels-great-fertilizer": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-beer-traps-best-slug-control": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-bought-ladybugs-stay-in-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-butterflies-moths-all-beneficial": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-cant-compost-citrus-peels": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-cant-grow-blueberries-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-cant-grow-productive-garden-in-shade": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-coffee-grounds-make-soil-acidic": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-companion-planting-always-works": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-compost-bins-attract-rats": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-compost-tea-better-than-compost": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-crushed-eggshells-deter-slugs": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-deep-watering-means-soaking-for-hours": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-dish-soap-safe-garden-spray": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-drip-irrigation-wastes-water": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-drought-tolerant-plants-zero-water": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-eggshells-add-calcium-quickly": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-epsom-salt-helps-all-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-fall-too-late-to-plant-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-garlic-around-roses-deters-aphids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-hardpan-soil-cant-be-fixed": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-heirloom-varieties-always-taste-better": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-marigolds-repel-all-pests": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-midday-watering-burns-leaves": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-more-fertilizer-means-more-fruit": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-mulch-attracts-termites": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-must-rotate-crops-home-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-must-start-seeds-indoors": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-native-gardens-look-messy-brown": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-need-big-yard-to-grow-food": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-need-compost-tumbler": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-need-expensive-soil-to-start": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-neem-oil-safe-for-everything": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-pine-needles-too-acidic": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-planting-by-moon-phases": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-potting-soil-lasts-forever": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-prune-fruit-trees-perfect-vase": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-pulling-weeds-makes-more-grow": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-remove-all-fallen-leaves": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-rocks-in-bottom-of-pots": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-rusty-nails-help-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-seal-pruning-cuts-wound-paste": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-succulents-zero-maintenance": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-sugar-water-helps-transplant-shock": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-till-soil-every-spring": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-vinegar-safe-effective-herbicide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-water-every-day-california-summers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "garden-myth-water-lawn-every-day-summer": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-mythbusters.html",
+    "artichoke-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "artichoke-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "artichoke-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "avocado-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "avocado-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "avocado-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "beefsteak-tomato-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "beefsteak-tomato-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "beefsteak-tomato-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bell-pepper-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bell-pepper-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bell-pepper-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "broccoli-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "broccoli-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "broccoli-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "brussels-sprouts-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "brussels-sprouts-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "brussels-sprouts-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "eureka-lemon-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "eureka-lemon-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "eureka-lemon-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "feijoa-pineapple-guava-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "feijoa-pineapple-guava-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "feijoa-pineapple-guava-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "grapes-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "grapes-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "grapes-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "heritage-apple-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "heritage-apple-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "heritage-apple-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "low-chill-peach-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "low-chill-peach-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "low-chill-peach-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "persimmon-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "persimmon-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "persimmon-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "potato-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "potato-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "potato-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "ranunculus-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "ranunculus-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "ranunculus-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "satsuma-mandarin-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "satsuma-mandarin-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "satsuma-mandarin-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bush-bean-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bush-bean-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "bush-bean-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "everbearing-strawberry-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "everbearing-strawberry-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "everbearing-strawberry-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "romaine-lettuce-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "romaine-lettuce-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "romaine-lettuce-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sungold-cherry-tomato-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sungold-cherry-tomato-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sungold-cherry-tomato-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "zucchini-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "zucchini-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "zucchini-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "blueberry-southern-highbush-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "blueberry-southern-highbush-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "blueberry-southern-highbush-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "jalapeno-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "jalapeno-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "jalapeno-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "meyer-lemon-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "meyer-lemon-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "meyer-lemon-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "roma-tomato-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "roma-tomato-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "roma-tomato-san-lorenzo-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "santa-cruz-community-gardens-how-to-find-and-join-one": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "composting-rules-santa-cruz-sb-1383-green-waste": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "do-i-need-a-permit-for-a-garden-shed-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sugar-snap-pea-banana-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sugar-snap-pea-coastal-fog-belt-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "sugar-snap-pea-pajaro-valley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-plantguides.html",
+    "acidifying-soil-for-blueberries-in-california-a-step-by-step-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "bats-as-garden-allies-installing-bat-houses-for-natural-mosquito-control": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-berries-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-carrot-varieties-for-santa-cruz-county-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-garlic-varieties-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-mulberry-varieties-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "blueberry-problems-in-california-yellow-leaves-no-fruit-and-other-issues": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "california-herb-garden-cocktails": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "carrot-troubleshooting-guide-pests-diseases-and-growing-problems-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "cool-season-vs-warm-season-grasses-3B8GL": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "fire-wise-raised-bed-materials-and-placement": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "garden-highlight-herb-sage": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "garlic-onion-troubleshooting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "grow-blackberries-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "grow-matilija-poppy-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "grow-mulberries-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "grow-parsley-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-blueberries-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-carrots-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-chives-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-garlic-onions-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-manzanita-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "growing-olallieberries-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-onions-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-raspberries-in-containers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-shallots-leeks-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "harvesting-and-using-olallieberries-from-garden-to-pie": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "harvesting-curing-garlic-onions": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "harvesting-using-mulberries-recipes-preservation": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "how-to-prune-raspberries-a-step-by-step-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "mulberries-in-permaculture-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "mulberry-propagation-cuttings-grafting-layering": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "olallieberry-troubleshooting-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "olallieberry-vs-blackberry": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "organic-pest-control-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "overwinter-carrots-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "planting-garlic-fall-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "preserving-fresh-herbs": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "preventing-basil-from-bolting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "propagate-blackberries-olallieberries": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "prune-trellis-blackberries": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "quick-harvest-vegetables-for-impatient-santa-cruz-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "raised-beds-vs-in-ground-gardening-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "raspberry-problems-pests-diseases-and-common-issues": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "squash-vine-borer-prevention-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "succession-planting-carrots-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "toxic-plants-kids-pets-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "troubleshooting-mulberry-problems": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "pole-beans-vs-bush-beans-which-to-grow": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "9-vegetables-that-thrive-in-redwood-shade-for-san-lorenzo-valley-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "attracting-beneficial-insects-to-your-santa-cruz-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "beneficial-insects-california-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "common-garden-pests-in-santa-cruz-county-and-how-to-beat-them": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "deer-resistant-vegetable-gardening-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "fire-wise-gardening-101-protecting-your-home-and-garden-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "garden-highlight-eggplant": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "garden-highlight-herb-basil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "garden-highlight-kohlrabi": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "garden-highlight-malabar-spinach": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "garden-planning-101-mapping-your-space": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "garden-prep-from-lawn-to-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "garden-science-experiments-kids-summer": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "gardening-with-kids-101-growing-the-next-generation-of-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "gopher-control-what-actually-works-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "greywater-basics-california-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "grow-cilantro-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "grow-dill-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "grow-mint-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "growin-thyme-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "growing-calendula-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "growing-oregano-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "how-to-find-the-sunniest-spot-in-your-yard": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "how-to-read-a-soil-test": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "how-to-start-a-vegetable-garden-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "in-bed-vermicomposting-composting-with-worms-directly-in-your-garden-beds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "microclimate-gardening-warm-cool-spots": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "ollas-irrigation-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "organic-pest-identification-guide-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "owls-as-garden-allies-installing-owl-boxes-for-natural-rodent-control": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "preserving-summer-harvest-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "reading-seed-packets-what-all-those-numbers-mean": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "slug-and-snail-control-in-foggy-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "square-foot-gardening-maximizing-space-for-higher-yields": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "succession-planting-for-beginners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "summer-garden-survival-guide-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "the-3-best-bulk-soils-for-santa-cruz-county-vegetable-gardens-and-where-to-get-them": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "the-first-5-vegetables-to-grow-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "the-hidden-danger-of-rodent-poison-protecting-santa-cruz-wildlife": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "transplants-vs-seeds-when-and-where-to-buy-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "understanding-frost-dates-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "understanding-your-soil-a-guide-for-santa-cruz-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "watering-basics-how-much-how-often-and-when": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "what-to-plant-in-santa-cruz-amp-the-bay-area-in-august": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "what-to-plant-in-santa-cruz-amp-the-bay-area-in-december": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "what-to-plant-in-santa-cruz-amp-the-bay-area-in-november": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "what-to-plant-in-santa-cruz-amp-the-bay-area-in-october": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "what-to-plant-in-santa-cruz-amp-the-bay-area-in-september": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "what-to-plant-together-raised-beds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-3.html",
+    "when-to-plant-what-understanding-our-year-round-season": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-2.html",
+    "your-first-season-timeline-what-to-expect-month-by-month": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-2026-june-1.html",
+    "growing-microgreens-at-home": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "best-microgreen-varieties": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "growing-sprouts-safely": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "windowsill-herb-garden-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "year-round-indoor-growing-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "microgreens-nutrition-benefits": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-greens.html",
+    "growing-beans-and-peas-in-santa-cruz-county-easy-protein-from-your-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "growing-sugar-snap-and-snow-peas-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "growing-fava-beans-winter-cover-crop-and-food": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "succession-planting-beans-for-continuous-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "bean-and-pea-troubleshooting-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "saving-bean-and-pea-seeds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "growing-citrus-in-santa-cruz-county-what-actually-works-and-what-doesnt": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-meyer-lemons-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-citrus-in-containers-the-mobility-advantage": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-cut-flower-garden-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-dahlias-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-sunflowers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-snapdragons-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-celosia-in-santa-cruz-county-bold-texture-for-warm-season-bouquets": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-strawflowers-in-santa-cruz-county-the-everlasting-cut-flower": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "preparing-your-vegetable-garden-for-fire-season": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "groundcovers-that-replace-lawn-and-reduce-fire-risk": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fire-wise-fencing-and-structures-preventing-fire-pathways-to-your-home": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "after-the-fire-restoring-your-garden-post-wildfire": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "summer-garden-irrigation-for-fire-safety": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "growing-figs-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "fruit-tree-troubleshooting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "container-gardening-growing-vegetables-herbs-and-flowers-in-pots": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "vertical-gardening-growing-upwards-to-save-space": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "keyhole-gardening-combining-composting-and-gardening-in-one-bed": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "lasagna-gardening-layering-your-way-to-a-fertile-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "back-to-eden-gardening-a-no-till-wood-chip-mulch-method": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "how-to-keep-a-garden-journal-and-why-you-should": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "kids-rainbow-garden-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "dr-seuss-garden-activities-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "building-a-pizza-garden-with-kids": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "kids-fairy-garden-real-plants-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "kids-butterfly-garden-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "kids-moonlight-garden-white-flowers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "kids-peter-rabbit-storybook-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "kids-dinosaur-garden-prehistoric-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "kids-sunflower-fort-living-playhouse": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "best-lettuce-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-greens.html",
+    "growing-spinach-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-greens.html",
+    "cut-and-come-again-greens-maximizing-your-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-greens.html",
+    "greens-troubleshooting-bolting-bitterness-and-pests": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-greens.html",
+    "beginner-vegetables-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "common-beginner-mistakes-and-how-to-avoid-them": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "edible-flowers-growing-and-using-flowers-in-your-kitchen": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "garden-tools-you-actually-need-and-what-you-dont": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "grow-herbs-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "plants-repel-mosquitoes-california-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "composting-101-from-kitchen-scraps-to-garden-gold": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "diy-ollas-sustainable-watering-made-simple": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "5-gopher-control-methods-that-actually-work-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "the-9-best-plant-nurseries-in-santa-cruz-county-and-what-each-does-best": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "eco-friendly-gardening-garden-consultant": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "native-plants-for-pollinators": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "best-pepper-varieties-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "growing-sweet-peppers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "grow-hot-peppers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "growing-shishito-padron-peppers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "grow-manzano-peppers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "grow-chiltepin-peppers-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "growing-peppers-in-containers-in-santa-cruz-county-the-mobility-advantage": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "starting-peppers-from-seed": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "when-to-plant-peppers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "why-your-peppers-wont-turn-red": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "pepper-problems-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-peppers.html",
+    "grow-squash-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "best-zucchini-varieties-for-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "growing-winter-squash-in-santa-cruz-county-from-planting-to-storage": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "growing-cucumbers-in-santa-cruz-county-crisp-harvests-despite-cool-summers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "growing-melons-in-santa-cruz-county-which-microclimates-work-and-which-do-not": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "powdery-mildew-on-squash-prevention-and-treatment-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "hand-pollinating-squash-for-better-yields-in-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "growing-strawberries-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "best-strawberry-varieties-for-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "strawberries-ground-vs-raised-beds-vs-containers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "planting-bare-root-strawberries-a-santa-cruz-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "strawberry-growth-stages-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "top-strawberry-mistakes-new-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "strawberry-troubleshooting-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "multiply-strawberries-runners-free-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "reviving-strawberries-after-harsh-weather": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-strawberries.html",
+    "growing-succulents-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "succulent-container-gardens-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "succulents-fire-wise-landscaping": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "propagating-succulents": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "succulent-problems-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "dudleya-california-native-succulents": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "growing-tomatoes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "heirloom-tomatoes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "best-tomatoes-by-microclimate-what-to-grow-where-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "determinate-vs-indeterminate-tomatoes": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "growing-tomatoes-containers-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "starting-tomatoes-from-seed-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "tomato-fertilizing-soil-preparation-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "tomato-trellising-techniques-in-your-california-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "watering-tomatoes-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "tomato-problems-troubleshooting-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "extending-tomato-season-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "harvest-tomatoes-peak-flavor": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "saving-tomato-seeds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "dry-farmed-tomatoes-in-santa-cruz-growing-intense-flavor-with-less-water": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "grow-pineapple-tomatoes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "starting-a-backyard-flock-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "choosing-the-right-breeds-for-coastal-california-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "designing-a-predator-proof-run-for-your-garden-flock": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "raising-chicks-and-ducklings-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "what-to-feed-your-backyard-flock-year-round-in-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "common-health-issues-backyard-chickens-ducks-geese": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "adopting-rescue-birds-quarantine-deworming-flock-introduction": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "keeping-a-mixed-flock-chickens-ducks-geese-together": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "how-your-flock-can-work-your-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "composting-with-chicken-and-duck-waste": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "managing-free-range-time-protecting-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "best-and-worst-garden-plants-for-free-range-flock": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "keeping-ducks-in-your-california-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "keeping-a-goose-single-goose-flocks": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "heritage-and-rescue-chicken-breeds-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "predator-proofing-your-flock-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "hardware-cloth-coop-locks-night-safety": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "what-to-do-when-a-predator-gets-in": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "seasonal-flock-care-spring-summer-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "seasonal-flock-care-fall-winter-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "santa-cruz-county-backyard-flock-predator-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "santa-cruz-county-flock-care-calendar-month-by-month": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "best-chicken-breeds-for-the-santa-cruz-fog-belt": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "keeping-your-flock-cool-in-santa-cruz-summer-heat": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "growing-flock-treats-best-garden-crops-for-chickens-ducks-geese": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "backyard-flock-first-aid-kit-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "chickens-or-ducks-for-a-santa-cruz-backyard": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "hatchery-chicks-or-rescue-hens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "deep-litter-or-sand-coop-bedding-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "standard-or-bantam-chicken-breeds-small-backyard": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "flock-natural-pest-control-coastal-santa-cruz-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "chicken-tractors-mobile-coops-santa-cruz-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "keeping-a-flock-in-the-san-lorenzo-valley": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "where-to-buy-chicks-feed-coop-supplies-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "finding-a-poultry-avian-vet-santa-cruz-monterey-bay": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "avian-flu-santa-cruz-county-backyard-flock": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "adding-new-hens-flock-integration-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "keeping-the-coop-dry-mud-mold-santa-cruz-winters": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "diy-predator-proof-coop-run-plans-small-santa-cruz-lot": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "best-ducks-for-the-santa-cruz-fog-belt": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenflock.html",
+    "avocado-cold-protection-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "avocado-problems-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "avocado-tree-care-calendar-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "best-avocado-varieties-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "from-pit-to-tree-growing-avocado-from-seed": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "growing-avocados-containers-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "growing-avocados-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "brassica-pests-diseases-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "brassica-planting-calendar-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "growing-broccoli-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "growing-brussels-sprouts-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "growing-cabbage-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "growing-cauliflower-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "growing-kale-broccoli-rabe-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "growing-limes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "best-cover-crops-home-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "cover-crop-mixes-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "cover-crops-santa-cruz-complete-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "how-to-terminate-cover-crops": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "summer-cover-crops-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "winter-cover-crops-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "cool-season-cut-flowers-for-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "cut-flower-garden-layout-and-spacing": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "cut-flowers-for-pollinators-beauty-that-gives-back": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-cut-flowers-from-seed-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-cut-flowers-in-partial-shade": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-ranunculus-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-sweet-peas-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "how-to-harvest-cut-flowers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "succession-planting-cut-flowers-for-continuous-blooms": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "warm-season-cut-flowers-for-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "best-apple-varieties-for-santa-cruz-microclimates": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "growing-stone-fruit-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "sensory-garden-for-babies-and-toddlers-engaging-little-ones-in-the-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "beautiful-vegetables-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "beginner-gardening-mistakes": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "best-fruit-trees-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "best-herbs-containers-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "best-vegetables-containers-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "best-vegetables-raised-beds-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "companion-plants-cucumbers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "companion-plants-peppers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "companion-plants-strawberries": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "easy-vegetables-from-seed-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "are-microgreens-more-nutritious": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "growing-herbs-on-windowsill-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "5-gopher-control-methods-that-actually-work-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "eco-friendly-gardening-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "benefits-native-garden-design-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "best-succulents-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-succulents.html",
+    "dry-farmed-tomatoes-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "best-blackberry-varieties-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-blueberry-varieties-for-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-citrus-varieties-for-santa-cruz-microclimates": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "blackberry-growth-stages": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "blackberry-problems-pests-diseases": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "fire-wise-gardening-with-california-natives": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "garden-highlight-lupine": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "grow-blackberries-containers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "grow-california-lilac-ceanothus-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "grow-rosemary-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-blueberries-in-containers-a-california-gardeners-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-pumpkins-in-santa-cruz-county-from-seed-to-jack-o-lantern": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "growing-raspberries-in-santa-cruz-county-a-complete-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "raised-bed-basics-for-bay-area-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "santa-cruz-garden-checklist-february": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "raspberry-growth-stages-what-to-expect-year-by-year": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-april": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-march": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-microclimates": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "toyon-california-holly-native-shrub": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "what-not-to-plant-near-your-home-fire-hazard-plants-to-avoid": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "10-fire-resistant-plants-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "5-easy-crops-kids-can-grow-in-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "artichokes-vs-cardoon": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "bagged-soil-vs-bulk-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "bare-root-fruit-tree-guide-bay-area": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "bare-root-vs-container-fruit-trees": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "beneficial-insects-vs-pesticides": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "best-raspberry-varieties-for-santa-cruz-county-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "blossom-end-rot-vs-sunscald": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "bt-vs-hand-picking": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "bush-beans-vs-pole-beans": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "california-fruit-trees": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "california-garden-soil-amendments-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "california-gardening-unique-melons-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "california-natives-vs-mediterranean-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "california-poppy-meaning-benefits-and-uses-beyond-the-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "can-i-grow-avocados-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-avocados.html",
+    "cedar-vs-redwood-raised-beds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "chicken-wire-vs-hardware-cloth": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "companion-planting-vs-row-covers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "container-garden-vs-raised-bed-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "copper-tape-vs-iron-phosphate": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "cover-crops-vs-mulch-winter-beds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-covercrops.html",
+    "crop-rotation-vs-companion-planting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "deep-watering-vs-frequent-light-watering": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "dormant-spray-vs-growing-season-spray": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "drip-irrigation-setup-101-a-beginners-guide-to-efficient-watering": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "drip-irrigation-vs-ollas": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "drip-irrigation-vs-soaker-hoses": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "drip-tape-vs-drip-line": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "edible-landscape-design-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "fabric-grow-bags-vs-plastic-pots": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "fall-garden-cleanup-for-fire-safety": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fall-planting-vs-spring-planting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "fire-resistant-fruit-trees-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fire-wise-design-for-slopes-and-hillsides": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fire-wise-herb-gardens-low-growing-high-moisture-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fire-wise-landscaping-on-a-budget": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fire-wise-maintenance-a-seasonal-checklist-for-santa-cruz-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "fire-wise-pollinator-gardens-for-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "floating-row-cover-vs-shade-cloth": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "from-soil-health-to-water-conservation-sustainable-land-management-tips-for-every-gardener": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "full-sun-garden-vs-partial-shade-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "garden-fork-vs-broadfork": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "garden-highlight-california-poppy": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "garden-myth-organic-pesticides-always-safe": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "gardening-coastal-aptos-capitola-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "gardening-in-the-san-lorenzo-valley-sunny-ridges-vs-shaded-canyons": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "gardening-in-watsonville-amp-the-pajaro-valley-making-the-most-of-our-warmest-microclimate": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "gopher-baskets-vs-raised-beds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "grafted-vs-own-root-fruit-trees": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "grafting-fruit-trees-in-santa-cruz-county-add-varieties-save-trees-and-grow-your-own": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "grow-radishes-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-cosmos-flowers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "growing-stone-fruit-in-santa-cruz-county-peaches-plums-apricots-and-nectarines": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "growing-sweet-peas-in-santa-cruz-county-fragrant-favorites-for-cool-season-bouquets": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "growing-under-the-redwoods-gardening-in-shade-and-acidic-soil": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "growing-zinnias-summer-garden-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "heirloom-vs-hybrid-tomatoes": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "hot-composting-vs-cold-composting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "how-gardening-shapes-kids-eating-habits-what-the-research-shows-and-how-to-make-it-work": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "how-gardening-supports-kids-mental-health-building-emotional-resilience-in-the-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "how-much-do-i-really-need-to-water-my-garden-in-fall-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "how-much-do-i-really-need-to-water-my-garden-in-spring-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "how-much-do-i-really-need-to-water-my-garden-in-summer-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "how-much-do-i-really-need-to-water-my-garden-in-winter-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "how-to-eliminate-mosquitoes-in-your-santa-cruz-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "innovative-composting-techniques-for-urban-gardeners": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "living-with-wildlife-raccoons-squirrels-amp-other-garden-raiders": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "metal-raised-beds-vs-wood-raised-beds": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "meyer-lemon-vs-eureka-lemon": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "mulch-and-soil-health-the-hidden-irrigation-system-in-your-santa-cruz-county-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "mulch-vs-ground-cover-plants": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "neem-oil-vs-insecticidal-soap": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "no-till-vs-traditional-tilling": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "organic-fertilizer-vs-synthetic-fertilizer": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "perlite-vs-vermiculite": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "physical-and-developmental-benefits-of-gardening-with-kids-building-bodies-and-brains-in-the-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardeningwithkids.html",
+    "powdery-mildew-vs-downy-mildew": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "primocane-vs-floricane-raspberries-which-should-you-grow-in-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "pruning-and-training-fruit-trees-in-santa-cruz-county-shape-your-trees-for-better-harvests": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "pruning-in-winter-vs-summer": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "rainwater-harvesting-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "raised-beds-vs-in-ground-santa-cruz-clay": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "red-worms-vs-nightcrawlers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "root-vegetables-direct-seed-fall-winter-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-august": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-december": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-january": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-july": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-june": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-may": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-november": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-october": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "santa-cruz-garden-checklist-september": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "soaker-hoses-vs-sprinklers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "square-foot-gardening-vs-row-gardening": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "start-broccoli-cauliflower-seeds-fall-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "starting-seeds-indoors-vs-direct-sowing": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
+    "straw-mulch-vs-wood-chip-mulch": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "succession-planting-vs-all-at-once-planting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "sugar-snap-vs-snow-peas": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "sungold-vs-sweet-100-cherry-tomatoes": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-tomatoes.html",
+    "the-complete-guide-to-watering-your-garden-in-santa-cruz-county-a-year-round-data-driven-approach": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "the-santa-cruz-banana-belt-gardening-in-the-countys-goldilocks-microclimate": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "timer-based-vs-moisture-sensor-irrigation": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "vegetable-gardens-in-fire-zones-growing-food-safely-in-fire-country": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-firewise.html",
+    "water-wise-wonders-10-drought-resistant-plants-for-a-thriving-california-garden": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "why-native-garden-design-is-essential-for-eco-friendly-landscaping": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "worm-castings-vs-finished-compost": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
+    "zone-0-ember-resistant-landscaping-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
+    "zucchini-vs-yellow-summer-squash": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "7-fruit-trees-that-actually-produce-well-in-foggy-coastal-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fruittrees.html",
+    "citrus-problems-yellow-leaves-leaf-drop-and-no-fruit": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "citrus-cold-protection-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "fertilizing-citrus-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-limes-in-santa-cruz-county-and-why-its-tricky": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "growing-mandarins-and-satsumas-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-citrus.html",
+    "best-bean-varieties-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-beanspeas.html",
+    "the-complete-guide-to-growing-squash-and-cucumbers-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-squash.html",
+    "companion-plants-zucchini": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-clay-soil-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-foggy-coastal-summers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-grow-winter-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-handle-heat-waves-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-produce-all-season": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-regrow-after-cutting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-small-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "crops-store-well-after-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "plants-repel-garden-pests-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "native-groundcovers-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "native-plants-by-microclimate-what-to-grow-where-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
+    "growing-ranunculus-in-santa-cruz-county-springs-most-elegant-cut-flower": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
+    "santa-cruz-garden-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-garden-road-trip-north": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-garden-road-trip-south": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-garden-day-close-to-home": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "public-gardens-north-of-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "public-gardens-south-of-santa-cruz": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-native-plant-nursery-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-succulent-nursery-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-vegetable-nursery-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "santa-cruz-u-pick-farm-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+  };
+
+  // =========================================================================
+  // CLUSTER CACHE
+  // Prevents re-fetching cluster data on SPA-style navigation
+  // =========================================================================
+  window._ahClusterCache = window._ahClusterCache || {};
+
+  // =========================================================================
+  // CORE LOGIC
+  // =========================================================================
+
+  // Initialize the graphics namespace
+  window.AH_GRAPHICS = window.AH_GRAPHICS || {};
+
+  // Determine which cluster this article needs
+  var clusterPage = SLUG_TO_CLUSTER[slug];
+
+  // Self-healing manifest: per-slug list of {gid, after} (the heading each graphic sits under).
+  // Lets the loader RE-INJECT any placeholder the Squarespace editor strips on save, so graphics
+  // never silently vanish again. Hosted alongside the clusters.
+  var MANIFEST_URL = 'https://gaughanadrienne-gif.github.io/ah-graphics/ah-graphics-manifest.json';
+
+  var placeholders = document.querySelectorAll('.ah-graphic[data-graphic]');
+  var hasPlaceholders = placeholders.length > 0;
+
+  // Nothing to do if this slug has no placeholders AND no cluster mapping.
+  if (!hasPlaceholders && !clusterPage) return;
+
+  // Load the manifest, then the cluster, then render existing placeholders + self-heal missing ones.
+  ensureManifest(function () {
+    if (!clusterPage) { renderAndHeal(); return; }
+    if (window._ahClusterCache[clusterPage] === 'loaded') { renderAndHeal(); return; }
+    loadCluster(clusterPage, renderAndHeal);
+  });
+
+  function renderAndHeal() {
+    dedupeGids();                   // collapse accidental duplicate placeholders for one graphic
+    removeRebuiltOrphans();         // on consolidated articles, drop superseded fragment placeholders
+    renderPlaceholders();           // fill placeholders that survived
+    selfHeal();                     // re-inject any the editor stripped
+    renderPlaceholders();           // fill the freshly re-injected ones
+    dedupeGids();                   // drop any duplicate re-introduced along the way
+    dedupeByContent();              // drop different-gid placeholders that render IDENTICAL content
+    redistributeStacked();          // spread out any graphics stored stacked together
+    relocateGraphics();             // per-slug: move a graphic stored under the wrong section
+    cleanGraphicHeadings();         // strip "What Should You Know About ...?" scaffolding from graphic titles
+  }
+
+  // The body-heading normalizer (article-enhancement init) cleans the repetitive
+  // "What Is/Are/Should You Know About ...?" scaffolding into plain topic headers, but it
+  // runs BEFORE graphics inject, so a graphic's OWN templated title (e.g. "What Should You
+  // Know About Apple Pollination Compatibility?") slips through and reads clunky. Run the
+  // same cleanup over headings inside just-injected graphics. Display-only: the original is
+  // kept on data-orig-heading, and these graphic-internal headings are never used as TOC
+  // entries or injection anchors, so cleaning their text changes nothing else. Reversible.
+  function cleanGraphicHeadings() {
+    var root = document.querySelector('.blog-item-content') || document;
+    var hs = root.querySelectorAll('.ah-graphic h2, .ah-graphic h3');
+    for (var i = 0; i < hs.length; i++) {
+      var h = hs[i];
+      if (h.getAttribute('data-orig-heading')) continue;
+      var orig = (h.textContent || '').trim();
+      var clean = orig.replace(/^What (Is|Are|Should You Know About|Do You Need to Know About) /i, '')
+                      .replace(/\s*\?\s*$/, '').trim();
+      if (clean && clean !== orig) {
+        h.setAttribute('data-orig-heading', orig);
+        h.textContent = clean.charAt(0).toUpperCase() + clean.slice(1);
+      }
+    }
+  }
+
+  // Some article bodies hold two DIFFERENT graphic placeholders that render the SAME
+  // content (a slug-specific gid duplicating a shared graphic, or a graphic pasted
+  // twice under two gids). dedupeGids only catches identical gids; this catches
+  // identical CONTENT. Keep the first occurrence, drop later identical ones. Empty/
+  // tiny placeholders are ignored so blanks are never treated as duplicates.
+  function dedupeByContent() {
+    var els = document.querySelectorAll('.ah-graphic[data-graphic]');
+    var seen = {};
+    for (var i = 0; i < els.length; i++) {
+      // Compare VISIBLE text only -- strip <style>/<script> so two distinct tables
+      // that share the same CSS prefix are not mistaken for duplicates.
+      var clone = els[i].cloneNode(true);
+      var junk = clone.querySelectorAll('style, script');
+      for (var k = 0; k < junk.length; k++) { if (junk[k].parentNode) junk[k].parentNode.removeChild(junk[k]); }
+      var txt = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+      if (txt.length < 40) continue;
+      var key = txt.slice(0, 500);
+      if (seen[key]) { if (els[i].parentNode) els[i].parentNode.removeChild(els[i]); }
+      else seen[key] = true;
+    }
+  }
+
+  // Per-slug position correction: relocate a baked placeholder to right after the
+  // section heading whose text contains a snippet. For the rare article where a
+  // graphic was stored under the wrong heading (e.g. a pollination chart sitting
+  // several sections before the pollination section). Slug-scoped, reversible.
+  function relocateGraphics() {
+    var FIX = {
+      'best-apple-varieties-for-santa-cruz-microclimates': [
+        { gid: 'best-apple-varieties-for-santa-cruz-microclimates-g2', afterHeadingContains: 'pollination requirements' }
+      ]
+    };
+    var jobs = FIX[slug]; if (!jobs) return;
+    var root = document.querySelector('.blog-item-content') || document;
+    jobs.forEach(function (job) {
+      var ph = document.querySelector('.ah-graphic[data-graphic="' + job.gid + '"]');
+      if (!ph) return;
+      var h2s = [].slice.call(root.querySelectorAll('h2')).filter(function (h) { return !h.closest('[data-graphic]'); });
+      for (var i = 0; i < h2s.length; i++) {
+        if (h2s[i].textContent.toLowerCase().indexOf(job.afterHeadingContains) !== -1) {
+          h2s[i].parentNode.insertBefore(ph, h2s[i].nextSibling);
+          break;
+        }
+      }
+    });
+  }
+
+  // For articles whose graphics we have CONSOLIDATED (many fragmented placeholders
+  // merged into a few composite cards), the stored body still holds the OLD fragment
+  // placeholders. Once the manifest is repointed to the new merged gids, anything in
+  // the body that is NOT in the manifest for this slug is a superseded fragment, so
+  // remove it and let selfHeal inject the clean cards. Scoped to an allowlist so it
+  // can never strip a legitimate graphic on any other article.
+  function removeRebuiltOrphans() {
+    var REBUILT = {
+      'olallieberry-troubleshooting-guide': 1,
+      'raspberry-problems-pests-diseases-and-common-issues': 1,
+      'growing-raspberries-in-containers': 1,
+      'how-to-prune-raspberries-a-step-by-step-guide': 1,
+      'organic-pest-control-santa-cruz': 1,
+      'growing-manzanita-santa-cruz': 1,
+      'grow-herbs-santa-cruz': 1,
+      'california-herb-garden-cocktails': 1,
+      'dry-farmed-tomatoes-in-santa-cruz-growing-intense-flavor-with-less-water': 1,
+      // Apple varieties: the body had FOUR baked placeholders that are really two
+      // topics duplicated (g1+chill-hours-by = the same chill table; g2+apple-
+      // pollination-chart = the same pollination chart). Manifest now lists only
+      // g1 + g2, so the two duplicate shared-gid placeholders get dropped here.
+      'best-apple-varieties-for-santa-cruz-microclimates': 1
+    };
+    if (!REBUILT[slug]) return;
+    var spec = window._ahManifest && window._ahManifest[slug];
+    if (!spec || !spec.length) return;
+    var keep = {};
+    for (var i = 0; i < spec.length; i++) keep[spec[i].gid] = 1;
+    var els = document.querySelectorAll('.ah-graphic[data-graphic]');
+    for (var j = 0; j < els.length; j++) {
+      var id = els[j].getAttribute('data-graphic');
+      if (id && !keep[id] && els[j].parentNode) els[j].parentNode.removeChild(els[j]);
+    }
+  }
+
+  // Some article bodies accidentally contain the SAME graphic placeholder several
+  // times (a paste or build slip). The duplicates render the same graphic over and
+  // over or leave empty divs, and they stack into a block. Keep the first occurrence
+  // of each gid and remove the rest, so every graphic appears exactly once.
+  function dedupeGids() {
+    var seen = {}, els = document.querySelectorAll('.ah-graphic[data-graphic]');
+    for (var i = 0; i < els.length; i++) {
+      var id = els[i].getAttribute('data-graphic');
+      if (!id) continue;
+      if (seen[id]) { if (els[i].parentNode) els[i].parentNode.removeChild(els[i]); }
+      else seen[id] = true;
+    }
+  }
+
+  // Some older articles have several graphic placeholders stored stacked together (all
+  // after one heading) instead of distributed through the article, forcing readers to
+  // scroll past a wall of graphics before any content. This spreads a stacked run across
+  // later section headings at render time. Only the 2nd+ graphic under a heading moves;
+  // graphic-internal headings are ignored so a graphic's own title can't be mistaken for
+  // a section anchor.
+  function redistributeStacked() {
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    var SKIP = /frequently asked|related articles|downloadable guides|local resources/i;
+    var allH2 = [].slice.call(root.querySelectorAll('h2')).filter(function (h) { return !h.closest('[data-graphic]'); });
+    var contentHeadings = allH2.filter(function (h, i) {
+      return i > 0 && !SKIP.test((h.getAttribute('data-orig-heading') || h.textContent || ''));
+    });
+    if (!contentHeadings.length) return;
+    var nodes = [].slice.call(root.querySelectorAll('h2, .ah-graphic[data-graphic]')).filter(function (n) {
+      return n.hasAttribute('data-graphic') || !n.closest('[data-graphic]');
+    });
+    var used = [], moves = [], current = null;
+    function inUsed(el) { return used.indexOf(el) > -1; }
+    nodes.forEach(function (n) {
+      if (n.tagName === 'H2') { current = n; return; }
+      if (!current) return;
+      if (!inUsed(current) && contentHeadings.indexOf(current) > -1) { used.push(current); }
+      else { moves.push({ ph: n, from: current }); }
+    });
+    function nextUnused(from) {
+      var start = contentHeadings.indexOf(from);
+      for (var c = start + 1; c < contentHeadings.length; c++) { if (!inUsed(contentHeadings[c])) return contentHeadings[c]; }
+      for (var c2 = 0; c2 < contentHeadings.length; c2++) { if (!inUsed(contentHeadings[c2])) return contentHeadings[c2]; }
+      return null;
+    }
+    moves.forEach(function (m) {
+      var nh = nextUnused(m.from);
+      if (!nh) return;
+      used.push(nh);
+      if (nh.nextSibling) nh.parentNode.insertBefore(m.ph, nh.nextSibling);
+      else nh.parentNode.appendChild(m.ph);
+    });
+  }
+
+  // Fetch the manifest once, cache on window, and always call cb (even on failure -> {}).
+  function ensureManifest(cb) {
+    if (window._ahManifest) { cb(); return; }
+    if (window._ahManifestLoading) { window._ahManifestLoading.push(cb); return; }
+    window._ahManifestLoading = [cb];
+    fetch(MANIFEST_URL).then(function (r) { return r.ok ? r.json() : {}; })
+      .catch(function () { return {}; })
+      .then(function (j) {
+        window._ahManifest = j || {};
+        var q = window._ahManifestLoading || []; window._ahManifestLoading = null;
+        for (var i = 0; i < q.length; i++) { try { q[i](); } catch (e) {} }
+      });
+  }
+
+  // Re-inject any expected graphic whose placeholder is gone, after its section heading.
+  // Robust against bad manifests: never stacks multiple graphics on one heading -- if the
+  // anchor is the article title, a non-content heading, or already taken, it falls through
+  // to the next available content heading so graphics stay distributed through the article.
+  function selfHeal() {
+    var spec = window._ahManifest && window._ahManifest[slug];
+    if (!spec || !spec.length) return;
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    var h2s = root.querySelectorAll('h2');
+    if (!h2s.length) return;
+    var SKIP = /frequently asked|related articles|downloadable guides|local resources/i;
+    var texts = [], contentIdx = [];
+    for (var j = 0; j < h2s.length; j++) {
+      texts[j] = (h2s[j].getAttribute('data-orig-heading') || h2s[j].textContent || '').replace(/\s+/g, ' ').trim();
+      // content headings = everything except the first (article title) and trailing boilerplate
+      if (j > 0 && texts[j] && !SKIP.test(texts[j])) contentIdx.push(j);
+    }
+    var used = {};
+    function nextUnusedFrom(start) {
+      for (var c = 0; c < contentIdx.length; c++) { if (contentIdx[c] >= start && !used[contentIdx[c]]) return contentIdx[c]; }
+      for (var c2 = 0; c2 < contentIdx.length; c2++) { if (!used[contentIdx[c2]]) return contentIdx[c2]; }
+      return null;
+    }
+    for (var k = 0; k < spec.length; k++) {
+      var gid = spec[k].gid;
+      var after = (spec[k].after || '').replace(/\s+/g, ' ').trim();
+      if (!gid) continue;
+      if (document.querySelector('[data-graphic="' + gid + '"]')) continue; // still present, leave it
+      var ti = null;
+      // Pass 1: exact heading match (avoids grabbing the longer article title via substring).
+      for (var j1 = 0; j1 < h2s.length; j1++) { if (texts[j1] && texts[j1] === after) { ti = j1; break; } }
+      // Pass 2: substring match, tolerant of display-time normalization.
+      if (ti === null) {
+        for (var j2 = 0; j2 < h2s.length; j2++) {
+          if (!texts[j2]) continue;
+          if (texts[j2].indexOf(after) > -1 || (after.length > 12 && after.indexOf(texts[j2]) > -1)) { ti = j2; break; }
+        }
+      }
+      // If unmatched, the title (index 0), or already used by an earlier graphic this run,
+      // fall through to the next available content heading so nothing stacks.
+      if (ti === null || ti === 0 || used[ti]) ti = nextUnusedFrom(ti === null ? 0 : ti);
+      if (ti === null) continue;
+      used[ti] = true;
+      var div = document.createElement('div');
+      div.className = 'ah-graphic';
+      div.setAttribute('data-graphic', gid);
+      var target = h2s[ti];
+      if (target.nextSibling) target.parentNode.insertBefore(div, target.nextSibling);
+      else target.parentNode.appendChild(div);
+    }
+  }
+
+  /**
+   * Fetch a cluster HTML file from GitHub Pages, extract the script content,
+   * and execute it to populate window.AH_GRAPHICS.
+   */
+  function loadCluster(clusterUrl, callback) {
+    // Mark as loading to prevent duplicate fetches
+    window._ahClusterCache[clusterUrl] = 'loading';
+
+    fetch(clusterUrl)
+    .then(function(response) {
+      if (!response.ok) throw new Error('Cluster fetch failed: ' + response.status);
+      return response.text();
+    })
+    .then(function(html) {
+      // Extract script content from the HTML file
+      var scriptContent = extractScriptContent(html);
+
+      if (scriptContent) {
+        // Execute the script to populate window.AH_GRAPHICS
+        try {
+          var fn = new Function(scriptContent);
+          fn();
+        } catch (e) {
+          // Script execution failed; log but do not break the page
+        }
+      }
+
+      // Mark as loaded
+      window._ahClusterCache[clusterUrl] = 'loaded';
+
+      if (callback) callback();
+    })
+    .catch(function(err) {
+      // Fetch failed. Graphics will not appear, but the article is still readable.
+      window._ahClusterCache[clusterUrl] = 'error';
+      if (callback) callback();
+    });
+  }
+
+  /**
+   * Extract JavaScript content from script tags within the HTML body.
+   * Handles the case where Squarespace wraps Code Block content in divs.
+   * Concatenates all script blocks found (cluster pages have one).
+   */
+  function extractScriptContent(html) {
+    if (!html) return '';
+    var startTag = '<' + 'script>';
+    var endTag = '</' + 'script>';
+    var start = html.indexOf(startTag);
+    var end = html.indexOf(endTag);
+    if (start > -1 && end > -1) {
+      return html.substring(start + startTag.length, end).trim();
+    }
+    return '';
+  }
+
+  /**
+   * Find all unrendered placeholder divs and inject their graphic HTML.
+   */
+  function renderPlaceholders() {
+    var els = document.querySelectorAll('.ah-graphic[data-graphic]:not([data-rendered])');
+    for (var i = 0; i < els.length; i++) {
+      var id = els[i].getAttribute('data-graphic');
+      if (id && window.AH_GRAPHICS[id]) {
+        els[i].innerHTML = window.AH_GRAPHICS[id];
+        els[i].setAttribute('data-rendered', 'true');
+        // Remove any "loading" text that might be inside the placeholder
+        els[i].style.minHeight = 'auto';
+      }
+    }
+  }
+
+  }
+  // Run when DOM is ready, or immediately if already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runLoader);
+  } else {
+    runLoader();
+  }
+})();
+// === MASTERKIT BUY BUTTON FIX (2026-06-11) ===
+// The landing page buy buttons were authored against a guessed product slug
+// before the product existed. Rewrite them to the real product URL.
+(function() {
+  var DEAD = '/store/the-tomato-growing-masterkit-california-edition';
+  var REAL = '/store/p/tomato-growing-masterkit-california-edition';
+  // Old hash product URL (pre 2026-07-01 slug fix): rewrite any leftover links too.
+  var OLDHASH = '/store/p/04risdgzwd80jwjjzj7oxza4xw6ft6';
+  function fixButtons() {
+    var links = document.querySelectorAll(
+      'a[href="' + DEAD + '"], a[href^="' + DEAD + '?"], a[href="' + OLDHASH + '"], a[href^="' + OLDHASH + '?"]'
+    );
+    for (var i = 0; i < links.length; i++) links[i].setAttribute('href', REAL);
+    if (links.length) console.log('[AH] fixed ' + links.length + ' MasterKit buy link(s)');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(fixButtons, 300); });
+  } else {
+    setTimeout(fixButtons, 300);
+  }
+})();
+
+// === GARDEN REVIEW PAGE: FAQ card contrast fix (2026-07-02) ===
+// The pasted code block predates the .ah-gr-faq card style; the page section bg is
+// dark green so the FAQ text was green-on-green. Injecting the card rule here.
+// (Canonical block incl. this rule: Commercialization/Garden Review Service/Garden_Review_Page.html)
+(function() {
+  if (window.location.pathname.replace(/\/$/, '') !== '/garden-review') return;
+  var st = document.createElement('style');
+  st.id = 'ah-gr-faq-fix';
+  st.textContent = '.ah-gr-faq { background: #ffffff !important; border: 1px solid #dde2d8; border-radius: 12px; padding: 32px 34px; }';
+  (document.head || document.documentElement).appendChild(st);
+})();
+
+// === GARDEN REVIEW CALLOUT ON ABOUT + CONTACT (2026-07-02) ===
+// Compact card linking to the /garden-review sales page (Virtual Garden Review $49 /
+// Virtual Garden Design). GUARDED: a HEAD probe confirms /garden-review exists before
+// injecting, so this stays dormant until Adrienne creates the page, then activates on
+// its own. Reversible: delete this block.
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  if (path !== '/about' && path !== '/contact') return;
+  function inject() {
+    if (document.getElementById('ah-gr-callout')) return;
+    var host = document.querySelector('#page') || document.querySelector('main') || document.body;
+    if (!host) return;
+    var card = document.createElement('div');
+    card.id = 'ah-gr-callout';
+    card.style.cssText = 'max-width:680px;margin:2.2rem auto 3rem;padding:1.6rem 1.8rem;background:#dde2d8;border-radius:12px;text-align:center;font-family:Montserrat,sans-serif;';
+    card.innerHTML =
+      '<p style="margin:0 0 .5rem;font-size:1.15rem;font-weight:600;color:#1a3b2a !important;">Want expert eyes on your garden?</p>' +
+      '<p style="margin:0 0 1rem;font-size:.95rem;line-height:1.6;color:#1a3b2a !important;">Send photos and questions, get a written plan back within 5 business days. Reviews from $49; full custom garden designs available.</p>' +
+      '<a href="/garden-review" style="display:inline-block;background:#8f4f45;color:#f8f9f0 !important;font-size:.95rem;font-weight:600;text-decoration:none;padding:.7rem 1.6rem;border-radius:6px;">Learn about Garden Reviews</a>';
+    host.appendChild(card);
+  }
+  fetch('/garden-review', { method: 'HEAD' }).then(function(r) {
+    if (!r.ok) return;
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { setTimeout(inject, 400); });
+    } else {
+      setTimeout(inject, 400);
+    }
+  }).catch(function() {});
+})();
+
+// === MASTERKIT TESTIMONIALS REMOVED (2026-07-01) ===
+// "What early readers are saying" (section.social-proof#proof on /tomato-masterkit)
+// removed per Adrienne: quotes predate any ebook sale and cannot be attributed.
+// Reversible: delete this block to restore.
+(function() {
+  if (window.location.pathname.replace(/\/$/, '') !== '/tomato-masterkit') return;
+  var st = document.createElement('style');
+  st.id = 'ah-mk-noproof';
+  st.textContent = '#proof, section.social-proof { display: none !important; }';
+  (document.head || document.documentElement).appendChild(st);
+  function drop() {
+    var s = document.getElementById('proof') || document.querySelector('section.social-proof');
+    if (s) { s.parentNode.removeChild(s); console.log('[AH] removed MasterKit testimonials section'); }
+    var anchors = document.querySelectorAll('a[href="#proof"]');
+    for (var i = 0; i < anchors.length; i++) anchors[i].style.display = 'none';
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(drop, 200); });
+  } else {
+    setTimeout(drop, 200);
+  }
+})();
+
+// === GARDEN COOP -> BUILD YOUR FLOCK CROSS-LINK (2026-06-16) ===
+// Flock/coop articles get a callout to the Build Your Flock local availability tool.
+// Shared so the product callout below can step aside on these articles.
+function ahIsFlockArticle(slug) {
+  var FLOCK = {
+    'adding-new-hens-flock-integration-santa-cruz': 1,
+    'adopting-rescue-birds-quarantine-deworming-flock-introduction': 1,
+    'avian-flu-santa-cruz-county-backyard-flock': 1,
+    'backyard-chicken-rules-santa-cruz-county-city-by-city': 1,
+    'backyard-flock-first-aid-kit-california': 1,
+    'best-and-worst-garden-plants-for-free-range-flock': 1,
+    'best-chicken-breeds-for-the-santa-cruz-fog-belt': 1,
+    'best-ducks-for-the-santa-cruz-fog-belt': 1,
+    'can-one-goose-protect-a-backyard-flock': 1,
+    'chicken-tractors-mobile-coops-santa-cruz-garden': 1,
+    'chicken-wire-vs-hardware-cloth': 1,
+    'chickens-or-ducks-for-a-santa-cruz-backyard': 1,
+    'choosing-the-right-breeds-for-coastal-california-gardens': 1,
+    'common-health-issues-backyard-chickens-ducks-geese': 1,
+    'composting-with-chicken-and-duck-waste': 1,
+    'deep-litter-or-sand-coop-bedding-coastal-california': 1,
+    'designing-a-predator-proof-run-for-your-garden-flock': 1,
+    'diy-predator-proof-coop-run-plans-small-santa-cruz-lot': 1,
+    'do-motion-sensor-lights-actually-deter-predators': 1,
+    'finding-a-poultry-avian-vet-santa-cruz-monterey-bay': 1,
+    'flock-natural-pest-control-coastal-santa-cruz-garden': 1,
+    'growing-flock-treats-best-garden-crops-for-chickens-ducks-geese': 1,
+    'hardware-cloth-coop-locks-night-safety': 1,
+    'hatchery-chicks-or-rescue-hens': 1,
+    'heritage-and-rescue-chicken-breeds-santa-cruz': 1,
+    'how-do-i-keep-my-flock-cool-during-inland-california-heat': 1,
+    'how-do-i-protect-free-range-birds-from-hawks': 1,
+    'how-often-should-i-clean-my-chicken-run': 1,
+    'how-your-flock-can-work-your-garden': 1,
+    'keeping-a-flock-in-the-san-lorenzo-valley': 1,
+    'keeping-a-goose-single-goose-flocks': 1,
+    'keeping-a-mixed-flock-chickens-ducks-geese-together': 1,
+    'keeping-ducks-in-your-california-garden': 1,
+    'keeping-the-coop-dry-mud-mold-santa-cruz-winters': 1,
+    'keeping-your-flock-cool-in-santa-cruz-summer-heat': 1,
+    'managing-free-range-time-protecting-plants': 1,
+    'predator-proofing-your-flock-santa-cruz-county': 1,
+    'raising-chicks-and-ducklings-in-santa-cruz': 1,
+    'santa-cruz-county-backyard-flock-predator-guide': 1,
+    'santa-cruz-county-flock-care-calendar-month-by-month': 1,
+    'seasonal-flock-care-fall-winter-coastal-california': 1,
+    'seasonal-flock-care-spring-summer-coastal-california': 1,
+    'selling-and-storing-backyard-eggs-in-california': 1,
+    'should-i-worry-about-bird-flu-in-my-backyard-flock': 1,
+    'standard-or-bantam-chicken-breeds-small-backyard': 1,
+    'starting-a-backyard-flock-in-santa-cruz-county': 1,
+    'what-predator-is-getting-into-my-coop-at-night': 1,
+    'what-to-do-when-a-predator-gets-in': 1,
+    'what-to-feed-your-backyard-flock-year-round-in-california': 1,
+    'where-to-buy-chicks-feed-coop-supplies-santa-cruz-county': 1,
+    'why-is-my-hen-sitting-on-the-nest-all-day': 1
+  };
+  if (FLOCK[slug]) return true;
+  return /flock|coop|chicken|duckling|ducks|goose|geese|poultry|pullet|rooster|hatchery|hatchling|free-range|brooder|broody|avian|chicks|bird-flu/.test(slug);
+}
+(function() {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  setTimeout(function() {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (!ahIsFlockArticle(slug)) return;
+    if (document.querySelector('.ah-flock-callout')) return;
+
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+
+    var box = document.createElement('div');
+    box.className = 'ah-prod ah-flock-callout';
+    box.innerHTML = '' +
+      '<div class="cov"><img src="https://gaughanadrienne-gif.github.io/ah-graphics/flock-guide-cover.jpg" alt=""></div>' +
+      '<div><div class="eb">Go deeper · The complete guide</div>' +
+        '<h4>The California Backyard Flock Starter Guide</h4>' +
+        '<p>Everything for chickens, ducks, and geese in one place: choosing your birds, a predator-proof coop, feeding, eggs, health, and a year-round calendar, plus printable resources.</p>' +
+        '<span class="price">$12.99</span>' +
+        '<a class="ah-cta" href="/store/p/the-california-backyard-flock-starter-guide">View the guide</a>' +
+        '<p style="margin:0.85rem 0 0 0;font-size:0.8rem;color:#5a6c5a !important;line-height:1.5;">Looking for birds right now? <a href="/build-your-flock" style="color:#4A7A5B !important;font-weight:700;text-decoration:underline;">Browse local availability with Build Your Flock &rarr;</a></p>' +
+      '</div>';
+
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var j = 0; j < headings.length; j++) {
+      var t = headings[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { faqHeading = headings[j]; break; }
+    }
+    if (faqHeading) faqHeading.parentNode.insertBefore(box, faqHeading);
+    else articleBody.appendChild(box);
+  }, 1500);
+})();
+
+// === CONTEXTUAL PRODUCT CALLOUTS (2026-06-11) ===
+// Routes each article to its most relevant Garden Shop product.
+// Tomato articles are excluded (the quiz callout already carries the MasterKit CTA).
+// Flock/coop articles are excluded (they carry the Build Your Flock callout instead).
+(function() {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  setTimeout(function() {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (slug.indexOf('tomato') !== -1) return;
+    if (ahIsFlockArticle(slug)) return;
+    if (document.querySelector('.ah-flock-callout')) return;
+    if (document.querySelector('.ah-product-callout')) return;
+
+    var IMGBASE = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    var IMG = function (c, w) { return IMGBASE + c + '?format=' + w + 'w'; };
+    var P = {
+      kids:      { url: '/store/p/kids-garden-activity-pack-santa-cruz-county-edition', title: 'Kids Garden Activity Pack', line: 'Hands-on garden activities, trackers, and badges for curious kids.', price: '$7.99', cover: '023d295f-7a0e-4b51-9228-c1367bd499e2/kids-garden-activity-pack-1-cover.jpeg' },
+      dahlia:    { url: '/store/p/california-dahlia-growing-guide', title: 'California Dahlia Growing Guide', line: 'Zone-by-zone tuber timing and an overwintering flowchart for California.', price: '$9.99', cover: 'a0525226-76c1-45ed-a278-08d34d0a8d31/dahlia-growing-guide-1-cover.jpeg' },
+      herb:      { url: '/store/p/herb-growing-kitchen-garden-guide-california-edition', title: 'Herb Growing Kitchen Garden Guide', line: 'Every herb from seed to cutting board, tuned to our Mediterranean climate.', price: '$9.99', cover: '7732bc6b-b114-4f88-9a8a-42d50b803083/herb-growing-kitchen-garden-guide-1-cover.jpeg' },
+      firewise:  { url: '/store/p/firewise-food-garden-kit-california-edition', title: 'Firewise Food Garden Kit', line: 'Make your food garden part of your defensible space plan.', price: '$14.99', cover: 'bc7fe7f5-933e-44b5-9a20-69a3d96aaef8/firewise-food-garden-kit-1-cover.jpeg' },
+      water:     { url: '/store/p/water-wise-garden-workbook-california-edition', title: 'Water-Wise Garden Workbook', line: 'Audit your water use and redesign your garden with real numbers.', price: '$9.99', cover: '3929876c-ddbc-48a5-ae55-ec2794fb4bf6/water-wise-garden-workbook-1-cover.jpeg' },
+      pest:      { url: '/store/p/gopher-pest-defense-kit-santa-cruz-county-edition', title: 'Gopher & Pest Defense Kit', line: 'The integrated five-step defense system for gophers and garden pests.', price: '$12.99', cover: '5cb21a0c-210c-411a-b76b-b3c3c4396dc4/gopher-pest-defense-kit-1-cover.jpeg' },
+      compost:   { url: '/store/p/composting-soil-building-guide', title: 'Composting & Soil Building Guide', line: 'Composting methods built for real California clay and sand soils.', price: '$9.99', cover: '8306991f-4a67-4e17-bada-65addfbb1a9e/composting-soil-building-guide-1-cover.jpeg' },
+      container: { url: '/store/p/container-small-space-garden-guide', title: 'Container & Small Space Garden Guide', line: 'Real harvests from balconies, patios, and doorsteps.', price: '$9.99', cover: 'a7e35ce3-9894-4fc8-85ec-42437b1f4cf0/container-garden-guide-1-cover.jpeg' },
+      preserve:  { url: '/store/p/preserving-the-harvest-guide-california-edition', title: 'Preserving the Harvest Guide', line: 'Tested canning, freezing, drying, and fermenting methods. Safety first.', price: '$9.99', cover: '93eccbe4-594c-4fd5-b7b8-abddf6596906/preserving-the-harvest-guide-1-cover.jpeg' },
+      seed:      { url: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', title: 'Seed Starting Success Kit', line: 'Sowing dates and transplant timing built for our five microclimates.', price: '$9.99', cover: 'fbc91ab7-4aec-42af-8ef9-f77d7ae2d425/seed-starting-success-kit-1-cover.jpeg' },
+      companion: { url: '/store/p/companion-planting-master-chart-guide', title: 'Companion Planting Master Chart & Guide', line: 'Pairings backed by mechanisms, not folklore, mapped to our seasons.', price: '$9.99', cover: '2b058961-8abc-41e0-81b4-1e9c8fb28faf/companion-planting-chart-guide-1-cover.jpeg' },
+      micro:     { url: '/store/p/microclimate-mastery-guide-santa-cruz-county-edition', title: 'Microclimate Mastery Guide', line: 'The five real growing zones of Santa Cruz County, decoded.', price: '$12.99', cover: 'b3c3da63-ceef-4b34-910e-2943b9a4bbab/microclimate-mastery-guide-1-cover.jpeg' },
+      seasonal:  { url: '/store/p/seasonal-planting-master-guide-santa-cruz-county-edition', title: 'Seasonal Planting Master Guide', line: 'Twelve months of planting mapped to your microclimate.', price: '$12.99', cover: 'fc77da29-add8-40e5-9fcb-49f23f9720e1/seasonal-planting-master-guide-1-cover.jpeg' },
+      first:     { url: '/store/p/first-harvest-kit-california-edition', title: 'First Harvest Kit', line: 'From bare ground to your first harvest, every decision in order.', price: '$14.99', cover: 'dd2f6938-54ca-4c68-9aa8-240e26854d4c/first-harvest-kit-1-cover.jpeg' },
+      planner:   { url: '/store/p/garden-planner-journal-santa-cruz-county-edition', title: 'Garden Planner & Journal', line: 'Twelve monthly spreads designed to print, with local planting windows.', price: '$7.99', cover: '0993fac6-834e-4747-b62d-8ba39939350c/garden-planner-journal-1-cover.jpeg' },
+      berry:     { url: '/store/p/california-berry-growing-guide', title: 'The California Berry Growing Guide', line: 'Strawberries to mulberries, matched to your zone and pruned without fear.', price: '$12.99', cover: '0582921e-b84c-4526-be21-e63a7387ea86/california-berry-growing-guide-1-cover.jpeg' }
+    };
+
+    var RULES = [
+      [/kids|sensory|dinosaur|fairy|pizza-garden|butterfly-way|moonlight|peter-rabbit|seuss|sunflower-fort/, 'kids'],
+      [/dahlia/, 'dahlia'],
+      // Berry SKU (launched 2026-07-01) owns the whole berry cluster; must sit
+      // above container/preserve/pest so berry pages route to it first.
+      [/berr|currant/, 'berry'],
+      [/herb|basil|mint-|-mint|dill|thyme|oregano|parsley|chives|cilantro|sage|rosemary/, 'herb'],
+      [/firewise|fire-wise|fire-safe|defensible|ember|wildfire|after-the-fire/, 'firewise'],
+      [/water-wise|drought|irrigation|greywater|ollas|rainwater|watering/, 'water'],
+      [/gopher|pest|slug|snail|aphid|deer-|rodent|squirrel|vole|earwig|powdery-mildew|hornworm|owl-box|owls-as/, 'pest'],
+      [/compost|vermicompost|soil|mulch|amendment|fertiliz/, 'compost'],
+      [/container|grow-bag|windowsill|balcony|pots/, 'container'],
+      [/preserv|canning|freez|drying|ferment|pickl|harvesting-and-using|harvesting-using/, 'preserve'],
+      [/seed/, 'seed'],
+      [/companion/, 'companion'],
+      // Microclimate guide now also covers citrus, fruit trees, and cold/frost topics
+      // (previously these matched no rule, so the article had no product CTA at all).
+      [/microclimate|frost|fog-belt|june-gloom|cold-protect|cold-hardy|citrus|avocado|apple|lemon|orange|fruit-tree|stone-fruit|peach|plum|pear|fig/, 'micro'],
+      [/what-to-plant|checklist|january|february|march|april|-may|june|july|august|september|october|november|december|seasonal|succession|planting-calendar/, 'seasonal'],
+      [/beginner|first-|start-a-vegetable|new-gardener|mistakes/, 'first'],
+      [/journal|planner|planning/, 'planner']
+    ];
+
+    var prod = null;
+    for (var i = 0; i < RULES.length; i++) {
+      if (RULES[i][0].test(slug)) { prod = P[RULES[i][1]]; break; }
+    }
+    if (!prod) return;
+
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+
+    // Card-with-cover design. Uses the .ah-prod styles injected by the article
+    // enhancement block below (present on every article page).
+    var box = document.createElement('div');
+    box.className = 'ah-prod ah-product-callout';
+    box.innerHTML = '' +
+      '<div class="cov"><img src="' + IMG(prod.cover, 400) + '" alt=""></div>' +
+      '<div><div class="eb">Go deeper · Recommended guide</div>' +
+      '<h4>' + prod.title + '</h4>' +
+      '<p>' + prod.line + '</p>' +
+      '<span class="price">' + prod.price + '</span>' +
+      '<a class="ah-cta" href="' + prod.url + '">View the guide</a></div>';
+
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var j = 0; j < headings.length; j++) {
+      var t = headings[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { faqHeading = headings[j]; break; }
+    }
+    if (faqHeading) faqHeading.parentNode.insertBefore(box, faqHeading);
+    else articleBody.appendChild(box);
+  }, 1600);
+})();
+
+// === GARDEN REVIEW SERVICE CALLOUT ON PROBLEM ARTICLES (2026-07-05) ===
+// Keyword-routed card linking to the /garden-review sales page (Garden Review, $49) on
+// diagnosis / troubleshooting / "what's wrong" /learn articles ("I have a specific
+// problem" readers). GUARDED by a HEAD probe so it stays dormant until /garden-review
+// is live, then self-activates on its own. Bails on tomato + flock articles so it never
+// fights those callouts. On its target articles it outranks the generic product callout
+// via the PRIORITY array below. FULLY REVERSIBLE: delete this entire block (and revert
+// the one PRIORITY array line) to restore prior behavior. Nothing else depends on it.
+(function() {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+  if (slug.indexOf('tomato') !== -1) return;   // tomato quiz callout owns these
+  if (ahIsFlockArticle(slug)) return;          // flock callout owns these
+  var REVIEW = /(why-(is|are|do|does)|turning-yellow|yellow-leaf|yellowing|wilting|dying|drooping|brown-spot|not-(growing|fruiting|blooming)|problem|pest|disease|troubleshoot|struggl|dropping|curling|leaf-spot|-rot(?!at)|blight|deficien|leggy|bolting)/;
+  if (!REVIEW.test(slug)) return;
+  function inject() {
+    if (document.querySelector('.ah-gr-review-callout')) return;
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+    var card = document.createElement('div');
+    card.className = 'ah-gr-review-callout';
+    card.style.cssText = 'max-width:680px;margin:2.5rem auto;padding:1.6rem 1.8rem;background:#dde2d8;border-radius:12px;text-align:center;font-family:Montserrat,sans-serif;';
+    card.innerHTML =
+      '<p style="margin:0 0 .5rem;font-size:1.15rem;font-weight:600;color:#1a3b2a !important;">Stumped by your own garden?</p>' +
+      '<p style="margin:0 0 1rem;font-size:.95rem;line-height:1.6;color:#1a3b2a !important;">Get expert eyes on your specific space. A written review from a Gardenary-certified grower with 20 years in Santa Cruz County, back to you within 5 business days.</p>' +
+      '<a href="/garden-review" style="display:inline-block;background:#8f4f45;color:#f8f9f0 !important;font-size:.95rem;font-weight:600;text-decoration:none;padding:.7rem 1.6rem;border-radius:6px;">Get a Garden Review, $49</a>';
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var j = 0; j < headings.length; j++) {
+      var t = headings[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { faqHeading = headings[j]; break; }
+    }
+    if (faqHeading) faqHeading.parentNode.insertBefore(card, faqHeading);
+    else articleBody.appendChild(card);
+  }
+  fetch('/garden-review', { method: 'HEAD' }).then(function(r) {
+    if (!r.ok) return;
+    setTimeout(inject, 1650);
+  }).catch(function() {});
+})();
+
+// === GARDEN DESIGN SERVICE CALLOUT ON PLANNING ARTICLES (2026-07-05) ===
+// Keyword-routed card linking to the /garden-review sales page (Garden Design) on
+// planning / layout / new-garden / redesign /learn articles ("I'm planning a project"
+// readers). Mutually exclusive with the Review callout above: if an article matches the
+// Review regex it is skipped here (problem-solving is the higher-volume intent).
+// GUARDED by a HEAD probe so it stays dormant until /garden-review is live. Bails on
+// tomato + flock articles. Outranks the generic product callout on its target articles
+// via the PRIORITY array below. FULLY REVERSIBLE: delete this entire block (and revert
+// the one PRIORITY array line) to restore prior behavior. Nothing else depends on it.
+(function() {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+  if (slug.indexOf('tomato') !== -1) return;   // tomato quiz callout owns these
+  if (ahIsFlockArticle(slug)) return;          // flock callout owns these
+  var REVIEW = /(why-(is|are|do|does)|turning-yellow|yellow-leaf|yellowing|wilting|dying|drooping|brown-spot|not-(growing|fruiting|blooming)|problem|pest|disease|troubleshoot|struggl|dropping|curling|leaf-spot|-rot(?!at)|blight|deficien|leggy|bolting)/;
+  if (REVIEW.test(slug)) return;               // Review callout wins on overlap
+  var DESIGN = /(garden-(layout|design|plan)|plan(ning)?-(a|your)-(garden|vegetable)|raised-bed-(design|plan|build|layout)|start(ing)?-a-(garden|vegetable)|small-space|backyard-(garden|design)|where-to-(put|place)|edible-landscap|garden-from-scratch|first-(garden|vegetable-garden))/;
+  if (!DESIGN.test(slug)) return;
+  function inject() {
+    if (document.querySelector('.ah-gr-design-callout')) return;
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+    var card = document.createElement('div');
+    card.className = 'ah-gr-design-callout';
+    card.style.cssText = 'max-width:680px;margin:2.5rem auto;padding:1.6rem 1.8rem;background:#dde2d8;border-radius:12px;text-align:center;font-family:Montserrat,sans-serif;';
+    card.innerHTML =
+      '<p style="margin:0 0 .5rem;font-size:1.15rem;font-weight:600;color:#1a3b2a !important;">Planning a bigger garden project?</p>' +
+      '<p style="margin:0 0 1rem;font-size:.95rem;line-height:1.6;color:#1a3b2a !important;">Get a custom garden design for your space: a layout, a plant plan matched to your microclimate, and a seasonal schedule you can follow.</p>' +
+      '<a href="/garden-review" style="display:inline-block;background:#8f4f45;color:#f8f9f0 !important;font-size:.95rem;font-weight:600;text-decoration:none;padding:.7rem 1.6rem;border-radius:6px;">See Garden Design</a>';
+    var faqHeading = null;
+    var headings = articleBody.querySelectorAll('h2, h3');
+    for (var j = 0; j < headings.length; j++) {
+      var t = headings[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { faqHeading = headings[j]; break; }
+    }
+    if (faqHeading) faqHeading.parentNode.insertBefore(card, faqHeading);
+    else articleBody.appendChild(card);
+  }
+  fetch('/garden-review', { method: 'HEAD' }).then(function(r) {
+    if (!r.ok) return;
+    setTimeout(inject, 1650);
+  }).catch(function() {});
+})();
+
+// === FAST GROWING TREES AFFILIATE CALLOUT (2026-06-18) ===
+// Contextual affiliate card on fruit-tree / avocado / berry articles (citrus excluded).
+// Adrienne is a genuine Fast Growing Trees customer (AH's own fruit trees and
+// tropical pond plants). Code-based program: the link carries reader code
+// FGTAMBITIOUS20 plus referral attribution (resolves to FGT's ambassador page).
+// Fully reversible: remove this whole block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (slug.indexOf('tomato') !== -1) return; // cherry-tomato etc. are not FGT
+    // citrus terms (lemon/orange/mandarin/etc.) intentionally EXCLUDED: FGT cannot
+    // ship citrus to California (state citrus quarantine), so a citrus FGT link is a
+    // dead end for our CA audience. Avocado/deciduous/fig/berries ship to CA fine.
+    // NOTE: berry stems must be truncated at "berr" so both singular and plural
+    // slugs match ("mulberry" missed harvesting-using-mulberries-* entirely).
+    var FRUIT = /bare-root|grafted|own-root|fruit-tree|stone-fruit|avocado|apple|peach|nectarine|plum|pear|fig|apricot|cherry|persimmon|pomegranate|mulberr|blueberr|raspberr|blackberr|strawberr|elderberr|olallieberr|boysenberr/;
+    if (!FRUIT.test(slug)) return;
+    if (document.querySelector('.ah-fgt-callout')) return;
+
+    var articleBody = document.querySelector('.blog-item-content-wrapper') ||
+                      document.querySelector('[data-content-field="body"]') ||
+                      document.querySelector('.entry-content');
+    if (!articleBody) return;
+
+    var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+    var box = document.createElement('aside');
+    box.className = 'ah-fgt-callout';
+    box.setAttribute('style', 'display:block;margin:30px 0;padding:22px 24px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Where we buy our trees &middot; Affiliate partner</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Fast Growing Trees</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">We have ordered from Fast Growing Trees many times and genuinely recommend them. All of our tropical pond plants come from them, and they ship established, ready-to-plant trees and shrubs straight to your door.</p>' +
+      '<a href="' + LINK + '" target="_blank" rel="sponsored nofollow noopener" style="display:inline-block;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px;border-radius:4px;text-decoration:none!important;border-bottom:0!important;">Shop Fast Growing Trees</a>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:13px;">Reader code FGTAMBITIOUS20 is built into this link. As an affiliate, we may earn a commission at no extra cost to you.</div>';
+
+    var h2s = articleBody.querySelectorAll('h2');
+    var nonFaq = [], faqH = null;
+    for (var i = 0; i < h2s.length; i++) {
+      if (h2s[i].closest('[data-graphic]')) continue;   // skip titles rendered INSIDE a graphic (else the card merges into a graphic)
+      var t = h2s[i].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; }
+      else nonFaq.push(h2s[i]);
+    }
+    if (nonFaq.length >= 2) nonFaq[1].parentNode.insertBefore(box, nonFaq[1]);
+    else if (faqH) faqH.parentNode.insertBefore(box, faqH);
+    else articleBody.appendChild(box);
+  }, 1700);
+})();
+
+// === FAST GROWING TREES INLINE TEXT LINKS (2026-06-18) ===
+// Adds one in-prose affiliate link (rel=sponsored nofollow) to a specific phrase
+// on key fruit-tree articles, complementing the .ah-fgt-callout card. Client-side
+// and fully reversible. Links the FIRST in-prose occurrence only; skips headings,
+// existing links, and the callout card. Add slugs/phrases to MAP to extend.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+  // No citrus articles here: FGT can't ship citrus to California.
+  var MAP = {
+    'bare-root-vs-container-fruit-trees': 'missed the bare-root season',
+    'grafted-vs-own-root-fruit-trees': 'grafted trees',
+    'best-avocado-varieties-santa-cruz': 'avocado tree',
+    'growing-avocados-santa-cruz': 'avocado tree',
+    'growing-avocados-containers-california': 'avocado tree',
+    'fire-resistant-fruit-trees-for-santa-cruz-gardens': 'fruit trees',
+    'garden-myth-cant-grow-blueberries-california': 'blueberries'
+  };
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    var phrase = MAP[slug];
+    if (!phrase) return;
+    var body = document.querySelector('.blog-item-content-wrapper') ||
+               document.querySelector('[data-content-field="body"]') ||
+               document.querySelector('.entry-content');
+    if (!body || body.querySelector('a.ah-fgt-inline')) return;
+
+    var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while ((node = walker.nextNode())) {
+      var skip = false;
+      for (var el = node.parentNode; el && el !== body; el = el.parentNode) {
+        var tn = el.nodeName.toLowerCase();
+        if (tn === 'a' || tn === 'h1' || tn === 'h2' || tn === 'h3' || tn === 'h4' || tn === 'h5' || tn === 'h6') { skip = true; break; }
+        if (el.className && ('' + el.className).indexOf('ah-fgt') !== -1) { skip = true; break; }
+      }
+      if (skip) continue;
+      var idx = node.nodeValue.indexOf(phrase);
+      if (idx === -1) continue;
+      var before = node.nodeValue.slice(0, idx);
+      var after = node.nodeValue.slice(idx + phrase.length);
+      var a = document.createElement('a');
+      a.className = 'ah-fgt-inline';
+      a.href = LINK; a.target = '_blank'; a.rel = 'sponsored nofollow noopener';
+      a.textContent = phrase;
+      a.setAttribute('style', 'color:#1A3B2A!important;text-decoration:underline;');
+      var frag = document.createDocumentFragment();
+      if (before) frag.appendChild(document.createTextNode(before));
+      frag.appendChild(a);
+      if (after) frag.appendChild(document.createTextNode(after));
+      node.parentNode.replaceChild(frag, node);
+      return;
+    }
+  }, 1800);
+})();
+
+// === BERRY CHEAT SHEET — INLINE EMAIL CAPTURE (2026-06-22) ===
+// Offers the free lead magnet "The California Berry Growing Cheat Sheet" (PDF)
+// on berry articles. Subscribes to MailerLite group "Lead Magnet: Berry Cheat
+// Sheet" via embedded form 191027595236607473 (account 1974108, double opt-in).
+// Same verified fetch/no-cors mechanism as the live toolkit form. Delivery is
+// handled by the "Deliver: Berry Cheat Sheet" automation. Inserts before the FAQ
+// (or last non-FAQ H2) so it never collides with the FGT card at H2 #2.
+// Fully reversible: remove this whole block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  var BERRY = /strawberr|blueberr|blackberr|raspberr|mulberr|olallieberr|boysenberr|elderberr|gooseberr|huckleberr|currant|best-berries/;
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    if (!BERRY.test(slug)) return;
+    if (document.querySelector('.ah-berry-optin')) return;
+
+    var body = document.querySelector('.blog-item-content-wrapper') ||
+               document.querySelector('[data-content-field="body"]') ||
+               document.querySelector('.entry-content');
+    if (!body) return;
+
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/191027595236607473/subscribe';
+    var box = document.createElement('aside');
+    box.className = 'ah-berry-optin';
+    box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Berry Growing Cheat Sheet</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">A free one-page quick reference for growing strawberries, blueberries, blackberries, raspberries, and mulberries in coastal California. Enter your email and I will send the PDF straight to your inbox.</p>' +
+      '<form class="ah-berry-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
+      '</form>' +
+      '<div class="ah-berry-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>';
+
+    var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
+    for (var i = 0; i < h2s.length; i++) {
+      var t = h2s[i].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; }
+      else lastNon = h2s[i];
+    }
+    if (faqH) faqH.parentNode.insertBefore(box, faqH);
+    else if (lastNon) lastNon.parentNode.insertBefore(box, lastNon);
+    else body.appendChild(box);
+
+    var form = box.querySelector('.ah-berry-form');
+    var msg = box.querySelector('.ah-berry-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button');
+      var input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) {
+        msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
+      }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          box.innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your California Berry Growing Cheat Sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () {
+          msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.';
+          btn.textContent = 'Send me the cheat sheet'; btn.disabled = false;
+        });
+    });
+  }, 1700);
+})();
+
+// === CLUSTER CHEAT SHEETS — INLINE EMAIL CAPTURE (2026-06-22) ===
+// Pepper, Native & Drought, and Seed Starting lead magnets. Same verified
+// MailerLite fetch/no-cors mechanism as the berry box (account 1974108). Each
+// entry is slug-gated and inserts before the FAQ (or last non-FAQ H2). Delivery
+// is handled by the matching "Deliver: ..." automation. Tomato is intentionally
+// excluded (its articles run the MasterKit CTA). Fully reversible: remove block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  var MAGNETS = [
+    { re: /pepper|jalapeno|serrano|habanero|shishito|padron|poblano|cayenne|anaheim|capsicum/,
+      form: '191102223840707604',
+      title: 'The California Pepper Growing Cheat Sheet',
+      blurb: 'A free one-page quick reference for growing sweet and hot peppers in coastal California, from variety picks to timing and harvest. Enter your email and I will send the PDF straight to your inbox.' },
+    { re: /\bnative|drought|water-wise|low-water|ceanothus|manzanita|\btoyon|california-lilac|california-poppy|buckwheat|hummingbird-sage|xeriscape/,
+      form: '191102305832011313',
+      title: 'The California Native & Drought-Tolerant Plant Cheat Sheet',
+      blurb: 'A free one-page quick reference for choosing and growing California native and low-water plants on the Central Coast. Enter your email and I will send the PDF straight to your inbox.' },
+    { re: /seed-starting|starting-seeds|start-seeds|seeds-indoors|direct-sow|start-from-seed|seed-start|winter-sow|germinat|seedling|damping-off/,
+      form: '191102468073981272',
+      title: 'The California Seed Starting Cheat Sheet',
+      blurb: 'A free one-page quick reference for starting seeds in coastal California: what to start and when, plus light, warmth, and hardening off. Enter your email and I will send the PDF straight to your inbox.' },
+    // Fruit trees (2026-07-13). `not` guard is REQUIRED: without it this steals the
+    // cherry-TOMATO articles (they must keep the MasterKit CTA), bare-root
+    // STRAWBERRIES (berry magnet), and the citrus-COMPOSTING myth article.
+    // Validated against the live sitemap: 49 matches, 0 false positives.
+    { re: /fruit-tree|bare-root|stone-fruit|\bapple|\bpear\b|peach|nectarine|\bplum\b|pluot|apricot|cherry(?!-tomato)|\bfigs?\b|persimmon|pomegranate|citrus|lemon|mandarin|satsuma/,
+      not: /tomato|berry|berries|compost/,
+      form: '192902278100812879',
+      title: 'The California Fruit Tree Planting Guide',
+      cta: 'Send me the guide',
+      noun: 'guide',
+      blurb: 'A free one-page guide to choosing and planting fruit trees that actually produce in coastal California: chill hours by fruit, which trees need a pollination partner, and the planting mistakes that kill trees years later. Enter your email and I will send the PDF straight to your inbox.' }
+  ];
+  setTimeout(function () {
+    var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+    var m = null;
+    for (var i = 0; i < MAGNETS.length; i++) {
+      if (!MAGNETS[i].re.test(slug)) continue;
+      if (MAGNETS[i].not && MAGNETS[i].not.test(slug)) continue;
+      m = MAGNETS[i]; break;
+    }
+    if (!m) return;
+    if (document.querySelector('.ah-lm-optin') || document.querySelector('.ah-berry-optin')) return;
+
+    var body = document.querySelector('.blog-item-content-wrapper') ||
+               document.querySelector('[data-content-field="body"]') ||
+               document.querySelector('.entry-content');
+    if (!body) return;
+
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + m.form + '/subscribe';
+    var box = document.createElement('aside');
+    box.className = 'ah-lm-optin';
+    box.setAttribute('style', 'display:block;margin:30px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">' + m.title + '</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">' + m.blurb + '</p>' +
+      '<form class="ah-lm-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">' + (m.cta || 'Send me the cheat sheet') + '</button>' +
+      '</form>' +
+      '<div class="ah-lm-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>';
+
+    var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
+    for (var j = 0; j < h2s.length; j++) {
+      var t = h2s[j].textContent.toLowerCase();
+      if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[j]; }
+      else lastNon = h2s[j];
+    }
+    if (faqH) faqH.parentNode.insertBefore(box, faqH);
+    else if (lastNon) lastNon.parentNode.insertBefore(box, lastNon);
+    else body.appendChild(box);
+
+    var form = box.querySelector('.ah-lm-form');
+    var msg = box.querySelector('.ah-lm-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button');
+      var input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) {
+        msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
+      }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          box.innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your ' + (m.noun || 'cheat sheet') + ' is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () {
+          msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.';
+          btn.textContent = (m.cta || 'Send me the cheat sheet'); btn.disabled = false;
+        });
+    });
+  }, 1700);
+})();
+
+// === PROMO BOX DE-STACK (2026-06-23) ===
+// Several promo boxes are each inserted by their own block: the FGT affiliate
+// card (before the 2nd H2), the contextual product callout, the flock-tool
+// callout, the tomato-quiz callout, and the lead-magnet email-capture boxes (all
+// before the FAQ). On long articles those land far apart, but on SHORT articles
+// (few headings, or no FAQ heading) two targets collapse onto the same / adjacent
+// heading and the boxes render stacked. This pass runs after the others and, for
+// any two promo boxes with no real content between them, keeps the higher-value
+// one and removes the other (so they are either separated or, on a too-short
+// article, a single box). Runs twice to catch late insertions. Fully reversible.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+  // Lower index = lower value = dropped first when two boxes collide.
+  var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-gr-design-callout', 'ah-gr-review-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin', 'ah-flock-optin'];
+  var SEL = '.' + PRIORITY.join(', .');
+  // On berry pages the product callout (the Berry Growing Guide SKU, launched
+  // 2026-07-01) outranks the berry cheat-sheet opt-in when they collide:
+  // conversion-first now that a direct berry product exists. The opt-in still
+  // renders wherever it does not collide with a product callout.
+  var destackSlug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+  var berryProductWins = /berr|currant/.test(destackSlug);
+  function rank(el) {
+    for (var i = 0; i < PRIORITY.length; i++) {
+      if (el.classList.contains(PRIORITY[i])) {
+        if (berryProductWins && PRIORITY[i] === 'ah-product-callout') return PRIORITY.indexOf('ah-berry-optin') + 0.5; // just above ah-berry-optin (unchanged behavior; derived so it stays correct if PRIORITY is reordered)
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  // Real readable content (paragraphs, lists, figures, tables, long text) between
+  // two same-parent boxes? Headings alone do not count as separation.
+  function contentBetween(a, b) {
+    var n = a.nextElementSibling, txt = 0, guard = 0;
+    while (n && n !== b && guard < 500) {
+      guard++;
+      if (!(n.matches && n.matches(SEL))) {
+        if (/^(P|UL|OL|FIGURE|TABLE|BLOCKQUOTE)$/.test(n.tagName)) txt += ((n.textContent || '').trim().length || 30);
+        else txt += (n.textContent || '').trim().length;
+      }
+      n = n.nextElementSibling;
+    }
+    return txt > 60;
+  }
+
+  function dedupe() {
+    var boxes = [].slice.call(document.querySelectorAll(SEL));
+    if (boxes.length < 2) return;
+    boxes.sort(function (x, y) { return (x.compareDocumentPosition(y) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1; });
+    for (var i = 1; i < boxes.length; i++) {
+      var prev = boxes[i - 1], cur = boxes[i];
+      if (!prev.isConnected || !cur.isConnected) continue;
+      if (prev.parentElement !== cur.parentElement) continue;   // only de-stack within one container
+      if (contentBetween(prev, cur)) continue;                  // genuinely separated -> keep both
+      var loser = rank(prev) <= rank(cur) ? prev : cur;
+      if (loser.parentNode) loser.parentNode.removeChild(loser);
+      boxes.splice(boxes.indexOf(loser), 1);
+      i = 0;                                                    // rescan from the top after a removal
+    }
+  }
+  setTimeout(dedupe, 2300);
+  setTimeout(dedupe, 3800);
+})();
+
+// === PLANTING CALENDAR + GARDEN CONDITIONS — INLINE EMAIL CAPTURE (2026-06-24) ===
+// Non-gating opt-in box dropped BELOW the tool on /planting-calendar and
+// /garden-conditions (the tools stay fully open). Offers the Seed Starting cheat
+// sheet (the natural timing companion), wired to the live MailerLite form 191102468073981272
+// (group "Lead Magnet: Seed Starting Cheat Sheet", double opt-in) via the same
+// jsonp/no-cors mechanism as the article opt-in boxes. Fully reversible.
+(function () {
+  var _cp = location.pathname.replace(/\/$/, '');
+  if (_cp !== '/planting-calendar' && _cp !== '/garden-conditions') return;
+  var FORM = '191102468073981272';
+  var _tries = 0;
+  (function place() {
+    if (document.querySelector('.ah-cal-optin')) return;
+    var secs = document.querySelectorAll('section.page-section'), toolSec = null;
+    for (var i = 0; i < secs.length; i++) { if (secs[i].querySelector('.sqs-block-code')) { toolSec = secs[i]; break; } }
+    if (!toolSec) { if (++_tries < 30) setTimeout(place, 400); return; }
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
+    var wrap = document.createElement('div');
+    wrap.className = 'ah-cal-optin';
+    wrap.setAttribute('style', 'max-width:760px;margin:0 auto 44px;padding:0 24px;');
+    wrap.innerHTML =
+      '<aside style="display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;">' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Working out your planting dates? Grab the free one-page seed starting cheat sheet: what to start indoors versus sow direct, sow-depth and timing, and how to avoid damping off, tuned to coastal California. Enter your email and I will send the PDF.</p>' +
+      '<form class="ah-cal-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
+      '</form>' +
+      '<div class="ah-cal-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>' +
+      '</aside>';
+    if (toolSec.nextSibling) toolSec.parentNode.insertBefore(wrap, toolSec.nextSibling);
+    else toolSec.parentNode.appendChild(wrap);
+    var form = wrap.querySelector('.ah-cal-form'), msg = wrap.querySelector('.ah-cal-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button'), input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) { msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return; }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          wrap.querySelector('aside').innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your cheat sheet is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the cheat sheet'; btn.disabled = false; });
+    });
+  })();
+})();
+
+// === FLOCK LEAD MAGNET — INLINE EMAIL CAPTURE (2026-06-24) ===
+// Predator-Proof Coop Checklist opt-in on coop/flock /learn articles (before the
+// FAQ) and below the Build Your Flock tool. Wired to MailerLite form
+// 191180688515401447 (group "Lead Magnet: Predator-Proof Coop Checklist", double
+// opt-in) via the same jsonp/no-cors mechanism. Non-gating on the tool. Reversible.
+(function () {
+  var FORM = '191180688515401447';
+  var onTool = location.pathname.replace(/\/$/, '') === '/build-your-flock';
+  var isLearn = location.pathname.indexOf('/learn/') === 0 && location.pathname.indexOf('/learn/category/') !== 0;
+  var slug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
+  var onFlockArticle = isLearn && typeof ahIsFlockArticle === 'function' && ahIsFlockArticle(slug);
+  if (!onTool && !onFlockArticle) return;
+  var BOXSTYLE = 'display:block;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;';
+  function inner() {
+    return '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Keep your flock safe at night. Grab the free one-page predator-proofing checklist for Santa Cruz County coops: hardware cloth, the buried apron, raccoon-proof latches, and a simple nightly lock-up routine. Enter your email and I will send the PDF.</p>' +
+      '<form class="ah-flock-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the checklist</button>' +
+      '</form>' +
+      '<div class="ah-flock-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening and flock tips about twice a month. Unsubscribe anytime.</div>';
+  }
+  function wire(container, asideEl) {
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
+    var form = container.querySelector('.ah-flock-form'), msg = container.querySelector('.ah-flock-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button'), input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) { msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return; }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          asideEl.innerHTML = '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your checklist is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () { msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send me the checklist'; btn.disabled = false; });
+    });
+  }
+  if (onFlockArticle) {
+    setTimeout(function () {
+      if (document.querySelector('.ah-flock-optin')) return;
+      var body = document.querySelector('.blog-item-content-wrapper') || document.querySelector('[data-content-field="body"]') || document.querySelector('.entry-content');
+      if (!body) return;
+      var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
+      for (var i = 0; i < h2s.length; i++) { var t = h2s[i].textContent.toLowerCase(); if (t.indexOf('frequently asked') !== -1 || t.indexOf('faq') !== -1) { if (!faqH) faqH = h2s[i]; } else lastNon = h2s[i]; }
+      var box = document.createElement('aside'); box.className = 'ah-flock-optin'; box.setAttribute('style', 'margin:30px 0;' + BOXSTYLE); box.innerHTML = inner();
+      if (faqH) faqH.parentNode.insertBefore(box, faqH); else if (lastNon) lastNon.parentNode.insertBefore(box, lastNon); else body.appendChild(box);
+      wire(box, box);
+    }, 1700);
+  } else {
+    var tries = 0;
+    (function place() {
+      if (document.querySelector('.ah-flock-optin')) return;
+      var secs = document.querySelectorAll('section.page-section'), toolSec = null;
+      for (var i = 0; i < secs.length; i++) { if (secs[i].querySelector('.sqs-block-code')) { toolSec = secs[i]; break; } }
+      if (!toolSec) { if (++tries < 30) setTimeout(place, 400); return; }
+      var wrap = document.createElement('div'); wrap.className = 'ah-flock-optin'; wrap.setAttribute('style', 'max-width:760px;margin:0 auto 44px;padding:0 24px;');
+      wrap.innerHTML = '<aside style="' + BOXSTYLE + '">' + inner() + '</aside>';
+      if (toolSec.nextSibling) toolSec.parentNode.insertBefore(wrap, toolSec.nextSibling); else toolSec.parentNode.appendChild(wrap);
+      wire(wrap, wrap.querySelector('aside'));
+    })();
+  }
+})();
+
+// === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
+// Redesign of the article reading experience on every /learn/ article. Adds an
+// "In this guide" jump box, marigold H2 accents, normalized section headers, an
+// author box, a green downloads box, and image-based related cards (broken links
+// dropped). The product CTA is handled by the contextual-callout block above,
+// which renders the card-with-cover ".ah-prod" markup these styles target.
+// Fully reversible: remove this whole block.
+(function () {
+  function onArticle() {
+    return location.pathname.indexOf('/learn/') === 0 &&
+           location.pathname.indexOf('/learn/category/') !== 0 &&
+           document.querySelector('.blog-item-content');
+  }
+  function init() {
+    if (!onArticle() || document.getElementById('ah-enh-style')) return;
+
+    // --- Internal link repair (link audit 2026-06-16) ---------------------
+    // Remap known-broken cross-links to their correct slug, and neutralize dead
+    // tag-page links (tag pages are disabled, so they 404). Runs before the
+    // related-card builder below, so corrected links render as real cards.
+    var LINK_REMAP = {
+      '/learn/avocado-problems-in-california': '/learn/avocado-problems-california',
+      '/learn/brassica-pests-and-diseases-in-santa-cruz-county': '/learn/brassica-pests-diseases-santa-cruz',
+      '/learn/brassica-planting-calendar-for-santa-cruz-county': '/learn/brassica-planting-calendar-santa-cruz',
+      '/learn/cool-season-cut-flowers-santa-cruz': '/learn/cool-season-cut-flowers-for-santa-cruz-county',
+      '/learn/fertilizing-citrus-santa-cruz': '/learn/fertilizing-citrus-in-santa-cruz-county',
+      '/learn/growing-a-cut-flower-garden-in-santa-cruz-county': '/learn/growing-cut-flower-garden-santa-cruz',
+      '/learn/growing-avocados-in-containers-in-california': '/learn/growing-avocados-containers-california',
+      '/learn/growing-broccoli-in-santa-cruz-county': '/learn/growing-broccoli-santa-cruz',
+      '/learn/growing-brussels-sprouts-in-santa-cruz-county': '/learn/growing-brussels-sprouts-santa-cruz',
+      '/learn/growing-cauliflower-in-santa-cruz-county': '/learn/growing-cauliflower-santa-cruz',
+      '/learn/growing-cut-flowers-from-seed-santa-cruz': '/learn/growing-cut-flowers-from-seed-in-santa-cruz-county',
+      '/learn/growing-dahlias-in-santa-cruz-county': '/learn/growing-dahlias-santa-cruz',
+      '/learn/growing-meyer-lemons-santa-cruz': '/learn/growing-meyer-lemons-in-santa-cruz-county',
+      '/learn/growing-snapdragons-in-santa-cruz-county': '/learn/growing-snapdragons-santa-cruz',
+      '/learn/growing-sunflowers-in-santa-cruz-county': '/learn/growing-sunflowers-santa-cruz',
+      '/learn/native-plants-for-pollinators-in-santa-cruz-county': '/learn/native-plants-for-pollinators',
+      '/learn/saving-bean-pea-seeds': '/learn/saving-bean-and-pea-seeds',
+      '/learn/native-garden-design-in-santa-cruz-county': '/learn/benefits-native-garden-design-santa-cruz',
+      '/learn/cover-crops-for-santa-cruz-county-gardens-complete-guide': '/learn/cover-crops-santa-cruz-complete-guide',
+      '/learn/growing-cosmos-santa-cruz': '/learn/growing-cosmos-flowers',
+      '/learn/succession-planting-cut-flowers-santa-cruz': '/learn/succession-planting-cut-flowers-for-continuous-blooms',
+      '/learn/drip-irrigation-setup': '/learn/drip-irrigation-raised-beds-setup'
+    };
+    [].slice.call(document.querySelectorAll('a[href*="/learn/"]')).forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      var path = href.replace(/^https?:\/\/[^/]+/, '').replace(/\/$/, '');
+      if (LINK_REMAP[path]) {
+        a.setAttribute('href', LINK_REMAP[path]);
+      } else if (path.indexOf('/learn/tag/') === 0) {
+        var span = document.createElement('span');
+        span.textContent = a.textContent;
+        span.className = 'ah-dead-tag';
+        if (a.parentNode) a.parentNode.replaceChild(span, a);
+      }
+    });
+
+
+    var css =
+    '.blog-item-content{--ahg:#1A3B2A;--ahm:#8f4f45;--aht:#8f4f45;--ahline:#dce0d2}' +
+    '.blog-item-content h2:not(.ah-keep){font-family:Fraunces,"Palatino Linotype","Book Antiqua",Georgia,serif!important;padding-top:6px;margin-top:1.7em!important}' +
+    '.blog-item-content h2:not(.ah-keep):before{content:"";display:block;width:46px;height:3px;background:var(--ahm);border-radius:2px;margin-bottom:13px}' +
+    '.ah-toc{background:#fff;border:1px solid var(--ahline);border-left:4px solid var(--ahg);border-radius:0 10px 10px 0;padding:18px 22px;margin:26px 0 30px}' +
+    '.ah-toc h6{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#525a51;margin:0 0 12px}' +
+    '.ah-toc ul{list-style:none!important;margin:0!important;padding:0!important;columns:2;column-gap:30px}' +
+    '.ah-toc li{margin:0 0 8px!important;padding:0!important;break-inside:avoid}.ah-toc li:before{display:none!important}' +
+    '.ah-toc a{font:14px/1.3 Montserrat,sans-serif;color:var(--ahg)!important;text-decoration:none!important;border-bottom:1px solid transparent}' +
+    '.ah-toc a:hover{border-color:var(--ahm)}' +
+    '.ah-prod{display:flex;gap:20px;align-items:center;background:#fff;border:1px solid var(--ahline);border-radius:12px;padding:20px;margin:34px 0;box-shadow:0 8px 30px rgba(28,33,29,.10)}' +
+    '.ah-prod .cov{flex:0 0 124px;border-radius:6px;overflow:hidden;border:1px solid var(--ahline);box-shadow:0 4px 14px rgba(28,33,29,.12)}' +
+    '.ah-prod .cov img{width:100%;display:block;aspect-ratio:7/9;object-fit:cover}' +
+    '.ah-prod .eb{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--aht);margin-bottom:7px}' +
+    '.ah-prod h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:21px;color:var(--ahg)!important;margin:0 0 6px}' +
+    '.ah-prod p{font:14px/1.5 Montserrat,sans-serif;color:#525a51!important;margin:0 0 13px}' +
+    '.ah-prod .price{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:20px;color:var(--ahg)!important;margin-right:14px;vertical-align:middle}' +
+    '.ah-cta{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:13px 22px;border-radius:3px;background:var(--ahg);color:#F8F9F0!important;text-decoration:none!important}' +
+    '.ah-lead{background:var(--ahg);border-radius:12px;padding:26px 28px;margin:34px 0;position:relative;overflow:hidden}' +
+    '.ah-lead:after{content:"";position:absolute;right:-40px;bottom:-50px;width:180px;height:180px;border-radius:50%;background:rgba(221,226,216,.12)}' +
+    '.ah-lead h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:22px;margin:0 0 4px}' +
+    '.ah-lead .sub{color:#cdd6c8!important;font:14px/1.5 Montserrat,sans-serif;margin:0 0 16px}' +
+    '.ah-lead ul{list-style:none!important;margin:0!important;padding:0!important;display:flex;flex-wrap:wrap;gap:10px;position:relative}' +
+    '.ah-lead li{margin:0!important;padding:0!important}.ah-lead li:before{display:none!important}' +
+    '.ah-lead li a{display:inline-block;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28)!important;border-bottom:1px solid rgba(255,255,255,.28)!important;color:#fff!important;text-decoration:none!important;font:600 13px/1 Montserrat,sans-serif;padding:11px 16px;border-radius:30px}' +
+    '.ah-lead li a:hover{background:var(--ahm);color:#f8f9f0!important;border-color:var(--ahm)}' +
+    '.ah-bio{display:flex;gap:18px;align-items:center;background:#F1F2E6;border:1px solid var(--ahline);border-radius:12px;padding:20px 22px;margin:38px 0}' +
+    '.ah-bio .av{flex:0 0 64px;height:64px;border-radius:50%;background:var(--ahg);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:24px}' +
+    '.ah-bio h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:var(--ahg)!important;font-size:18px;margin:0 0 4px}' +
+    '.ah-bio p{font:13.5px/1.5 Montserrat,sans-serif;color:#525a51!important;margin:0}' +
+    '.ah-relwrap{margin:40px 0 0}' +
+    '.ah-rel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}' +
+    '.ah-rel a{background:#fff;border:1px solid var(--ahline);border-radius:10px;overflow:hidden;text-decoration:none!important;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:block}' +
+    // High-specificity overrides: the theme styles content links with border-bottom + underline at a specificity that beats a bare .class selector.
+    '.blog-item-content .ah-rel a,.blog-item-content .ah-rel a:hover,.blog-item-content .ah-rel h5,.blog-item-content .ah-lead li a,.blog-item-content .ah-prod a.ah-cta,.blog-item-content .ah-prod a.ah-cta:hover{border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
+    '.blog-item-content .ah-lead li a{border:1px solid rgba(255,255,255,.28)!important}' +
+    '.blog-item-content .ah-lead li a:hover{border-color:var(--ahm)!important;background:var(--ahm)!important;color:#f8f9f0!important}' +
+    '.ah-rel a:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
+    '.ah-rel .ph{aspect-ratio:16/10;background:linear-gradient(135deg,#E8EBE1,#dbe3d6);overflow:hidden;display:flex;align-items:center;justify-content:center}' +
+    '.ah-rel .ph svg{width:40px;height:40px;opacity:.5}.ah-rel .ph img{width:100%;height:100%;object-fit:cover}' +
+    '.ah-rel .b{padding:13px 15px 16px}' +
+    '.ah-rel h5{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:var(--ahg)!important;font-size:15.5px;line-height:1.25;margin:0}' +
+    '@media(max-width:760px){.ah-rel{grid-template-columns:1fr}.ah-prod{flex-direction:column;text-align:center}.ah-prod .cov{flex:none;width:150px;margin:0 auto}.ah-toc ul{columns:1}}';
+    var st = document.createElement('style'); st.id = 'ah-enh-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    // Shared related-cards renderer (used by Keep Reading + the hand-pick path).
+    // links = [{title, url}]; appends an ah-relwrap (heading + 3 cards) to container.
+    window.ahRenderRelatedCards = function (container, links, label) {
+      if (!links || !links.length || !container) return;
+      var wrap = document.createElement('div'); wrap.className = 'ah-relwrap';
+      var hh = document.createElement('h2'); hh.className = 'ah-keep'; hh.textContent = label || 'Keep Reading';
+      var grid = document.createElement('div'); grid.className = 'ah-rel';
+      wrap.appendChild(hh); wrap.appendChild(grid); container.appendChild(wrap);
+      var leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="#1A3B2A" stroke-width="1.4"><path d="M12 2C7 5 4 9 4 14a8 8 0 0016 0c0-5-3-9-8-12z"/><path d="M12 5v13"/></svg>';
+      var drop = function (c) { if (c.parentNode) c.parentNode.removeChild(c); if (!grid.children.length && wrap.parentNode) wrap.parentNode.removeChild(wrap); };
+      links.slice(0, 3).forEach(function (l) {
+        if (!l || !l.url) return;
+        var c = document.createElement('a'); c.href = l.url;
+        c.innerHTML = '<div class="ph">' + leaf + '</div><div class="b"><h5>' + l.title + '</h5></div>';
+        grid.appendChild(c);
+        fetch(l.url).then(function (r) { if (!r.ok) { drop(c); return null; } return r.text(); })
+          .then(function (t) {
+            if (!t) return;
+            var m = t.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+            if (m && !/AHC|logo/i.test(m[1])) c.querySelector('.ph').innerHTML = '<img src="' + m[1].replace(/^http:/, 'https:').split('?')[0] + '?format=600w" alt="">';
+          }).catch(function () { drop(c); });
+      });
+    };
+
+    var root = document.querySelector('.blog-item-content');
+    var h2s = [].slice.call(root.querySelectorAll('h2'));
+    var find = function (re) { for (var j = 0; j < h2s.length; j++) if (re.test(h2s[j].textContent)) return h2s[j]; return null; };
+    var faq = find(/Frequently Asked/i), dl = find(/Free Downloadable Resources/i), rel = find(/Related Articles/i);
+    // TOC sections = real content headings. (Was: only the GEO "What ..." templated headings,
+    // which broke when those headings got cleaned at the source.) Exclude boilerplate and any
+    // graphic-internal title so the "In this guide" list stays clean.
+    var TOC_SKIP = /^(frequently asked|faq\b|free download|related (articles|reading|guides|posts)|keep reading|you might also like|further reading|recommended reading|in this guide)\b/i;
+    var sections = h2s.filter(function (h) {
+      var t = (h.textContent || '').trim();
+      return t && !TOC_SKIP.test(t) && !(h.closest && h.closest('.ah-graphic'));
+    });
+
+    // Normalize the repetitive "What Is .../What Should You Know ..." scaffolding into clean
+    // topic headers so the section list reads with variety, not repetition. Original text is
+    // preserved on data-orig-heading (display-only change, reversible).
+    function cleanHeading(s) {
+      return s.replace(/^What (Is|Are|Should You Know(?: About)?|Do You Need to Know About) /i, '')
+              .replace(/\s*\?\s*$/, '').trim();
+    }
+    sections.forEach(function (h) {
+      var orig = h.textContent.trim(), clean = cleanHeading(orig);
+      if (clean && clean !== orig) {
+        h.setAttribute('data-orig-heading', orig);
+        h.textContent = clean.charAt(0).toUpperCase() + clean.slice(1);
+      }
+    });
+
+    // Only build the "In this guide" TOC on GEO-structured articles -- those that carried a
+    // "What ..." templated heading (now cleaned, marked by data-orig-heading). This keeps the
+    // TOC on articles that always had it (incl. ones whose headings were cleaned at the source)
+    // without adding a TOC to unrelated articles.
+    var isStructured = sections.some(function (h) { return h.getAttribute('data-orig-heading'); });
+    if (isStructured && sections.length >= 3) {
+      var box = document.createElement('div'); box.className = 'ah-toc';
+      var items = sections.map(function (h, k) {
+        h.id = h.id || 'ahs' + k;
+        return '<li><a href="#' + h.id + '">' + h.textContent + '</a></li>';
+      }).join('');
+      box.innerHTML = '<h6>In this guide</h6><ul>' + items + '</ul>';
+      sections[0].parentElement.insertBefore(box, sections[0]);
+    }
+
+    // The auto-injected "Adrienne Gaughan" bio card and the "Free downloads to take with
+    // you" card were judged off-brand and removed (2026-06-24). Rather than styling the
+    // stored "Free Downloadable Resources" block into a card, simply hide it (the heading
+    // and its following link list). Display-only and reversible -- the stored body is
+    // untouched; restore the previous bio/lead injection to bring the cards back.
+    if (dl) {
+      var dlUl = dl.nextElementSibling;
+      dl.style.display = 'none';
+      if (dlUl && (dlUl.tagName === 'UL' || dlUl.tagName === 'OL')) dlUl.style.display = 'none';
+    }
+
+    // Remove any legacy related-links section that duplicates the auto "Keep Reading"
+    // module appended at the end of every article. Covers all stored variants -- "Related
+    // Articles", "Keep Reading", "Related Guides/Reading/Posts", "You might also like",
+    // "Further reading", etc. -- whether a heading (H2/H3/H4) or a "...:" label paragraph.
+    // EXCLUDES the injected module (.ah-relwrap / h2.ah-keep). Hides the heading + its
+    // following content up to the next same-or-higher heading, so a later legitimate
+    // section (e.g. a Free Downloads block) is preserved. Display-only, reversible.
+    function ahHideSection(start) {
+      start.style.display = 'none';
+      var lvl = (/^H([1-6])$/.exec(start.tagName) || [])[1];
+      var n = start.nextElementSibling;
+      while (n) {
+        if (n.id === 'ah-keepreading') break;
+        if (n.classList && (n.classList.contains('ah-relwrap') || n.classList.contains('ah-keep'))) break;
+        if (lvl) {
+          var m = /^H([1-6])$/.exec(n.tagName);
+          if (m && parseInt(m[1], 10) <= parseInt(lvl, 10)) break;            // next section heading
+        } else {
+          var hasLearn = n.querySelector && n.querySelector('a[href*="/learn/"]');
+          if (!(n.tagName === 'UL' || n.tagName === 'OL' || hasLearn)) break;  // paragraph start: link lists only
+        }
+        var nx = n.nextElementSibling; n.style.display = 'none'; n = nx;
+      }
+    }
+    // Related-link labels that actually occur, found by a full-site structural scan
+    // (heading whose section is a /learn/ link list): Keep Reading / Go deeper /
+    // Related Reading|Guides|Articles, plus per-cluster variants the GEO optimizer and
+    // crop series produced -- "More <crop> Growing Guides", its question form "Where can
+    // you find more <crop> guides?", "Related <topic> Articles", "Related/Additional
+    // Resources", "What should you read next?", "What other <topic> guides should you
+    // read?". All duplicate the auto Keep Reading module at the bottom. A legitimate
+    // prose heading ("More from the coast", "See also...") is never swept up because the
+    // broad patterns are gated by ahSectionHasLearn() below (the section must actually
+    // contain a /learn/ link). This also protects the plant-guides-by-microclimate hub
+    // page, whose crop-name headings introduce real /learn/ lists but never match these
+    // labels. The injected product callout's "Go deeper - Recommended guide" label lives
+    // in a <div class="eb">, not an h2/h3/h4/p, so it is never matched by this scan.
+    var RELRE = /^(keep reading|go deeper|related (articles|reading|guides|posts|content)|related\s+\w+\s+(articles?|guides?)|(related|additional)\s+resources?|you might also (like|enjoy)|you may also like|further reading|more related (guides|articles)|more\b.*\bguides?|where can you find\b.*\bguides?|what should you read next|what other\b.*\bguides? should you read|recommended (reading|guides|articles))\b/i;
+    // A heading-led section qualifies for removal only if it actually contains an
+    // internal /learn/ link (i.e. it is a related-guides list, not a prose section that
+    // merely starts with a matching word). Walks siblings to the next same-or-higher
+    // heading, stopping at the injected Keep Reading module.
+    function ahSectionHasLearn(start) {
+      var lvl = parseInt((/^H([1-6])$/.exec(start.tagName) || [])[1], 10);
+      var n = start.nextElementSibling;
+      while (n) {
+        if (n.id === 'ah-keepreading') break;
+        if (n.classList && (n.classList.contains('ah-relwrap') || n.classList.contains('ah-keep'))) break;
+        var m = /^H([1-6])$/.exec(n.tagName);
+        if (m && parseInt(m[1], 10) <= lvl) break;
+        if (n.querySelector && n.querySelector('a[href*="/learn/"]')) return true;
+        n = n.nextElementSibling;
+      }
+      return false;
+    }
+    [].slice.call(root.querySelectorAll('h2, h3, h4, p')).forEach(function (el) {
+      if (el.style.display === 'none') return;
+      if (el.closest('.ah-relwrap') || (el.classList && el.classList.contains('ah-keep'))) return;
+      var t = (el.textContent || '').trim();
+      if (!RELRE.test(t)) return;
+      if (/^H[2-4]$/.test(el.tagName)) { if (t.length <= 80 && ahSectionHasLearn(el)) ahHideSection(el); }
+      else if (el.tagName === 'P') { if (/:\s*$/.test(t) || el.querySelector('a[href*="/learn/"]')) ahHideSection(el); }
+    });
+
+    // FAQ de-duplication. Some bodies carry two FAQ sections (the styled H2 "Frequently
+    // Asked Questions" plus a stray duplicate as a second H2, an H3, or a bold-paragraph
+    // heading). Keep the first H2 FAQ (canonical + schema-backed) and hide any FAQ section
+    // that comes AFTER it, so mid-article content is never touched. Display-only, reversible.
+    function ahHideFaqDupe(start) {
+      start.style.display = 'none';
+      var n = start.nextElementSibling;
+      while (n) {
+        if (n.id === 'ah-keepreading') break;
+        if (n.classList && (n.classList.contains('ah-relwrap') || n.classList.contains('ah-keep'))) break;
+        if (n.tagName === 'H2') break;                                         // dup FAQ runs to the next section
+        var nx = n.nextElementSibling; n.style.display = 'none'; n = nx;
+      }
+    }
+    var FAQRE = /frequently asked|^\s*faq\b|common questions/i;
+    var faqStarts = [].slice.call(root.querySelectorAll('h2, h3, h4, p')).filter(function (el) {
+      if (el.style.display === 'none' || el.closest('.ah-relwrap')) return false;
+      var t = (el.textContent || '').trim(); if (!t || t.length > 80 || !FAQRE.test(t)) return false;
+      var heading = /^H[2-4]$/.test(el.tagName);
+      var strongP = el.tagName === 'P' && el.firstElementChild && el.firstElementChild.tagName === 'STRONG'
+        && el.firstElementChild.textContent.trim().length >= t.length - 3;
+      return heading || strongP;
+    });
+    if (faqStarts.length > 1) {
+      var canon = null;
+      for (var fi = 0; fi < faqStarts.length; fi++) { if (faqStarts[fi].tagName === 'H2') { canon = faqStarts[fi]; break; } }
+      if (!canon) canon = faqStarts[0];
+      var seenCanon = false;
+      faqStarts.forEach(function (el) {
+        if (el === canon) { seenCanon = true; return; }
+        if (seenCanon) ahHideFaqDupe(el);                                      // only hide FAQs after the canonical
+      });
+    }
+  }
+  function boot() {
+    if (onArticle()) return init();
+    var tries = 0, iv = setInterval(function () {
+      if (onArticle()) { clearInterval(iv); init(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === STORE MERCHANDISING (2026-06-16, session 41) ===
+// Adds a value hero + trust bar, a featured MasterKit card, tinted cover panels
+// + truthful badges on the product grid, and a why-buy strip to the /store page.
+// Bundle banner intentionally omitted (no bundle product exists yet).
+// NOTE: page <title> override here is interim; set the real SEO title in
+// Squarespace (Pages > Store > SEO) for durable search/social. Fully reversible.
+(function () {
+  function onStore() {
+    return location.pathname.replace(/\/$/, '') === '/store' && document.querySelector('.product-list');
+  }
+  function build() {
+    if (document.getElementById('ah-store-style')) return;
+    document.title = 'Shop Garden Guides & Kits | Ambitious Harvest';
+    var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    var MK = '/store/p/tomato-growing-masterkit-california-edition';
+    var css =
+    '.product-list-header{display:none!important}' +
+    '.ah-shop-hero{background:linear-gradient(180deg,#1A3B2A,#163322);color:#F8F9F0;border-radius:14px;padding:42px 36px 40px;text-align:center;margin:0 0 28px;position:relative;overflow:hidden}' +
+    '.ah-shop-hero .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#dde2d8!important;margin-bottom:12px}' +
+    '.ah-shop-hero h1{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:36px;margin:0 0 12px}' +
+    '.ah-shop-hero p{color:#cdd6c8!important;max-width:56ch;margin:0 auto;font:16px/1.6 Montserrat,sans-serif}' +
+    '.ah-trust{display:flex;justify-content:center;gap:30px;margin-top:22px;flex-wrap:wrap}' +
+    '.ah-trust span{font:600 12.5px/1.2 Montserrat,sans-serif;color:#d7e0d2!important;display:flex;align-items:center;gap:8px}' +
+    '.ah-trust svg{width:16px;height:16px;color:#dde2d8;flex:0 0 auto}' +
+    '.ah-feat{display:grid;grid-template-columns:1fr 1.2fr;background:#fff;border:1px solid #dce0d2;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(28,33,29,.12);margin:0 0 36px}' +
+    '.ah-feat .cov{background:radial-gradient(circle at 50% 35%,#fbf6e9,#eef0e2);display:flex;align-items:center;justify-content:center;padding:32px;position:relative}' +
+    '.ah-feat .cov img{width:72%;border-radius:8px;box-shadow:0 16px 40px rgba(28,33,29,.22)}' +
+    '.ah-feat .bod{padding:36px 40px;display:flex;flex-direction:column;justify-content:center}' +
+    '.ah-feat .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:10px}' +
+    '.ah-feat h2{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:#1A3B2A!important;font-size:30px;margin:0 0 12px}' +
+    '.ah-feat p{font:15px/1.6 Montserrat,sans-serif;color:#525a51!important;margin:0 0 16px}' +
+    '.ah-feat ul{list-style:none!important;padding:0!important;margin:0 0 20px!important}' +
+    '.ah-feat li{position:relative;padding-left:24px;margin:0 0 8px!important;font:14px/1.4 Montserrat,sans-serif;color:#2c3327!important}' +
+    '.ah-feat li:before{content:"\\2713";position:absolute;left:0;color:#3a7256;font-weight:700}' +
+    '.ah-feat .pr{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}' +
+    '.ah-feat .now{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:30px;color:#1A3B2A!important}' +
+    '.ah-feat .was{font:16px Montserrat,sans-serif;color:#7c8378!important;text-decoration:line-through}' +
+    '.ah-feat .save{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid #8f4f45;color:#8f4f45!important;padding:4px 9px;border-radius:3px}' +
+    '.ah-cta2{display:inline-block;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 24px;border-radius:3px;background:#1A3B2A;color:#F8F9F0!important;text-decoration:none!important;border-bottom:0!important;width:fit-content}' +
+    '.ah-badge{position:absolute;top:10px;left:10px;z-index:3;font:700 10.5px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px}' +
+    '.ah-badge.pop{background:#8f4f45;color:#f8f9f0}' +
+    '.ah-badge.start{background:#1A3B2A;color:#F8F9F0}' +
+    // Framed cards: opaque covers don't show a tinted panel behind them, so we
+    // frame each card instead (border + soft shadow + rounded cover) to stop the
+    // light covers from blending into the page.
+    '.product-list-item{position:relative;background:#fff!important;border:1px solid #e3e7da!important;border-radius:12px!important;padding:16px 16px 18px!important;box-shadow:0 1px 2px rgba(28,33,29,.05),0 6px 18px rgba(28,33,29,.06)!important;transition:.2s ease!important}' +
+    '.product-list-item:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(28,33,29,.13)!important;border-color:#cfd6c4!important}' +
+    '.product-list-item .product-list-image-wrapper{border-radius:8px!important;overflow:hidden!important;background:#fbfbf6!important;border:1px solid #eceee3!important}' +
+    '.ah-why{background:#1A3B2A;color:#d7e0d2;border-radius:14px;padding:40px 36px;margin:44px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}' +
+    '.ah-why h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-weight:400;color:#F8F9F0!important;font-size:19px;margin:10px 0 6px}' +
+    '.ah-why p{font:14px/1.55 Montserrat,sans-serif;color:#cdd6c8!important;margin:0}' +
+    '.ah-why .ic{width:40px;height:40px;border-radius:10px;background:rgba(221,226,216,.14);display:flex;align-items:center;justify-content:center;color:#dde2d8}' +
+    '.ah-why .ic svg{width:21px;height:21px}' +
+    '.ah-svc-tag{position:absolute;top:10px;left:10px;z-index:3;background:#8f4f45;color:#fff!important;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:4px;pointer-events:none}' +
+    '@media(max-width:880px){.ah-feat{grid-template-columns:1fr}.ah-why{grid-template-columns:1fr;gap:22px}.ah-shop-hero h1{font-size:28px}}';
+    var st = document.createElement('style'); st.id = 'ah-store-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var pl = document.querySelector('.product-list');
+    var par = pl.parentNode;
+
+    var hero = document.createElement('div'); hero.className = 'ah-shop-hero';
+    hero.innerHTML = '<div class="eb">Guides, kits &amp; garden services</div>' +
+      '<h1>Garden Guides &amp; Kits, Built for California</h1>' +
+      '<p>Every guide is written for our four local microclimates (coastal, inland valley, mountain, and desert) so the advice actually fits your yard.</p>' +
+      '<div class="ah-trust">' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>30-day money-back guarantee</span>' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Instant PDF, yours forever</span>' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Santa Cruz &amp; Bay Area specific</span>' +
+      '</div>';
+
+    var feat = document.createElement('div'); feat.className = 'ah-feat';
+    feat.innerHTML = '<div class="cov"><span class="ah-badge pop">★ Most Popular</span><img src="' + CDN + 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg?format=600w" alt="Tomato Growing MasterKit"></div>' +
+      '<div class="bod"><div class="eb">Start here · Bestseller</div><h2>The Tomato Growing MasterKit</h2>' +
+      '<p>The complete, California-specific system for a tomato harvest that doesn’t quit, from variety selection to season-long care.</p>' +
+      '<ul><li>12 sections + 2 bonuses (Zone Cards &amp; Season Journal)</li><li>Tailored to all four California growing zones</li><li>Printable, instant download, money-back guarantee</li></ul>' +
+      '<div class="pr"><span class="now">$14.99</span><span class="was">$19.99</span><span class="save">Launch · Save 25%</span></div>' +
+      '<a class="ah-cta2" href="' + MK + '">Get instant access</a></div>';
+
+    par.insertBefore(hero, pl);
+    par.insertBefore(feat, pl);
+
+    var why = document.createElement('div'); why.className = 'ah-why';
+    why.innerHTML =
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Genuinely local</h3><p>Not generic advice. Every guide is written for our four California microclimates by someone who gardens here.</p></div>' +
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Beautifully practical</h3><p>Printable PDFs with checklists, charts, and journal pages you’ll actually use in the garden.</p></div>' +
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Risk-free</h3><p>30-day money-back guarantee. If a guide doesn’t help you grow, you don’t pay for it.</p></div>';
+    par.insertBefore(why, pl.nextSibling);
+
+    function markServices(){
+      ['virtual-garden-review','virtual-garden-design'].forEach(function(slug){
+        var a = document.querySelector('.product-list a[href*="/store/p/' + slug + '"]');
+        if (!a) return;
+        var tile = a.closest('.grid-item, li, .list-item, [class*="ProductList-item"]') || a;
+        if (tile.querySelector('.ah-svc-tag')) return;
+        var host = tile.querySelector('figure, .grid-image, .ProductList-image') || tile;
+        host.style.position = 'relative';
+        var b = document.createElement('span'); b.className = 'ah-svc-tag'; b.textContent = 'Service';
+        host.appendChild(b);
+      });
+    }
+    applyCards(); markServices();
+    setTimeout(function(){ applyCards(); markServices(); }, 1200);
+    setTimeout(markServices, 2600);
+  }
+  function applyCards() {
+    var items = [].slice.call(document.querySelectorAll('.product-list-item'));
+    items.forEach(function (it, i) {
+      if (it.querySelector('.ah-badge')) return;
+      var link = it.querySelector('a[href*="/store/p/"]');
+      var href = link ? link.getAttribute('href') : '';
+      var img = it.querySelector('.product-list-image-wrapper, figure, .product-list-image-container') || it;
+      if (href.indexOf('04risdgzwd80') > -1) { var b = document.createElement('span'); b.className = 'ah-badge pop'; b.textContent = '★ Most Popular'; img.appendChild(b); }
+      else if (href.indexOf('first-harvest') > -1) { var b2 = document.createElement('span'); b2.className = 'ah-badge start'; b2.textContent = 'Start Here'; img.appendChild(b2); }
+    });
+  }
+  function boot() {
+    if (onStore()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onStore()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === ARTICLE DISPLAY FIXES (2026-06-16, session 41) ===
+// Two pre-existing content bugs, fixed at render time across ALL /learn/ articles:
+//  1. Dark-background graphic boxes whose heading/paragraph text inherits the
+//     theme's dark color (the box sets color:#f8f9f0 but not !important, so the
+//     theme's h2/p rules win) -> unreadable dark-on-dark. We force light text.
+//  2. Duplicate header image (a native image block + a body-inserted header of
+//     the same file) -> we hide the second one.
+// Fully reversible: remove this block.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0 || location.pathname.indexOf('/learn/category/') === 0) return;
+
+  function lum(rgb) {
+    var m = (rgb || '').match(/\d+(\.\d+)?/g);
+    if (!m || m.length < 3) return 1;
+    return (0.299 * +m[0] + 0.587 * +m[1] + 0.114 * +m[2]) / 255;
+  }
+  function isTransparent(c) { return !c || c === 'rgba(0, 0, 0, 0)' || c === 'transparent'; }
+  // Alpha of an rgba()/rgb() string (1 if no alpha component). A low-alpha fill
+  // composites over the (light) page/card, so it must NOT count as a dark box even
+  // when its raw RGB is dark -- otherwise we'd flip dark text to cream on a tint box
+  // (e.g. a subtle rgba(139,68,68,0.06) "challenge note") and make it unreadable.
+  function alphaOf(c) { var m = (c || '').match(/rgba\([^)]*,\s*([\d.]+)\s*\)/); return m ? parseFloat(m[1]) : 1; }
+  function isDarkBg(c) { return !isTransparent(c) && alphaOf(c) >= 0.6 && lum(c) < 0.45; }
+  function isDarkText(c) { return lum(c) < 0.5; }
+
+  function fixContrast(root) {
+    [].slice.call(root.querySelectorAll('*')).forEach(function (box) {
+      if (!isDarkBg(getComputedStyle(box).backgroundColor)) return;
+      var els = [box].concat([].slice.call(box.querySelectorAll('*')));
+      els.forEach(function (el) {
+        if (el !== box) {
+          var ownBg = getComputedStyle(el).backgroundColor;
+          // Skip nested dark boxes (handled on their own pass) and light pills/badges
+          if (isDarkBg(ownBg)) return;
+          if (!isTransparent(ownBg) && lum(ownBg) >= 0.45) return;
+        }
+        if (isDarkText(getComputedStyle(el).color)) el.style.setProperty('color', '#F8F9F0', 'important');
+        if (/^H[1-6]$/.test(el.tagName)) el.classList.add('ah-keep'); // drop our accent bar inside graphics
+      });
+    });
+  }
+
+  function dedupeHeader(root) {
+    var imgs = [].slice.call(root.querySelectorAll('img')).filter(function (i) { return (i.currentSrc || i.src); });
+    if (imgs.length < 2) return;
+    var a = (imgs[0].currentSrc || imgs[0].src).split('?')[0];
+    var b = (imgs[1].currentSrc || imgs[1].src).split('?')[0];
+    if (!a || a !== b) return;
+    // SAFETY: hide ONLY the duplicate <img> (and an immediate wrapper that holds
+    // nothing but that image). NEVER hide an enclosing content block -- the header
+    // image often shares the article's html block with the body text.
+    var img = imgs[1];
+    if (img.getAttribute('data-ah-dupe-hidden')) return;
+    var target = img, wrap = img.parentElement;
+    if (wrap && wrap !== root && /^(FIGURE|P|DIV|SPAN)$/.test(wrap.tagName) &&
+        wrap.querySelectorAll('img').length === 1 && wrap.textContent.trim() === '') {
+      target = wrap;
+    }
+    target.style.setProperty('display', 'none', 'important');
+    img.setAttribute('data-ah-dupe-hidden', '1');
+  }
+
+  function run() {
+    var root = document.querySelector('.blog-item-content');
+    if (!root) return;
+    fixContrast(root);
+    dedupeHeader(root);
+  }
+
+  function boot() {
+    run();
+    setTimeout(run, 1200);
+    setTimeout(run, 2800); // catch late-rendered graphics/images
+    var root = document.querySelector('.blog-item-content');
+    if (root && window.MutationObserver) {
+      var t, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(run, 300); });
+      mo.observe(root, { childList: true, subtree: true });
+      setTimeout(function () { mo.disconnect(); }, 9000);
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === RELOCATE BAKED GRAPHICS STRANDED AT THE ARTICLE BOTTOM (2026-06-24) ===
+// A handful of older articles have inline graphics (comparison tables / styled cards) baked into the
+// body BELOW the boilerplate bottom ("Related Articles" / "Downloadable Guides" / "Additional
+// Resources" / "More ... Guides") instead of in the content, so they render as a stack of graphics at
+// the very end. For an allowlisted set of slugs (found via a 653-article scan), move each real stranded
+// graphic up to the end of the content (just before the FAQ) and hide empty off-brand junk divs /
+// duplicate promo boxes left behind. Display-only, reversible, slug-scoped so it can never touch another
+// article; a boilerplate-heading guard means tables under a real content heading (e.g. "Quick Reference
+// Tables") are never moved.
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0 || location.pathname.indexOf('/learn/category/') === 0) return;
+  var SLUGS = {
+    'best-blueberry-varieties-for-santa-cruz': 1,
+    'growing-blueberries-in-containers-a-california-gardeners-guide': 1,
+    'best-blackberry-varieties-santa-cruz': 1,
+    'growing-raspberries-in-santa-cruz-county-a-complete-guide': 1,
+    'best-raspberry-varieties-for-santa-cruz-county-gardens': 1,
+    'growing-strawberries-santa-cruz': 1,
+    '10-fire-resistant-plants-for-santa-cruz-gardens': 1,
+    'grow-chiltepin-peppers-in-santa-cruz': 1
+  };
+  var slug = location.pathname.replace('/learn/', '').replace(/\/+$/, '');
+  if (!SLUGS[slug]) return;
+  var BOILER = /related articles|related reading|related guides|downloadable|additional resources|keep reading|more [a-z'&\- ]*guides|free (california )?(gardening )?(resources|downloads?)/i;
+  var FAQRE = /frequently asked/i;
+
+  function run() {
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main');
+    if (!root) return;
+    var order = [].slice.call(root.querySelectorAll('*'));
+    var idx = new Map(); order.forEach(function (n, i) { idx.set(n, i); });
+    var h2s = [].slice.call(root.querySelectorAll('h2')).filter(function (h) { return !h.closest('.ah-graphic, .ah-relwrap'); });
+    function htext(h) { return (h.getAttribute('data-orig-heading') || h.textContent || '').replace(/\s+/g, ' ').trim(); }
+    // boundary = end of real content = the FAQ heading; fall back to the first boilerplate heading
+    var boundary = null;
+    for (var i = 0; i < h2s.length; i++) { if (FAQRE.test(htext(h2s[i]))) { boundary = h2s[i]; break; } }
+    if (!boundary) { for (var j = 0; j < h2s.length; j++) { if (BOILER.test(htext(h2s[j]))) { boundary = h2s[j]; break; } } }
+    if (!boundary) return;
+    var bpos = idx.get(boundary);
+    function precedingH2(el) {
+      var p = idx.get(el), last = null;
+      for (var k = 0; k < h2s.length; k++) { if (idx.get(h2s[k]) < p) last = h2s[k]; else break; }
+      return last;
+    }
+    // Distribute each rescued graphic UNDER the content heading it belongs to (by title
+    // keyword overlap) instead of stacking them all before the FAQ. Falls back to the
+    // end of the content only when no heading is a confident, unique match.
+    var contentH2 = h2s.filter(function (h) { return idx.get(h) < bpos && !BOILER.test(htext(h)) && !FAQRE.test(htext(h)); });
+    var STOP = { santa: 1, cruz: 1, county: 1, california: 1, what: 1, should: 1, your: 1, does: 1, best: 1, growing: 1, guide: 1, guides: 1, this: 1, that: 1, with: 1, from: 1, have: 1, here: 1, them: 1, microclimate: 1, microclimates: 1, area: 1, areas: 1 };
+    function toks(s) { return (s.toLowerCase().match(/[a-z]{4,}/g) || []); }
+    function bestHeading(g) {
+      var gt = toks((g.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 90)).filter(function (w) { return !STOP[w]; });
+      if (!gt.length) return null;
+      var best = null, bestScore = 0, second = 0;
+      contentH2.forEach(function (h) {
+        var ht = toks(htext(h)), score = 0;
+        gt.forEach(function (w) { for (var i = 0; i < ht.length; i++) { if (ht[i].slice(0, 5) === w.slice(0, 5)) { score++; break; } } });
+        if (score > bestScore) { second = bestScore; bestScore = score; best = h; }
+        else if (score > second) { second = score; }
+      });
+      return (bestScore >= 1 && bestScore > second) ? best : null;   // unique most-related heading only (ties fall back)
+    }
+    var SKIP = '.ah-graphic, .ah-relwrap, .ah-prod, .ah-fgt-callout, .ah-lead, .ah-tomato-quiz-callout, .ah-lm-optin, .ah-berry-optin, .ah-flock-optin, form, .sqs-block-form';
+    var cands = [].slice.call(root.querySelectorAll('table, div[style*="background"]')).filter(function (g) { return !g.closest(SKIP); });
+    cands.forEach(function (g, i) { g.__ahStr = i; });          // tag for outermost-only filter
+    cands = cands.filter(function (g) {                          // drop a candidate nested inside another candidate
+      var p = g.parentElement;
+      while (p && p !== root) { if (p.__ahStr !== undefined) return false; p = p.parentElement; }
+      return true;
+    });
+    // A stranded inline table whose content is the bare-data version of a managed cluster
+    // graphic is a DUPLICATE (e.g. 10-fire-resistant-plants baked the traits/zone tables
+    // inline AND as ah-graphics, which carry a title so they are not byte-identical). The
+    // bare table's text is a substring of the graphic's, so test containment -- hide the
+    // duplicate rather than relocate a second copy into the article.
+    function sigFull(el) {
+      var c = el.cloneNode(true), j = c.querySelectorAll('style, script');
+      for (var i = 0; i < j.length; i++) { if (j[i].parentNode) j[i].parentNode.removeChild(j[i]); }
+      return (c.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+    var gfxFull = [].slice.call(root.querySelectorAll('.ah-graphic[data-graphic]')).map(sigFull).filter(function (s) { return s.length >= 60; });
+    function dupOfGraphic(g) {
+      var t = sigFull(g); if (t.length < 60) return false;
+      var key = t.slice(0, 200);
+      for (var i = 0; i < gfxFull.length; i++) { if (gfxFull[i].indexOf(key) !== -1) return true; }
+      return false;
+    }
+    cands.forEach(function (g) {
+      if (dupOfGraphic(g)) { g.style.setProperty('display', 'none', 'important'); return; }  // bare-data duplicate of a managed graphic
+      if (idx.get(g) <= bpos) return;                           // only graphics after the content boundary
+      var ph = precedingH2(g);
+      if (!ph || !BOILER.test(htext(ph))) return;               // only under a boilerplate heading
+      var txt = (g.textContent || '').replace(/\s+/g, ' ').trim();
+      if (txt.length < 25 || (/free (california )?gardening resources/i.test(txt) && txt.length < 600)) {
+        g.style.setProperty('display', 'none', 'important');    // empty junk div / duplicate promo box
+        return;
+      }
+      g.style.setProperty('display', '', '');                   // rescue if a prior pass hid it
+      var target = bestHeading(g);
+      if (target) target.parentNode.insertBefore(g, target.nextSibling);   // under its matching heading
+      else boundary.parentNode.insertBefore(g, boundary);                  // fallback: end of content
+    });
+  }
+  function go() { run(); setTimeout(run, 1500); }               // 2nd pass catches late re-renders; idempotent
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(go, 400); });
+  else setTimeout(go, 400);
+})();
+
+// === HOMEPAGE POLISH (2026-06-16, session 41) ===
+// Homepage only. Two wins:
+//  1. Category gallery: overlay bold serif labels on the images (with a gradient
+//     scrim + "Browse" prompt) instead of the tiny gray captions below them.
+//  2. "Latest from the Garden": convert the sparse single-column summary list
+//     into a tidy 4-column card grid (clears the block's absolute positioning).
+// Fully reversible: remove this block.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-home-style')) return;
+    var latest = null;
+    [].slice.call(document.querySelectorAll('#sections > .page-section')).forEach(function (s) {
+      if (s.querySelector('.summary-item-list')) latest = s;
+    });
+    if (latest) latest.classList.add('ah-latest-sec');
+
+    var css =
+    /* --- category gallery overlay --- */
+    '.gallery-section .gallery-strips-item{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(28,33,29,.10)}' +
+    '.gallery-section .gallery-strips-image-link{position:relative;display:block}' +
+    '.gallery-section .gallery-strips-image-link::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,26,16,.82) 0%,rgba(12,26,16,.30) 42%,rgba(12,26,16,0) 68%);pointer-events:none;z-index:1}' +
+    '.gallery-section .gallery-strips-item img{transition:transform .45s ease}' +
+    '.gallery-section .gallery-strips-item:hover img{transform:scale(1.05)}' +
+    '.gallery-section figcaption{position:absolute!important;left:0;right:0;bottom:0;z-index:2;padding:0 20px 18px!important;text-align:left!important;margin:0!important;background:none!important}' +
+    '.gallery-section figcaption,.gallery-section figcaption *{color:#F8F9F0!important;font-family:Fraunces,"Palatino Linotype","Book Antiqua",Georgia,serif!important;font-size:21px!important;font-weight:400!important;line-height:1.18!important;letter-spacing:.01em!important}' +
+    '.gallery-section figcaption::after{content:"Browse →";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#dde2d8!important;margin-top:6px}' +
+    /* --- latest-from-the-garden card grid --- */
+    '.ah-latest-sec .summary-item-list{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:24px!important;float:none!important;width:100%!important;position:static!important;height:auto!important}' +
+    '.ah-latest-sec .summary-item{position:static!important;left:auto!important;top:auto!important;width:100%!important;margin:0!important;padding:0!important;float:none!important;background:#fff;border:1px solid #e3e7da;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:flex!important;flex-direction:column!important}' +
+    '.ah-latest-sec .summary-item:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)}' +
+    '.ah-latest-sec .summary-item > *{float:none!important;width:100%!important;margin:0!important}' +
+    '.ah-latest-sec .summary-thumbnail-outer-container{width:100%!important;padding:0!important}' +
+    '.ah-latest-sec .summary-thumbnail{padding-bottom:60%!important;width:100%!important;border-radius:0!important}' +
+    '.ah-latest-sec .summary-content{padding:14px 16px 18px!important;text-align:left!important;display:block!important}' +
+    '.ah-latest-sec .summary-title{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:16px!important;line-height:1.25!important;margin:0 0 5px!important;font-weight:400!important}' +
+    '.ah-latest-sec .summary-title a{color:#1A3B2A!important;font-weight:400!important;border-bottom:0!important;text-decoration:none!important;background-image:none!important}' +
+    '.ah-latest-sec .summary-metadata,.ah-latest-sec .summary-metadata a{font-size:11px!important;color:#7c8378!important;border-bottom:0!important}' +
+    '.ah-latest-sec .summary-excerpt{display:none!important}' +
+    '@media(max-width:900px){.ah-latest-sec .summary-item-list{grid-template-columns:repeat(2,1fr)!important}}' +
+    '@media(max-width:560px){.ah-latest-sec .summary-item-list{grid-template-columns:1fr!important}}';
+
+    var st = document.createElement('style'); st.id = 'ah-home-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    // The summary block positions items absolutely via inline styles; neutralize so
+    // the CSS grid can lay them out. Re-run a few times in case the block re-flows.
+    function relayout() {
+      if (!latest) return;
+      [].slice.call(latest.querySelectorAll('.summary-item')).forEach(function (it) {
+        it.style.position = 'static'; it.style.left = ''; it.style.top = ''; it.style.width = '';
+      });
+      var l = latest.querySelector('.summary-item-list');
+      if (l) { l.style.height = 'auto'; l.style.position = 'static'; }
+    }
+    relayout(); setTimeout(relayout, 800); setTimeout(relayout, 2000);
+    if (latest && window.MutationObserver) {
+      var t, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(relayout, 200); });
+      mo.observe(latest, { attributes: true, subtree: true, attributeFilter: ['style'] });
+      setTimeout(function () { mo.disconnect(); }, 6000);
+    }
+  }
+
+  function boot() {
+    if (onHome()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onHome()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === FOOTER ENRICHMENT (2026-06-16, session 41) ===
+// Global. Prepends a brand + social + quick-links + newsletter-CTA band above the
+// existing footer (which had nav links only -- no Shop link, no social, no
+// newsletter). Links point to real destinations. Fully reversible.
+(function () {
+  function build() {
+    var foot = document.querySelector('#footer-sections');
+    if (!foot || document.getElementById('ah-foot-style') || foot.querySelector('.ah-foot-enhance')) return;
+
+    var css =
+    '.ah-foot-enhance{display:grid;grid-template-columns:1.5fr 1fr 1.3fr;gap:40px;max-width:1100px;margin:0 auto;padding:48px 28px 40px;border-bottom:1px solid rgba(255,255,255,.13)}' +
+    '.ah-foot-enhance .ah-fe-logo{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:22px;color:#F8F9F0!important;margin-bottom:10px}' +
+    '.ah-foot-enhance p{font:14px/1.55 Montserrat,sans-serif;color:#b9c7b6!important;margin:0 0 16px;max-width:32ch}' +
+    '.ah-foot-enhance h4{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#F8F9F0!important;margin:0 0 14px}' +
+    '.ah-foot-enhance a{display:block;font:14px/1.4 Montserrat,sans-serif;color:#cdd6c8!important;text-decoration:none!important;border-bottom:0!important;padding:5px 0;background-image:none!important}' +
+    '.ah-foot-enhance a:hover{color:#fff!important}' +
+    '.ah-fe-social{display:flex;gap:10px;margin-top:4px}' +
+    '.ah-fe-social a{width:36px;height:36px;border:1px solid rgba(255,255,255,.28);border-radius:50%;display:flex!important;align-items:center;justify-content:center;padding:0!important}' +
+    '.ah-fe-social a:hover{background:rgba(255,255,255,.12)}' +
+    '.ah-fe-social svg{width:16px;height:16px;color:#dfe6da}' +
+    '.ah-fe-btn{display:inline-block!important;background:#8f4f45!important;color:#f8f9f0!important;font:700 12px/1 Montserrat,sans-serif!important;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px!important;border-radius:3px;margin-top:4px}' +
+    '.ah-fe-btn:hover{background:#754038!important;color:#f8f9f0!important}' +
+    '@media(max-width:760px){.ah-foot-enhance{grid-template-columns:1fr;gap:28px}}';
+    var st = document.createElement('style'); st.id = 'ah-foot-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var ig = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>';
+    var pin = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.6 19.3c-.1-.8-.2-2 .04-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.5 2.1-.8 3.3-.2 1 .5 1.7 1.4 1.7 1.7 0 3-1.8 3-4.4 0-2.3-1.6-3.9-4-3.9-2.7 0-4.3 2-4.3 4.1 0 .8.3 1.7.7 2.2.1.1.1.2.1.3l-.3 1.2c0 .2-.2.2-.4.1-1.3-.6-2.1-2.5-2.1-4 0-3.2 2.3-6.2 6.8-6.2 3.6 0 6.3 2.5 6.3 5.9 0 3.5-2.2 6.4-5.3 6.4-1 0-2-.5-2.3-1.2l-.6 2.4c-.2.9-.8 2-1.2 2.6A10 10 0 1012 2z"/></svg>';
+    var fb = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3H13V9c0-.9.3-1.5 1.6-1.5H17V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4V11H8v3h2.6v8H13z"/></svg>';
+    var th = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 11.3c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.5-4.7-1.6 0-3 .7-3.8 2l1.4 1c.6-.9 1.5-1.1 2.4-1.1 1.5 0 2.3.9 2.5 2.4-.6-.1-1.2-.2-1.9-.2-2.5 0-4.1 1.3-4 3.3 0 1.6 1.4 2.7 3.1 2.7 1.4 0 2.9-.8 3.4-2.7.3.6.6 1.4.6 2.4 0 1.9-1.6 3.9-4.9 3.9-3.6 0-5.2-2.4-5.2-6.1S6.9 6 10.5 6c2.3 0 3.9.9 4.9 2.3l1.5-1C15.6 5.4 13.4 4.3 10.5 4.3 5.7 4.3 3 7.3 3 12s2.7 7.7 7.5 7.7c4.3 0 6.7-2.7 6.7-5.6 0-1.5-.6-2.7-1.7-3.5z"/></svg>';
+
+    var band = document.createElement('div'); band.className = 'ah-foot-enhance';
+    band.innerHTML = '<div><div class="ah-fe-logo">Ambitious Harvest</div>' +
+      '<p>Practical, locally grounded gardening for Santa Cruz County and the greater Bay Area.</p>' +
+      '<div class="ah-fe-social">' +
+      '<a href="https://www.instagram.com/ambitiousharvest" aria-label="Instagram">' + ig + '</a>' +
+      '<a href="https://www.pinterest.com/AmbitiousHarvest" aria-label="Pinterest">' + pin + '</a>' +
+      '<a href="https://www.facebook.com/AmbitiousHarvest/" aria-label="Facebook">' + fb + '</a>' +
+      '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
+      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a></div>' +
+      '<div><h4>Grow with the seasons</h4><p>Get the free Santa Cruz planting calendar, plus seasonal reminders and new guides.</p><a class="ah-fe-btn" href="/your-garden-toolkit">Get the free calendar →</a></div>';
+    foot.insertBefore(band, foot.firstChild);
+  }
+  function boot() {
+    if (document.querySelector('#footer-sections')) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (document.querySelector('#footer-sections')) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === START HERE POLISH (2026-06-16, session 41) ===
+// /start-here only. Marigold heading accents + upgrade the muted sage CTAs to
+// strong marigold buttons that pop on both the dark-green and cream bands.
+// Reversible.
+(function () {
+  function onPage() { return location.pathname.replace(/\/$/, '') === '/start-here' && document.querySelector('#sections'); }
+  function build() {
+    if (document.getElementById('ah-sh-style')) return;
+    var css =
+    '#sections .page-section h2{position:relative}' +
+    '#sections .page-section h2:not(.ah-keep)::after{content:"";display:block;width:48px;height:3px;background:#8f4f45;border-radius:2px;margin:16px auto 0}' +
+    '#sections .sqs-block-button-element{background:#8f4f45!important;color:#f8f9f0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;font-size:13px!important;padding:15px 30px!important;transition:.18s ease!important;box-shadow:0 4px 14px rgba(0,0,0,.18)!important}' +
+    '#sections .sqs-block-button-element:hover{background:#754038!important;color:#f8f9f0!important;transform:translateY(-2px)!important}';
+    var st = document.createElement('style'); st.id = 'ah-sh-style'; st.textContent = css;
+    document.head.appendChild(st);
+  }
+  function boot() {
+    if (onPage()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === LOCAL RESOURCES POLISH (2026-06-16, session 41) ===
+// /local-resources only. Groups each resource entry (a bold-led name + its
+// following description/location/website paragraphs) into a card, lays each
+// category out in a uniform auto-fill grid, adds marigold heading accents, makes
+// the hero title readable, and rebuilds the messy "On this page" jump-links into
+// a clean chip bar. Robust to the page's inconsistent authoring. Reversible.
+(function () {
+  function onPage() { return location.pathname.replace(/\/$/, '') === '/local-resources' && document.querySelector('#sections'); }
+  function isTitleP(el) { return el.tagName === 'P' && el.firstElementChild && el.firstElementChild.tagName === 'STRONG' && !el.classList.contains('sqsrte-large'); }
+
+  function build() {
+    if (document.getElementById('ah-lr-style')) { markup(); chips(); return; }
+    var css =
+    '#sections h2{position:relative}' +
+    '#sections h2:not(.ah-keep)::after{content:"";display:block;width:46px;height:3px;background:#8f4f45;border-radius:2px;margin:14px 0 0}' +
+    '.ah-res-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important;gap:18px!important;align-items:start!important;margin-top:8px!important}' +
+    '.ah-res-card{background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;padding:18px 20px!important;box-shadow:0 2px 10px rgba(28,33,29,.05)!important}' +
+    '.ah-res-card p{margin:0 0 6px!important;font-size:14px!important;line-height:1.55!important;color:#2c3327!important}' +
+    '.ah-res-card p:last-child{margin-bottom:0!important}' +
+    '.ah-res-card > p:first-child strong:first-child{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-weight:400!important;font-size:18px!important;color:#1A3B2A!important;display:block!important;margin-bottom:5px!important}' +
+    '.ah-res-card a{color:#2e6b46!important;text-decoration:none!important;border-bottom:1px solid rgba(46,107,70,.4)!important;background-image:none!important}' +
+    /* clean category chip bar (replaces the split "On this page" links) */
+    '.ah-lr-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:6px auto 10px;padding:0 20px}' +
+    '.ah-lr-chips a{display:inline-block;white-space:nowrap;font:600 13px Montserrat,sans-serif;color:#1A3B2A!important;background:#fff;border:1.5px solid #dce0d2!important;border-radius:30px;padding:8px 16px;text-decoration:none!important;background-image:none!important}' +
+    '.ah-lr-chips a:hover{background:#1A3B2A;color:#F8F9F0!important;border-color:#1A3B2A!important}' +
+    /* hero title readability over the photo */
+    '#sections > .page-section:first-child .section-background::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,26,16,.18),rgba(12,26,16,.52));z-index:1}' +
+    '#sections > .page-section:first-child h1{text-shadow:0 2px 18px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.5)!important;position:relative;z-index:2}';
+    var st = document.createElement('style'); st.id = 'ah-lr-style'; st.textContent = css;
+    document.head.appendChild(st);
+    markup(); chips();
+  }
+
+  // Group a bold-led name + its following (non-title) paragraphs into one card.
+  function markup() {
+    [].slice.call(document.querySelectorAll('#sections .sqs-html-content')).forEach(function (block) {
+      if (block.querySelector('.ah-res-grid')) return;
+      var children = [].slice.call(block.children);
+      if (children.filter(isTitleP).length < 2) return; // not a real list
+      var firstTitle = children.filter(isTitleP)[0];
+      var grid = document.createElement('div'); grid.className = 'ah-res-grid';
+      block.insertBefore(grid, firstTitle);
+      var current = null;
+      children.forEach(function (el) {
+        if (el === grid) return;
+        if (el.tagName === 'H2' || el.tagName === 'H3' || el.classList.contains('sqsrte-large')) { current = null; return; }
+        if (isTitleP(el)) { current = document.createElement('div'); current.className = 'ah-res-card'; grid.appendChild(current); current.appendChild(el); }
+        else if (current && el.tagName === 'P') { current.appendChild(el); }
+      });
+    });
+  }
+
+  // Replace the split "On this page" jump-links with clean chips from the H2s.
+  function chips() {
+    if (document.getElementById('ah-lr-chips')) return;
+    var bm = [].slice.call(document.querySelectorAll('.sqs-html-content')).find(function (b) {
+      return b.querySelectorAll('a[href*="#"]').length >= 5 && /On this page/i.test(b.textContent);
+    });
+    if (!bm) return;
+    var h2s = [].slice.call(document.querySelectorAll('#sections h2')).filter(function (h) { return !h.closest('.ah-res-card'); });
+    if (h2s.length < 3) return;
+    var bar = document.createElement('div'); bar.id = 'ah-lr-chips'; bar.className = 'ah-lr-chips';
+    h2s.forEach(function (h, i) { h.id = h.id || 'lrcat' + i; var a = document.createElement('a'); a.href = '#' + h.id; a.textContent = h.textContent.trim(); bar.appendChild(a); });
+    bm.style.display = 'none';
+    bm.parentNode.insertBefore(bar, bm);
+  }
+
+  function boot() {
+    if (onPage()) { build(); setTimeout(function () { markup(); chips(); }, 1200); return; }
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); setTimeout(function () { markup(); chips(); }, 1200); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === HOMEPAGE SHOP CALLOUT (2026-06-16, session 41) ===
+// Homepage only. Inserts a "From the Garden Shop" featured-products band after
+// the tools section (the homepage had no link to the store at all). Reversible.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-shopcallout') || document.getElementById('ah-shopcallout-sec')) return;
+    var CDN = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
+    var prods = [
+      { t: 'Tomato Growing MasterKit', c: 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg', p: '$14.99', u: '/store/p/tomato-growing-masterkit-california-edition', badge: 'Bestseller' },
+      { t: 'First Harvest Kit', c: 'dd2f6938-54ca-4c68-9aa8-240e26854d4c/first-harvest-kit-1-cover.jpeg', p: '$14.99', u: '/store/p/first-harvest-kit-california-edition', badge: '' },
+      { t: 'Water-Wise Garden Workbook', c: '3929876c-ddbc-48a5-ae55-ec2794fb4bf6/water-wise-garden-workbook-1-cover.jpeg', p: '$9.99', u: '/store/p/water-wise-garden-workbook-california-edition', badge: '' },
+      { t: 'Seed Starting Success Kit', c: 'fbc91ab7-4aec-42af-8ef9-f77d7ae2d425/seed-starting-success-kit-1-cover.jpeg', p: '$9.99', u: '/store/p/seed-starting-success-kit-santa-cruz-county-edition', badge: '' }
+    ];
+    var css =
+    '#ah-shopcallout-sec{background:#1A3B2A;padding:64px 28px 70px}' +
+    '#ah-shopcallout{max-width:1140px;margin:0 auto;text-align:center}' +
+    '#ah-shopcallout .eb{font:700 12px/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#dde2d8!important;margin-bottom:12px}' +
+    '#ah-shopcallout h2{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:#F8F9F0!important;font-size:33px;margin:0 0 12px}' +
+    '#ah-shopcallout .sub{font:16px/1.6 Montserrat,sans-serif;color:#cdd6c8!important;max-width:56ch;margin:0 auto 36px}' +
+    '#ah-shopcallout .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:36px}' +
+    '#ah-shopcallout .pc{background:#fff;border-radius:12px;overflow:hidden;text-decoration:none!important;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:.2s;display:block;position:relative}' +
+    '#ah-shopcallout .pc:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(0,0,0,.26)}' +
+    '#ah-shopcallout .pc .cov{background:linear-gradient(160deg,#f4f1e4,#e9ece0);padding:18px;display:flex;align-items:center;justify-content:center}' +
+    '#ah-shopcallout .pc .cov img{width:78%;border-radius:5px;box-shadow:0 8px 20px rgba(28,33,29,.18)}' +
+    '#ah-shopcallout .pc .b{padding:14px 16px 18px;text-align:left}' +
+    '#ah-shopcallout .pc h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:16px!important;line-height:1.22;margin:0 0 6px;font-weight:400!important}' +
+    '#ah-shopcallout .pc .price{font-family:Fraunces,"Palatino Linotype",Georgia,serif;color:#1A3B2A!important;font-size:17px}' +
+    '#ah-shopcallout .badge{position:absolute;top:10px;left:10px;background:#8f4f45;color:#f8f9f0;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:3px;z-index:2}' +
+    '#ah-shopcallout .shopall{display:inline-block;background:#8f4f45!important;color:#f8f9f0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:3px;text-decoration:none!important;border-bottom:0!important}' +
+    '#ah-shopcallout .shopall:hover{background:#754038!important}' +
+    '@media(max-width:900px){#ah-shopcallout .grid{grid-template-columns:repeat(2,1fr)}}';
+    var st = document.createElement('style'); st.id = 'ah-shopcallout'; st.textContent = css;
+    document.head.appendChild(st);
+
+    var cards = prods.map(function (p) {
+      return '<a class="pc" href="' + p.u + '">' + (p.badge ? '<span class="badge">' + p.badge + '</span>' : '') +
+        '<div class="cov"><img src="' + CDN + p.c + '?format=500w" alt="' + p.t + '"></div>' +
+        '<div class="b"><h3>' + p.t + '</h3><span class="price">' + p.p + '</span></div></a>';
+    }).join('');
+    var sec = document.createElement('section'); sec.id = 'ah-shopcallout-sec';
+    sec.innerHTML = '<div id="ah-shopcallout"><div class="eb">From the Garden Shop</div>' +
+      '<h2>California-Specific Guides &amp; Kits</h2>' +
+      '<p class="sub">Printable, microclimate-tuned guides to take the guesswork out of your garden. Instant download, 30-day money-back guarantee.</p>' +
+      '<div class="grid">' + cards + '</div>' +
+      '<a class="shopall" href="/store">Shop all 17 guides &amp; kits →</a></div>';
+
+    // Insert after the tools section (heading "Plan your garden..."); fall back to
+    // before the category gallery, else append to #sections.
+    var secs = [].slice.call(document.querySelectorAll('#sections > .page-section'));
+    var tools = secs.find(function (s) { var h = s.querySelector('h1,h2,h3'); return h && /plan your garden/i.test(h.textContent); });
+    var gallery = document.querySelector('.gallery-section');
+    if (tools && tools.parentNode) tools.parentNode.insertBefore(sec, tools.nextSibling);
+    else if (gallery && gallery.parentNode) gallery.parentNode.insertBefore(sec, gallery);
+    else document.querySelector('#sections').appendChild(sec);
+  }
+
+  function boot() {
+    if (onHome()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onHome()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === HOMEPAGE: WHY-SECTION REDESIGN + HERO POLISH (2026-06-16, session 41) ===
+// Homepage only. (1) Replaces the "Why Local Gardening Knowledge Matters"
+// paragraph with a centered 3-column value section. (2) Hero: makes the value
+// line the headline (brand name becomes an eyebrow), trims the second paragraph,
+// upgrades the CTA, and adds a second "Shop Guides" CTA. Reversible.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+
+  function build() {
+    if (document.getElementById('ah-why3-style')) return;
+    var css =
+    /* hero */
+    '#sections > .page-section:first-child h1{font-size:15px!important;font-family:Montserrat,sans-serif!important;font-weight:700!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#dde2d8!important;margin:0 0 14px!important;line-height:1!important}' +
+    '#sections > .page-section:first-child h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:50px!important;font-weight:400!important;color:#F8F9F0!important;line-height:1.08!important;margin:0 0 16px!important}' +
+    '#sections > .page-section:first-child .sqs-block-button-element{background:#8f4f45!important;color:#f8f9f0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:700!important;padding:15px 30px!important}' +
+    '#ah-hero-cta2{display:inline-block;margin-left:12px;background:transparent;color:#F8F9F0!important;border:1.5px solid rgba(255,255,255,.7)!important;border-radius:3px;text-transform:uppercase;letter-spacing:.08em;font:700 13px/1 Montserrat,sans-serif;padding:14px 28px;text-decoration:none!important;vertical-align:middle}' +
+    '#ah-hero-cta2:hover{background:rgba(255,255,255,.14)!important}' +
+    /* why value grid */
+    '#ah-why-wrap{max-width:1040px;margin:0 auto;text-align:center;padding:8px 28px}' +
+    '#ah-why-wrap h2{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:32px!important;margin:0 0 10px!important;font-weight:400!important}' +
+    '#ah-why-wrap .lead{font:16px/1.6 Montserrat,sans-serif;color:#525a51!important;max-width:60ch;margin:0 auto 38px}' +
+    '#ah-why-wrap .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}' +
+    '#ah-why-wrap .col{text-align:center}' +
+    '#ah-why-wrap .ic{width:54px;height:54px;border-radius:14px;background:#1A3B2A;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}' +
+    '#ah-why-wrap .ic svg{width:26px;height:26px;color:#dde2d8}' +
+    '#ah-why-wrap h3{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;color:#1A3B2A!important;font-size:20px!important;margin:0 0 8px!important;font-weight:400!important}' +
+    '#ah-why-wrap .col p{font:14.5px/1.6 Montserrat,sans-serif!important;color:#525a51!important;margin:0!important}' +
+    '@media(max-width:760px){#ah-why-wrap .grid{grid-template-columns:1fr;gap:26px}#sections > .page-section:first-child h4{font-size:34px!important}}';
+    var st = document.createElement('style'); st.id = 'ah-why3-style'; st.textContent = css;
+    document.head.appendChild(st);
+
+    // ---- Hero ----
+    var hero = document.querySelector('#sections > .page-section');
+    if (hero) {
+      var ps = [].slice.call(hero.querySelectorAll('p')).filter(function (p) { return p.textContent.trim().length > 20; });
+      if (ps[1]) ps[1].style.display = 'none';
+      var btn = hero.querySelector('.sqs-block-button-element');
+      if (btn && !document.getElementById('ah-hero-cta2')) {
+        var a = document.createElement('a'); a.id = 'ah-hero-cta2'; a.href = '/store'; a.textContent = 'Shop Guides';
+        btn.parentNode.appendChild(a);
+      }
+    }
+
+    // ---- Why section ----
+    var secs = [].slice.call(document.querySelectorAll('#sections > .page-section'));
+    var why = secs.find(function (s) { var h = s.querySelector('h1,h2,h3'); return h && /why local gardening/i.test(h.textContent); });
+    if (why && !why.querySelector('#ah-why-wrap')) {
+      var inner = why.querySelector('.content-wrapper') || why;
+      [].slice.call(inner.children).forEach(function (c) { c.style.display = 'none'; });
+      var w = document.createElement('div'); w.id = 'ah-why-wrap';
+      w.innerHTML = '<h2>Why Local Gardening Knowledge Matters</h2>' +
+        '<p class="lead">Generic advice was not written for our fog, dry summers, or mild winters. What works in the Midwest or Pacific Northwest often fails here.</p>' +
+        '<div class="grid">' +
+        '<div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Local, not generic</h3><p>Written for our coastal fog, dry summers, and mild winters, not the Midwest or Pacific Northwest.</p></div>' +
+        '<div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6M8 17h4"/></svg></div><h3>Tested, not theoretical</h3><p>The right varieties, timing, and water-wise techniques that actually produce here.</p></div>' +
+        '<div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><h3>Four California zones</h3><p>Guidance tuned to coastal, inland valley, mountain, and desert microclimates.</p></div>' +
+        '</div>';
+      inner.appendChild(w);
+    }
+  }
+
+  function boot() {
+    if (onHome()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onHome()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === LEARN LIBRARY + CATEGORY GRID (2026-06-16, session 41) ===
+// /learn index and /learn/category/* only (NOT individual articles). Converts
+// the sparse single-column "side by side" blog list into a multi-column card
+// grid, force-loads the lazy items (the list rendered blank-first), and paints
+// each thumbnail as a background (the native <img> collapses in this layout).
+// Reversible.
+(function () {
+  function onList() {
+    var p = location.pathname.replace(/\/$/, '');
+    return (p === '/learn' || p.indexOf('/learn/category/') === 0) && document.querySelector('.blog-side-by-side-wrapper');
+  }
+
+  function gridify() {
+    [].slice.call(document.querySelectorAll('.blog-item')).forEach(function (it) {
+      it.classList.add('is-loaded');
+      if (it.getAttribute('data-ah-grid')) return;
+      var img = it.querySelector('.blog-image-wrapper img');
+      if (img) {
+        var url = img.getAttribute('data-image') || img.getAttribute('data-src') || img.getAttribute('src');
+        var a = img.closest('a.image-wrapper') || img.parentElement;
+        if (a && url) {
+          a.style.backgroundImage = 'url("' + url.split('?')[0] + '?format=750w")';
+          a.classList.add('ah-bgimg');
+        }
+      }
+      it.setAttribute('data-ah-grid', '1');
+    });
+  }
+
+  function build() {
+    if (document.getElementById('ah-learn-style')) { gridify(); return; }
+    var css =
+    '.blog-side-by-side-wrapper{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:26px!important;max-width:1180px;margin:0 auto}' +
+    '.blog-item{display:flex!important;flex-direction:column!important;background:#fff!important;border:1px solid #e3e7da!important;border-radius:10px!important;overflow:hidden!important;box-shadow:0 4px 14px rgba(28,33,29,.07)!important;margin:0!important;padding:0!important;width:100%!important;opacity:1!important;transition:.2s}' +
+    '.blog-item:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(28,33,29,.13)!important}' +
+    '.blog-item .blog-image-wrapper{width:100%!important;margin:0!important;padding:0!important;flex:none!important}' +
+    '.blog-item .ah-bgimg{display:block!important;width:100%!important;aspect-ratio:16/10!important;background-size:cover!important;background-position:center!important}' +
+    '.blog-item .ah-bgimg img{display:none!important}' +
+    '.blog-item .blog-item-summary{width:100%!important;padding:14px 16px 18px!important;margin:0!important;flex:none!important}' +
+    '.blog-item .blog-title{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:17px!important;line-height:1.25!important;margin:0 0 6px!important}' +
+    '.blog-item .blog-title a{color:#1A3B2A!important}' +
+    '.blog-item .blog-excerpt,.blog-item .blog-excerpt p{font-size:13px!important;line-height:1.5!important;color:#525a51!important}' +
+    '.blog-item .blog-excerpt{display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 6px!important}' +
+    '.blog-item .blog-meta,.blog-item .blog-meta-item{font-size:11.5px!important;color:#7c8378!important}' +
+    '@media(max-width:900px){.blog-side-by-side-wrapper{grid-template-columns:repeat(2,1fr)!important}}' +
+    '@media(max-width:560px){.blog-side-by-side-wrapper{grid-template-columns:1fr!important}}';
+    var st = document.createElement('style'); st.id = 'ah-learn-style'; st.textContent = css;
+    document.head.appendChild(st);
+    gridify();
+    setTimeout(gridify, 800); setTimeout(gridify, 2000);
+    var wrap = document.querySelector('.blog-side-by-side-wrapper');
+    if (wrap && window.MutationObserver) {
+      var t, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(gridify, 200); });
+      mo.observe(wrap, { childList: true, subtree: true });
+    }
+  }
+
+  function boot() {
+    if (onList()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onList()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === CONTENT-PAGE POLISH (2026-06-16, session 41) ===
+// /about + the tool pages. Adds alignment-aware marigold heading accents and the
+// brand button style, but ONLY to real page-section headings -- never headings
+// inside a tool/code block (the Garden Conditions dashboard and Planting Calendar
+// are .sqs-block-code tools and are left completely untouched) and never the hero.
+// Reversible.
+(function () {
+  var PATHS = ['/about', '/garden-events', '/garden-conditions', '/planting-calendar'];
+  function onPage() {
+    return PATHS.indexOf(location.pathname.replace(/\/$/, '')) >= 0 && document.querySelector('#sections');
+  }
+
+  function accentize() {
+    var heroSec = document.querySelector('#sections > .page-section');
+    [].slice.call(document.querySelectorAll('#sections h1, #sections h2, #sections h3')).forEach(function (h) {
+      if (h.getAttribute('data-ah-acc')) return;
+      if (h.closest('.sqs-block-code')) return;          // never touch tool internals
+      if (h.closest('.page-section') === heroSec) return; // never the hero
+      var ta = getComputedStyle(h).textAlign;
+      h.classList.add((ta === 'center' || ta === 'middle') ? 'ah-hac-c' : 'ah-hac-l');
+      h.setAttribute('data-ah-acc', '1');
+    });
+  }
+
+  function build() {
+    if (document.getElementById('ah-content-style')) { accentize(); return; }
+    var css =
+    '#sections h1.ah-hac-l::after,#sections h2.ah-hac-l::after,#sections h3.ah-hac-l::after{content:"";display:block;width:46px;height:3px;background:#8f4f45;border-radius:2px;margin:14px 0 0}' +
+    '#sections h1.ah-hac-c::after,#sections h2.ah-hac-c::after,#sections h3.ah-hac-c::after{content:"";display:block;width:46px;height:3px;background:#8f4f45;border-radius:2px;margin:14px auto 0}' +
+    '#sections .sqs-block-button-element{background:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;font-size:13px!important;padding:15px 30px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
+    '#sections .sqs-block-button-element:hover{background:#2c5d42!important;transform:translateY(-2px)}';
+    var st = document.createElement('style'); st.id = 'ah-content-style'; st.textContent = css;
+    document.head.appendChild(st);
+    accentize();
+    setTimeout(accentize, 1000);
+  }
+
+  function boot() {
+    if (onPage()) return build();
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === LEGAL PAGE POLISH (2026-06-16, session 41) ===
+// /terms-of-use + /privacy-policy. These are dark-green pages of uniform 14px
+// paragraphs. Light touch: style the first line as a serif title with a marigold
+// accent, the "Last updated" line as a muted subtitle, give the body a readable
+// size/measure, and tint links marigold. Keeps the existing dark theme. Reversible.
+(function () {
+  var PATHS = ['/terms-of-use', '/privacy-policy', '/disclosure', '/refund-policy'];
+  function onPage() {
+    return PATHS.indexOf(location.pathname.replace(/\/$/, '')) >= 0 && document.querySelector('#sections .sqs-html-content');
+  }
+
+  function build() {
+    if (document.getElementById('ah-legal-style')) { mark(); return; }
+    var css =
+    '#sections .sqs-html-content{max-width:760px;margin:0 auto}' +
+    '#sections .sqs-html-content > p{font-size:15px!important;line-height:1.72!important}' +
+    '#sections .sqs-html-content .sqsrte-text-color--lightAccent{color:#dfe6da!important}' +
+    '#sections .sqs-html-content .ah-legal-title{margin-bottom:4px!important;font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-size:42px!important;line-height:1.1!important;color:#F8F9F0!important;font-weight:400!important}' +
+    '#sections .sqs-html-content .ah-legal-title .sqsrte-text-color--lightAccent{font-family:inherit!important;font-size:inherit!important;line-height:inherit!important;font-weight:400!important;color:#F8F9F0!important}' +
+    '#sections .sqs-html-content .ah-legal-title::after{content:"";display:block;width:54px;height:3px;background:#8f4f45;border-radius:2px;margin:18px 0 6px}' +
+    '#sections .sqs-html-content .ah-legal-sub{margin-bottom:26px!important}' +
+    '#sections .sqs-html-content .ah-legal-sub,#sections .sqs-html-content .ah-legal-sub .sqsrte-text-color--lightAccent{font-family:Montserrat,sans-serif!important;font-size:12px!important;letter-spacing:.1em!important;text-transform:uppercase!important;color:#9fb09a!important}' +
+    '#sections .sqs-html-content a,#sections .sqs-html-content a .sqsrte-text-color--lightAccent{color:#2e6b46!important}';
+    var st = document.createElement('style'); st.id = 'ah-legal-style'; st.textContent = css;
+    document.head.appendChild(st);
+    mark();
+  }
+
+  function mark() {
+    var content = document.querySelector('#sections .sqs-html-content');
+    if (!content) return;
+    // The title is the first text element (a <p> on Terms/Privacy, an <h3> on
+    // Disclosure). Only treat it as a title if it is SHORT, so a long body
+    // paragraph can never be blown up to 42px.
+    var els = [].slice.call(content.querySelectorAll(':scope > p, :scope > h1, :scope > h2, :scope > h3, :scope > h4'))
+      .filter(function (e) { return e.textContent.trim(); });
+    var first = els[0];
+    if (first && !first.classList.contains('ah-legal-title') && first.textContent.trim().length < 60) first.classList.add('ah-legal-title');
+    var second = els[1];
+    if (second && !second.classList.contains('ah-legal-sub') && /updated/i.test(second.textContent) && second.textContent.trim().length < 60) second.classList.add('ah-legal-sub');
+  }
+
+  function boot() {
+    if (onPage()) { build(); setTimeout(mark, 1000); return; }
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); setTimeout(mark, 1000); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === CONTACT PAGE POLISH (2026-06-16, session 41) ===
+// /contact only. Marigold accent under "Get in Touch", brand styling on the
+// form's Send button (was muted sage), and the social icons (which rendered as
+// unreadable low-contrast green blocks) swapped for clean brand-circle glyphs.
+// The form itself is untouched. Reversible.
+(function () {
+  function onPage() { return location.pathname.replace(/\/$/, '') === '/contact' && document.querySelector('#sections'); }
+  var SOC = {
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+    pinterest: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.6 19.3c-.1-.8-.2-2 .04-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.5 2.1-.8 3.3-.2 1 .5 1.7 1.4 1.7 1.7 0 3-1.8 3-4.4 0-2.3-1.6-3.9-4-3.9-2.7 0-4.3 2-4.3 4.1 0 .8.3 1.7.7 2.2.1.1.1.2.1.3l-.3 1.2c0 .2-.2.2-.4.1-1.3-.6-2.1-2.5-2.1-4 0-3.2 2.3-6.2 6.8-6.2 3.6 0 6.3 2.5 6.3 5.9 0 3.5-2.2 6.4-5.3 6.4-1 0-2-.5-2.3-1.2l-.6 2.4c-.2.9-.8 2-1.2 2.6A10 10 0 1012 2z"/></svg>',
+    facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3H13V9c0-.9.3-1.5 1.6-1.5H17V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4V11H8v3h2.6v8H13z"/></svg>',
+    threads: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 11.3c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.5-4.7-1.6 0-3 .7-3.8 2l1.4 1c.6-.9 1.5-1.1 2.4-1.1 1.5 0 2.3.9 2.5 2.4-.6-.1-1.2-.2-1.9-.2-2.5 0-4.1 1.3-4 3.3 0 1.6 1.4 2.7 3.1 2.7 1.4 0 2.9-.8 3.4-2.7.3.6.6 1.4.6 2.4 0 1.9-1.6 3.9-4.9 3.9-3.6 0-5.2-2.4-5.2-6.1S6.9 6 10.5 6c2.3 0 3.9.9 4.9 2.3l1.5-1C15.6 5.4 13.4 4.3 10.5 4.3 5.7 4.3 3 7.3 3 12s2.7 7.7 7.5 7.7c4.3 0 6.7-2.7 6.7-5.6 0-1.5-.6-2.7-1.7-3.5z"/></svg>'
+  };
+  function socials() {
+    [].slice.call(document.querySelectorAll('#sections .sqs-svg-icon--wrapper')).forEach(function (a) {
+      if (a.classList.contains('ah-soc')) return;
+      var cls = a.className || '';
+      var key = Object.keys(SOC).filter(function (k) { return cls.indexOf(k) >= 0; })[0];
+      if (key) { a.innerHTML = SOC[key]; a.classList.add('ah-soc'); }
+    });
+  }
+  function build() {
+    if (document.getElementById('ah-contact-style')) { socials(); return; }
+    var css =
+    '#sections h1{position:relative}' +
+    '#sections h1::after{content:"";display:block;width:48px;height:3px;background:#8f4f45;border-radius:2px;margin:16px auto 0}' +
+    '#sections .sqs-block-form .form-submit-button button,#sections .sqs-block-form button.sqs-system-button,#sections form button.button{background:#1A3B2A!important;background-color:#1A3B2A!important;color:#F8F9F0!important;border:0!important;border-radius:3px!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:600!important;padding:15px 34px!important;box-shadow:0 2px 10px rgba(28,33,29,.12)!important;transition:.18s}' +
+    '#sections .sqs-block-form button.sqs-system-button:hover,#sections form button.button:hover{background:#2c5d42!important;background-color:#2c5d42!important;transform:translateY(-2px)}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc{width:42px!important;height:42px!important;border-radius:50%!important;background:#1A3B2A!important;display:inline-flex!important;align-items:center;justify-content:center;margin:0 6px!important;transition:.18s;vertical-align:middle}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc svg{position:static!important;width:19px;height:19px;color:#F8F9F0}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc:hover{background:#8f4f45!important}' +
+    '#sections .sqs-svg-icon--wrapper.ah-soc:hover svg{color:#f8f9f0}';
+    var st = document.createElement('style'); st.id = 'ah-contact-style'; st.textContent = css;
+    document.head.appendChild(st);
+    socials();
+  }
+  function boot() {
+    if (onPage()) { build(); setTimeout(socials, 1000); return; }
+    var tries = 0, iv = setInterval(function () {
+      if (onPage()) { clearInterval(iv); build(); setTimeout(socials, 1000); }
+      if (++tries > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === PLANT GUIDE HUB: photo cards (added 2026-06-17) ===
+// Turns the text-link "Plant Guides by Microclimate" hub into a photo directory.
+// For each crop <h2> followed by /learn/ guide links, inserts a clickable banner
+// image (that crop's featured photo) linking to the first guide. Image map is baked
+// from each crop's current featured image; if a crop's featured image is swapped,
+// refresh its URL here (regenerate via the crop->og:image sweep).
+(function () {
+  function onHub() { return /\/learn\/plant-guides-by-microclimate\/?$/.test(location.pathname); }
+  var CROP_IMG = {
+      "artichoke": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef7e92731e4dc6e0efbb/1781735816256/artichoke-plants-with-silvery-foliage-in-coastal-clay.jpg?format=750w",
+      "avocado": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef80b9ff76225b5e868e/1781735818264/Avocado+Tree.png?format=750w",
+      "beefsteak-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8179f2903073306f81/1781735820390/Tomato.png?format=750w",
+      "bell-pepper": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef827c0e4f0def71ddc4/1781735822433/Peppers+%2814%29.JPG?format=750w",
+      "blueberry-southern-highbush": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a4c9ca437e0da09132/1781659207140/blueberry-southern-highbush-coastal-fog-belt-santa-cruz.jpg?format=750w",
+      "broccoli": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8407cf281b59e90dbb/1781735824404/growing-broccoli-santa-cruz.jpg?format=750w",
+      "brussels-sprouts": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef85e65b3d6f374d6739/1781735826451/growing-brussels-sprouts-santa-cruz.jpg?format=750w",
+      "bush-bean": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d627951aff6cb79caf3f/1781735828541/best-bean-varieties-santa-cruz.jpg?format=750w",
+      "eureka-lemon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef873a1b0f25d1c4b33a/1781735830571/growing-meyer-lemons-santa-cruz.jpg?format=750w",
+      "everbearing-strawberry": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62887944957a2321a84/1781735832720/Strawberry.jpg?format=750w",
+      "feijoa-pineapple-guava": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef88d0305a47cc348e3a/1781736534078/pg-feijoa-pineapple-guava.jpg?format=750w",
+      "grapes": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8ad0305a47cc348e66/1781736528584/pg-grapes.jpg?format=750w",
+      "heritage-apple": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8ba6b79330e05bb0bf/1781735834806/best-apple-varieties-santa-cruz.jpg?format=750w",
+      "jalapeno": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a10d96d8090a99473e/1781729029055/24-companion-plants-peppers.jpg?format=750w",
+      "low-chill-peach": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8d64969441a99f9486/1781735836849/growing-stone-fruit-santa-cruz.jpg?format=750w",
+      "meyer-lemon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a55092893df6a8b996/1781661469336/meyer-lemon-banana-belt-santa-cruz.jpg?format=750w",
+      "persimmon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8e47c094685082093c/1781736530647/pg-persimmon.jpg?format=750w",
+      "potato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef900188286be06bd3e5/1781736526792/pg-potato.jpg?format=750w",
+      "ranunculus": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef918e3f597e42106fae/1781735839493/growing-ranunculus-santa-cruz.jpg?format=750w",
+      "roma-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a73ab4dd5fd33a5abb/1781661389669/roma-tomato-banana-belt-santa-cruz.jpg?format=750w",
+      "romaine-lettuce": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62a9edb270341c26a52/1781735841729/Felton+garden+shaded+by+redwoods+with+winter+greens.jpg?format=750w",
+      "satsuma-mandarin": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef9307cf281b59e91425/1781735843998/growing-mandarins-satsumas.jpg?format=750w",
+      "sugar-snap-pea": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a35092893df6a8b96f/1781735850055/growing-sugar-snap-peas.jpg?format=750w",
+      "sungold-cherry-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62b7c0e4f0def695825/1781735845919/Tomato.png?format=750w",
+      "zucchini": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62d47c0946850788fd2/1781735848070/best-zucchini-varieties-santa-cruz.jpg?format=750w"
+  };
+  function build() {
+    var scope = document.querySelector('.blog-item-content, .entry-content, [data-content-field="main-content"]') || document.querySelector('article') || document.body;
+    var hs = scope.querySelectorAll('h2');
+    Array.prototype.forEach.call(hs, function (h) {
+      var prev = h.previousElementSibling;
+      if (prev && prev.className && String(prev.className).indexOf('ah-pg-card') !== -1) return;
+      var link = null, n = h.nextElementSibling;
+      while (n && n.tagName !== 'H2') {
+        var a = (n.matches && n.matches('a[href*="/learn/"]')) ? n : (n.querySelector ? n.querySelector('a[href*="/learn/"]') : null);
+        if (a) { link = a; break; }
+        n = n.nextElementSibling;
+      }
+      if (!link) return;
+      var m = (link.getAttribute('href') || '').match(/\/learn\/(.+?)-(banana-belt|coastal-fog-belt|san-lorenzo-valley|pajaro-valley)-santa-cruz/);
+      if (!m) return;
+      var img = CROP_IMG[m[1]];
+      if (!img) return;
+      var card = document.createElement('a');
+      card.href = link.getAttribute('href');
+      card.className = 'ah-pg-card';
+      card.setAttribute('aria-label', (h.textContent || '').trim());
+      card.style.cssText = 'display:block;margin:22px 0 4px;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(26,59,42,.14);line-height:0;';
+      var im = document.createElement('img');
+      im.src = img; im.alt = (h.textContent || '').trim(); im.loading = 'lazy';
+      im.style.cssText = 'width:100%;height:210px;object-fit:cover;display:block;';
+      card.appendChild(im);
+      h.parentNode.insertBefore(card, h);
+    });
+  }
+  function boot() {
+    if (!onHub()) return;
+    var t = 0, iv = setInterval(function () {
+      build(); // idempotent (skips already-carded headings); re-run to catch late-rendered sections
+      if (++t > 40) clearInterval(iv);
+    }, 300);
+    window.addEventListener('load', build);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === BARE TABLE BEAUTIFIER (2026-06-18) ===
+// Some older articles carry de-styled inline tables (their CSS was stripped by the
+// Squarespace editor) that render jumbled. Style them with the brand palette at render
+// time. Non-destructive: the stored table data is untouched; this only restyles in the
+// browser. Skips tables that already have inline styling (cluster graphics, already-
+// styled tables) so it never double-styles or overrides intentional designs.
+(function () {
+  var FOREST = '#1a3b2a', CREAM = '#f8f9f0', SAGE_LIGHT = '#dde2d8', INK = '#1c3c2c';
+  function isBare(t) {
+    if (t.getAttribute('data-ah-tablestyled')) return false;
+    if (t.closest('[data-graphic]')) return false;            // inside a cluster graphic (already styled)
+    if (/background/i.test(t.getAttribute('style') || '')) return false;
+    var cell = t.querySelector('td,th');
+    if (cell && /background/i.test(cell.getAttribute('style') || '')) return false;
+    return true;
+  }
+  function style(t) {
+    t.setAttribute('data-ah-tablestyled', '1');
+    t.style.width = '100%'; t.style.borderCollapse = 'collapse';
+    t.style.fontFamily = "'Montserrat', system-ui, sans-serif"; t.style.fontSize = '0.9rem';
+    var rows = t.querySelectorAll('tr'), first = true, ri = 0;
+    rows.forEach(function (r) {
+      var headerRow = (r.parentNode && r.parentNode.tagName === 'THEAD') || (first && r.querySelector('th')) || first;
+      var cells = r.children;
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        c.style.padding = '10px 12px'; c.style.textAlign = 'left'; c.style.verticalAlign = 'top';
+        if (c.tagName === 'TH' || headerRow) {
+          c.style.setProperty('background-color', FOREST, 'important');
+          c.style.setProperty('color', CREAM, 'important');
+          c.style.fontWeight = '700'; c.style.fontSize = '0.82rem';
+        } else {
+          c.style.borderBottom = '1px solid ' + SAGE_LIGHT;
+          c.style.setProperty('color', INK, 'important');
+          if (i === 0) { c.style.fontWeight = '700'; c.style.setProperty('color', FOREST, 'important'); }
+          c.style.setProperty('background-color', (ri % 2 ? CREAM : '#ffffff'), 'important');
+        }
+      }
+      if (!headerRow) ri++;
+      first = false;
+    });
+    // wrap for horizontal scroll on narrow screens
+    if (t.parentNode && (!t.parentNode.getAttribute || t.parentNode.getAttribute('data-ah-tablewrap') !== '1')) {
+      var w = document.createElement('div');
+      w.setAttribute('data-ah-tablewrap', '1');
+      w.style.overflowX = 'auto'; w.style.margin = '24px 0';
+      t.parentNode.insertBefore(w, t); w.appendChild(t); t.style.margin = '0';
+    }
+  }
+  function run() {
+    var root = document.querySelector('.blog-item-content, [data-content-field="main-content"], article, main') || document;
+    var tables = root.querySelectorAll('table');
+    for (var i = 0; i < tables.length; i++) { if (isBare(tables[i])) style(tables[i]); }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 400); });
+  else setTimeout(run, 400);
+})();
+
+// === MOBILE SPACING QC (2026-06-18) ===
+// Two TARGETED phone fixes. (A first attempt collapsed every fluid-engine globally, which
+// was too broad -- it shrank in-body images and the home hero -- so this is scoped.)
+//   1. Footer: its fluid-engine kept desktop fixed-row heights, leaving the lower links
+//      (search, Terms, Privacy, copyright) spread across ~1500px of dead space. Collapse
+//      footer blocks to content height. The footer is links/text only, so nothing shrinks.
+//   2. Home hero: on mobile its content overflowed the fixed section height and clipped the
+//      two CTA buttons. Let the hero content flow and give the section a tall min-height so
+//      the background image keeps presence AND both buttons fit. Scoped to body.homepage so
+//      other pages' first sections (simple title bands) are untouched.
+// Content sections are intentionally NOT collapsed -- doing so shrank in-body images (e.g.
+// the About portrait), which matters more than trimming a little section whitespace.
+(function () {
+  var css = '@media (max-width: 767px){'
+    + 'footer .fluid-engine{ grid-template-rows: auto !important; row-gap: 6px !important; }'
+    + 'footer .fluid-engine > .fe-block{ grid-row: auto !important; min-height: 0 !important; }'
+    + 'body.homepage #sections > .page-section:first-child{ min-height: 86vh !important; height: auto !important; }'
+    + 'body.homepage #sections > .page-section:first-child .fluid-engine{ grid-template-rows: auto !important; }'
+    + 'body.homepage #sections > .page-section:first-child .fluid-engine > .fe-block{ grid-row: auto !important; min-height: 0 !important; }'
+    + '}';
+  var st = document.createElement('style');
+  st.id = 'ah-mobile-qc';
+  st.textContent = css;
+  (document.head || document.documentElement).appendChild(st);
+})();
+
+// === HOME "LATEST FROM THE GARDEN" GAP FIX (2026-06-23) ===
+// The homepage summary block ("Latest from the Garden") lives in a fluid-engine
+// grid whose cell was sized for far more / taller content than it now shows (8
+// compact post cards, ~660px), while the "View All" button is pinned to grid row
+// 119. With 121 explicit ~30px rows the section rendered ~3,770px tall, leaving a
+// ~2,400px empty band between the last post and the footer. We collapse it on
+// DESKTOP by shrinking the grid to content-sized rows and pulling the summary +
+// button up directly beneath the heading. Scoped to this one section id (which
+// exists only on the homepage) and to >=768px so the separate mobile fluid grid
+// is left alone (see MOBILE SPACING QC above). minmax(8px,auto) keeps the
+// content-bearing rows free to grow, so longer post titles never clip. Verified
+// live: section 3,768px -> 1,005px, no overlap, no clipping. Fully reversible:
+// remove this block.
+(function () {
+  var SEC = '[data-section-id="6416251a82bfa26c010c2d53"]';
+  var css = '@media (min-width:768px){'
+    + SEC + ' .fluid-engine{ grid-template-rows: repeat(34, minmax(8px,auto)) !important; }'
+    + SEC + ' .fe-block:has(.sqs-block-summary-v2){ grid-row: 8 / 31 !important; }'
+    + SEC + ' .fe-block:has(.sqs-block-button-container),'
+    + SEC + ' .fe-block:has(.sqs-block-button){ grid-row: 31 / 34 !important; }'
+    + '}';
+  var st = document.createElement('style');
+  st.id = 'ah-home-latest-gap';
+  st.textContent = css;
+  (document.head || document.documentElement).appendChild(st);
+})();
+
+// === FOOTER: LEGAL LINKS (Refund Policy + Disclosure) (2026-06-23) ===
+// The footer's Terms of Use + Privacy Policy links are native Squarespace
+// collection-link blocks. Add matching "Refund Policy" and "Disclosure" links
+// beneath "Privacy Policy" by cloning its styled markup (so they inherit the
+// exact look without touching the fluid-engine grid). Rendered order in the
+// legal group becomes: Privacy Policy, Refund Policy, Disclosure, Terms of Use.
+// Idempotent + reversible.
+(function () {
+  function done() {
+    return document.getElementById('ah-refund-footer-link') &&
+           document.getElementById('ah-disclosure-footer-link') &&
+           document.querySelector('[data-ah-terms-moved]');
+  }
+  function run() {
+    if (done()) return true;
+    var links = [].slice.call(document.querySelectorAll('#footer-sections a, footer a'));
+    var pp = null, terms = null;
+    links.forEach(function (a) {
+      if (/privacy policy/i.test(a.textContent)) pp = a;
+      if (/terms of use/i.test(a.textContent)) terms = a;
+    });
+    if (!pp) return false;
+    var titleDiv = pp.closest('.collectionlink-title');
+    var host = pp.closest('.collectionlink-content');
+    if (!titleDiv || !host) return false;
+    function add(label, href, id) {
+      if (document.getElementById(id)) return;
+      var clone = titleDiv.cloneNode(true);
+      var a = clone.querySelector('a');
+      if (!a) return;
+      a.textContent = label;
+      a.setAttribute('href', href);
+      a.id = id;
+      host.appendChild(clone);
+    }
+    add('Refund Policy', '/refund-policy', 'ah-refund-footer-link');
+    add('Disclosure', '/disclosure', 'ah-disclosure-footer-link');
+    // Consolidate Terms of Use into the same block so all four legal links sit as
+    // evenly-spaced siblings (removes the larger inter-block gap before Terms),
+    // then hide its now-empty original fluid-engine cell. Order: Privacy, Refund,
+    // Disclosure, Terms.
+    if (terms && !document.querySelector('[data-ah-terms-moved]')) {
+      var termsTitle = terms.closest('.collectionlink-title');
+      var termsFe = terms.closest('.fe-block');
+      if (termsTitle && host !== terms.closest('.collectionlink-content')) {
+        termsTitle.setAttribute('data-ah-terms-moved', '1');
+        host.appendChild(termsTitle);
+        if (termsFe) termsFe.style.display = 'none';
+      }
+    }
+    return done();
+  }
+  function boot() {
+    if (run()) return;
+    var n = 0;
+    var iv = setInterval(function () { if (run() || ++n > 20) clearInterval(iv); }, 500);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === KEEP READING — related guides at the end of every /learn article (2026-06-23) ===
+// Appends 3 related-guide cards (ahRenderRelatedCards) as the LAST element of the
+// article, from the auto manifest. The article-enhancement IIFE removes any legacy
+// "Related Articles" section so these cards are the single related block. Staged via
+// ALLOW; set ALLOW=null for site-wide.
+(function () {
+  var MANIFEST = 'https://gaughanadrienne-gif.github.io/ah-graphics/related-manifest.json';
+  var ALLOW = null; // site-wide (was a 5-slug staged allowlist during rollout)
+  function slug() { return location.pathname.replace(/\/$/, '').split('/').pop(); }
+  function onArt() { return /^\/learn\//.test(location.pathname) && document.querySelector('.blog-item-content'); }
+  function ready() { return onArt() && window.ahRenderRelatedCards; }
+  function go() {
+    if (document.getElementById('ah-keepreading')) return true;
+    if (ALLOW && ALLOW.indexOf(slug()) < 0) return true;
+    if (!ready()) return false;
+    var root = document.querySelector('.blog-item-content');
+    var marker = document.createElement('span'); marker.id = 'ah-keepreading'; marker.style.display = 'none'; root.appendChild(marker);
+    function render(links) { if (links && links.length) window.ahRenderRelatedCards(root, links, 'Keep Reading'); }
+    fetch(MANIFEST).then(function (r) { return r.json(); }).then(function (d) { render(d[slug()]); }).catch(function () {});
+    return true;
+  }
+  function boot() {
+    var t = 0;
+    var iv = setInterval(function () {
+      t++;
+      if (t < 3) return;
+      if (go() || t > 60) clearInterval(iv);
+    }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// === FAQ FORMAT NORMALIZE — render all FAQ questions as H3 (2026-06-24) ===
+// 154 articles used bold-paragraph FAQ questions (<p><strong>Q?</strong></p>) and
+// 17 had mixed H3/bold; normalize them to <h3> so FAQ formatting is uniform
+// site-wide. Scoped to the FAQ section only (between the "Frequently Asked
+// Questions" h2 and the next h2); only converts a <p> whose first child is
+// <strong> and whose text ends in "?". An audit confirmed NO plain-paragraph FAQ
+// questions exist, so detection is unambiguous. Idempotent + reversible.
+(function () {
+  function run() {
+    var root = document.querySelector('.blog-item-content');
+    if (!root) return;
+    var h2s = [].slice.call(root.querySelectorAll('h2')), faq = null;
+    for (var i = 0; i < h2s.length; i++) {
+      if (/frequently asked questions|^\s*faq\b/i.test(h2s[i].textContent)) { faq = h2s[i]; break; }
+    }
+    if (!faq) return;
+    var n = faq.nextElementSibling;
+    while (n && n.tagName !== 'H2') {
+      var nxt = n.nextElementSibling;
+      if (n.tagName === 'P' && n.firstElementChild && n.firstElementChild.tagName === 'STRONG'
+          && /\?\s*$/.test((n.textContent || '').trim())) {
+        var h3 = document.createElement('h3');
+        h3.textContent = n.textContent.trim();
+        n.parentNode.replaceChild(h3, n);
+      }
+      n = nxt;
+    }
+  }
+  function boot() {
+    if (document.querySelector('.blog-item-content')) return run();
+    var t = 0, iv = setInterval(function () {
+      if (document.querySelector('.blog-item-content')) { clearInterval(iv); run(); }
+      if (++t > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === HEADER: CART OFF-SCREEN FIX (2026-07-01, site review P1) ===
+// The 4 boxed social buttons in .header-actions--right total ~445px and push
+// the cart block past the right edge at desktop widths (document.scrollWidth
+// 1576 on a 1440 viewport; still +29px at 1920), hiding the cart and adding a
+// horizontal scrollbar on every page. Hide the desktop header social group;
+// the same icons remain in the footer. Reversible: remove this block.
+(function () {
+  if (document.getElementById('ah-header-cart-fix')) return;
+  var st = document.createElement('style');
+  st.id = 'ah-header-cart-fix';
+  st.textContent = '.header-actions--right .header-actions-action--social{display:none !important}';
+  (document.head || document.documentElement).appendChild(st);
+})();
+
+// === /tomato-masterkit: MONTH-AWARE "TIME-SENSITIVE" BAND (2026-07-01) ===
+// The band was written in spring ("California's spring planting season is
+// underway", every zone chip says a window is open "now") and goes stale the
+// moment windows close. Swap those exact strings for month-correct copy.
+// Zone transplant windows per the page: Desert Feb-Mar, Inland Valley Mar-May,
+// Coastal + Mountain Apr-Jun. Text-node swaps only; if the page copy is ever
+// rewritten the matchers find nothing and this no-ops.
+(function () {
+  if (location.pathname.replace(/\/$/, '') !== '/tomato-masterkit') return;
+  var m = new Date().getMonth() + 1; // 1..12
+  function zone(openM, closeM, reopenLabel) {
+    if (m >= openM && m <= closeM) return 'Window open now';
+    var pre1 = openM - 1 || 12, pre2 = openM - 2 > 0 ? openM - 2 : openM - 2 + 12;
+    if (m === pre1 || m === pre2) return 'Start seeds indoors now';
+    return 'Closed for this year. Reopens ' + reopenLabel;
+  }
+  var anyOpen = (m >= 2 && m <= 6);
+  var swaps = [
+    ["California's spring planting season is underway.",
+      anyOpen ? "California's tomato planting season is underway."
+              : "This year's planting windows have closed. The best next-season harvests are planned now."],
+    ['Spring window open now', zone(2, 3, 'February')],
+    ['Start seeds indoors now', zone(3, 5, 'March')],
+    ['Prep time is now', zone(4, 6, 'April')],
+    ['Every week you wait is a week less of harvest at the end of your season.',
+      anyOpen ? 'Every week you wait is a week less of harvest at the end of your season.'
+              : 'Gardeners who plan in the off-season hit day one of their window ready.']
+  ];
+  function run() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var n, hit = false;
+    while ((n = w.nextNode())) {
+      // At most ONE swap per text node: a chip's replacement text can equal
+      // another chip's original (e.g. "Start seeds indoors now"), and a second
+      // pass over the same node would corrupt the fresh copy.
+      for (var i = 0; i < swaps.length; i++) {
+        if (n.nodeValue.indexOf(swaps[i][0]) !== -1 && swaps[i][0] !== swaps[i][1]) {
+          n.nodeValue = n.nodeValue.replace(swaps[i][0], swaps[i][1]);
+          hit = true;
+          break;
+        }
+      }
+    }
+    return hit;
+  }
+  function boot() {
+    if (run()) return;
+    var t = 0, iv = setInterval(function () {
+      if (run() || ++t > 40) clearInterval(iv);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === BRAND TYPOGRAPHY: LOAD FRAUNCES SITE-WIDE (2026-07-01, Adrienne-approved) ===
+// Brand guide v1.1 specifies Fraunces for headings but the font was never
+// loaded; headings rendered as Palatino (system serif) or Montserrat depending
+// on the page. Load Fraunces from Google Fonts and apply it to all headings
+// (Palatino stays as fallback). All module font stacks above already lead with
+// Fraunces. Reversible: remove this block + the Fraunces, prefixes.
+(function () {
+  if (document.getElementById('ah-fraunces')) return;
+  var pre1 = document.createElement('link');
+  pre1.rel = 'preconnect'; pre1.href = 'https://fonts.googleapis.com';
+  var pre2 = document.createElement('link');
+  pre2.rel = 'preconnect'; pre2.href = 'https://fonts.gstatic.com'; pre2.crossOrigin = 'anonymous';
+  var css = document.createElement('link');
+  css.id = 'ah-fraunces'; css.rel = 'stylesheet';
+  css.href = 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&display=swap';
+  var st = document.createElement('style');
+  st.id = 'ah-fraunces-headings';
+  st.textContent = 'h1,h2,h3,h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif !important}';
+  var head = document.head || document.documentElement;
+  head.appendChild(pre1); head.appendChild(pre2); head.appendChild(css); head.appendChild(st);
+})();
+
+// === NAV: "LEARN" LINK -> /learn (2026-07-01) ===
+// The LEARN nav folder's landing URL is /articles, which 302s to the
+// Getting Started category filter instead of the full library. The folder
+// slug cannot be /learn (taken by the blog collection), so rewrite the
+// nav hrefs client-side. Reversible.
+(function () {
+  function fix() {
+    var n = 0;
+    [].slice.call(document.querySelectorAll('a[href="/articles"], a[href="/articles/"]')).forEach(function (a) {
+      a.setAttribute('href', '/learn'); n++;
+    });
+    return n;
+  }
+  function boot() {
+    fix();
+    var t = 0, iv = setInterval(function () { fix(); if (++t > 20) clearInterval(iv); }, 400);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === /tomato-quiz: "300+" GUIDE COUNT -> 600+ (2026-07-01) ===
+// The page undersold the library (673 live guides). Text-node swap; no-ops
+// if the page copy is rewritten. NOTE: the "Answer 5 quick questions" line
+// inside the quiz widget lives in the Interact quiz cover (their dashboard),
+// not on this page; real count = 4 (confirmed by Adrienne).
+(function () {
+  if (location.pathname.replace(/\/$/, '') !== '/tomato-quiz') return;
+  function run() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var n, hit = false;
+    while ((n = w.nextNode())) {
+      if (n.nodeValue.indexOf('Browse 300+ Growing Guides') !== -1) {
+        n.nodeValue = n.nodeValue.replace('Browse 300+ Growing Guides', 'Browse 600+ Growing Guides');
+        hit = true;
+      }
+    }
+    return hit;
+  }
+  function boot() {
+    if (run()) return;
+    var t = 0, iv = setInterval(function () { if (run() || ++t > 40) clearInterval(iv); }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+// === ARTICLE HEADER IMAGE FROM FEATURED IMAGE (2026-07-06) ===
+// Squarespace strips <img> from API-created post bodies, and the blog template does not
+// render the featured image on the post page, so articles uploaded via the API show no
+// header image even though the featured/social image is set. This injects the featured
+// image (og:image) as a header at the top of the article, but ONLY when the featured-image
+// filename matches the article slug (the API-upload convention <slug>.jpg), so it never
+// touches older articles that bake a header photo into the body. Reversible: delete block.
+(function () {
+  var path = location.pathname.replace(/\/$/, '');
+  if (path.indexOf('/learn/') !== 0 || path.indexOf('/learn/tag/') === 0 || path.indexOf('/learn/category/') === 0) return;
+  function inject() {
+    if (document.getElementById('ah-header-image')) return;
+    var root = document.querySelector('.blog-item-content');
+    if (!root) return;
+    var og = document.querySelector('meta[property="og:image"]');
+    if (!og || !og.content) return;
+    var src = og.content.replace(/^http:/, 'https:').split('?')[0];
+    var slug = path.split('/').pop().toLowerCase();
+    var file = src.split('/').pop().toLowerCase().replace(/\.(jpe?g|png|webp)$/, '');
+    // The 14 category hubs deliberately REUSE the featured photo of a representative article
+    // (already-published photos have cleared provenance), so their filename will never match
+    // their slug. Let the header inject for them anyway.
+    var HUB_SLUGS = ['getting-started','grow-guides','microclimates','the-garden-coop','seasonal-planting',
+                     'water-wise-gardening','wildlife-and-pest-management','fire-wise-gardening','beekeeping',
+                     'gardening-with-kids','indoor-gardening','this-vs-that','garden-myth-buster',
+                     'garden-question-of-the-week'];
+    if (file !== slug && HUB_SLUGS.indexOf(slug) === -1) return;
+    var alt = (document.querySelector('meta[property="og:title"]') || {}).content || document.title || '';
+    var wrap = document.createElement('div');
+    wrap.id = 'ah-header-image';
+    wrap.style.cssText = 'margin:0 0 1.6rem;border-radius:12px;overflow:hidden;';
+    wrap.innerHTML = '<img src="' + src + '?format=1500w" alt="' + alt.replace(/"/g, '&quot;') + '" style="width:100%;height:auto;display:block;border-radius:12px;" loading="eager">';
+    root.insertBefore(wrap, root.firstChild);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(inject, 150); });
+  else setTimeout(inject, 150);
+})();
+
+// === H1 SEMANTICS FIX (2026-07-13) ===
+// Screaming Frog flagged the homepage H1 as empty and /store + the 4 legal pages as having none.
+// After a JS render, /store and /learn are already fine (those findings were raw-HTML only).
+// Two REAL problems remain, both "heading level chosen for visual size, not structure":
+//   1. Homepage: the hero headline is TWO <h4> blocks ("Grow Food in Santa Cruz" / "& the Bay
+//      Area") at 50px, while the only <h1> is an empty RTE spacer (data-rte-preserve-empty).
+//   2. Legal pages: the title sits in <p class="ah-legal-title"> (or an h3 on /disclosure),
+//      so the page has no h1 at all.
+// Fix: promote the element that ALREADY LOOKS like the title to <h1>, copying its COMPUTED
+// styles inline so nothing moves, and demote the empty spacer h1 to a <p> that keeps its
+// computed box so the layout does not shift. Target: exactly one non-empty h1 per page.
+(function () {
+  var LOOK = ['font-family','font-size','font-weight','font-style','color','line-height',
+              'letter-spacing','text-transform','text-align','text-shadow','display'];
+  // NOTE: promote() must NOT lock height/min-height. The homepage h1 merges two headline
+  // blocks into one element, so a locked single-line height crushes it and the subtitle
+  // overlaps. Only the empty spacer (demote) needs its box height preserved.
+  var BOX  = ['margin-top','margin-right','margin-bottom','margin-left',
+              'padding-top','padding-right','padding-bottom','padding-left'];
+  var SPACER_BOX = BOX.concat(['height','min-height','line-height','font-size']);
+
+  function lock(el, props) {
+    var cs = getComputedStyle(el), css = '';
+    props.forEach(function (p) { css += p + ':' + cs.getPropertyValue(p) + ' !important;'; });
+    return css;
+  }
+
+  // replacementNodes: optional DOM node whose children become the h1's content.
+  // Always build content as DOM, never as an HTML string: computed font-family values contain
+  // double quotes, which truncate a style="..." attribute built by concatenation.
+  function promote(el, replacementNodes) {
+    var h1 = document.createElement('h1');
+    if (replacementNodes) {
+      while (replacementNodes.firstChild) h1.appendChild(replacementNodes.firstChild);
+    } else {
+      while (el.firstChild) h1.appendChild(el.firstChild);
+    }
+    h1.className = (el.className || '') + ' ah-semantic-h1';
+    h1.setAttribute('style', lock(el, LOOK) + lock(el, BOX));
+    el.parentNode.replaceChild(h1, el);
+    return h1;
+  }
+
+  function demoteEmptyH1s(scope) {
+    (scope || document).querySelectorAll('h1').forEach(function (h) {
+      if (h.classList.contains('ah-semantic-h1') || h.textContent.trim()) return;
+      var p = document.createElement('p');
+      p.setAttribute('style', lock(h, SPACER_BOX) + lock(h, LOOK));   // keep its exact box, no shift
+      p.setAttribute('aria-hidden', 'true');
+      p.innerHTML = h.innerHTML;
+      h.parentNode.replaceChild(p, h);
+    });
+  }
+
+  function fixHome() {
+    var hero = document.querySelector('#sections > .page-section:first-child');
+    if (!hero || hero.querySelector('h1.ah-semantic-h1')) return;
+    var heads = [];
+    hero.querySelectorAll('h2,h3,h4,h5,h6').forEach(function (e) {
+      var t = (e.innerText || '').trim();
+      if (/^Grow Food in Santa Cruz/i.test(t) || /^&\s*the Bay Area/i.test(t)) heads.push(e);
+    });
+    if (!heads.length) return;
+    demoteEmptyH1s(hero);
+    // The headline is split across two blocks. Merge into ONE h1, re-creating the gap between
+    // them with an inner block span, so the h1 covers the whole headline and nothing moves.
+    // Build the inner spans with the DOM, NOT an HTML string: computed font-family contains
+    // double quotes ("Palatino Linotype"), which would terminate a style="..." attribute and
+    // silently truncate it, dropping the font back to Montserrat.
+    // The spans must also carry the look explicitly, because a site rule overrides span
+    // font-family and an inherited Fraunces would lose.
+    var frag = document.createElement('div');
+    heads.forEach(function (e, i) {
+      var mb = i < heads.length - 1 ? getComputedStyle(e).getPropertyValue('margin-bottom') : '0px';
+      var span = document.createElement('span');
+      span.innerHTML = e.innerHTML;
+      span.setAttribute('style', lock(e, LOOK));
+      span.style.setProperty('display', 'block', 'important');
+      span.style.setProperty('margin', '0 0 ' + mb + ' 0', 'important');
+      frag.appendChild(span);
+    });
+    var first = heads[0];
+    for (var i = 1; i < heads.length; i++) heads[i].parentNode.removeChild(heads[i]);
+    promote(first, frag);
+  }
+
+  var TITLES = {
+    '/privacy-policy': 'Privacy Policy',
+    '/terms-of-use': 'Terms of Use',
+    '/refund-policy': 'Refund Policy',
+    '/disclosure': 'How Ambitious Harvest Stays Free'
+  };
+
+  function fixLegal(path) {
+    if (document.querySelector('h1')) return;                 // already has one
+    var root = document.querySelector('#sections') || document.body;
+    var el = root.querySelector('.ah-legal-title');           // the class the pages already carry
+    if (!el) {
+      var want = TITLES[path];
+      root.querySelectorAll('p,h2,h3,h4,h5,h6').forEach(function (e) {
+        if (el) return;
+        if ((e.innerText || '').replace(/\s+/g, ' ').trim() === want) el = e;
+      });
+    }
+    if (el) promote(el);
+  }
+
+  function run() {
+    var path = location.pathname.replace(/\/$/, '') || '/';
+    if (path === '/' || path === '/home') return fixHome();
+    if (TITLES[path]) return fixLegal(path);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 300); });
+  else setTimeout(run, 300);
+})();
+
+// === CATEGORY HUBS (2026-07-13) ===
+// 14 editorial hub posts at /learn/<category-slug>. They exist because every /learn/category/* page
+// is noindex and /learn?category=X canonicalises to /learn, so 730 articles had NO indexable
+// category landing page. Spec: Analytics & SEO/Category_Hubs_Design_2026-07-13.md
+//
+// This module does two things:
+//   1. NAV: repoints the LEARN dropdown from /learn?category=X to the hub. The Squarespace
+//      nav-save API is dead (every candidate route 404s), so the links are rewritten client-side.
+//      Google renders JS, so the hubs still collect the nav's internal link equity.
+//   2. FEED: hides the 14 hub cards from the /learn archive grid. Hubs are navigation pages, not
+//      articles, and do not belong in a chronological feed. This keeps the feed clean WITHOUT
+//      backdating their publish dates, which would put a false datePublished in the Article schema.
+(function () {
+  var HUBS = {
+    'Getting Started': 'getting-started',
+    'Grow Guides': 'grow-guides',
+    'Microclimates': 'microclimates',
+    'The Garden Coop': 'the-garden-coop',
+    'Seasonal Planting': 'seasonal-planting',
+    'Water-Wise Gardening': 'water-wise-gardening',
+    'Wildlife and Pest Management': 'wildlife-and-pest-management',
+    'Fire-Wise Gardening': 'fire-wise-gardening',
+    'Beekeeping': 'beekeeping',
+    'Gardening with Kids': 'gardening-with-kids',
+    'Indoor Gardening': 'indoor-gardening',
+    'This vs. That': 'this-vs-that',
+    'Garden Myth Buster': 'garden-myth-buster',
+    'Garden Question of the Week': 'garden-question-of-the-week'
+  };
+  var HUB_SLUGS = Object.keys(HUBS).map(function (k) { return HUBS[k]; });
+
+  function repointNav() {
+    document.querySelectorAll('a[href*="/learn?category="]').forEach(function (a) {
+      var raw = a.getAttribute('href') || '';
+      var q = raw.split('category=')[1];
+      if (!q) return;
+      var cat = decodeURIComponent(q.split('&')[0].replace(/\+/g, ' '));
+      var slug = HUBS[cat];
+      if (!slug) return;
+      a.setAttribute('href', '/learn/' + slug);
+      a.setAttribute('data-ah-hub', '1');
+    });
+  }
+
+  // FEED SUPPRESSION REMOVED (2026-07-13). It hid hub cards from every listing, but the
+  // homepage "Latest from the Garden" block shows the N most recent posts and does NOT backfill,
+  // so hiding the 14 newest posts left the section BLANK. Adrienne's call: backdate the hubs
+  // instead (staggered Jun 10-17 2026, ~4 weeks back). 76 real articles now sit above them, so
+  // they fall out of "latest" and off page 1 of the archive naturally, and the section repopulates.
+  // Tradeoff accepted knowingly: datePublished in the Article schema is ~4 weeks earlier than the
+  // true creation date.
+
+  function run() { repointNav(); }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(run, 200); });
+  else setTimeout(run, 200);
+  setTimeout(run, 1500);   // the archive grid and nav can render late
+})();

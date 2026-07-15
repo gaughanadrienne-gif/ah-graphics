@@ -1,0 +1,30 @@
+# Local development and generated scratch files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+_previews/
+_*.py
+_*.json
+_*.txt
+_*.jpg
+_render.html
+related-manifest.backup-*.json
+
+# Secrets and local configuration must never enter this public repository
+.env
+.env.*
+!.env.example
+family/
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Editor and operating-system noise
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+*.log
