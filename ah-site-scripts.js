@@ -1499,6 +1499,23 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 })();
 
+// === MINI-CART "ADDED TO CART" POPUP: green-on-green readability fix (2026-07-15) ===
+// Squarespace's commerce mini-cart uses the brand dark-green cart section theme (#1a3b2a card)
+// but rendered its text, links, and the Checkout / View Cart buttons in dark green too, so the
+// whole "Added to cart!" popup was green-on-green. Force cream (#f8f9f0) text on the dark card and
+// override the theme's primary/secondary button TEXT vars (the buttons ignore a plain color rule
+// because Squarespace injects the cart CSS after ours at equal specificity). Verified in-browser:
+// every popup element is now cream-on-dark-green at WCAG-AA+ contrast (11.6-13.2).
+(function(){
+  var css = '.commerce-mini-cart-dialog{--primaryButtonTextColor:#f8f9f0 !important;--secondaryButtonTextColor:#f8f9f0 !important;}'
+    + '.commerce-mini-cart-dialog,.commerce-mini-cart-dialog *{color:#f8f9f0 !important;}'
+    + '.commerce-mini-cart-dialog .commerce-mini-cart-view-cart-button{text-decoration:underline !important;}';
+  var s = document.createElement('style');
+  s.setAttribute('data-ah','mini-cart-contrast');
+  s.textContent = css;
+  (document.head || document.documentElement).appendChild(s);
+})();
+
 // === GARDEN REVIEW PAGE: FAQ card contrast fix (2026-07-02) ===
 // The pasted code block predates the .ah-gr-faq card style; the page section bg is
 // dark green so the FAQ text was green-on-green. Injecting the card rule here.
