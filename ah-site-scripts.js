@@ -1863,7 +1863,7 @@ function ahIsFlockArticle(slug) {
 // Contextual affiliate card on fruit-tree / avocado / berry articles (citrus excluded).
 // Adrienne is a genuine Fast Growing Trees customer (AH's own fruit trees and
 // tropical pond plants). Code-based program: the link carries reader code
-// FGTAMBITIOUS20 plus referral attribution (resolves to FGT's ambassador page).
+// AMBITIOUS-TREES plus referral attribution (resolves to FGT's ambassador page).
 // Fully reversible: remove this whole block.
 (function () {
   if (location.pathname.indexOf('/learn/') !== 0) return;
@@ -1885,7 +1885,7 @@ function ahIsFlockArticle(slug) {
                       document.querySelector('.entry-content');
     if (!articleBody) return;
 
-    var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+    var LINK = 'https://checkout.fast-growing-trees.com/AMBITIOUS-TREES';
     var box = document.createElement('aside');
     box.className = 'ah-fgt-callout';
     box.setAttribute('style', 'display:block;margin:30px 0;padding:22px 24px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
@@ -1894,7 +1894,7 @@ function ahIsFlockArticle(slug) {
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Fast Growing Trees</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">We have ordered from Fast Growing Trees many times and genuinely recommend them. All of our tropical pond plants come from them, and they ship established, ready-to-plant trees and shrubs straight to your door.</p>' +
       '<a href="' + LINK + '" target="_blank" rel="sponsored nofollow noopener" style="display:inline-block;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px;border-radius:4px;text-decoration:none!important;border-bottom:0!important;">Shop Fast Growing Trees</a>' +
-      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:13px;">Reader code FGTAMBITIOUS20 is built into this link. As an affiliate, we may earn a commission at no extra cost to you.</div>';
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:13px;">Reader code AMBITIOUS-TREES is built into this link. As an affiliate, we may earn a commission at no extra cost to you.</div>';
 
     var h2s = articleBody.querySelectorAll('h2');
     var nonFaq = [], faqH = null;
@@ -1917,7 +1917,7 @@ function ahIsFlockArticle(slug) {
 // existing links, and the callout card. Add slugs/phrases to MAP to extend.
 (function () {
   if (location.pathname.indexOf('/learn/') !== 0) return;
-  var LINK = 'https://checkout.fast-growing-trees.com/FGTAMBITIOUS20';
+  var LINK = 'https://checkout.fast-growing-trees.com/AMBITIOUS-TREES';
   // No citrus articles here: FGT can't ship citrus to California.
   var MAP = {
     'bare-root-vs-container-fruit-trees': 'missed the bare-root season',
