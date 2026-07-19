@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-07-19T16:12:51.798Z",
+  "updated_at": "2026-07-19T17:18:27.071Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-07-19T16:12:51.798Z",
+      "updated": "2026-07-19T17:18:27.071Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 60,
+        "temperature": 63,
         "temperatureUnit": "F",
-        "apparentTemperature": 60,
+        "apparentTemperature": 63,
         "conditions": "Partly Sunny",
-        "detailedForecast": "Partly sunny. High near 72, with temperatures falling to around 69 in the afternoon. Southwest wind 2 to 7 mph.",
-        "wind": "3 mph",
-        "windSpeed": 2.8,
-        "windGust": 2.9,
+        "detailedForecast": "Partly sunny. High near 72, with temperatures falling to around 69 in the afternoon. West southwest wind 2 to 7 mph.",
+        "wind": "4 mph",
+        "windSpeed": 4.1,
+        "windGust": 4.3,
         "windDirection": "SSW",
         "precipitation": 0,
-        "soilTemp": 62,
+        "soilTemp": 63,
         "soilMoisture": 0.117,
-        "humidity": 86,
-        "vapourPressureDeficit": 0.24,
+        "humidity": 81,
+        "vapourPressureDeficit": 0.32,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -170,29 +170,29 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-07-19",
-          "high": 71.1,
+          "high": 70.3,
           "low": 55.7,
           "precipitation": 0,
-          "precipitationProbability": 2,
+          "precipitationProbability": 1,
           "uvIndex": 8.1,
-          "evapotranspiration": 0.154,
-          "windGust": 13
+          "evapotranspiration": 0.138,
+          "windGust": 11.6
         },
         "upcoming": [
           {
             "date": "2026-07-19",
-            "high": 71.1,
+            "high": 70.3,
             "low": 55.7,
             "precipitation": 0,
-            "precipitationProbability": 2,
+            "precipitationProbability": 1,
             "uvIndex": 8.1,
-            "evapotranspiration": 0.154,
-            "windGust": 13
+            "evapotranspiration": 0.138,
+            "windGust": 11.6
           },
           {
             "date": "2026-07-20",
             "high": 72.8,
-            "low": 57.5,
+            "low": 56.9,
             "precipitation": 0,
             "precipitationProbability": 3,
             "uvIndex": 7.05,
@@ -254,17 +254,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-07-19T09:00:00-07:00",
+          "startTime": "2026-07-19T10:00:00-07:00",
           "endTime": "2026-07-19T18:00:00-07:00",
           "temperature": 72,
           "temperatureUnit": "F",
           "conditions": "Partly Sunny",
-          "detailedForecast": "Partly sunny. High near 72, with temperatures falling to around 69 in the afternoon. Southwest wind 2 to 7 mph.",
+          "detailedForecast": "Partly sunny. High near 72, with temperatures falling to around 69 in the afternoon. West southwest wind 2 to 7 mph.",
           "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 2,
           "wind": "2 to 7 mph",
-          "windDirection": "SW"
+          "windDirection": "WSW"
         },
         {
           "name": "Tonight",
@@ -453,7 +453,7 @@
       "alerts": []
     },
     "slv": {
-      "updated": "2026-07-19T16:12:51.798Z",
+      "updated": "2026-07-19T17:18:27.071Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -461,26 +461,26 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 59,
+        "temperature": 68,
         "temperatureUnit": "F",
-        "apparentTemperature": 61,
+        "apparentTemperature": 73,
         "conditions": "Mostly Sunny",
         "detailedForecast": "Mostly sunny. High near 84, with temperatures falling to around 81 in the afternoon. South southeast wind around 2 mph.",
-        "wind": "2 mph",
-        "windSpeed": 2.1,
-        "windGust": 3.4,
+        "wind": "3 mph",
+        "windSpeed": 2.5,
+        "windGust": 2.5,
         "windDirection": "ESE",
         "precipitation": 0,
-        "soilTemp": 61,
+        "soilTemp": 63,
         "soilMoisture": 0.16,
-        "humidity": 100,
-        "vapourPressureDeficit": 0,
+        "humidity": 78,
+        "vapourPressureDeficit": 0.34,
         "precipitationProbability": 0
       },
       "rainfall": {
-        "today": 0.02,
-        "last7Days": 0.02,
-        "last30Days": 0.05600000000000001,
+        "today": 0.012,
+        "last7Days": 0.012,
+        "last30Days": 0.048,
         "dailyData": [
           {
             "date": "2026-06-20",
@@ -600,38 +600,38 @@
           },
           {
             "date": "2026-07-19",
-            "amount": 0.02
+            "amount": 0.012
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-07-19",
-          "high": 82.3,
+          "high": 82.1,
           "low": 55.1,
-          "precipitation": 0.02,
+          "precipitation": 0.012,
           "precipitationProbability": 2,
           "uvIndex": 8.1,
-          "evapotranspiration": 0.192,
-          "windGust": 9.6
+          "evapotranspiration": 0.181,
+          "windGust": 10.1
         },
         "upcoming": [
           {
             "date": "2026-07-19",
-            "high": 82.3,
+            "high": 82.1,
             "low": 55.1,
-            "precipitation": 0.02,
+            "precipitation": 0.012,
             "precipitationProbability": 2,
             "uvIndex": 8.1,
-            "evapotranspiration": 0.192,
-            "windGust": 9.6
+            "evapotranspiration": 0.181,
+            "windGust": 10.1
           },
           {
             "date": "2026-07-20",
             "high": 82.6,
-            "low": 56.9,
+            "low": 56.6,
             "precipitation": 0,
-            "precipitationProbability": 4,
+            "precipitationProbability": 3,
             "uvIndex": 8.3,
             "evapotranspiration": 0.171,
             "windGust": 6.3
@@ -691,7 +691,7 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-07-19T09:00:00-07:00",
+          "startTime": "2026-07-19T10:00:00-07:00",
           "endTime": "2026-07-19T18:00:00-07:00",
           "temperature": 84,
           "temperatureUnit": "F",
@@ -890,7 +890,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-07-19T16:12:51.798Z",
+      "updated": "2026-07-19T17:18:27.071Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -898,20 +898,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 58,
+        "temperature": 61,
         "temperatureUnit": "F",
-        "apparentTemperature": 59,
+        "apparentTemperature": 61,
         "conditions": "Mostly Sunny",
-        "detailedForecast": "Mostly sunny. High near 68, with temperatures falling to around 66 in the afternoon. Southwest wind 1 to 8 mph.",
-        "wind": "3 mph",
-        "windSpeed": 2.7,
-        "windGust": 2.9,
+        "detailedForecast": "Mostly sunny. High near 68, with temperatures falling to around 66 in the afternoon. Southwest wind 2 to 8 mph.",
+        "wind": "4 mph",
+        "windSpeed": 3.9,
+        "windGust": 4,
         "windDirection": "W",
         "precipitation": 0,
-        "soilTemp": 60,
-        "soilMoisture": 0.254,
-        "humidity": 89,
-        "vapourPressureDeficit": 0.18,
+        "soilTemp": 61,
+        "soilMoisture": 0.253,
+        "humidity": 83,
+        "vapourPressureDeficit": 0.3,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1044,24 +1044,24 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-07-19",
-          "high": 66.7,
+          "high": 66.6,
           "low": 54.7,
           "precipitation": 0,
           "precipitationProbability": 1,
           "uvIndex": 7.85,
-          "evapotranspiration": 0.12,
-          "windGust": 13.2
+          "evapotranspiration": 0.115,
+          "windGust": 12.3
         },
         "upcoming": [
           {
             "date": "2026-07-19",
-            "high": 66.7,
+            "high": 66.6,
             "low": 54.7,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.85,
-            "evapotranspiration": 0.12,
-            "windGust": 13.2
+            "evapotranspiration": 0.115,
+            "windGust": 12.3
           },
           {
             "date": "2026-07-20",
@@ -1128,16 +1128,16 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-07-19T09:00:00-07:00",
+          "startTime": "2026-07-19T10:00:00-07:00",
           "endTime": "2026-07-19T18:00:00-07:00",
           "temperature": 68,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny. High near 68, with temperatures falling to around 66 in the afternoon. Southwest wind 1 to 8 mph.",
+          "detailedForecast": "Mostly sunny. High near 68, with temperatures falling to around 66 in the afternoon. Southwest wind 2 to 8 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 2,
-          "wind": "1 to 8 mph",
+          "wind": "2 to 8 mph",
           "windDirection": "SW"
         },
         {
