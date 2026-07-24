@@ -2143,7 +2143,7 @@ function ahIsFlockArticle(slug) {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   if (location.pathname.indexOf('/learn/category/') === 0) return;
   // Lower index = lower value = dropped first when two boxes collide.
-  var PRIORITY = ['ah-fgt-callout', 'ah-product-callout', 'ah-gr-design-callout', 'ah-gr-review-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin', 'ah-flock-optin'];
+  var PRIORITY = ['ah-news-optin', 'ah-fgt-callout', 'ah-product-callout', 'ah-gr-design-callout', 'ah-gr-review-callout', 'ah-flock-callout', 'ah-tomato-quiz-callout', 'ah-lm-optin', 'ah-berry-optin', 'ah-flock-optin'];
   var SEL = '.' + PRIORITY.join(', .');
   // On berry pages the product callout (the Berry Growing Guide SKU, launched
   // 2026-07-01) outranks the berry cheat-sheet opt-in when they collide:
@@ -2314,6 +2314,103 @@ function ahIsFlockArticle(slug) {
       wire(wrap, wrap.querySelector('aside'));
     })();
   }
+})();
+
+// === NEWSLETTER MID-ARTICLE EMAIL CAPTURE (2026-07-23) — SITE-WIDE ===
+// The #1 conversion fix from the July 2026 deep dive: ~756 /learn/ articles had
+// no email capture until a text link in the closing paragraph, so ~1,600 weekly
+// readers convert to only ~52 subscribers. This drops a single-field opt-in box
+// roughly one third of the way down EVERY long-form article, offering the free
+// seasonal planting newsletter (the primary lead magnet). Wired to the existing
+// live MailerLite form 191102468073981272 (group "Lead Magnet: Seed Starting
+// Cheat Sheet", account 1974108, double opt-in) via the same jsonp/no-cors
+// mechanism as the other opt-in boxes. Delivery is handled by the existing
+// "Deliver: Seed Starting Cheat Sheet" automation, and every subscriber also
+// enters the Welcome Sequence + twice-monthly notes.
+//
+// Design notes:
+//  - Self-heals like the other opt-in boxes: this whole block re-runs on every
+//    page load and rebuilds the box client-side, so the Squarespace editor can
+//    never strip it (it is never stored in the article body HTML). It does NOT
+//    use, read, or write the graphics manifest, so it cannot break self-heal.
+//  - Steps aside on the ~few hundred articles that already carry a slug-targeted
+//    magnet box (berry / cheat-sheet / flock / calendar): the more relevant
+//    targeted offer wins there, and we never double-offer the same group.
+//  - Skips short articles (GQOTW, < 6 real paragraphs) so it never crowds them.
+//  - Rosewood Clay submit button per brand v1.1 (Rosewood = the action).
+// Fully reversible: remove this whole block, and remove 'ah-news-optin' from the
+// de-stack PRIORITY list and the enhancement SKIP selector (see INTEGRATION.md).
+(function () {
+  if (location.pathname.indexOf('/learn/') !== 0) return;
+  if (location.pathname.indexOf('/learn/category/') === 0) return;
+
+  var FORM = '191102468073981272'; // Seed Starting group / seasonal planting newsletter — REUSED, do not re-save
+  var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
+
+  setTimeout(function () {
+    // Idempotency: never place twice.
+    if (document.querySelector('.ah-news-optin')) return;
+    // Yield to a slug-targeted magnet if one already rendered (more relevant,
+    // and avoids offering the same MailerLite group twice on one page).
+    if (document.querySelector('.ah-lm-optin, .ah-berry-optin, .ah-flock-optin, .ah-cal-optin')) return;
+
+    var body = document.querySelector('.blog-item-content-wrapper') ||
+               document.querySelector('[data-content-field="body"]') ||
+               document.querySelector('.entry-content');
+    if (!body) return;
+
+    // Real reading paragraphs only (skip tiny captions and anything already
+    // inside a promo box / callout / aside).
+    var ps = [].slice.call(body.querySelectorAll('p')).filter(function (p) {
+      if ((p.textContent || '').trim().length <= 40) return false;
+      if (p.closest('.ah-news-optin, .ah-lm-optin, .ah-berry-optin, .ah-flock-optin, .ah-prod, .ah-fgt-callout, .ah-product-callout, .ah-tomato-quiz-callout, aside, figure, table')) return false;
+      return true;
+    });
+    if (ps.length < 6) return; // too short to place mid-article without crowding
+
+    var target = ps[Math.floor(ps.length / 3)]; // roughly after the first third
+    if (!target || !target.parentNode) return;
+
+    var box = document.createElement('aside');
+    box.className = 'ah-news-optin';
+    box.setAttribute('style', 'display:block;margin:34px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free planting guide</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;line-height:1.25;margin:0 0 7px;">Know what to plant, and when, in Santa Cruz County</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Join the free Ambitious Harvest email list for seasonal planting reminders and practical Central Coast gardening notes about twice a month. As a welcome, I will send you the one-page California Seed Starting Cheat Sheet, so you always know what to start indoors, what to sow direct, and the right timing for your zone.</p>' +
+      '<form class="ah-news-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" autocomplete="email" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#8f4f45!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the planting guide</button>' +
+      '</form>' +
+      '<div class="ah-news-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">One email field, no name needed. Unsubscribe anytime.</div>';
+
+    target.parentNode.insertBefore(box, target.nextSibling);
+
+    var form = box.querySelector('.ah-news-form');
+    var msg = box.querySelector('.ah-news-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button');
+      var input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) {
+        msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
+      }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          box.innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your California Seed Starting Cheat Sheet is on its way, with seasonal planting notes to follow. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () {
+          msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.';
+          btn.textContent = 'Send me the planting guide'; btn.disabled = false;
+        });
+    });
+  }, 2100); // after the 1700ms targeted-magnet boxes, so the yield check above sees them
 })();
 
 // === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) — SITE-WIDE ===
@@ -2880,7 +2977,7 @@ function ahIsFlockArticle(slug) {
       });
       return (bestScore >= 1 && bestScore > second) ? best : null;   // unique most-related heading only (ties fall back)
     }
-    var SKIP = '.ah-graphic, .ah-relwrap, .ah-prod, .ah-fgt-callout, .ah-lead, .ah-tomato-quiz-callout, .ah-lm-optin, .ah-berry-optin, .ah-flock-optin, form, .sqs-block-form';
+    var SKIP = '.ah-graphic, .ah-relwrap, .ah-prod, .ah-fgt-callout, .ah-lead, .ah-tomato-quiz-callout, .ah-news-optin, .ah-lm-optin, .ah-berry-optin, .ah-flock-optin, form, .sqs-block-form';
     var cands = [].slice.call(root.querySelectorAll('table, div[style*="background"]')).filter(function (g) { return !g.closest(SKIP); });
     cands.forEach(function (g, i) { g.__ahStr = i; });          // tag for outermost-only filter
     cands = cands.filter(function (g) {                          // drop a candidate nested inside another candidate
