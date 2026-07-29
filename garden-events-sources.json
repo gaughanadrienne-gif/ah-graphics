@@ -1,0 +1,404 @@
+{
+  "version": 1,
+  "timezone": "America/Los_Angeles",
+  "primary_area": "Santa Cruz County, California",
+  "sources": [
+    {
+      "id": "ah_google_calendar",
+      "name": "Ambitious Harvest Google Calendar",
+      "url": "https://calendar.google.com/calendar/ical/c_0fe029dcc32ff09993862a18cfab7dbeedb01b442f6f4b381d21f8534aea0d39%40group.calendar.google.com/public/basic.ics",
+      "adapter": "ics",
+      "tier": "automatic",
+      "role": "temporary_manual_fallback",
+      "categories": [
+        "learn",
+        "shop",
+        "volunteer",
+        "tour",
+        "experience"
+      ]
+    },
+    {
+      "id": "city_santa_cruz_events",
+      "name": "City of Santa Cruz Events Directory",
+      "url": "https://www.santacruzca.gov/Events-directory",
+      "adapter": "opencities_events_html",
+      "tier": "automatic",
+      "role": "discovery",
+      "categories": [
+        "volunteer",
+        "learn",
+        "market",
+        "tour"
+      ],
+      "notes": "Require a strong topical keyword; never publish from Community Event tag alone."
+    },
+    {
+      "id": "santa_cruz_community_gardens",
+      "name": "City of Santa Cruz Community Gardens",
+      "url": "https://www.santacruzca.gov/Government/City-Departments/Parks-Recreation/Santa-Cruz-Community-Gardens",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "volunteer_and_workshop_discovery",
+      "categories": [
+        "volunteer",
+        "learn",
+        "swap"
+      ]
+    },
+    {
+      "id": "sccfm",
+      "name": "Santa Cruz Community Farmers' Markets",
+      "url": "https://santacruzfarmersmarket.org/",
+      "adapter": "market_schedule_html",
+      "tier": "automatic",
+      "role": "recurring_markets_and_special_events",
+      "categories": [
+        "market",
+        "experience"
+      ],
+      "notes": "Create compact series for Felton, Downtown, Scotts Valley, Westside, and Live Oak."
+    },
+    {
+      "id": "mbcfm_aptos",
+      "name": "Monterey Bay Certified Farmers Markets - Aptos",
+      "url": "https://montereybayfarmers.org/",
+      "adapter": "tribe_events_and_schedule_html",
+      "tier": "automatic",
+      "role": "recurring_market_and_special_events",
+      "categories": [
+        "market",
+        "learn",
+        "experience"
+      ]
+    },
+    {
+      "id": "boulder_creek_farmers_market",
+      "name": "Boulder Creek Farmers Market",
+      "url": "https://www.bcrpd.org/events",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "recurring_market_and_weekly_updates",
+      "categories": [
+        "market"
+      ],
+      "notes": "2026 market is presented with Farm Success Partners at Junction Park. Check organizer updates for any season-end announcement, cancellations, and the weekly vendor or food-truck lineup. Do not classify as a tour or U-pick."
+    },
+    {
+      "id": "ben_lomond_village_market",
+      "name": "Ben Lomond Village Alliance",
+      "url": "https://benlomondvillage.org/visitor-information/",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "seasonal_village_market",
+      "categories": [
+        "market"
+      ],
+      "notes": "Publish the confirmed first-Saturday dates from June through October. Do not classify as a tour or U-pick."
+    },
+    {
+      "id": "ucsc_agroecology",
+      "name": "UCSC Center for Agroecology",
+      "url": "https://events.ucsc.edu/organizer/center-for-agroecology/?ical=1",
+      "adapter": "ics",
+      "tier": "automatic",
+      "role": "events",
+      "categories": [
+        "u-pick",
+        "tour",
+        "learn",
+        "experience"
+      ],
+      "notes": "Validate recurring-series end dates against the written description."
+    },
+    {
+      "id": "uc_master_gardeners",
+      "name": "UC Master Gardeners of Monterey, San Benito & Santa Cruz Counties",
+      "url": "https://ucanr.edu/site/uc-master-gardeners-monterey-santa-cruz-counties/collection/events",
+      "adapter": "ucanr_events_html",
+      "tier": "automatic",
+      "role": "events",
+      "categories": [
+        "learn",
+        "plant-sale",
+        "tour"
+      ],
+      "notes": "Auto-publish Santa Cruz County and online events; review other counties."
+    },
+    {
+      "id": "cnps",
+      "name": "California Native Plant Society",
+      "url": "https://www.cnps.org/events/list/?ical=1",
+      "adapter": "ics",
+      "tier": "automatic",
+      "role": "events",
+      "categories": [
+        "learn",
+        "plant-sale",
+        "tour",
+        "volunteer"
+      ],
+      "notes": "Filter to Santa Cruz chapter, Santa Cruz County venue, or online events of exceptional local relevance."
+    },
+    {
+      "id": "ucsc_arboretum",
+      "name": "UCSC Arboretum & Botanic Garden",
+      "url": "https://arboretum.ucsc.edu/visit/events/",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "events_and_recurring_tours",
+      "categories": [
+        "learn",
+        "plant-sale",
+        "tour",
+        "volunteer",
+        "experience"
+      ]
+    },
+    {
+      "id": "santa_cruz_public_libraries",
+      "name": "Santa Cruz Public Libraries",
+      "url": "https://santacruzpl.libnet.info/events",
+      "adapter": "libcal_html",
+      "tier": "automatic",
+      "role": "keyword_filtered_events",
+      "categories": [
+        "learn",
+        "swap"
+      ],
+      "notes": "Require strong gardening, seed, plant, compost, or Master Gardener match."
+    },
+    {
+      "id": "live_earth_farm",
+      "name": "Live Earth Farm",
+      "url": "https://www.liveearthfarm.net/events",
+      "availability_url": "https://www.liveearthfarm.net/u-pick",
+      "adapter": "farm_events_and_availability_html",
+      "tier": "monitored",
+      "role": "u-pick_and_events",
+      "categories": [
+        "u-pick",
+        "tour",
+        "experience"
+      ],
+      "notes": "Show U-pick as an availability card; update crop and open/closed state from the official page."
+    },
+    {
+      "id": "dynomite_farm",
+      "name": "Dynomite Farm",
+      "url": "https://dynomitefarm.com/",
+      "adapter": "appointment_availability_html",
+      "tier": "monitored",
+      "role": "private_flower_u_cut",
+      "categories": [
+        "u-pick",
+        "tour"
+      ],
+      "notes": "Appointment-only private U-cut. The official site says the 2026 dahlia season is open July through mid-October; publish only when a bookable appointment can be represented accurately."
+    },
+    {
+      "id": "beeline_blooms",
+      "name": "Beeline Blooms",
+      "url": "https://beelineblooms.com/",
+      "adapter": "u_pick_availability_html",
+      "tier": "monitored",
+      "role": "flower_u_pick",
+      "categories": [
+        "u-pick",
+        "tour",
+        "volunteer"
+      ],
+      "notes": "Official site gives an early-August to mid-October weather-dependent season but no 2026 opening day yet. Do not publish until current opening details appear."
+    },
+    {
+      "id": "crystal_bay_farm",
+      "name": "Crystal Bay Farm",
+      "url": "https://www.crystalbayfarm.com/home.html",
+      "adapter": "u_pick_availability_html",
+      "tier": "monitored",
+      "role": "mixed_crop_u_pick",
+      "categories": [
+        "u-pick",
+        "tour",
+        "learn"
+      ],
+      "notes": "The official page lists crop seasons but says the farm is still planning its season and gives no current 2026 days or hours. Do not publish until availability is confirmed."
+    },
+    {
+      "id": "swanton_berry_farm",
+      "name": "Swanton Berry Farm",
+      "url": "https://www.swantonberryfarm.com/home/upicks",
+      "adapter": "u_pick_availability_html",
+      "tier": "monitored",
+      "role": "berry_u_pick",
+      "categories": [
+        "u-pick"
+      ],
+      "notes": "The current official U-pick page lists only May 9 to 10, 2026, which has passed. Do not infer ongoing U-pick from farm-stand hours."
+    },
+    {
+      "id": "clearview_orchards",
+      "name": "Clearview Orchards",
+      "url": "http://www.clearvieworchards.com",
+      "fallback_url": "https://www.ccof.org/directory-member/clearview-orchards/",
+      "adapter": "u_pick_availability_html",
+      "tier": "monitored",
+      "role": "apple_u_pick",
+      "categories": [
+        "u-pick"
+      ],
+      "notes": "CCOF confirms U-pick apples, but no official 2026 opening dates were found. Do not publish until the orchard confirms its season."
+    },
+    {
+      "id": "mountain_feed_workshops",
+      "name": "Mountain Feed & Farm Supply Workshops",
+      "url": "https://www.mountainfeed.com/pages/workshop/workshop-agxk5ciw",
+      "adapter": "shopify_workshop_html",
+      "tier": "monitored",
+      "role": "workshops_and_farm_skills",
+      "categories": [
+        "learn",
+        "experience"
+      ],
+      "notes": "Import gardening, farming, food-preservation, and seasonal-skill workshops. Respect explicit cancellation text and reschedule notices."
+    },
+    {
+      "id": "gizdich_ranch",
+      "name": "Gizdich Ranch",
+      "url": "https://www.gizdich-ranch.com/u-pick/",
+      "adapter": "u_pick_availability_html",
+      "tier": "monitored",
+      "role": "u-pick_availability",
+      "categories": [
+        "u-pick",
+        "experience"
+      ],
+      "notes": "Dates are weather-dependent. Do not publish an opening until the official page confirms it."
+    },
+    {
+      "id": "open_farm_tours",
+      "name": "Open Farm Tours",
+      "url": "https://www.openfarmtours.com/",
+      "adapter": "annual_event_html",
+      "tier": "monitored",
+      "role": "annual_farm_tours",
+      "categories": [
+        "tour",
+        "experience",
+        "learn"
+      ]
+    },
+    {
+      "id": "life_lab",
+      "name": "Life Lab",
+      "url": "https://www.lifelab.org/gcworkshops",
+      "adapter": "squarespace_events_html",
+      "tier": "monitored",
+      "role": "school_garden_workshops_and_tours",
+      "categories": [
+        "learn",
+        "tour",
+        "volunteer"
+      ],
+      "notes": "These are educator-focused professional events; include the audience and price prominently."
+    },
+    {
+      "id": "cabrillo_horticulture",
+      "name": "Cabrillo College Horticulture",
+      "url": "https://www.cabrillo.edu/horticulture/get-involved-at-horticulture/",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "plant_sales_and_home_gardener_days",
+      "categories": [
+        "plant-sale",
+        "learn",
+        "volunteer",
+        "tour"
+      ]
+    },
+    {
+      "id": "watsonville_wetlands_watch",
+      "name": "Watsonville Wetlands Watch",
+      "url": "https://www.watsonvillewetlandswatch.org/",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "restoration_and_plant_sales",
+      "categories": [
+        "volunteer",
+        "plant-sale",
+        "tour",
+        "learn"
+      ]
+    },
+    {
+      "id": "homeless_garden_project",
+      "name": "Homeless Garden Project",
+      "url": "https://homelessgardenproject.org/events-calendar/",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "farm_events_and_volunteering",
+      "categories": [
+        "volunteer",
+        "tour",
+        "learn",
+        "experience"
+      ]
+    },
+    {
+      "id": "land_trust_santa_cruz",
+      "name": "Land Trust of Santa Cruz County",
+      "url": "https://landtrustsantacruz.org/",
+      "adapter": "html_monitor",
+      "tier": "monitored",
+      "role": "volunteer_discovery",
+      "categories": [
+        "volunteer",
+        "tour",
+        "learn"
+      ]
+    },
+    {
+      "id": "santa_cruz_county_parks",
+      "name": "Santa Cruz County Parks",
+      "url": "https://parks.santacruzcountyca.gov/",
+      "adapter": "seasonal_guide_and_html",
+      "tier": "review",
+      "role": "classes_and_tours",
+      "categories": [
+        "learn",
+        "tour",
+        "volunteer"
+      ]
+    },
+    {
+      "id": "gardeners_club_santa_cruz",
+      "name": "The Gardeners' Club of Santa Cruz County",
+      "url": "https://www.thegardenersclub.org/",
+      "adapter": "newsletter_and_html_review",
+      "tier": "review",
+      "role": "meetups_swaps_sales_and_tours",
+      "categories": [
+        "meetup",
+        "swap",
+        "plant-sale",
+        "tour",
+        "learn"
+      ],
+      "notes": "The home page can contain stale dates; verify against the latest newsletter before approval."
+    },
+    {
+      "id": "meetup_santa_cruz_gardening",
+      "name": "Meetup gardening groups near Santa Cruz",
+      "url": "https://www.meetup.com/find/us--ca--santa-cruz/garden-club/",
+      "adapter": "manual_review",
+      "tier": "review",
+      "role": "meetup_discovery",
+      "categories": [
+        "meetup",
+        "swap",
+        "learn"
+      ],
+      "notes": "Never scrape or auto-publish. Verify the organizer, public accessibility, venue, and canonical event link."
+    }
+  ]
+}

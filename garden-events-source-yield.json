@@ -1,0 +1,286 @@
+{
+  "updated": "2026-07-29",
+  "alarm_after": 3,
+  "total_events": 22,
+  "sources": {
+    "manual": {
+      "name": "manual",
+      "tier": "internal",
+      "adapter": "manual",
+      "last_count": 9,
+      "zero_streak": 0,
+      "last_nonzero": "2026-07-29",
+      "last_note": "carried from feed"
+    },
+    "recurring": {
+      "name": "recurring",
+      "tier": "internal",
+      "adapter": "recurring",
+      "last_count": 12,
+      "zero_streak": 0,
+      "last_nonzero": "2026-07-29",
+      "last_note": "expanded to next occurrence"
+    },
+    "ah_google_calendar": {
+      "name": "Ambitious Harvest Google Calendar",
+      "tier": "automatic",
+      "adapter": "ics",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "fetched"
+    },
+    "ucsc_agroecology": {
+      "name": "UCSC Center for Agroecology",
+      "tier": "automatic",
+      "adapter": "ics",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "fetch failed (HTTP 403); carried 0 prior"
+    },
+    "cnps": {
+      "name": "California Native Plant Society",
+      "tier": "automatic",
+      "adapter": "ics",
+      "last_count": 1,
+      "zero_streak": 0,
+      "last_nonzero": "2026-07-29",
+      "last_note": "fetched"
+    },
+    "city_santa_cruz_events": {
+      "name": "City of Santa Cruz Events Directory",
+      "tier": "automatic",
+      "adapter": "opencities_events_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no opencities_events_html adapter implemented"
+    },
+    "santa_cruz_community_gardens": {
+      "name": "City of Santa Cruz Community Gardens",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "sccfm": {
+      "name": "Santa Cruz Community Farmers' Markets",
+      "tier": "automatic",
+      "adapter": "market_schedule_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no market_schedule_html adapter implemented"
+    },
+    "mbcfm_aptos": {
+      "name": "Monterey Bay Certified Farmers Markets - Aptos",
+      "tier": "automatic",
+      "adapter": "tribe_events_and_schedule_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no tribe_events_and_schedule_html adapter implemented"
+    },
+    "boulder_creek_farmers_market": {
+      "name": "Boulder Creek Farmers Market",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "ben_lomond_village_market": {
+      "name": "Ben Lomond Village Alliance",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "uc_master_gardeners": {
+      "name": "UC Master Gardeners of Monterey, San Benito & Santa Cruz Counties",
+      "tier": "automatic",
+      "adapter": "ucanr_events_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no ucanr_events_html adapter implemented"
+    },
+    "ucsc_arboretum": {
+      "name": "UCSC Arboretum & Botanic Garden",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "santa_cruz_public_libraries": {
+      "name": "Santa Cruz Public Libraries",
+      "tier": "automatic",
+      "adapter": "libcal_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no libcal_html adapter implemented"
+    },
+    "live_earth_farm": {
+      "name": "Live Earth Farm",
+      "tier": "monitored",
+      "adapter": "farm_events_and_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no farm_events_and_availability_html adapter implemented"
+    },
+    "dynomite_farm": {
+      "name": "Dynomite Farm",
+      "tier": "monitored",
+      "adapter": "appointment_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no appointment_availability_html adapter implemented"
+    },
+    "beeline_blooms": {
+      "name": "Beeline Blooms",
+      "tier": "monitored",
+      "adapter": "u_pick_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no u_pick_availability_html adapter implemented"
+    },
+    "crystal_bay_farm": {
+      "name": "Crystal Bay Farm",
+      "tier": "monitored",
+      "adapter": "u_pick_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no u_pick_availability_html adapter implemented"
+    },
+    "swanton_berry_farm": {
+      "name": "Swanton Berry Farm",
+      "tier": "monitored",
+      "adapter": "u_pick_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no u_pick_availability_html adapter implemented"
+    },
+    "clearview_orchards": {
+      "name": "Clearview Orchards",
+      "tier": "monitored",
+      "adapter": "u_pick_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no u_pick_availability_html adapter implemented"
+    },
+    "mountain_feed_workshops": {
+      "name": "Mountain Feed & Farm Supply Workshops",
+      "tier": "monitored",
+      "adapter": "shopify_workshop_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no shopify_workshop_html adapter implemented"
+    },
+    "gizdich_ranch": {
+      "name": "Gizdich Ranch",
+      "tier": "monitored",
+      "adapter": "u_pick_availability_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no u_pick_availability_html adapter implemented"
+    },
+    "open_farm_tours": {
+      "name": "Open Farm Tours",
+      "tier": "monitored",
+      "adapter": "annual_event_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no annual_event_html adapter implemented"
+    },
+    "life_lab": {
+      "name": "Life Lab",
+      "tier": "monitored",
+      "adapter": "squarespace_events_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no squarespace_events_html adapter implemented"
+    },
+    "cabrillo_horticulture": {
+      "name": "Cabrillo College Horticulture",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "watsonville_wetlands_watch": {
+      "name": "Watsonville Wetlands Watch",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "homeless_garden_project": {
+      "name": "Homeless Garden Project",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "land_trust_santa_cruz": {
+      "name": "Land Trust of Santa Cruz County",
+      "tier": "monitored",
+      "adapter": "html_monitor",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no html_monitor adapter implemented"
+    },
+    "santa_cruz_county_parks": {
+      "name": "Santa Cruz County Parks",
+      "tier": "review",
+      "adapter": "seasonal_guide_and_html",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no seasonal_guide_and_html adapter implemented"
+    },
+    "gardeners_club_santa_cruz": {
+      "name": "The Gardeners' Club of Santa Cruz County",
+      "tier": "review",
+      "adapter": "newsletter_and_html_review",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no newsletter_and_html_review adapter implemented"
+    },
+    "meetup_santa_cruz_gardening": {
+      "name": "Meetup gardening groups near Santa Cruz",
+      "tier": "review",
+      "adapter": "manual_review",
+      "last_count": 0,
+      "zero_streak": 1,
+      "last_nonzero": null,
+      "last_note": "no manual_review adapter implemented"
+    }
+  }
+}

@@ -24,12 +24,24 @@ jobs:
       - name: Refresh public event feeds and recurring dates
         run: node scripts/refresh-garden-events.mjs
       - name: Validate event feed
-        run: node -e "const d=require('./garden-events-data.json'); if(!Array.isArray(d.events)||!d.events.length) process.exit(1); console.log(d.events.length+' events validated')"
+        run: |
+          node -e "
+          const d=require('./garden-events-data.json');
+          if(!Array.isArray(d.events)||!d.events.length) throw new Error('no events');
+          if(!d.updated) throw new Error('missing top-level updated timestamp');
+          for (const e of d.events) {
+            if(!Array.isArray(e.categories)) throw new Error('categories is not an array: '+e.id);
+            for (const [k,v] of Object.entries(e)) {
+              if(typeof v==='string' && /[^\x20-\x7e]/.test(v)) throw new Error('non-ascii in '+e.id+'.'+k+': '+JSON.stringify(v));
+            }
+          }
+          console.log(d.events.length+' events validated');
+          "
       - name: Commit changes
         run: |
           git config user.name "ah-events-bot"
           git config user.email "actions@github.com"
-          git add garden-events-data.json
+          git add garden-events-data.json garden-events-source-yield.json
           if git diff --staged --quiet; then
             echo "No event changes."
           else
