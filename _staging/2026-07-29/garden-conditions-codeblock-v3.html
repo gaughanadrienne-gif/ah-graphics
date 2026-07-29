@@ -1,0 +1,1527 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+      /* Brand Colors */
+      --color-green-dark: #1a3b2a;
+      --color-green-medium: #1c3c2c;
+      --color-sage: #8c9c8c;
+      --color-sage-light: #dde2d8;
+      --color-cream: #f8f9f0;
+      
+      /* Functional Colors */
+      --color-white: #FFFFFF;
+      --color-text: #1c3c2c;
+      --color-text-secondary: #4a5a4a;
+      --color-text-light: #6b7b6b;
+      --color-text-muted: rgba(28, 60, 44, 0.65);
+      --color-border: #dde2d8;
+      --color-alert-red: #C45C4A;
+      --color-alert-yellow: #D4A843;
+      --color-rain: #4A7C9B;
+      --color-rain-light: #E8F4F8;
+      
+      /* Secondary card backgrounds (slightly muted) */
+      --color-card-secondary: #fdfdf8;
+      
+      /* Fonts */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Sans 3', -apple-system, sans-serif;
+      
+      /* Effects */
+      --shadow-soft: 0 4px 20px rgba(26, 59, 42, 0.1);
+      --shadow-card: 0 2px 8px rgba(26, 59, 42, 0.08);
+      --shadow-card-subtle: 0 1px 4px rgba(26, 59, 42, 0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-cream);
+      color: var(--color-text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .dashboard {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* Header - Left aligned */
+    .dashboard-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .dashboard-updated {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      text-align: right;
+    }
+
+    /* Zone Selector - Primary Control */
+    .zone-selector-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .zone-selector-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .zone-selector-label {
+      font-size: 0.9rem;
+      color: var(--color-green-dark);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .zone-selector-helper {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    .zone-selector {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--color-white);
+      border: 2px solid var(--color-green-dark);
+      border-radius: var(--radius-sm);
+      padding: 10px 40px 10px 16px;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--color-green-dark);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a3b2a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 18px;
+    }
+
+    .zone-selector:hover {
+      border-color: var(--color-green-medium);
+      box-shadow: var(--shadow-card);
+    }
+
+    .zone-selector:focus {
+      outline: none;
+      border-color: var(--color-green-dark);
+      box-shadow: 0 0 0 3px rgba(26, 59, 42, 0.15);
+    }
+
+    /* Alert Banner - Informational, Not Alarming */
+    .alerts-container {
+      margin-bottom: 24px;
+    }
+
+    .alert-banner {
+      background: rgba(26, 59, 42, 0.08);
+      color: var(--color-text);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      border-left: 4px solid var(--color-green-dark);
+    }
+
+    .alert-banner.warning {
+      background: rgba(26, 59, 42, 0.06);
+      border-left-color: var(--color-sage);
+    }
+
+    .alert-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--color-text-light);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .alert-event {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-green-dark);
+      margin-bottom: 6px;
+    }
+
+    .alert-headline {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Current Conditions Card */
+    .current-conditions {
+      background: var(--color-white);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--color-border);
+    }
+
+    .current-main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .current-temp-block {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .current-temp {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--color-green-dark);
+      line-height: 1;
+    }
+
+    .current-temp-unit {
+      font-size: 2rem;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .current-conditions-text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-top: 8px;
+    }
+
+    .current-details {
+      text-align: right;
+    }
+
+    .current-detail-item {
+      font-size: 1.05rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .current-detail-label {
+      color: var(--color-text-light);
+    }
+
+    .current-detail-value {
+      color: var(--color-text);
+      font-weight: 500;
+    }
+
+    .current-forecast-detail {
+      font-size: 1.05rem;
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* CIMIS Data Row - Secondary */
+    .cimis-section {
+      background: var(--color-card-secondary);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-card-subtle);
+      border: 1px solid var(--color-border);
+    }
+
+    .cimis-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .cimis-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-green-dark);
+      margin: 0;
+    }
+
+    .cimis-source {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-left: auto;
+    }
+
+    .cimis-note {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .cimis-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .cimis-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .cimis-table th,
+    .cimis-table td {
+      padding: 10px 12px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .cimis-table th {
+      background: var(--color-sage-light);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cimis-table td:first-child {
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .cimis-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .cimis-table tr:nth-child(even) {
+      background: var(--color-cream);
+    }
+
+    .cimis-data {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .cimis-item {
+      text-align: center;
+      padding: 16px 14px;
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+    }
+
+    .cimis-label {
+      font-size: 0.7rem;
+      color: var(--color-text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .cimis-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-green-dark);
+    }
+
+    .cimis-unavailable {
+      color: var(--color-text-light);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+
+    /* Rainfall Section - Secondary */
+    .rainfall-section {
+      background: var(--color-card-secondary);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-card-subtle);
+      border: 1px solid var(--color-border);
+    }
+
+    .rainfall-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .rainfall-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-green-dark);
+    }
+
+    .rainfall-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .rainfall-card {
+      text-align: center;
+      padding: 14px 12px;
+      background: rgba(232, 244, 248, 0.6);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(74, 124, 155, 0.15);
+    }
+
+    .rainfall-card-label {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .rainfall-card-value {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--color-rain);
+      line-height: 1;
+    }
+
+    .rainfall-card-unit {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--color-rain);
+      margin-left: 2px;
+    }
+
+    .rainfall-card-note {
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+      margin-top: 6px;
+    }
+
+    /* Rainfall Bar Chart */
+    .rainfall-chart {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .rainfall-chart-title {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .rainfall-chart {
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-top: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .rainfall-chart-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .rainfall-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 100px;
+      padding: 0 4px;
+      border-bottom: 2px solid var(--color-sage-light);
+      position: relative;
+    }
+
+    .rainfall-bar-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .rainfall-bar-amount {
+      font-size: 0.65rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .rainfall-bar {
+      width: 100%;
+      max-width: 28px;
+      background: linear-gradient(180deg, var(--color-rain) 0%, #3a6a87 100%);
+      border-radius: 4px 4px 0 0;
+      min-height: 4px;
+      transition: height 0.3s ease;
+      box-shadow: 0 -2px 4px rgba(74, 124, 155, 0.2);
+    }
+
+    .rainfall-bar.today {
+      background: linear-gradient(180deg, var(--color-green-dark) 0%, #0d2318 100%);
+      box-shadow: 0 -2px 6px rgba(26, 59, 42, 0.3);
+    }
+
+    .rainfall-bar.no-rain {
+      background: var(--color-sage-light);
+      min-height: 2px;
+      box-shadow: none;
+    }
+
+    .rainfall-bar-date {
+      font-size: 0.7rem;
+      color: var(--color-text-light);
+      margin-top: 4px;
+    }
+
+    .rainfall-day-labels {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 4px 0;
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+      font-weight: 500;
+    }
+
+    .rainfall-day-labels span {
+      flex: 1;
+      text-align: center;
+    }
+
+    .rainfall-day-labels span.today-label {
+      color: var(--color-green-dark);
+      font-weight: 600;
+    }
+
+    /* --- v3: 7 day / 30 day rainfall trend toggle (2026-07-29) --- */
+    .rainfall-chart-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .rainfall-chart-head .rainfall-chart-title { margin-bottom: 0; }
+
+    .rainfall-toggle {
+      display: inline-flex;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--color-white) !important;
+    }
+
+    .rainfall-toggle-btn {
+      padding: 5px 13px;
+      border: 0;
+      background: var(--color-white) !important;
+      color: var(--color-green-dark) !important;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .rainfall-toggle-btn + .rainfall-toggle-btn { border-left: 1px solid var(--color-border); }
+
+    .rainfall-toggle-btn.on {
+      background: var(--color-green-dark) !important;
+      color: var(--color-white) !important;
+    }
+
+    .rainfall-toggle-btn:focus-visible { outline: 2px solid var(--color-green-dark); outline-offset: -2px; }
+
+    /* 30 day mode: thinner bars, no per-bar amount label */
+    .rainfall-bars.wide { gap: 3px; height: 84px; }
+    .rainfall-bars.wide .rainfall-bar { max-width: 14px; border-radius: 2px 2px 0 0; }
+    .rainfall-day-labels.wide { font-size: 0.68rem; }
+    .rainfall-day-labels.wide span { min-width: 0; overflow: hidden; }
+
+    .rainfall-chart-note {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--color-text-secondary) !important;
+    }
+
+    /* Forecast Section */
+    .forecast-section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-green-dark);
+      margin-bottom: 20px;
+    }
+
+    .forecast-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+
+    .forecast-card {
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--color-border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-width: 0;
+    }
+
+    .forecast-card.today {
+      border-color: var(--color-green-dark);
+      border-width: 2px;
+      background: linear-gradient(180deg, var(--color-white) 0%, rgba(248, 249, 240, 0.5) 100%);
+    }
+
+    .forecast-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .forecast-day {
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .forecast-card.today .forecast-day {
+      color: var(--color-green-dark);
+      font-weight: 700;
+    }
+
+    .forecast-icon {
+      width: 40px;
+      height: 40px;
+      margin: 4px auto;
+    }
+
+    .forecast-temps {
+      margin-bottom: 6px;
+    }
+
+    .forecast-temp-high {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-green-dark);
+      line-height: 1;
+    }
+
+    .forecast-temp-low {
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      margin-top: 2px;
+    }
+
+    .forecast-conditions {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+      min-height: 0;
+    }
+
+    .forecast-precip {
+      font-size: 0.85rem;
+      color: var(--color-rain);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    /* v3 brand fix: the source used a water-drop emoji here. Brand rule is no
+       emoji anywhere in AH copy or UI, so it is a drawn dot in the rain blue. */
+    .forecast-precip::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: var(--color-rain) !important;
+      flex-shrink: 0;
+    }
+
+    /* Garden guidance - Featured Section */
+    .garden-guidance {
+      background: var(--color-white);
+      color: var(--color-text);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-card);
+      margin-top: 8px;
+    }
+
+    .guidance-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .guidance-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 500;
+      color: var(--color-green-dark);
+      margin: 0;
+    }
+
+    .guidance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .guidance-card {
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-green-dark);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      background: var(--color-cream);
+    }
+
+    .guidance-card.urgent {
+      border-left-color: #b34b31;
+      background: #fff7f2;
+    }
+
+    .guidance-card.watch {
+      border-left-color: #c28a32;
+      background: #fffaf0;
+    }
+
+    .tip-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-green-dark);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .tip-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .tip-content {
+      font-size: 0.94rem;
+      line-height: 1.65;
+      color: var(--color-text);
+    }
+
+    .tip-list {
+      margin: 10px 0 0 18px;
+      padding: 0;
+      color: var(--color-text);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .tip-list li + li { margin-top: 6px; }
+
+    .data-sources {
+      margin-top: 14px;
+      font-size: 0.76rem;
+      line-height: 1.5;
+      color: var(--color-text-light);
+    }
+
+    .data-sources a { color: var(--color-green-dark); }
+
+    /* Help Section */
+    .help-section {
+      margin-top: 32px;
+      border-top: 1px solid var(--color-border);
+      padding-top: 24px;
+    }
+
+    .help-toggle {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+
+    .help-toggle:hover {
+      color: var(--color-text-secondary);
+    }
+
+    .help-toggle-icon {
+      transition: transform 0.2s ease;
+      font-size: 0.7rem;
+    }
+
+    .help-toggle.open .help-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .help-content {
+      display: none;
+      margin-top: 16px;
+      padding-left: 4px;
+    }
+
+    .help-content.open {
+      display: block;
+    }
+
+    .help-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .help-list li {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 10px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .help-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--color-sage);
+    }
+
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--color-text-secondary);
+    }
+
+    .loading-spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-green-dark);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    .loading p {
+      font-size: 1.1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Refreshing overlay */
+    .dashboard-content {
+      transition: opacity 0.2s ease;
+    }
+
+    .dashboard-content.refreshing {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Error State */
+    .error-state {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--color-white);
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+    }
+
+    .error-state p {
+      color: var(--color-alert-red);
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    .retry-btn {
+      background: var(--color-green-dark);
+      color: var(--color-cream);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .retry-btn:hover {
+      background: var(--color-green-medium);
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .forecast-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .rainfall-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .guidance-grid { grid-template-columns: 1fr; }
+      .garden-guidance { padding: 22px 18px; }
+      .guidance-header { display: block; }
+      .dashboard {
+        padding: 20px 16px;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .header-divider {
+        display: none;
+      }
+
+      .zone-selector {
+        width: 100%;
+      }
+
+      .current-conditions {
+        padding: 24px 20px;
+      }
+
+      .current-main {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .current-details {
+        text-align: left;
+      }
+
+      .current-temp {
+        font-size: 4rem;
+      }
+
+      .current-conditions-text {
+        font-size: 1.25rem;
+      }
+
+      .forecast-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .forecast-card {
+        padding: 14px 8px;
+      }
+
+      .forecast-temp-high {
+        font-size: 1.35rem;
+      }
+
+      .forecast-temp-low {
+        font-size: 0.75rem;
+      }
+
+      .cimis-data {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .rainfall-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .rainfall-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+      }
+
+      .rainfall-card-label {
+        margin-bottom: 0;
+      }
+
+      .rainfall-card-value {
+        font-size: 1.75rem;
+      }
+
+      .rainfall-bars {
+        height: 60px;
+      }
+
+      /* v3: 30 day strip on a phone */
+      .rainfall-bars.wide { height: 56px; gap: 2px; }
+      .rainfall-bars.wide .rainfall-bar { max-width: 8px; }
+      .rainfall-day-labels.wide { font-size: 0.6rem; }
+
+      .section-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+
+
+<div class="dashboard" id="dashboard">
+  <div class="loading" id="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading garden conditions...</p>
+  </div>
+</div>
+
+<script>
+/* ---------------------------------------------------------------------
+   Garden Conditions v3 (staged 2026-07-29)
+   Changes from garden-conditions-codeblock-FIXED.html:
+     1. Rainfall now has a 7 day / 30 day toggle. The 30 day series was already
+        being shipped in garden-conditions-data.json as rainfall.dailyData and
+        was never rendered; only the last 7 entries were used.
+     2. Per-zone deep links: /garden-conditions?zone=slv preselects San Lorenzo
+        Valley. Accepted values are the zone keys in the feed, plus a few
+        friendly aliases. Precedence is URL, then saved zone, then Santa Cruz.
+   --------------------------------------------------------------------- */
+const DATA_URL = 'https://gaughanadrienne-gif.github.io/ah-graphics/garden-conditions-data.json';
+const CACHE_KEY = 'ah-garden-conditions-v2';
+const ZONE_KEYS = ['santa-cruz', 'slv', 'watsonville'];
+const ZONE_ALIASES = {
+  'santa-cruz': 'santa-cruz', 'santacruz': 'santa-cruz', 'sc': 'santa-cruz',
+  'slv': 'slv', 'san-lorenzo-valley': 'slv', 'sanlorenzovalley': 'slv',
+  'boulder-creek': 'slv', 'felton': 'slv', 'ben-lomond': 'slv',
+  'watsonville': 'watsonville', 'pajaro': 'watsonville'
+};
+let currentZone = 'santa-cruz';
+let conditionsSnapshot = null;
+/* 7 or 30. Lives outside renderDashboard because the dashboard is rebuilt from
+   scratch on every zone change and the toggle must survive that. */
+let rainWindow = 7;
+
+/* Reads ?zone= off the URL and normalizes it. Returns null when absent or
+   unrecognized, so a bad link falls through to the saved zone instead of
+   blanking the dashboard. */
+function zoneFromUrl() {
+  let raw = null;
+  try {
+    raw = new URLSearchParams(window.location.search).get('zone');
+  } catch (e) { return null; }
+  if (!raw) return null;
+  const key = String(raw).trim().toLowerCase();
+  return ZONE_ALIASES[key] || (ZONE_KEYS.indexOf(key) !== -1 ? key : null);
+}
+
+function esc(value) {
+  const div = document.createElement('div');
+  div.textContent = value == null ? '' : String(value);
+  return div.innerHTML;
+}
+
+function readCachedSnapshot() {
+  try { return JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'); } catch { return null; }
+}
+
+function rememberSnapshot(data) {
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch {}
+}
+
+async function fetchSnapshot() {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const response = await fetch(DATA_URL, { cache: 'no-store', signal: controller.signal });
+    if (!response.ok) throw new Error('Conditions feed unavailable');
+    const payload = await response.json();
+    if (!payload.zones || !payload.zones['santa-cruz']) throw new Error('Conditions feed incomplete');
+    rememberSnapshot(payload);
+    return payload;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function loadDashboard(zone = 'santa-cruz', force = false) {
+  const dashboard = document.getElementById('dashboard');
+  const cached = readCachedSnapshot();
+  if (!conditionsSnapshot && cached) conditionsSnapshot = cached;
+
+  try {
+    if (!conditionsSnapshot || force) conditionsSnapshot = await fetchSnapshot();
+  } catch (error) {
+    console.warn('Using cached garden conditions:', error);
+    if (!conditionsSnapshot) {
+      dashboard.innerHTML = `<div class="error-state"><p>Unable to load garden conditions right now.</p><button class="retry-btn" onclick="loadDashboard('${esc(zone)}', true)">Try Again</button></div>`;
+      return;
+    }
+  }
+
+  const data = conditionsSnapshot.zones[zone] || conditionsSnapshot.zones['santa-cruz'];
+  currentZone = data.zone;
+  try { localStorage.setItem('ah-garden-zone', currentZone); } catch {}
+  renderDashboard(data, conditionsSnapshot);
+}
+
+function handleZoneChange(select) {
+  loadDashboard(select.value);
+}
+
+/* v3: switch the rainfall strip between 7 and 30 days. Re-renders from the
+   snapshot already in memory, so it never refetches and never blocks. Scroll
+   position is restored because the dashboard is rebuilt wholesale. */
+function setRainWindow(days) {
+  rainWindow = (days === 30) ? 30 : 7;
+  if (!conditionsSnapshot) return;
+  const y = window.scrollY;
+  const data = conditionsSnapshot.zones[currentZone] || conditionsSnapshot.zones['santa-cruz'];
+  renderDashboard(data, conditionsSnapshot);
+  window.scrollTo(0, y);
+}
+
+function renderDashboard(data, snapshot) {
+  const dashboard = document.getElementById('dashboard');
+  const updated = new Date(data.updated).toLocaleString('en-US', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+  const ageHours = (Date.now() - new Date(data.updated).getTime()) / 3600000;
+  const delayed = data.stale || ageHours > 3;
+
+  // Generate alerts HTML
+  let alertsHTML = '';
+  if (data.hasActiveAlerts && data.alerts.length > 0) {
+    alertsHTML = `<div class="alerts-container">`;
+    data.alerts.forEach(alert => {
+      const isWarning = alert.severity === 'Minor' || alert.severity === 'Moderate';
+      alertsHTML += `
+        <div class="alert-banner ${isWarning ? 'warning' : ''}">
+          <div class="alert-label">Local Advisory</div>
+          <div class="alert-event">${esc(alert.event)}</div>
+          <div class="alert-headline">${esc(alert.headline)}</div>
+        </div>
+      `;
+    });
+    alertsHTML += `</div>`;
+  }
+
+  // Garden-specific model metrics
+  let cimisHTML = '';
+  if (data.current.soilTemp || data.current.humidity || data.gardenMetrics) {
+    const metric = data.gardenMetrics?.today || {};
+    const moisture = Number.isFinite(data.current.soilMoisture) ? Math.round(data.current.soilMoisture * 100) + '%' : '--';
+    const uv = Number.isFinite(metric.uvIndex) ? metric.uvIndex.toFixed(1) : '--';
+    const et0 = Number.isFinite(metric.evapotranspiration) ? metric.evapotranspiration.toFixed(2) + ' in' : '--';
+    cimisHTML = `
+      <div class="cimis-section">
+        <div class="cimis-header">
+          <h3 class="cimis-title">Garden Conditions</h3>
+          <span class="cimis-source">Localized model estimate</span>
+        </div>
+        <p class="cimis-note">Soil and water-demand values are localized estimates, not readings from your bed. Check the soil 2–3 inches down before irrigating.</p>
+        <div class="cimis-data">
+          <div class="cimis-item">
+            <div class="cimis-label">Soil Temp · 2 in</div>
+            <div class="cimis-value">${data.current.soilTemp ? data.current.soilTemp + '°F' : '<span class="cimis-unavailable">--</span>'}</div>
+          </div>
+          <div class="cimis-item">
+            <div class="cimis-label">Root-Zone Moisture</div>
+            <div class="cimis-value">${moisture}</div>
+          </div>
+          <div class="cimis-item">
+            <div class="cimis-label">UV Index</div>
+            <div class="cimis-value">${uv}</div>
+          </div>
+          <div class="cimis-item">
+            <div class="cimis-label">Today's ET₀</div>
+            <div class="cimis-value">${et0}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Generate Rainfall HTML
+  let rainfallHTML = '';
+  if (data.rainfall) {
+    const r = data.rainfall;
+    
+    // Bar strip for the last 7 or last 30 days (v3: 30 day trend added)
+    let barsHTML = '';
+    if (r.dailyData && r.dailyData.length > 0) {
+      const available = r.dailyData.length;
+      const span = rainWindow === 30 ? Math.min(30, available) : Math.min(7, available);
+      const series = r.dailyData.slice(-span);
+      const maxRain = Math.max(...series.map(d => d.amount), 0.1); // min 0.1 to avoid division by zero
+      const wide = rainWindow === 30;
+      const anyRain = series.some(d => d.amount >= 0.01);
+
+      // 30 day mode labels only every 7th bar, otherwise the strip is unreadable.
+      const labelsHTML = series.map((day, i) => {
+        const date = new Date(day.date + 'T12:00:00');
+        const isToday = i === series.length - 1;
+        let text;
+        if (!wide) {
+          text = date.toLocaleDateString('en-US', { weekday: 'short' });
+        } else {
+          const fromEnd = series.length - 1 - i;
+          text = (isToday || fromEnd % 7 === 0)
+            ? date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' })
+            : '';
+        }
+        return `<span class="${isToday ? 'today-label' : ''}">${text}</span>`;
+      }).join('');
+
+      barsHTML = `
+        <div class="rainfall-chart">
+          <div class="rainfall-chart-head">
+            <div class="rainfall-chart-title">${wide ? 'Last 30 days' : 'Last 7 days'}</div>
+            <div class="rainfall-toggle" role="group" aria-label="Rainfall trend range">
+              <button type="button" class="rainfall-toggle-btn ${wide ? '' : 'on'}" aria-pressed="${wide ? 'false' : 'true'}" onclick="setRainWindow(7)">7 days</button>
+              <button type="button" class="rainfall-toggle-btn ${wide ? 'on' : ''}" aria-pressed="${wide ? 'true' : 'false'}" onclick="setRainWindow(30)">30 days</button>
+            </div>
+          </div>
+          <div class="rainfall-bars ${wide ? 'wide' : ''}">
+            ${series.map((day, i) => {
+              const height = (day.amount / maxRain) * 100;
+              const isToday = i === series.length - 1;
+              const noRain = day.amount < 0.01;
+              const date = new Date(day.date + 'T12:00:00');
+              const label = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+              return `
+                <div class="rainfall-bar-container">
+                  ${wide ? '' : `<div class="rainfall-bar-amount">${noRain ? '-' : day.amount.toFixed(2) + '"'}</div>`}
+                  <div class="rainfall-bar ${isToday ? 'today' : ''} ${noRain ? 'no-rain' : ''}" style="height: ${noRain ? '2' : Math.max(height, 8)}%;" title="${label}: ${day.amount.toFixed(2)} in"></div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          <div class="rainfall-day-labels ${wide ? 'wide' : ''}">${labelsHTML}</div>
+          ${wide && !anyRain ? '<p class="rainfall-chart-note">No measurable rain in the last 30 days. Normal for a Central Coast summer, and a reminder to keep watering deeply and less often.</p>' : ''}
+        </div>
+      `;
+    }
+
+    rainfallHTML = `
+      <div class="rainfall-section">
+        <div class="rainfall-header">
+          <h2 class="rainfall-title">Rainfall</h2>
+        </div>
+        <div class="rainfall-grid">
+          <div class="rainfall-card">
+            <div class="rainfall-card-label">Today</div>
+            <div>
+              <span class="rainfall-card-value">${r.today !== null ? r.today.toFixed(2) : '--'}</span>
+              <span class="rainfall-card-unit">in</span>
+            </div>
+          </div>
+          <div class="rainfall-card">
+            <div class="rainfall-card-label">Last 7 Days</div>
+            <div>
+              <span class="rainfall-card-value">${r.last7Days !== null ? r.last7Days.toFixed(2) : '--'}</span>
+              <span class="rainfall-card-unit">in</span>
+            </div>
+          </div>
+          <div class="rainfall-card">
+            <div class="rainfall-card-label">Last 30 Days</div>
+            <div>
+              <span class="rainfall-card-value">${r.last30Days !== null ? r.last30Days.toFixed(2) : '--'}</span>
+              <span class="rainfall-card-unit">in</span>
+            </div>
+          </div>
+        </div>
+        ${barsHTML}
+      </div>
+    `;
+  }
+
+  // Generate forecast cards with day/night temps
+  const daytimeForecast = data.forecast.filter(p => p.isDaytime).slice(0, 7);
+  const nighttimeForecast = data.forecast.filter(p => !p.isDaytime).slice(0, 7);
+  
+  let forecastHTML = daytimeForecast.map((period, index) => {
+    let dayName = period.name
+      .replace('This Afternoon', 'Today')
+      .replace(' Afternoon', '');
+    
+    const isToday = index === 0;
+    const nightPeriod = nighttimeForecast[index];
+    const lowTemp = nightPeriod ? nightPeriod.temperature : null;
+    
+    return `
+      <div class="forecast-card ${isToday ? 'today' : ''}">
+        <div class="forecast-day">${dayName}</div>
+        <img class="forecast-icon" src="${esc(period.icon)}" alt="${esc(period.conditions)}">
+        <div class="forecast-temps">
+          <div class="forecast-temp-high">${period.temperature}°</div>
+          ${lowTemp !== null ? `<div class="forecast-temp-low">${lowTemp}° low</div>` : ''}
+        </div>
+        <div class="forecast-conditions">${esc(period.conditions)}</div>
+        ${period.precipitation > 10 ? `<div class="forecast-precip">${Math.round(period.precipitation)}%</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  const tip = generateGardenGuidance(data);
+
+  dashboard.innerHTML = `
+    <div class="dashboard-header">
+      <div class="zone-selector-wrapper">
+        <div class="zone-selector-row">
+          <label for="zone-select" class="zone-selector-label">Area:</label>
+          <select id="zone-select" class="zone-selector" onchange="handleZoneChange(this)">
+            <option value="santa-cruz" ${data.zone === 'santa-cruz' ? 'selected' : ''}>Santa Cruz</option>
+            <option value="slv" ${data.zone === 'slv' ? 'selected' : ''}>San Lorenzo Valley</option>
+            <option value="watsonville" ${data.zone === 'watsonville' ? 'selected' : ''}>Watsonville</option>
+          </select>
+        </div>
+        <span class="zone-selector-helper">Conditions update based on selected location.</span>
+      </div>
+      <p class="dashboard-updated">${delayed ? 'Last available update' : 'Updated'} ${updated}${delayed ? ' · data delayed' : ''}</p>
+    </div>
+
+    <div id="dashboard-content" class="dashboard-content">
+      ${alertsHTML}
+
+      <div class="current-conditions">
+        <div class="current-main">
+          <div>
+            <div class="current-temp-block">
+              <span class="current-temp">${data.current.temperature}</span>
+              <span class="current-temp-unit">°${data.current.temperatureUnit}</span>
+            </div>
+            <div class="current-conditions-text">${data.current.conditions}</div>
+          </div>
+          <div class="current-details">
+            <div class="current-detail-item">
+              <span class="current-detail-label">Wind: </span>
+               <span class="current-detail-value">${esc(data.current.wind)} ${esc(data.current.windDirection)}</span>
+             </div>
+             <div class="current-detail-item">
+               <span class="current-detail-label">Feels like: </span>
+               <span class="current-detail-value">${data.current.apparentTemperature ?? data.current.temperature}°F</span>
+             </div>
+             <div class="current-detail-item">
+               <span class="current-detail-label">Humidity: </span>
+               <span class="current-detail-value">${data.current.humidity ?? '--'}%</span>
+             </div>
+           </div>
+         </div>
+        <div class="current-forecast-detail">${esc(data.current.detailedForecast)}</div>
+      </div>
+
+      ${rainfallHTML}
+
+      ${cimisHTML}
+
+      <div class="forecast-section">
+        <h2 class="section-title">7-Day Forecast</h2>
+        <div class="forecast-grid">
+          ${forecastHTML}
+        </div>
+      </div>
+
+      ${tip}
+
+      <div class="help-section">
+        <button class="help-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('open');">
+          <span class="help-toggle-icon">▶</span>
+          How to use this dashboard
+        </button>
+        <div class="help-content">
+          <ul class="help-list">
+            <li><strong>Select your area</strong> above to see conditions specific to your microclimate. Coastal, valley, and mountain zones vary significantly.</li>
+            <li><strong>Start with Today's Garden Priorities</strong> for actions based on heat, rain, wind, frost, UV, soil estimates, and recent rainfall.</li>
+            <li><strong>Garden Conditions</strong> includes localized model estimates. Always check your own soil before watering because containers, raised beds, shade, and mulch change moisture quickly.</li>
+          </ul>
+          <p class="data-sources">Forecasts and alerts: <a href="https://www.weather.gov/" target="_blank" rel="noopener">National Weather Service</a>. Soil, rainfall, UV, and ET₀ estimates: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>.</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function generateGardenGuidance(data) {
+  const current = data.current || {};
+  const forecast = data.forecast || [];
+  const rainfall = data.rainfall || {};
+  const metric = data.gardenMetrics?.today || {};
+  const daytime = forecast.filter(period => period.isDaytime).slice(0, 4);
+  const nighttime = forecast.filter(period => !period.isDaytime).slice(0, 4);
+  const hottest = Math.max(current.temperature || -99, ...daytime.map(period => period.temperature || -99));
+  const coldest = Math.min(...nighttime.map(period => period.temperature || 999));
+  const rainSoon = forecast.slice(0, 6).some(period => (period.precipitation || 0) >= 50);
+  const drySpell = Number(rainfall.last7Days || 0) < 0.1;
+  const wetWeek = Number(rainfall.last7Days || 0) >= 1;
+  const gust = Math.max(current.windGust || 0, metric.windGust || 0);
+  const uv = Number(metric.uvIndex || 0);
+  const et0 = Number(metric.evapotranspiration || 0);
+  const advice = [];
+
+  function add(label, title, content, bullets = [], tone = '') {
+    advice.push({ label, title, content, bullets, tone });
+  }
+
+  if (data.hasActiveAlerts) {
+    add('Local advisory', 'Check the active weather alert first', `The National Weather Service has an active alert for ${data.zoneName}. Follow official instructions before routine garden work.`, [], 'urgent');
+  }
+
+  if (hottest >= 100) {
+    add('Extreme heat', `${Math.round(hottest)}°F heat: protect plants now`, 'Heat at this level can scorch fruit, wilt seedlings, and dry containers quickly.', [
+      'Water deeply at soil level before 9 a.m.; avoid a routine midday sprinkle.',
+      'Give seedlings, new transplants, lettuce, and other cool-season crops 30–50% afternoon shade with airflow above the leaves.',
+      'Check containers again late afternoon and water only if the mix is dry below the surface.',
+      'Delay transplanting, pruning, fertilizing, and oil or soap sprays until the heat breaks.'
+    ], 'urgent');
+  } else if (hottest >= 90) {
+    add('Heat', `${Math.round(hottest)}°F: water early and add afternoon shade`, 'Warm inland conditions raise plant water demand even when coastal gardens remain mild.', [
+      'Water slowly and deeply in the early morning, aiming at the soil rather than the foliage.',
+      'Shade seedlings, recent transplants, lettuce, brassicas, and exposed fruit during the hottest afternoon hours.',
+      'Check pots and hanging baskets daily; they can dry much faster than in-ground beds.'
+    ], 'urgent');
+  } else if (hottest >= 82) {
+    add('Warm weather', `Prepare for a high near ${Math.round(hottest)}°F`, 'Check young plants and containers before the day warms up.', [
+      'Water in the morning when the top 2–3 inches of soil are dry.',
+      'Use mulch to slow evaporation, but keep it a few inches away from stems.'
+    ], 'watch');
+  }
+
+  if (drySpell && !rainSoon) {
+    const demand = et0 >= 0.25 ? ' Today’s estimated atmospheric water demand is high.' : '';
+    add('Watering', 'Dry week: check the root zone', `Less than 0.10 inch of rain has fallen in the past seven days.${demand}`, [
+      'Push a finger or trowel 2–3 inches into the soil before watering.',
+      'If it is dry at that depth, water slowly enough to moisten the full root zone rather than just the surface.',
+      'Prioritize seedlings, recent transplants, fruiting vegetables, and containers.'
+    ]);
+  } else if (rainSoon) {
+    add('Rain', 'Let the forecast do some of the watering', 'Rain is likely soon, so check the forecast before irrigating or applying fertilizer.', [
+      'Delay routine watering if the root zone is still moist.',
+      'Avoid fertilizing immediately before heavy rain, when nutrients can wash away.'
+    ]);
+  } else if (wetWeek) {
+    add('Soil moisture', `${Number(rainfall.last7Days).toFixed(1)} inches this week`, 'Recent rain may be enough for established beds.', [
+      'Check soil before adding more water.',
+      'Watch for slugs, snails, fungal spotting, and compacted wet soil.'
+    ]);
+  }
+
+  if (coldest <= 36) {
+    add('Frost risk', `${Math.round(coldest)}°F overnight: cover tender plants`, 'Cold pockets can run below the general forecast.', [
+      'Cover tender plants before sunset and remove covers after temperatures rise.',
+      'Bring small containers under cover and harvest ripe warm-season fruit.'
+    ], 'urgent');
+  } else if (coldest < 42) {
+    add('Cool night', `Low near ${Math.round(coldest)}°F`, 'Warm-season seedlings and recently transplanted tomatoes or peppers may stall.', [
+      'Keep frost cloth handy in sheltered valleys and low spots.',
+      'Avoid transplanting heat-loving crops just before the coldest night.'
+    ], 'watch');
+  }
+
+  if (gust >= 25) {
+    add('Wind', `Gusts near ${Math.round(gust)} mph`, 'Wind can desiccate leaves and turn unsecured shade cloth into a sail.', [
+      'Secure row cover and shade cloth on every side.',
+      'Check tomato ties, trellises, and young trees before the wind arrives.'
+    ], 'watch');
+  }
+
+  if (uv >= 8 && advice.length < 4) {
+    add('High UV', `UV index ${uv.toFixed(1)}`, 'Strong sun increases stress on gardeners and newly exposed foliage.', [
+      'Do strenuous garden work early or late, and use sun protection.',
+      'Harden seedlings off gradually rather than moving them directly into full afternoon sun.'
+    ], 'watch');
+  }
+
+  if (!advice.length) {
+    add('Good garden window', 'Conditions look workable', `No major heat, frost, rain, or wind signal stands out for ${data.zoneName}.`, [
+      'Check your own soil moisture before irrigating.',
+      'A mild morning is a good time for planting, harvesting, and routine maintenance.'
+    ]);
+  }
+
+  const cards = advice.slice(0, 4).map(item => `
+    <article class="guidance-card ${item.tone}">
+      <div class="tip-label">${esc(item.label)}</div>
+      <div class="tip-title">${esc(item.title)}</div>
+      <div class="tip-content">${esc(item.content)}</div>
+      ${item.bullets.length ? `<ul class="tip-list">${item.bullets.map(line => `<li>${esc(line)}</li>`).join('')}</ul>` : ''}
+    </article>`).join('');
+
+  return `
+    <section class="garden-guidance" aria-labelledby="garden-guidance-title">
+      <div class="guidance-header">
+        <div>
+          <div class="tip-label">Based on current and upcoming conditions</div>
+          <h2 class="guidance-title" id="garden-guidance-title">Today's Garden Priorities</h2>
+        </div>
+      </div>
+      <div class="guidance-grid">${cards}</div>
+    </section>`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let saved = 'santa-cruz';
+  try { saved = localStorage.getItem('ah-garden-zone') || saved; } catch {}
+  if (ZONE_KEYS.indexOf(saved) === -1) saved = 'santa-cruz';
+  // A ?zone= deep link always wins over the remembered zone.
+  loadDashboard(zoneFromUrl() || saved);
+});
+</script>

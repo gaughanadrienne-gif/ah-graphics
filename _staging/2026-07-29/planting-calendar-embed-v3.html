@@ -1,0 +1,1676 @@
+<!-- Ambitious Harvest Co - Interactive Planting Calendar (Squarespace Embed v3, staged 2026-07-29) -->
+<!-- Paste this entire block into the Squarespace Code Block on the /planting-calendar page. -->
+<!--
+  CHANGES FROM v2 (source: Website/planting-calendar-embed-v2.html)
+  1. Crop search box: present in v2 on disk, absent on the live page. The live
+     code block predates v2, so this is source-to-live DRIFT, not a code bug.
+     v3 keeps the search row and adds a result count that reflects every filter.
+  2. Default view is now "Plantable now": on load the table shows only the crops
+     with something to do in the current month in the selected zone, and the
+     month selector opens on the current month instead of "All Months".
+     A "Full year" toggle restores the v2 behaviour.
+  3. New difficulty filter (Beginner / Intermediate / Advanced), driven by the
+     crop "d" field that already existed in the data.
+  Email-capture copy is NOT in this file. The opt-in box below the tool is
+  injected by ah-site-scripts.js. See calendar-optin-copy-patch.js in this folder.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========================================================================
+   RESET & DESIGN TOKENS (scoped to avoid Squarespace conflicts)
+   ======================================================================== */
+.pc-wrap *, .pc-wrap *::before, .pc-wrap *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark-green: #1a3b2a;
+  --forest: #1c3c2c;
+  --forest-light: #2a5a3a;
+  --cream: #f8f9f0;
+  --cream-dark: #eef0e6;
+  --sage: #dde2d8;
+  --sage-dark: #c5ccc0;
+  --muted-green: #8c9c8c;
+  --white: #ffffff;
+  --gray-50: #f8f9f6;
+  --gray-100: #f0f1ec;
+  --gray-200: #dde2d8;
+  --gray-800: #1a3b2a;
+  --sow-indoor: #7C8A9A;
+  --direct-sow: #B5956B;
+  --transplant: #4A7A5B;
+  --harvest: #A85746;
+  --radius: 12px;
+  --radius-sm: 6px;
+  --radius-lg: 16px;
+  --shadow-xs: 0 1px 2px rgba(26,59,42,0.04);
+  --shadow-sm: 0 1px 3px rgba(26,59,42,0.06), 0 1px 2px rgba(26,59,42,0.04);
+  --shadow: 0 4px 12px rgba(26,59,42,0.06), 0 2px 4px rgba(26,59,42,0.04);
+  --shadow-lg: 0 12px 32px rgba(26,59,42,0.1), 0 4px 8px rgba(26,59,42,0.06);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-heading: 'Linux Biolinum', 'Montserrat', -apple-system, sans-serif;
+  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ========================================================================
+   SQUARESPACE OVERRIDES - widen the code block container
+   ======================================================================== */
+.sqs-block-code,
+.sqs-block-code .sqs-block-content,
+.sqs-block-code .sqs-code-container,
+.fe-block,
+.fluid-engine {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* ========================================================================
+   LAYOUT
+   ======================================================================== */
+.pc-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  font-family: var(--font-body);
+  background: var(--cream) !important;
+  color: var(--gray-800) !important;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================================
+   HEADER
+   ======================================================================== */
+.pc-hdr {
+  text-align: center;
+  margin-bottom: 36px;
+  background: var(--cream) !important;
+  padding: 20px;
+  border-radius: var(--radius);
+}
+
+.pc-brand {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-green) !important;
+  margin-bottom: 10px;
+}
+
+.pc-hdr h1 {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--dark-green) !important;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.pc-hdr h1::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--muted-green);
+  border-radius: 2px;
+  margin: 14px auto 0;
+}
+
+.pc-hdr .pc-sub {
+  font-size: 1rem;
+  color: var(--muted-green) !important;
+  max-width: 560px;
+  margin: 16px auto 0;
+  line-height: 1.6;
+}
+
+.pc-hdr .pc-src {
+  font-size: 0.72rem;
+  color: var(--muted-green) !important;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ========================================================================
+   CONTROLS BAR
+   ======================================================================== */
+.pc-ctrls {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.pc-cg {
+  flex: 1;
+  min-width: 180px;
+}
+
+.pc-cg label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.pc-cg select,
+.pc-cg input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: var(--gray-800);
+  background: var(--white);
+  transition: all var(--transition);
+  font-family: var(--font-body);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.pc-cg select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239C9890' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.pc-cg select:focus,
+.pc-cg input:focus {
+  outline: none;
+  border-color: var(--dark-green);
+  box-shadow: 0 0 0 3px rgba(26,59,42,0.1);
+}
+
+.pc-zipg {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.pc-zipg .pc-cg {
+  flex: 0 1 140px;
+  min-width: 120px;
+}
+
+.pc-zbtn {
+  padding: 10px 20px;
+  background: var(--dark-green);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  font-family: var(--font-body);
+}
+
+.pc-zbtn:hover {
+  background: var(--forest-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pc-zbtn:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.pc-zmsg {
+  font-size: 0.8rem;
+  color: var(--muted-green);
+  margin-top: 6px;
+  min-height: 1.2em;
+}
+
+.pc-zmsg.pc-err { color: var(--harvest); }
+
+/* ========================================================================
+   ZONE INFO CARD
+   ======================================================================== */
+.pc-zi {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  border-left: 4px solid var(--forest);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-xs);
+}
+
+.pc-zi .pc-zn {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.pc-zi .pc-zs {
+  display: inline-block;
+  margin-right: 32px;
+  margin-bottom: 4px;
+  font-size: 0.68rem;
+  color: var(--muted-green);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+.pc-zi .pc-zs strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 3px;
+}
+
+/* ========================================================================
+   WHAT TO PLANT NOW
+   ======================================================================== */
+.pc-now {
+  background: var(--sage);
+  border-radius: var(--radius);
+  border: 1px solid var(--sage-dark);
+  border-left: 4px solid var(--dark-green);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-xs);
+}
+
+.pc-now h2 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 12px;
+}
+
+.pc-ntags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pc-nt {
+  display: inline-block;
+  background: var(--white);
+  color: var(--gray-800);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid var(--gray-200);
+  font-family: var(--font-body);
+}
+
+.pc-nt:hover {
+  border-color: var(--forest);
+  color: var(--forest);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pc-nt:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.pc-nt[data-a="si"] { border-left: 3px solid var(--sow-indoor); }
+.pc-nt[data-a="ds"] { border-left: 3px solid var(--direct-sow); }
+.pc-nt[data-a="tp"] { border-left: 3px solid var(--transplant); }
+.pc-nt[data-a="hv"] { border-left: 3px solid var(--harvest); }
+
+.pc-nempty {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted-green);
+}
+
+/* ========================================================================
+   LEGEND
+   ======================================================================== */
+.pc-leg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  margin-bottom: 16px;
+  padding: 14px 20px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+}
+
+.pc-li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--muted-green);
+  font-weight: 500;
+}
+
+.pc-sw {
+  width: 22px;
+  height: 10px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.pc-sw.si { background: var(--sow-indoor); }
+.pc-sw.ds { background: var(--direct-sow); }
+.pc-sw.tp { background: var(--transplant); }
+.pc-sw.hv { background: var(--harvest); }
+
+.pc-cdot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--dark-green);
+  background: transparent;
+  flex-shrink: 0;
+}
+
+/* ========================================================================
+   FILTER TABS
+   ======================================================================== */
+.pc-flt {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.pc-fb {
+  padding: 8px 18px;
+  border: 1px solid var(--gray-200);
+  border-radius: 24px;
+  background: var(--white);
+  color: var(--muted-green);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+
+.pc-fb:hover {
+  border-color: var(--forest);
+  color: var(--forest);
+}
+
+.pc-fb:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.pc-fb.on {
+  background: var(--dark-green);
+  color: var(--cream);
+  border-color: var(--dark-green);
+}
+
+.pc-cc {
+  font-size: 0.8rem;
+  color: var(--muted-green);
+}
+
+/* ========================================================================
+   SEARCH BAR
+   ======================================================================== */
+.pc-search-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pc-search-row input {
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+  padding: 9px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--gray-800);
+  background: var(--white);
+  transition: all var(--transition);
+}
+
+.pc-search-row input:focus {
+  outline: none;
+  border-color: var(--dark-green);
+  box-shadow: 0 0 0 3px rgba(26,59,42,0.1);
+}
+
+/* ========================================================================
+   VIEW TOGGLE + DIFFICULTY FILTER (v3, 2026-07-29)
+   ======================================================================== */
+.pc-view {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pc-view-seg {
+  display: inline-flex;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--white) !important;
+}
+
+.pc-vb {
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 0;
+  background: var(--white) !important;
+  color: var(--dark-green) !important;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.pc-vb + .pc-vb { border-left: 1px solid var(--gray-200); }
+
+.pc-vb.on {
+  background: var(--dark-green) !important;
+  color: var(--cream) !important;
+}
+
+.pc-vb:focus { outline: 2px solid var(--forest); outline-offset: -2px; }
+
+.pc-vnote {
+  font-size: 0.8rem;
+  color: var(--muted-green) !important;
+}
+
+.pc-dflt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.pc-dflt-lbl {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-green) !important;
+  margin-right: 2px;
+}
+
+.pc-db-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  background: var(--white) !important;
+  color: var(--dark-green) !important;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.pc-db-btn:hover { border-color: var(--forest); }
+
+.pc-db-btn:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.pc-db-btn.on {
+  background: var(--dark-green) !important;
+  color: var(--cream) !important;
+  border-color: var(--dark-green);
+}
+
+/* keep the difficulty dot readable once the pill goes dark */
+.pc-db-btn.on .pc-dif { box-shadow: 0 0 0 1.5px var(--cream); }
+
+/* ========================================================================
+   CALENDAR TABLE
+   ======================================================================== */
+.pc-tw {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  margin-bottom: 24px;
+}
+
+.pc-tbl {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.pc-tbl thead th {
+  position: sticky;
+  top: 0;
+  background: var(--gray-50);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-green);
+  padding: 12px 4px;
+  border-bottom: 2px solid var(--gray-200);
+  text-align: center;
+  z-index: 2;
+}
+
+.pc-tbl thead th:first-child {
+  text-align: left;
+  padding-left: 20px;
+  width: 170px;
+  min-width: 130px;
+  z-index: 3;
+  color: var(--muted-green);
+}
+
+.pc-tbl thead th.pc-cm {
+  background: var(--dark-green);
+  color: var(--cream);
+  font-weight: 700;
+}
+
+.pc-tbl tbody tr {
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.pc-tbl tbody tr:hover:not(.pc-cr) {
+  background: rgba(26,59,42,0.03);
+}
+
+.pc-tbl tbody tr:focus-within:not(.pc-cr) {
+  outline: 2px solid var(--forest);
+  outline-offset: -2px;
+}
+
+.pc-tbl tbody td {
+  padding: 0;
+  border-bottom: 1px solid var(--gray-100);
+  text-align: center;
+  vertical-align: middle;
+  height: 42px;
+  position: relative;
+}
+
+.pc-tbl tbody td:first-child {
+  text-align: left;
+  padding: 8px 10px 8px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.pc-tbl tbody td.pc-ccol {
+  background: rgba(26,59,42,0.04);
+}
+
+.pc-cnc {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-dif {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pc-dif.beg { background: var(--transplant); }
+.pc-dif.int { background: var(--muted-green); }
+.pc-dif.adv { background: var(--harvest); }
+
+.pc-bc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 8px 3px;
+  gap: 2px;
+}
+
+.pc-b {
+  height: 10px;
+  border-radius: 5px;
+  flex: 1;
+  max-width: 100%;
+  transition: transform 0.15s ease;
+}
+
+.pc-tbl tbody tr:hover:not(.pc-cr) .pc-b {
+  transform: scaleY(1.3);
+}
+
+.pc-b.si { background: var(--sow-indoor); }
+.pc-b.ds { background: var(--direct-sow); }
+.pc-b.tp { background: var(--transplant); }
+.pc-b.hv { background: var(--harvest); }
+
+.pc-cr td {
+  background: var(--cream-dark);
+  padding: 10px 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dark-green);
+  border-bottom: 2px solid var(--gray-200);
+  cursor: default;
+}
+
+.pc-cr:hover { background: var(--cream-dark) !important; }
+
+.pc-na td:first-child { color: var(--muted-green); }
+
+/* ========================================================================
+   CROP DETAIL PANEL
+   ======================================================================== */
+.pc-do {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pc-do.open { display: flex; }
+
+.pc-dp {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.pc-dh {
+  background: var(--dark-green);
+  color: var(--white);
+  padding: 24px 28px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pc-dh h2 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.pc-dh .pc-dcat {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.pc-dx {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+  border-radius: var(--radius-sm);
+}
+
+.pc-dx:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+.pc-dx:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.pc-db { padding: 24px 28px; }
+
+.pc-ds { margin-bottom: 20px; }
+.pc-ds:last-child { margin-bottom: 0; }
+
+.pc-ds h3 {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dark-green);
+  margin-bottom: 8px;
+}
+
+.pc-ds p {
+  font-size: 0.9rem;
+  color: var(--muted-green);
+  line-height: 1.7;
+}
+
+.pc-dvars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pc-dv {
+  display: inline-block;
+  background: var(--cream);
+  color: var(--dark-green);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.pc-dtl {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.pc-dtlr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pc-dtll {
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: 110px;
+  flex-shrink: 0;
+  color: var(--muted-green);
+}
+
+.pc-dtlm {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.pc-dm {
+  display: inline-block;
+  width: 30px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.pc-dm.si { background: var(--sow-indoor); }
+.pc-dm.ds { background: var(--direct-sow); color: var(--dark-green); }
+.pc-dm.tp { background: var(--transplant); }
+.pc-dm.hv { background: var(--harvest); }
+.pc-dm.em { background: var(--gray-100); color: var(--muted-green); }
+
+.pc-ddif {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--muted-green);
+  padding: 6px 14px;
+  background: var(--cream);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.pc-dlnk {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 11px 22px;
+  background: var(--dark-green);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.pc-dlnk:hover {
+  background: var(--forest-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pc-dlnk:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.pc-plnk {
+  display: inline-block;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding: 11px 22px;
+  background: var(--forest);
+  color: var(--cream);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.pc-plnk:hover {
+  background: var(--forest-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pc-plnk:focus { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+/* ========================================================================
+   FOOTER
+   ======================================================================== */
+.pc-ft {
+  text-align: center;
+  padding: 20px 16px;
+  font-size: 0.75rem;
+  color: var(--muted-green);
+  border-top: 1px solid var(--gray-200);
+  margin-top: 12px;
+  line-height: 1.7;
+}
+
+.pc-ft a {
+  color: var(--dark-green);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pc-ft a:hover { text-decoration: underline; }
+
+/* ========================================================================
+   ENTRANCE ANIMATIONS
+   ======================================================================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pc-hdr { animation: fadeUp 0.5s ease 0.05s both; }
+.pc-ctrls { animation: fadeUp 0.5s ease 0.1s both; }
+.pc-zi { animation: fadeUp 0.5s ease 0.15s both; }
+.pc-now { animation: fadeUp 0.5s ease 0.2s both; }
+.pc-leg { animation: fadeUp 0.5s ease 0.22s both; }
+.pc-flt { animation: fadeUp 0.5s ease 0.24s both; }
+.pc-view { animation: fadeUp 0.5s ease 0.23s both; }
+.pc-dflt { animation: fadeUp 0.5s ease 0.25s both; }
+.pc-search-row { animation: fadeUp 0.5s ease 0.26s both; }
+.pc-tw { animation: fadeUp 0.5s ease 0.3s both; }
+.pc-ft { animation: fadeUp 0.5s ease 0.35s both; }
+
+/* ========================================================================
+   PRINT STYLES
+   ======================================================================== */
+@media print {
+  body { background: white; }
+
+  .pc-ctrls, .pc-zipg, .pc-flt, .pc-now,
+  .pc-do, .pc-ft, .pc-zbtn, .pc-dlnk, .pc-plnk,
+  .pc-search-row, .pc-brand, .pc-view, .pc-dflt { display: none !important; }
+
+  * { animation: none !important; }
+
+  .pc-wrap { padding: 0; max-width: 100%; }
+  .pc-hdr h1 { font-size: 1.5rem; }
+  .pc-hdr h1::after { display: none; }
+
+  .pc-tw {
+    box-shadow: none;
+    overflow: visible;
+    border: 1px solid #ccc;
+  }
+
+  .pc-tbl { min-width: auto; font-size: 0.7rem; }
+  .pc-tbl thead th { font-size: 0.65rem; padding: 4px 2px; }
+  .pc-tbl tbody td { height: 24px; }
+  .pc-tbl tbody td:first-child { font-size: 0.72rem; padding-left: 4px; }
+  .pc-b { height: 7px; }
+  .pc-leg { box-shadow: none; border: 1px solid #ccc; }
+
+  .pc-zi { border-left: 3px solid var(--forest); box-shadow: none; }
+
+  .pc-b.si, .pc-b.ds, .pc-b.tp, .pc-b.hv,
+  .pc-sw.si, .pc-sw.ds, .pc-sw.tp, .pc-sw.hv {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE
+   ======================================================================== */
+@media (max-width: 768px) {
+  .pc-wrap { padding: 20px 14px; }
+
+  .pc-hdr h1 { font-size: 1.6rem; }
+  .pc-hdr h1::after { width: 44px; margin-top: 10px; }
+
+  .pc-ctrls {
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .pc-cg { min-width: 100%; }
+  .pc-zipg { flex-wrap: wrap; }
+  .pc-zipg .pc-cg { flex: 1 1 100px; }
+
+  .pc-zi { padding: 16px 18px; }
+  .pc-zi .pc-zn { margin-bottom: 10px; }
+  .pc-zi .pc-zs { margin-right: 20px; }
+
+  .pc-tbl thead th:first-child { width: 110px; min-width: 90px; padding-left: 12px; }
+  .pc-tbl tbody td:first-child { padding-left: 12px; font-size: 0.78rem; }
+  .pc-tbl thead th { font-size: 0.62rem; padding: 8px 2px; }
+  .pc-tbl tbody td { height: 34px; }
+  .pc-b { height: 8px; }
+
+  .pc-dp { max-height: 90vh; }
+  .pc-dh { padding: 18px 20px; }
+  .pc-db { padding: 18px 20px; }
+  .pc-dh h2 { font-size: 1.15rem; }
+}
+
+@media (max-width: 480px) {
+  .pc-hdr h1 { font-size: 1.3rem; }
+  .pc-hdr .pc-sub { font-size: 0.88rem; }
+
+  .pc-fb { padding: 6px 14px; font-size: 0.8rem; }
+  .pc-now { padding: 14px 18px; }
+  .pc-now h2 { font-size: 0.95rem; }
+  .pc-leg { gap: 8px 16px; padding: 12px 14px; }
+  .pc-li { font-size: 0.72rem; }
+  .pc-cr td { padding: 8px 12px; }
+
+  .pc-zi .pc-zs {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 6px;
+  }
+  .pc-zi .pc-zs strong {
+    display: inline;
+    margin-left: 6px;
+    margin-top: 0;
+  }
+}
+
+/* ========================================================================
+   ACCESSIBILITY
+   ======================================================================== */
+.pc-wrap :focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+<div class="pc-wrap" role="main">
+
+  <!-- HEADER -->
+  <header class="pc-hdr">
+    <p class="pc-brand">Ambitious Harvest Co</p>
+    <h1>California Planting Calendar</h1>
+    <p class="pc-sub">Find the right time to plant 45 crops in your California growing zone. Select your zone or enter your zip code to get started.</p>
+    <p class="pc-src">Data sourced from UC Cooperative Extension, UC Master Gardener Program, and UC ANR publications.</p>
+  </header>
+
+  <!-- CONTROLS -->
+  <div class="pc-ctrls" role="search" aria-label="Calendar filters">
+    <div class="pc-zipg">
+      <div class="pc-cg">
+        <label for="pc-zip">Zip Code</label>
+        <input type="text" id="pc-zip" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="e.g. 95060" aria-describedby="pc-zmsg">
+      </div>
+      <button class="pc-zbtn" id="pc-zbtn" type="button" aria-label="Look up your growing zone by zip code">Find Zone</button>
+    </div>
+    <div id="pc-zmsg" class="pc-zmsg" aria-live="polite"></div>
+
+    <div class="pc-cg">
+      <label for="pc-zsel">California Growing Zone</label>
+      <select id="pc-zsel" aria-label="Select your California growing zone">
+        <option value="coastal">Coastal</option>
+        <option value="inland_valley">Inland Valley</option>
+        <option value="mountain">Mountain</option>
+        <option value="desert">Desert</option>
+      </select>
+    </div>
+
+    <div class="pc-cg">
+      <label for="pc-msel">View Month</label>
+      <select id="pc-msel" aria-label="Jump to a specific month">
+        <option value="all">All Months</option>
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ZONE INFO -->
+  <div class="pc-zi" id="pc-zi" role="region" aria-label="Zone details">
+    <span class="pc-zn" id="zd-name">Coastal Zone</span>
+    <span class="pc-zs">USDA Zones <strong id="zd-usda">9b-11a</strong></span>
+    <span class="pc-zs">Avg. Last Frost <strong id="zd-lf">Feb 15</strong></span>
+    <span class="pc-zs">Avg. First Frost <strong id="zd-ff">Dec 15</strong></span>
+  </div>
+
+  <!-- WHAT TO PLANT NOW -->
+  <div class="pc-now" id="pc-now" role="region" aria-label="What to plant this month">
+    <h2 id="pc-ntitle">What to Plant in March</h2>
+    <div class="pc-ntags" id="pc-ntags"></div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="pc-leg" role="img" aria-label="Calendar color legend">
+    <div class="pc-li"><span class="pc-sw si"></span> Start Seeds Indoors</div>
+    <div class="pc-li"><span class="pc-sw ds"></span> Direct Sow</div>
+    <div class="pc-li"><span class="pc-sw tp"></span> Transplant</div>
+    <div class="pc-li"><span class="pc-sw hv"></span> Harvest</div>
+    <div class="pc-li"><span class="pc-cdot"></span> Current Month</div>
+  </div>
+
+  <!-- FILTERS + SEARCH -->
+  <div class="pc-flt" role="tablist" aria-label="Filter by crop type">
+    <button class="pc-fb on" data-f="all" role="tab" aria-selected="true">All Crops</button>
+    <button class="pc-fb" data-f="vegetables" role="tab" aria-selected="false">Vegetables</button>
+    <button class="pc-fb" data-f="herbs" role="tab" aria-selected="false">Herbs</button>
+    <button class="pc-fb" data-f="fruits" role="tab" aria-selected="false">Fruits</button>
+  </div>
+
+  <!-- VIEW TOGGLE (v3): plantable now is the default -->
+  <div class="pc-view">
+    <div class="pc-view-seg" role="group" aria-label="Calendar view">
+      <button type="button" class="pc-vb on" id="pc-vnow" data-v="now" aria-pressed="true">Plantable now</button>
+      <button type="button" class="pc-vb" id="pc-vall" data-v="year" aria-pressed="false">Full year</button>
+    </div>
+    <span class="pc-vnote" id="pc-vnote">Showing what you can plant this month in your zone.</span>
+  </div>
+
+  <!-- DIFFICULTY FILTER (v3) -->
+  <div class="pc-dflt" role="group" aria-label="Filter by difficulty">
+    <span class="pc-dflt-lbl">Difficulty</span>
+    <button type="button" class="pc-db-btn on" data-d="all" aria-pressed="true">All levels</button>
+    <button type="button" class="pc-db-btn" data-d="beginner" aria-pressed="false"><span class="pc-dif beg" aria-hidden="true"></span>Beginner</button>
+    <button type="button" class="pc-db-btn" data-d="intermediate" aria-pressed="false"><span class="pc-dif int" aria-hidden="true"></span>Intermediate</button>
+    <button type="button" class="pc-db-btn" data-d="advanced" aria-pressed="false"><span class="pc-dif adv" aria-hidden="true"></span>Advanced</button>
+  </div>
+
+  <div class="pc-search-row">
+    <input type="text" id="pc-search" placeholder="Search crops..." aria-label="Search crops by name">
+    <span class="pc-cc" id="pc-cc" aria-live="polite">Showing 45 crops</span>
+  </div>
+
+  <!-- CALENDAR TABLE -->
+  <div class="pc-tw" role="region" aria-label="Planting calendar grid" tabindex="0">
+    <table class="pc-tbl" id="pc-tbl" aria-label="Monthly planting calendar">
+      <thead>
+        <tr>
+          <th scope="col">Crop</th>
+          <th scope="col">Jan</th>
+          <th scope="col">Feb</th>
+          <th scope="col">Mar</th>
+          <th scope="col">Apr</th>
+          <th scope="col">May</th>
+          <th scope="col">Jun</th>
+          <th scope="col">Jul</th>
+          <th scope="col">Aug</th>
+          <th scope="col">Sep</th>
+          <th scope="col">Oct</th>
+          <th scope="col">Nov</th>
+          <th scope="col">Dec</th>
+        </tr>
+      </thead>
+      <tbody id="pc-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- DETAIL OVERLAY -->
+  <div class="pc-do" id="pc-do" role="dialog" aria-modal="true" aria-labelledby="dd-name">
+    <div class="pc-dp">
+      <div class="pc-dh">
+        <div>
+          <h2 id="dd-name">Tomatoes</h2>
+          <div class="pc-dcat" id="dd-cat">Vegetable</div>
+        </div>
+        <button class="pc-dx" id="pc-dx" aria-label="Close crop details">&times;</button>
+      </div>
+      <div class="pc-db">
+        <div class="pc-ds">
+          <h3>Difficulty</h3>
+          <div class="pc-ddif" id="dd-dif">
+            <span class="pc-dif beg"></span> Beginner
+          </div>
+        </div>
+        <div class="pc-ds">
+          <h3>Recommended Varieties</h3>
+          <div class="pc-dvars" id="dd-vars"></div>
+        </div>
+        <div class="pc-ds">
+          <h3>Growing Tip</h3>
+          <p id="dd-tip"></p>
+        </div>
+        <div class="pc-ds">
+          <h3>Planting Timeline (<span id="dd-zlbl">Coastal</span>)</h3>
+          <div class="pc-dtl" id="dd-tl"></div>
+        </div>
+        <div class="pc-ds" id="dd-lsec">
+          <h3>Learn More</h3>
+          <div id="dd-links"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="pc-ft">
+    <p>Built by <a href="https://ambitiousharvest.com" target="_blank" rel="noopener">Ambitious Harvest Co</a>. Planting dates based on UC Cooperative Extension data for California growing zones. Frost dates are regional averages. Your microclimate may vary; use this as a general guide.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* =====================================================================
+   DATA
+   ===================================================================== */
+var D={
+zones:{
+coastal:{name:"Coastal",avgLastFrost:"Feb 15",avgFirstFrost:"Dec 15",usdaZones:"9b-11a",frostFreeDays:300},
+inland_valley:{name:"Inland Valley",avgLastFrost:"Mar 15",avgFirstFrost:"Nov 15",usdaZones:"9a-10a",frostFreeDays:245},
+mountain:{name:"Mountain",avgLastFrost:"May 1",avgFirstFrost:"Oct 15",usdaZones:"7a-8b",frostFreeDays:165},
+desert:{name:"Desert",avgLastFrost:"Feb 1",avgFirstFrost:"Dec 1",usdaZones:"9a-10b",frostFreeDays:300}
+},
+zip:{
+"900":"inland_valley","901":"inland_valley","902":"coastal","903":"inland_valley",
+"904":"coastal","905":"inland_valley","906":"inland_valley","907":"coastal",
+"908":"inland_valley","910":"inland_valley","911":"inland_valley","912":"inland_valley",
+"913":"inland_valley","914":"inland_valley","915":"inland_valley","916":"inland_valley",
+"917":"inland_valley","918":"inland_valley","919":"inland_valley","920":"coastal",
+"921":"desert","922":"desert","923":"inland_valley","924":"inland_valley",
+"925":"inland_valley","926":"inland_valley","927":"inland_valley","928":"inland_valley",
+"930":"coastal","931":"coastal","932":"inland_valley","933":"inland_valley",
+"934":"coastal","935":"desert","936":"inland_valley","937":"inland_valley",
+"938":"inland_valley","939":"coastal","940":"coastal","941":"coastal",
+"942":"inland_valley","943":"coastal","944":"coastal","945":"coastal",
+"946":"coastal","947":"coastal","948":"coastal","949":"coastal",
+"950":"coastal","951":"coastal","952":"inland_valley","953":"inland_valley",
+"954":"coastal","955":"coastal","956":"inland_valley","957":"inland_valley",
+"958":"inland_valley","959":"mountain","960":"mountain","961":"mountain"
+},
+crops:[
+{s:"tomatoes",n:"Tomatoes",c:"vegetables",d:"beginner",a:"growing-tomatoes-santa-cruz",p:"/tomato-masterkit",v:["Early Girl","Cherokee Purple","Sun Gold"],t:"Start seeds indoors 6-8 weeks before your last frost date. Tomatoes need warm soil (at least 60F) to thrive after transplanting.",z:{coastal:{i:[1,2,3],d:[],x:[3,4,5],h:[6,7,8,9,10]},inland_valley:{i:[1,2],d:[],x:[3,4,5],h:[5,6,7,8,9,10]},mountain:{i:[2,3,4],d:[],x:[5,6],h:[7,8,9]},desert:{i:[12,1],d:[],x:[1,2,3],h:[4,5,6,10,11]}}},
+{s:"bell-peppers",n:"Bell Peppers",c:"vegetables",d:"intermediate",a:"growing-sweet-peppers-santa-cruz",p:null,v:["California Wonder","Gypsy","Jimmy Nardello"],t:"Peppers need consistent warmth. Start seeds indoors 8-10 weeks before transplanting and wait until nighttime temperatures stay above 55F.",z:{coastal:{i:[1,2,3],d:[],x:[4,5],h:[7,8,9,10]},inland_valley:{i:[1,2],d:[],x:[4,5],h:[6,7,8,9,10]},mountain:{i:[2,3,4],d:[],x:[5,6],h:[7,8,9]},desert:{i:[12,1],d:[],x:[2,3],h:[4,5,6,10,11]}}},
+{s:"hot-peppers",n:"Hot Peppers",c:"vegetables",d:"intermediate",a:"grow-hot-peppers-santa-cruz",p:null,v:["Jalapeno","Serrano","Habanero"],t:"Hot peppers need even more heat than sweet peppers. Start seeds indoors early and use black plastic mulch to warm the soil before transplanting.",z:{coastal:{i:[1,2,3],d:[],x:[4,5],h:[7,8,9,10]},inland_valley:{i:[1,2],d:[],x:[4,5],h:[6,7,8,9,10]},mountain:{i:[2,3,4],d:[],x:[5,6],h:[8,9]},desert:{i:[12,1],d:[],x:[2,3],h:[4,5,6,10,11]}}},
+{s:"zucchini",n:"Zucchini",c:"vegetables",d:"beginner",a:"best-zucchini-varieties-for-santa-cruz-county",p:null,v:["Black Beauty","Costata Romanesco","Gold Rush"],t:"Direct sow after all danger of frost has passed and soil is warm. One or two plants will produce plenty for a family.",z:{coastal:{i:[2,3],d:[4,5,6],x:[4,5],h:[5,6,7,8,9,10]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[5,6,7,8,9]},mountain:{i:[3,4],d:[5,6],x:[5,6],h:[7,8,9]},desert:{i:[1,2],d:[2,3],x:[2,3],h:[4,5,6]}}},
+{s:"cucumbers",n:"Cucumbers",c:"vegetables",d:"beginner",a:"growing-cucumbers-in-santa-cruz-county-crisp-harvests-despite-cool-summers",p:null,v:["Marketmore 76","Lemon Cucumber","Armenian"],t:"Cucumbers love heat and consistent moisture. In cooler coastal areas, use row covers early in the season to boost warmth.",z:{coastal:{i:[3,4],d:[5,6],x:[5,6],h:[6,7,8,9]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[5,6,7,8,9]},mountain:{i:[3,4],d:[5,6],x:[5,6],h:[7,8,9]},desert:{i:[1,2],d:[2,3],x:[2,3],h:[4,5,6]}}},
+{s:"green-beans",n:"Green Beans",c:"vegetables",d:"beginner",a:"growing-beans-and-peas-in-santa-cruz-county-easy-protein-from-your-garden",p:null,v:["Blue Lake","Provider","Kentucky Wonder"],t:"Direct sow beans after the last frost. They do not transplant well. Inoculate seeds with rhizobium bacteria for better nitrogen fixation.",z:{coastal:{i:[],d:[4,5,6,7],x:[],h:[6,7,8,9,10]},inland_valley:{i:[],d:[4,5,7,8],x:[],h:[6,7,8,9,10]},mountain:{i:[],d:[5,6,7],x:[],h:[7,8,9]},desert:{i:[],d:[1,2,3,8],x:[],h:[3,4,5,10,11]}}},
+{s:"lettuce",n:"Lettuce",c:"vegetables",d:"beginner",a:"best-lettuce-santa-cruz",p:null,v:["Black Seeded Simpson","Buttercrunch","Red Sails"],t:"Lettuce prefers cool weather and will bolt (go to seed) in heat. Succession plant every 2-3 weeks for a continuous harvest.",z:{coastal:{i:[1,2,8,9],d:[2,3,4,5,6,7,8,9,10],x:[2,3,4,9,10],h:[3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[8,9],d:[9,10,11,2,3],x:[9,10,2,3],h:[10,11,12,1,2,3,4,5]},mountain:{i:[2,3],d:[4,5,8,9],x:[4,5],h:[5,6,7,9,10]},desert:{i:[9,10],d:[9,10,11,12],x:[10,11],h:[11,12,1,2,3,4]}}},
+{s:"spinach",n:"Spinach",c:"vegetables",d:"beginner",a:"growing-spinach-santa-cruz",p:null,v:["Bloomsdale Long Standing","Tyee","Space"],t:"Spinach thrives in cool weather and tolerates light frost. It bolts quickly in warmth, so plant in fall through early spring for best results.",z:{coastal:{i:[],d:[8,9,10,11,12,1,2,3],x:[],h:[10,11,12,1,2,3,4,5]},inland_valley:{i:[],d:[9,10,11,1,2],x:[],h:[11,12,1,2,3,4]},mountain:{i:[3],d:[4,5,8,9],x:[4,5],h:[5,6,9,10]},desert:{i:[],d:[9,10,11],x:[],h:[11,12,1,2,3]}}},
+{s:"kale",n:"Kale",c:"vegetables",d:"beginner",a:"growing-kale-santa-cruz",p:null,v:["Lacinato (Dinosaur)","Red Russian","Winterbor"],t:"Kale is one of the most cold-hardy vegetables. Flavor actually improves after a light frost. Harvest outer leaves first and the plant will keep producing.",z:{coastal:{i:[],d:[1,2,3,4,5,7,8,9,10,11,12],x:[2,3,4,8,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[7,8],d:[8,9,10,2,3],x:[9,10,3,4],h:[10,11,12,1,2,3,4,5,6]},mountain:{i:[2,3],d:[4,5,7,8],x:[4,5,8,9],h:[5,6,7,8,9,10,11]},desert:{i:[9],d:[9,10,11],x:[10,11],h:[11,12,1,2,3,4]}}},
+{s:"carrots",n:"Carrots",c:"vegetables",d:"beginner",a:"growing-carrots-santa-cruz",p:null,v:["Nantes","Danvers","Cosmic Purple"],t:"Carrots must be direct sown as they do not transplant well. Keep soil consistently moist until germination, which can take 2-3 weeks.",z:{coastal:{i:[],d:[1,2,3,4,5,7,8,9],x:[],h:[3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[],d:[2,3,4,8,9],x:[],h:[4,5,6,10,11,12]},mountain:{i:[],d:[4,5,6,7],x:[],h:[7,8,9,10]},desert:{i:[],d:[9,10,11,12],x:[],h:[12,1,2,3,4]}}},
+{s:"radishes",n:"Radishes",c:"vegetables",d:"beginner",a:"grow-radishes-santa-cruz",p:null,v:["Cherry Belle","French Breakfast","Watermelon Radish"],t:"One of the fastest crops from seed to harvest (as little as 25 days). Great for succession planting and filling gaps between slower crops.",z:{coastal:{i:[],d:[1,2,3,4,5,8,9,10,11,12],x:[],h:[2,3,4,5,6,9,10,11,12]},inland_valley:{i:[],d:[9,10,11,2,3,4],x:[],h:[10,11,12,3,4,5]},mountain:{i:[],d:[3,4,5,8,9],x:[],h:[4,5,6,9,10]},desert:{i:[],d:[9,10,11,12,1,2],x:[],h:[10,11,12,1,2,3]}}},
+{s:"beets",n:"Beets",c:"vegetables",d:"beginner",a:"root-vegetables-direct-seed-fall-winter-harvest",p:null,v:["Detroit Dark Red","Chioggia","Golden"],t:"Each beet 'seed' is actually a cluster of seeds, so thin seedlings early. Both the roots and greens are edible and nutritious.",z:{coastal:{i:[],d:[1,2,3,4,5,8,9,10,11],x:[],h:[3,4,5,6,7,10,11,12]},inland_valley:{i:[],d:[2,3,4,8,9,10],x:[],h:[4,5,6,10,11,12]},mountain:{i:[],d:[4,5,6,7,8],x:[],h:[6,7,8,9,10]},desert:{i:[],d:[9,10,11,12,1,2],x:[],h:[11,12,1,2,3,4]}}},
+{s:"onions",n:"Onions",c:"vegetables",d:"intermediate",a:"growing-onions-santa-cruz",p:null,v:["Yellow Granex","Walla Walla","Red Torpedo"],t:"California gardeners should choose long-day or intermediate-day onion varieties. Plant sets or transplants in fall or late winter for summer harvest.",z:{coastal:{i:[9,10],d:[10,11,12,1],x:[11,12,1,2],h:[5,6,7]},inland_valley:{i:[9,10],d:[10,11,1],x:[11,12,1,2],h:[5,6,7]},mountain:{i:[1,2,3],d:[3,4],x:[4,5],h:[7,8,9]},desert:{i:[9,10],d:[10,11],x:[10,11,12],h:[3,4,5]}}},
+{s:"garlic",n:"Garlic",c:"vegetables",d:"beginner",a:"growing-garlic-onions-santa-cruz",p:null,v:["California Early","Inchelium Red","Spanish Roja"],t:"Plant individual cloves in fall, pointed end up, about 2 inches deep. Garlic needs a cold period to form bulbs. Harvest when lower leaves begin to brown.",z:{coastal:{i:[],d:[10,11,12],x:[],h:[5,6,7]},inland_valley:{i:[],d:[10,11],x:[],h:[5,6,7]},mountain:{i:[],d:[9,10],x:[],h:[6,7,8]},desert:{i:[],d:[10,11,12],x:[],h:[4,5]}}},
+{s:"peas",n:"Peas",c:"vegetables",d:"beginner",a:"growing-sugar-snap-and-snow-peas-in-santa-cruz",p:null,v:["Sugar Snap","Oregon Sugar Pod","Cascadia"],t:"Peas are a cool-season crop that fixes nitrogen in the soil. Direct sow in fall or late winter. Provide a trellis for climbing varieties.",z:{coastal:{i:[],d:[1,2,3,9,10,11],x:[],h:[3,4,5,6,11,12]},inland_valley:{i:[],d:[10,11,1,2,3],x:[],h:[3,4,5]},mountain:{i:[],d:[3,4,5],x:[],h:[5,6,7]},desert:{i:[],d:[10,11,12,1],x:[],h:[1,2,3,4]}}},
+{s:"broccoli",n:"Broccoli",c:"vegetables",d:"intermediate",a:"start-broccoli-cauliflower-seeds-fall-harvest",p:null,v:["Calabrese","De Cicco","Waltham 29"],t:"Start seeds indoors in summer for a fall/winter harvest in most California zones. Broccoli prefers cool temperatures between 60-70F.",z:{coastal:{i:[1,2,6,7],d:[7,8,9],x:[2,3,8,9],h:[4,5,10,11,12]},inland_valley:{i:[7,8,12,1],d:[7,8],x:[8,9,1,2],h:[10,11,12,3,4,5]},mountain:{i:[2,3,6,7],d:[],x:[4,5,7,8],h:[6,7,9,10]},desert:{i:[8,9],d:[9,10],x:[9,10],h:[11,12,1,2]}}},
+{s:"cauliflower",n:"Cauliflower",c:"vegetables",d:"intermediate",a:"start-broccoli-cauliflower-seeds-fall-harvest",p:null,v:["Snowball","Purple of Sicily","Cheddar"],t:"Cauliflower is less forgiving than broccoli. It needs consistent cool temperatures and moisture. Blanch heads by tying outer leaves over the curd.",z:{coastal:{i:[1,2,6,7],d:[],x:[2,3,8,9],h:[4,5,10,11,12]},inland_valley:{i:[7,8,12,1],d:[],x:[8,9,1,2],h:[10,11,12,3,4,5]},mountain:{i:[2,3,6,7],d:[],x:[4,5,7,8],h:[6,7,9,10]},desert:{i:[8,9],d:[],x:[9,10],h:[12,1,2]}}},
+{s:"cabbage",n:"Cabbage",c:"vegetables",d:"intermediate",a:"growing-greens-in-your-california-garden-a-comprehensive-guide",p:null,v:["Golden Acre","January King","Red Express"],t:"Cabbage is a heavy feeder that likes rich, well-amended soil. Start transplants indoors 6-8 weeks before planting out in cool weather.",z:{coastal:{i:[1,7,8],d:[7,8,9],x:[2,3,8,9,10],h:[4,5,11,12,1]},inland_valley:{i:[7,8,12,1],d:[],x:[8,9,1,2],h:[10,11,12,3,4,5]},mountain:{i:[2,3],d:[],x:[4,5],h:[6,7,8]},desert:{i:[8,9],d:[],x:[9,10],h:[12,1,2,3]}}},
+{s:"corn",n:"Corn",c:"vegetables",d:"intermediate",a:"grow-glass-gem-corn-santa-cruz",p:null,v:["Golden Bantam","Peaches and Cream","Glass Gem"],t:"Plant corn in blocks of at least 4 rows (not single rows) for proper wind pollination. Corn is a heavy feeder that needs rich soil and consistent water.",z:{coastal:{i:[],d:[5,6,7],x:[],h:[8,9,10]},inland_valley:{i:[],d:[3,4,5,6,7],x:[],h:[6,7,8,9,10]},mountain:{i:[4],d:[5,6],x:[5,6],h:[8,9]},desert:{i:[],d:[2,3],x:[],h:[5,6]}}},
+{s:"potatoes",n:"Potatoes",c:"vegetables",d:"beginner",a:"the-first-5-vegetables-to-grow-in-santa-cruz-county",p:null,v:["Yukon Gold","Red Pontiac","Kennebec"],t:"Plant seed potatoes (not grocery store potatoes) in trenches and hill up soil as plants grow. Harvest after the foliage dies back.",z:{coastal:{i:[],d:[1,2,3],x:[],h:[5,6,7,8]},inland_valley:{i:[],d:[1,2,3],x:[],h:[5,6,7]},mountain:{i:[],d:[4,5],x:[],h:[7,8,9]},desert:{i:[],d:[1,2],x:[],h:[4,5]}}},
+{s:"sweet-potatoes",n:"Sweet Potatoes",c:"vegetables",d:"intermediate",a:"quick-harvest-vegetables-for-impatient-santa-cruz-gardeners",p:null,v:["Beauregard","Jewel","Georgia Jet"],t:"Sweet potatoes need a long, warm growing season (90-120 days). Plant slips (rooted sprouts) after soil is thoroughly warm, at least 65F.",z:{coastal:{i:[],d:[],x:[5,6],h:[9,10,11]},inland_valley:{i:[],d:[],x:[4,5,6],h:[9,10]},mountain:{i:[],d:[],x:[6],h:[9,10]},desert:{i:[],d:[],x:[3,4],h:[7,8]}}},
+{s:"eggplant",n:"Eggplant",c:"vegetables",d:"intermediate",a:"garden-highlight-eggplant",p:null,v:["Ichiban","Black Beauty","Rosa Bianca"],t:"Eggplant loves heat even more than tomatoes. Start seeds indoors 8-10 weeks before transplanting. Black plastic mulch helps warm the soil.",z:{coastal:{i:[1,2,3],d:[],x:[4,5],h:[7,8,9,10]},inland_valley:{i:[1,2],d:[],x:[4,5],h:[6,7,8,9,10]},mountain:{i:[2,3,4],d:[],x:[5,6],h:[8,9]},desert:{i:[12,1],d:[],x:[2,3],h:[4,5,6]}}},
+{s:"winter-squash",n:"Winter Squash",c:"vegetables",d:"intermediate",a:"growing-winter-squash-in-santa-cruz-county-from-planting-to-storage",p:null,v:["Butternut","Delicata","Kabocha"],t:"Winter squash needs a long season (80-110 days) and lots of space. Let fruit cure on the vine until the stem is dry and the skin resists a fingernail scratch.",z:{coastal:{i:[3,4],d:[5,6],x:[5,6],h:[9,10,11]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[8,9,10]},mountain:{i:[3,4],d:[5,6],x:[5,6],h:[9,10]},desert:{i:[1,2],d:[2,3],x:[2,3],h:[5,6]}}},
+{s:"pumpkins",n:"Pumpkins",c:"vegetables",d:"beginner",a:"growing-pumpkins-in-santa-cruz-county-from-seed-to-jack-o-lantern",p:null,v:["Sugar Pie","Jack O'Lantern","Cinderella"],t:"For Halloween pumpkins, count back 90-120 days from October to determine your planting date. Give vines plenty of room to spread.",z:{coastal:{i:[3,4],d:[5,6],x:[5,6],h:[9,10]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[8,9,10]},mountain:{i:[3,4],d:[5,6],x:[5,6],h:[9,10]},desert:{i:[1,2],d:[2,3],x:[2,3],h:[5,6]}}},
+{s:"swiss-chard",n:"Swiss Chard",c:"vegetables",d:"beginner",a:"growing-greens-in-your-california-garden-a-comprehensive-guide",p:null,v:["Bright Lights","Fordhook Giant","Ruby Red"],t:"Swiss chard is one of the most heat-tolerant greens and can produce nearly year-round in mild California climates. Harvest outer leaves to keep it producing.",z:{coastal:{i:[],d:[1,2,3,4,5,6,7,8,9,10,11,12],x:[],h:[2,3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[],d:[2,3,4,8,9,10],x:[],h:[3,4,5,6,7,10,11,12]},mountain:{i:[3],d:[4,5,6,7,8],x:[4,5],h:[5,6,7,8,9,10,11]},desert:{i:[],d:[9,10,11,2,3],x:[],h:[11,12,1,2,3,4,5]}}},
+{s:"basil",n:"Basil",c:"herbs",d:"beginner",a:"preventing-basil-from-bolting",p:null,v:["Genovese","Thai","Purple Ruffles"],t:"Basil is frost-sensitive and needs warm soil. Pinch off flower buds to keep leaves producing. Start seeds indoors in late March or early April.",z:{coastal:{i:[3,4],d:[5,6],x:[5,6],h:[5,6,7,8,9,10]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[5,6,7,8,9,10]},mountain:{i:[3,4],d:[6],x:[5,6],h:[6,7,8,9]},desert:{i:[1,2],d:[2,3],x:[2,3],h:[3,4,5,10,11]}}},
+{s:"cilantro",n:"Cilantro",c:"herbs",d:"beginner",a:"grow-cilantro-santa-cruz",p:null,v:["Santo","Slow Bolt","Calypso"],t:"Cilantro bolts quickly in warm weather. Plant in fall through spring for best results. Succession sow every 3 weeks for continuous harvest.",z:{coastal:{i:[],d:[1,2,3,4,9,10,11,12],x:[],h:[2,3,4,5,6,10,11,12]},inland_valley:{i:[],d:[9,10,11,2,3],x:[],h:[10,11,12,3,4,5]},mountain:{i:[],d:[4,5,8,9],x:[],h:[5,6,7,9,10]},desert:{i:[],d:[9,10,11,12,1,2],x:[],h:[10,11,12,1,2,3,4]}}},
+{s:"dill",n:"Dill",c:"herbs",d:"beginner",a:"grow-dill-santa-cruz",p:null,v:["Bouquet","Fernleaf","Mammoth"],t:"Dill does not transplant well because of its taproot. Direct sow where you want it to grow. It self-seeds readily in California gardens.",z:{coastal:{i:[],d:[3,4,5,9,10],x:[],h:[5,6,7,8,11,12]},inland_valley:{i:[],d:[3,4,9,10],x:[],h:[5,6,7,11,12]},mountain:{i:[],d:[4,5,6],x:[],h:[6,7,8,9]},desert:{i:[],d:[10,11,2,3],x:[],h:[12,1,2,4,5]}}},
+{s:"oregano",n:"Oregano",c:"herbs",d:"beginner",a:"growing-oregano-in-santa-cruz",p:null,v:["Greek","Italian","Hot and Spicy"],t:"Oregano is a woody perennial that thrives in heat and poor soil. Once established, it spreads vigorously. Shear back before flowering for best flavor.",z:{coastal:{i:[2,3],d:[4,5],x:[3,4,5,9,10],h:[4,5,6,7,8,9,10,11]},inland_valley:{i:[2,3],d:[4,5],x:[3,4,5,9,10],h:[4,5,6,7,8,9,10]},mountain:{i:[3,4],d:[5,6],x:[5,6],h:[6,7,8,9]},desert:{i:[9,10],d:[10,11],x:[10,11,2,3],h:[11,12,1,2,3,4,5]}}},
+{s:"parsley",n:"Parsley",c:"herbs",d:"beginner",a:"grow-parsley-santa-cruz",p:null,v:["Italian Flat Leaf","Moss Curled","Hamburg (root)"],t:"Parsley seeds are slow to germinate (up to 3 weeks). Soak seeds in warm water for 24 hours before planting to speed things up.",z:{coastal:{i:[1,2,8,9],d:[2,3,4,9,10,11],x:[3,4,10,11],h:[3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[1,2,8,9],d:[2,3,9,10],x:[3,4,10,11],h:[3,4,5,6,10,11,12]},mountain:{i:[2,3],d:[4,5],x:[4,5],h:[5,6,7,8,9,10]},desert:{i:[9,10],d:[10,11,12],x:[10,11],h:[11,12,1,2,3,4]}}},
+{s:"rosemary",n:"Rosemary",c:"herbs",d:"beginner",a:"grow-rosemary-santa-cruz",p:null,v:["Tuscan Blue","Arp","Prostrate"],t:"Rosemary is a drought-tolerant evergreen perennial that thrives in California. Plant from nursery starts rather than seed for faster results. Needs excellent drainage.",z:{coastal:{i:[],d:[],x:[3,4,5,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[],d:[],x:[3,4,5,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},mountain:{i:[],d:[],x:[5,6],h:[5,6,7,8,9,10]},desert:{i:[],d:[],x:[10,11,2,3],h:[1,2,3,4,5,10,11,12]}}},
+{s:"thyme",n:"Thyme",c:"herbs",d:"beginner",a:"growin-thyme-santa-cruz",p:null,v:["English","Lemon","Creeping"],t:"Thyme is an evergreen perennial that prefers lean, well-drained soil and full sun. Harvest before blossoms open for the best flavor.",z:{coastal:{i:[],d:[],x:[3,4,5,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[],d:[],x:[3,4,5,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},mountain:{i:[3,4],d:[],x:[5,6],h:[5,6,7,8,9,10]},desert:{i:[],d:[],x:[10,11,2,3],h:[1,2,3,4,5,10,11,12]}}},
+{s:"mint",n:"Mint",c:"herbs",d:"beginner",a:"grow-mint-santa-cruz",p:null,v:["Spearmint","Peppermint","Chocolate Mint"],t:"Mint spreads aggressively via underground runners. Always grow it in containers or a dedicated bed with barriers to prevent it from taking over your garden.",z:{coastal:{i:[],d:[],x:[3,4,5,9,10],h:[3,4,5,6,7,8,9,10,11]},inland_valley:{i:[],d:[],x:[3,4,5,9,10],h:[3,4,5,6,7,8,9,10]},mountain:{i:[],d:[],x:[5,6],h:[5,6,7,8,9]},desert:{i:[],d:[],x:[10,11,2,3],h:[10,11,12,1,2,3,4,5]}}},
+{s:"chives",n:"Chives",c:"herbs",d:"beginner",a:"growing-chives-santa-cruz",p:null,v:["Common Chives","Garlic Chives","Staro"],t:"Chives are a hardy perennial allium. Divide clumps every 3-4 years. Both the leaves and purple flowers are edible.",z:{coastal:{i:[1,2],d:[3,4,9,10],x:[3,4,9,10],h:[3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[1,2],d:[3,4,9,10],x:[3,4,9,10],h:[3,4,5,6,7,8,9,10,11]},mountain:{i:[3,4],d:[5,6],x:[5,6],h:[5,6,7,8,9,10]},desert:{i:[9,10],d:[10,11],x:[10,11],h:[11,12,1,2,3,4,5]}}},
+{s:"sage",n:"Sage",c:"herbs",d:"beginner",a:"garden-highlight-herb-sage",p:null,v:["Common/Garden","Purple","Tricolor"],t:"Sage is a drought-tolerant perennial that prefers full sun and well-drained soil. Trim in spring after the second year to prevent woody, leggy growth.",z:{coastal:{i:[],d:[],x:[3,4,5,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[],d:[],x:[3,4,5,9,10],h:[1,2,3,4,5,6,7,8,9,10,11,12]},mountain:{i:[3,4],d:[],x:[5,6],h:[5,6,7,8,9,10]},desert:{i:[],d:[],x:[10,11,2,3],h:[1,2,3,4,5,10,11,12]}}},
+{s:"strawberries",n:"Strawberries",c:"fruits",d:"beginner",a:"growing-strawberries-santa-cruz",p:null,v:["Albion","Seascape","Chandler"],t:"In California, plant bare-root strawberries in fall (October-November) for spring harvest, or in early spring. Day-neutral varieties produce fruit nearly year-round in mild climates.",z:{coastal:{i:[],d:[],x:[8,9,10,11,2,3],h:[3,4,5,6,7,8,9,10]},inland_valley:{i:[],d:[],x:[9,10,11,2,3],h:[3,4,5,6,7]},mountain:{i:[],d:[],x:[4,5],h:[6,7,8]},desert:{i:[],d:[],x:[10,11,12],h:[2,3,4,5]}}},
+{s:"blueberries",n:"Blueberries",c:"fruits",d:"intermediate",a:"growing-blueberries-santa-cruz",p:null,v:["Misty","O'Neal","Sunshine Blue"],t:"Blueberries need acidic soil (pH 4.5-5.5), which is rare in California. Amend with sulfur and peat moss, or grow in containers with acidic potting mix.",z:{coastal:{i:[],d:[],x:[11,12,1,2],h:[5,6,7,8]},inland_valley:{i:[],d:[],x:[12,1,2],h:[5,6,7]},mountain:{i:[],d:[],x:[3,4],h:[6,7,8]},desert:{i:[],d:[],x:[11,12,1],h:[4,5,6]}}},
+{s:"blackberries",n:"Blackberries",c:"fruits",d:"beginner",a:"grow-blackberries-santa-cruz",p:null,v:["Triple Crown","Natchez","Ouachita"],t:"Plant bare-root canes in winter. Most blackberries fruit on second-year canes (floricanes). Prune spent canes after harvest and train new growth on a trellis.",z:{coastal:{i:[],d:[],x:[12,1,2],h:[6,7,8]},inland_valley:{i:[],d:[],x:[12,1,2],h:[5,6,7,8]},mountain:{i:[],d:[],x:[3,4],h:[7,8,9]},desert:{i:[],d:[],x:[12,1,2],h:[5,6]}}},
+{s:"raspberries",n:"Raspberries",c:"fruits",d:"intermediate",a:"growing-raspberries-in-santa-cruz-county-a-complete-guide",p:null,v:["Heritage","Caroline","Tulameen"],t:"Choose primocane (ever-bearing) varieties for California, as they produce fruit on first-year canes and simplify pruning. Plant bare-root canes in winter.",z:{coastal:{i:[],d:[],x:[12,1,2],h:[6,7,8,9,10]},inland_valley:{i:[],d:[],x:[12,1,2],h:[5,6,7,8,9]},mountain:{i:[],d:[],x:[3,4],h:[7,8,9]},desert:{i:[],d:[],x:[12,1],h:[4,5,6]}}},
+{s:"watermelon",n:"Watermelon",c:"fruits",d:"intermediate",a:"growing-melons-in-santa-cruz-county-which-microclimates-work-and-which-do-not",p:null,v:["Sugar Baby","Crimson Sweet","Moon and Stars"],t:"Watermelons need a long, hot growing season. In cooler coastal areas, use black plastic mulch and row covers to boost heat. Choose small-fruited varieties for shorter seasons.",z:{coastal:{i:[3,4],d:[5,6],x:[5,6],h:[8,9,10]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[7,8,9]},mountain:{i:[4],d:[5,6],x:[5,6],h:[8,9]},desert:{i:[12,1],d:[1,2,3],x:[1,2,3],h:[5,6]}}},
+{s:"cantaloupe",n:"Cantaloupe",c:"fruits",d:"intermediate",a:"california-gardening-unique-melons-guide",p:null,v:["Hale's Best","Ambrosia","Tuscan"],t:"Cantaloupes need warm soil and air temperatures. The fruit is ripe when it slips easily from the vine with gentle pressure and smells fragrant at the stem end.",z:{coastal:{i:[3,4],d:[5,6],x:[5,6],h:[8,9,10]},inland_valley:{i:[2,3],d:[4,5,6],x:[4,5],h:[7,8,9]},mountain:{i:[4],d:[5,6],x:[5,6],h:[8,9]},desert:{i:[12,1],d:[1,2,3],x:[1,2,3],h:[5,6]}}},
+{s:"citrus",n:"Citrus",c:"fruits",d:"intermediate",a:"growing-citrus-in-santa-cruz-county-what-actually-works-and-what-doesnt",p:null,v:["Meyer Lemon","Satsuma Mandarin","Washington Navel Orange"],t:"Citrus trees are evergreen and can be planted year-round in frost-free areas, but spring is ideal. Protect from frost when young. Container growing works well in cooler zones.",z:{coastal:{i:[],d:[],x:[3,4,5,9,10],h:[11,12,1,2,3,4,5,6,7]},inland_valley:{i:[],d:[],x:[3,4,5],h:[11,12,1,2,3,4,5,6]},mountain:{i:[],d:[],x:[5,6],h:[11,12,1,2]},desert:{i:[],d:[],x:[2,3,10,11],h:[11,12,1,2,3,4,5]}}},
+{s:"figs",n:"Figs",c:"fruits",d:"beginner",a:"growing-figs-santa-cruz",p:null,v:["Brown Turkey","Black Mission","Kadota"],t:"Figs are one of the easiest fruit trees for California. Plant bare-root trees in winter. Most varieties produce two crops: a small early (breba) crop and a larger main crop.",z:{coastal:{i:[],d:[],x:[12,1,2,3],h:[6,7,8,9,10]},inland_valley:{i:[],d:[],x:[12,1,2],h:[6,7,8,9,10]},mountain:{i:[],d:[],x:[3,4],h:[8,9,10]},desert:{i:[],d:[],x:[12,1,2],h:[5,6,7,10,11]}}},
+{s:"grapes",n:"Grapes",c:"fruits",d:"intermediate",a:"california-fruit-trees",p:null,v:["Thompson Seedless","Concord","Flame Seedless"],t:"Plant bare-root grapevines in late winter while dormant. Grapes need full sun, good air circulation, and a sturdy trellis or arbor. Prune heavily each winter.",z:{coastal:{i:[],d:[],x:[1,2,3],h:[8,9,10]},inland_valley:{i:[],d:[],x:[1,2],h:[7,8,9,10]},mountain:{i:[],d:[],x:[3,4],h:[9,10]},desert:{i:[],d:[],x:[12,1,2],h:[6,7,8]}}},
+{s:"avocado",n:"Avocado",c:"fruits",d:"advanced",a:"can-i-grow-avocados-santa-cruz-county",p:null,v:["Hass","Fuerte","Bacon"],t:"Avocados need frost-free conditions (or protection when young), well-draining soil, and consistent watering. They do best in Southern California and warm coastal microclimates.",z:{coastal:{i:[],d:[],x:[3,4,5],h:[1,2,3,4,5,6,7,8,9,10,11,12]},inland_valley:{i:[],d:[],x:[3,4,5],h:[2,3,4,5,6,7,8,9,10,11]},mountain:{i:[],d:[],x:[],h:[]},desert:{i:[],d:[],x:[3,4],h:[2,3,4,5,6,7,8,9]}}}
+]
+};
+
+/* =====================================================================
+   APP STATE
+   ===================================================================== */
+var MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var MOF=["January","February","March","April","May","June","July","August","September","October","November","December"];
+var zone="coastal";
+var filter="all";
+var cMonth=new Date().getMonth();
+var searchQ="";
+var focSlug=null;
+/* v3 state: "now" = only crops with an action in cMonth (default), "year" = every crop */
+var view="now";
+var diff="all";
+
+/* DOM refs */
+var $=function(id){return document.getElementById(id);};
+var zSel=$("pc-zsel"), mSel=$("pc-msel"), zInp=$("pc-zip"), zBtn=$("pc-zbtn"), zMsg=$("pc-zmsg");
+var tbody=$("pc-tbody"), cCnt=$("pc-cc");
+var detO=$("pc-do"), detX=$("pc-dx");
+var srch=$("pc-search");
+var fBtns=document.querySelectorAll(".pc-fb");
+var vBtns=document.querySelectorAll(".pc-vb");
+var dBtns=document.querySelectorAll(".pc-db-btn");
+var vNote=$("pc-vnote");
+
+/* =====================================================================
+   v3 SHARED FILTER PREDICATES
+   ===================================================================== */
+/* True when the crop has any activity (indoors, direct sow, transplant,
+   harvest) in the month currently in view, for the selected zone. */
+function activeInMonth(cr,m){
+  var zd=cr.z[zone];
+  if(!zd) return false;
+  return ["i","d","x","h"].some(function(k){
+    return zd[k] && zd[k].indexOf(m)!==-1;
+  });
+}
+
+/* Single place that owns the view state, so the toggle, the month selector and
+   the initial render can never disagree about which button looks pressed. */
+function setView(next){
+  view=next;
+  for(var i=0;i<vBtns.length;i++){
+    var on=vBtns[i].getAttribute("data-v")===next;
+    vBtns[i].classList.toggle("on",on);
+    vBtns[i].setAttribute("aria-pressed",on?"true":"false");
+  }
+  /* Plantable now needs a real month, so snap the month selector off "all". */
+  if(next==="now"&&mSel.value==="all") mSel.value=String(cMonth);
+}
+
+/* Every non-category filter in one place so the table, the tag strip and the
+   count can never disagree. */
+function passes(cr){
+  if(searchQ && cr.n.toLowerCase().indexOf(searchQ)===-1) return false;
+  if(diff!=="all" && cr.d!==diff) return false;
+  if(view==="now" && !activeInMonth(cr,cMonth+1)) return false;
+  return true;
+}
+
+/* =====================================================================
+   ZONE INFO
+   ===================================================================== */
+function updZone(){
+  var z=D.zones[zone];
+  $("zd-name").textContent=z.name+" Zone";
+  $("zd-usda").textContent=z.usdaZones;
+  $("zd-lf").textContent=z.avgLastFrost;
+  $("zd-ff").textContent=z.avgFirstFrost;
+  zSel.value=zone;
+}
+
+/* =====================================================================
+   WHAT TO PLANT NOW
+   ===================================================================== */
+function updNow(){
+  var m=cMonth+1;
+  $("pc-ntitle").textContent="What to Plant in "+MOF[cMonth];
+  var acts=[
+    {k:"i",l:"Start indoors",c:"si"},
+    {k:"d",l:"Direct sow",c:"ds"},
+    {k:"x",l:"Transplant",c:"tp"},
+    {k:"h",l:"Harvest",c:"hv"}
+  ];
+  var h="",any=false;
+  acts.forEach(function(a){
+    D.crops.forEach(function(cr){
+      if(filter!=="all"&&cr.c!==filter)return;
+      if(searchQ&&cr.n.toLowerCase().indexOf(searchQ)===-1)return;
+      if(diff!=="all"&&cr.d!==diff)return;
+      var zd=cr.z[zone];
+      if(zd&&zd[a.k]&&zd[a.k].indexOf(m)!==-1){
+        any=true;
+        h+='<button class="pc-nt" data-a="'+a.c+'" data-s="'+cr.s+'" aria-label="'+cr.n+' - '+a.l+'">'+cr.n+'</button>';
+      }
+    });
+  });
+  if(!any) h='<span class="pc-nempty">No crops match your current filters for this month and zone. Try adjusting your filters.</span>';
+  $("pc-ntags").innerHTML=h;
+  var tags=$("pc-ntags").querySelectorAll(".pc-nt");
+  for(var i=0;i<tags.length;i++){
+    tags[i].addEventListener("click",function(e){openDet(e.currentTarget.getAttribute("data-s"));});
+  }
+}
+
+/* =====================================================================
+   CALENDAR RENDER
+   ===================================================================== */
+function render(){
+  var h="";
+  var cats=["vegetables","herbs","fruits"];
+  var catL={vegetables:"Vegetables",herbs:"Herbs",fruits:"Fruits"};
+  var vis=0;
+
+  var ths=document.querySelectorAll(".pc-tbl thead th");
+  for(var t=0;t<ths.length;t++) ths[t].classList.remove("pc-cm");
+  if(ths[cMonth+1]) ths[cMonth+1].classList.add("pc-cm");
+
+  cats.forEach(function(cat){
+    if(filter!=="all"&&filter!==cat) return;
+    var crops=D.crops.filter(function(c){
+      if(c.c!==cat) return false;
+      return passes(c);
+    });
+    if(crops.length===0) return;
+
+    h+='<tr class="pc-cr"><td colspan="13">'+catL[cat]+' ('+crops.length+')</td></tr>';
+
+    crops.forEach(function(cr){
+      var zd=cr.z[zone];
+      if(!zd)return;
+      var has=zd.i.length>0||zd.d.length>0||zd.x.length>0||zd.h.length>0;
+      vis++;
+      var rowCls=has?'':'pc-na';
+      h+='<tr class="'+rowCls+'" tabindex="0" role="button" aria-label="'+cr.n+', click for details" data-s="'+cr.s+'">';
+
+      var dc=cr.d==="beginner"?"beg":cr.d==="intermediate"?"int":"adv";
+      h+='<td><div class="pc-cnc"><span class="pc-dif '+dc+'" title="'+cr.d+'"></span>'+cr.n+'</div></td>';
+
+      for(var m=1;m<=12;m++){
+        var isCur=(m-1)===cMonth;
+        var cc=isCur?' class="pc-ccol"':'';
+        h+='<td'+cc+'>';
+        if(has){
+          var bars=[];
+          if(zd.i.indexOf(m)!==-1) bars.push("si");
+          if(zd.d.indexOf(m)!==-1) bars.push("ds");
+          if(zd.x.indexOf(m)!==-1) bars.push("tp");
+          if(zd.h.indexOf(m)!==-1) bars.push("hv");
+          if(bars.length>0){
+            h+='<div class="pc-bc">';
+            var titles={si:"start indoors",ds:"direct sow",tp:"transplant",hv:"harvest"};
+            bars.forEach(function(b){h+='<div class="pc-b '+b+'" title="'+titles[b]+'"></div>';});
+            h+='</div>';
+          }
+        }
+        h+='</td>';
+      }
+      h+='</tr>';
+    });
+  });
+
+  if(vis===0){
+    h='<tr><td colspan="13" style="padding:22px 16px;text-align:center;font-size:0.88rem;color:#8c9c8c;">'+
+      (view==="now"
+        ? "Nothing matches those filters for "+MOF[cMonth]+" in the "+D.zones[zone].name+" zone. Try Full year, or clear a filter."
+        : "No crops match those filters. Try clearing the search or the difficulty filter.")+
+      '</td></tr>';
+  }
+
+  tbody.innerHTML=h;
+  cCnt.textContent="Showing "+vis+" crop"+(vis!==1?"s":"")+
+    (view==="now"?" for "+MOF[cMonth]:"");
+  if(vNote){
+    vNote.textContent = view==="now"
+      ? "Showing what you can plant in "+MOF[cMonth]+" in the "+D.zones[zone].name+" zone."
+      : "Showing all 12 months. "+MOF[cMonth]+" is highlighted.";
+  }
+
+  var rows=tbody.querySelectorAll("tr[data-s]");
+  for(var r=0;r<rows.length;r++){
+    rows[r].addEventListener("click",function(e){openDet(e.currentTarget.getAttribute("data-s"));});
+    rows[r].addEventListener("keydown",function(e){
+      if(e.key==="Enter"||e.key===" "){e.preventDefault();openDet(e.currentTarget.getAttribute("data-s"));}
+    });
+  }
+}
+
+/* =====================================================================
+   DETAIL PANEL
+   ===================================================================== */
+function openDet(slug){
+  var cr=D.crops.find(function(c){return c.s===slug;});
+  if(!cr) return;
+  focSlug=slug;
+  var zd=cr.z[zone];
+  var zi=D.zones[zone];
+
+  $("dd-name").textContent=cr.n;
+  $("dd-cat").textContent=cr.c.charAt(0).toUpperCase()+cr.c.slice(1);
+
+  var dc=cr.d==="beginner"?"beg":cr.d==="intermediate"?"int":"adv";
+  $("dd-dif").innerHTML='<span class="pc-dif '+dc+'"></span> '+cr.d.charAt(0).toUpperCase()+cr.d.slice(1);
+
+  $("dd-vars").innerHTML=cr.v.map(function(v){return '<span class="pc-dv">'+v+'</span>';}).join("");
+
+  $("dd-tip").textContent=cr.t;
+
+  $("dd-zlbl").textContent=zi.name;
+
+  var acts=[
+    {k:"i",l:"Start Indoors",c:"si"},
+    {k:"d",l:"Direct Sow",c:"ds"},
+    {k:"x",l:"Transplant",c:"tp"},
+    {k:"h",l:"Harvest",c:"hv"}
+  ];
+  var tlH="";
+  acts.forEach(function(a){
+    var months=zd?zd[a.k]:[];
+    if(!months||months.length===0) return;
+    tlH+='<div class="pc-dtlr"><span class="pc-dtll">'+a.l+'</span><div class="pc-dtlm">';
+    for(var m=1;m<=12;m++){
+      var on=months.indexOf(m)!==-1;
+      tlH+='<span class="pc-dm '+(on?a.c:"em")+'">'+MO[m-1]+'</span>';
+    }
+    tlH+='</div></div>';
+  });
+  if(!tlH) tlH='<p style="font-size:0.85rem;color:var(--gray-400);font-style:italic;">This crop is not recommended for the '+zi.name+' zone.</p>';
+  $("dd-tl").innerHTML=tlH;
+
+  var lH="";
+  if(cr.a) lH+='<a class="pc-dlnk" href="https://ambitiousharvest.com/learn/'+cr.a+'" target="_blank" rel="noopener">Read Growing Guide</a>';
+  if(cr.p) lH+='<a class="pc-plnk" href="https://ambitiousharvest.com'+cr.p+'" target="_blank" rel="noopener">Get the MasterKit</a>';
+  $("dd-links").innerHTML=lH;
+  $("dd-lsec").style.display=lH?"block":"none";
+
+  detO.classList.add("open");
+  document.body.style.overflow="hidden";
+  detX.focus();
+}
+
+function closeDet(){
+  detO.classList.remove("open");
+  document.body.style.overflow="";
+  if(focSlug){
+    var row=tbody.querySelector('tr[data-s="'+focSlug+'"]');
+    if(row) row.focus();
+    focSlug=null;
+  }
+}
+
+/* =====================================================================
+   ZIP LOOKUP
+   ===================================================================== */
+function lookupZip(){
+  var z=zInp.value.trim();
+  if(!/^\d{5}$/.test(z)){
+    zMsg.textContent="Please enter a 5-digit California zip code.";
+    zMsg.classList.add("pc-err");
+    return;
+  }
+  var pre=z.substring(0,3);
+  var found=D.zip[pre];
+  if(!found){
+    var num=parseInt(pre,10);
+    if(num<900||num>961){
+      zMsg.textContent="This tool covers California zip codes only (900xx through 961xx).";
+    }else{
+      zMsg.textContent="Zone not found for this zip. Please select your zone manually.";
+    }
+    zMsg.classList.add("pc-err");
+    return;
+  }
+  zone=found;
+  zMsg.textContent="Matched to "+D.zones[found].name+" zone. Not right? Select your zone manually above.";
+  zMsg.classList.remove("pc-err");
+  updAll();
+}
+
+/* =====================================================================
+   EVENT LISTENERS
+   ===================================================================== */
+zSel.addEventListener("change",function(){zone=zSel.value;zMsg.textContent="";updAll();});
+mSel.addEventListener("change",function(){
+  var v=mSel.value;
+  cMonth=v==="all"?new Date().getMonth():parseInt(v,10);
+  /* "All Months" and the plantable-now view contradict each other, so picking
+     All Months drops the view back to the full year grid. */
+  if(v==="all") setView("year");
+  updAll();
+});
+zBtn.addEventListener("click",lookupZip);
+zInp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();lookupZip();}});
+detX.addEventListener("click",closeDet);
+detO.addEventListener("click",function(e){if(e.target===detO) closeDet();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&detO.classList.contains("open")) closeDet();});
+
+for(var i=0;i<fBtns.length;i++){
+  fBtns[i].addEventListener("click",function(e){
+    var btn=e.currentTarget;
+    for(var j=0;j<fBtns.length;j++){fBtns[j].classList.remove("on");fBtns[j].setAttribute("aria-selected","false");}
+    btn.classList.add("on");
+    btn.setAttribute("aria-selected","true");
+    filter=btn.getAttribute("data-f");
+    updAll();
+  });
+}
+
+/* v3: view toggle */
+for(var v=0;v<vBtns.length;v++){
+  vBtns[v].addEventListener("click",function(e){
+    setView(e.currentTarget.getAttribute("data-v"));
+    updAll();
+  });
+}
+
+/* v3: difficulty filter */
+for(var dI=0;dI<dBtns.length;dI++){
+  dBtns[dI].addEventListener("click",function(e){
+    var btn=e.currentTarget;
+    for(var j=0;j<dBtns.length;j++){
+      dBtns[j].classList.remove("on");
+      dBtns[j].setAttribute("aria-pressed","false");
+    }
+    btn.classList.add("on");
+    btn.setAttribute("aria-pressed","true");
+    diff=btn.getAttribute("data-d");
+    updAll();
+  });
+}
+
+var searchTimer=null;
+srch.addEventListener("input",function(){
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(function(){
+    searchQ=srch.value.trim().toLowerCase();
+    updAll();
+  },200);
+});
+
+/* =====================================================================
+   MASTER UPDATE
+   ===================================================================== */
+function updAll(){
+  updZone();
+  updNow();
+  render();
+}
+
+/* v3 default state: current month, plantable-now view. v2 opened on "All Months"
+   with the whole 45-crop grid, which made the first screen a wall of bars. */
+mSel.value=String(cMonth);
+updAll();
+
+})();
+</script>
