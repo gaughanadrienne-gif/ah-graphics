@@ -30,10 +30,65 @@
      writer, as a stringified list ("['market']"). Accept either shape. */
   function cats(e){var v=e&&e.categories;if(Object.prototype.toString.call(v)==='[object Array]')return v.map(function(x){return String(x).trim().toLowerCase()}).filter(Boolean);if(typeof v==='string'){var raw=v.trim(),m=raw.match(/^\[([\s\S]*)\]$/);return (m?m[1]:raw).split(',').map(function(x){return x.trim().replace(/^['"]+|['"]+$/g,'').toLowerCase()}).filter(Boolean)}return []}
   function includesFilter(e){var c=cats(e);if(state.filter==='all')return true;if(state.filter==='outing')return c.indexOf('tour')>-1||c.indexOf('u-pick')>-1;return c.indexOf(state.filter)>-1}
-  function dateParts(e){var d=new Date(e.start),dow=d.toLocaleDateString('en-US',{weekday:'short',timeZone:'America/Los_Angeles'}),month=d.toLocaleDateString('en-US',{month:'short',timeZone:'America/Los_Angeles'}),day=d.toLocaleDateString('en-US',{day:'numeric',timeZone:'America/Los_Angeles'});return{d:d,dow:dow,month:month,day:day}}
-  function timeLine(e){if(e.all_day)return e.recurrence||'Seasonal availability, confirm before visiting';var a=new Date(e.start),b=e.end?new Date(e.end):null,opt={hour:'numeric',minute:'2-digit',timeZone:'America/Los_Angeles'};return a.toLocaleTimeString('en-US',opt)+(b?' to '+b.toLocaleTimeString('en-US',opt):'')}
-  function googleUrl(e){var start=new Date(e.start),end=new Date(e.end||e.start),stamp=function(d){return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')};var p=new URLSearchParams({action:'TEMPLATE',text:e.title||'',dates:stamp(start)+'/'+stamp(end),details:(e.description||'')+'\n\nSource: '+(e.source_url||''),location:[e.venue,e.address,e.city].filter(Boolean).join(', ')});return'https://calendar.google.com/calendar/render?'+p.toString()}
-  function downloadIcs(e){var fmt=function(d){return new Date(d).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')},clean=function(v){return String(v||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;')};var body=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ambitious Harvest//Garden Events//EN','BEGIN:VEVENT','UID:'+clean(e.id)+'@ambitiousharvest.com','DTSTAMP:'+fmt(new Date()),'DTSTART:'+fmt(e.start),'DTEND:'+fmt(e.end||e.start),'SUMMARY:'+clean(e.title),'DESCRIPTION:'+clean(e.description),'LOCATION:'+clean([e.venue,e.address,e.city].filter(Boolean).join(', ')),'URL:'+clean(e.source_url),'END:VEVENT','END:VCALENDAR'].join('\r\n');var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/calendar'}));a.download=(e.title||'garden-event').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.ics';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0)}
+  /* The date shown on the card and the date written into the export come from
+     the same evParts reader, so they can never disagree. See the comment on the
+     calendar export below for why a naive string and an instant differ. */
+  function dateParts(e){var p=evParts(e.start,e.all_day)||{y:1970,mo:1,d:1},local=new Date(p.y,p.mo-1,p.d);return{d:local,dow:local.toLocaleDateString('en-US',{weekday:'short'}),month:local.toLocaleDateString('en-US',{month:'short'}),day:String(p.d)}}
+  function clockText(p){if(!p||p.h==null)return'';var h12=p.h%12===0?12:p.h%12;return h12+':'+pad2(p.mi||0)+(p.h<12?' AM':' PM')}
+  function timeLine(e){if(e.all_day)return e.recurrence||'Seasonal availability, confirm before visiting';var a=evParts(e.start,false),b=e.end?evParts(e.end,false):null;if(!a)return'';return clockText(a)+(b&&b.h!=null?' to '+clockText(b):'')}
+  /* ---------- calendar export ----------
+     Fixed 2026-07-29, pattern brought back from the Boulder Creek Local port.
+     Both exports used to run every date through toISOString, which stamps a UTC
+     instant. For a date-only event that drags the card into the PREVIOUS DAY for
+     any reader west of UTC, which is every reader this tool has. All-day events
+     now export as DTSTART;VALUE=DATE with an exclusive DTEND, and timed events
+     as floating local times pinned to Pacific.
+     The feed carries two date shapes and they mean different things: a
+     hand-typed card holds a naive local "2026-08-01T10:00", already Pacific wall
+     time, which must be read literally; a generated card holds a UTC instant,
+     which must be converted to America/Los_Angeles. evParts handles both. */
+  function pad2(n){return (n<10?'0':'')+n}
+  var LA_PARTS=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+  function evParts(value,allDay){
+    var s=String(value==null?'':value);
+    var bare=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(bare)return{y:+bare[1],mo:+bare[2],d:+bare[3],h:null,mi:0};
+    var naive=s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+    if(naive&&!/(?:Z|[+-]\d{2}:?\d{2})$/.test(s))return{y:+naive[1],mo:+naive[2],d:+naive[3],h:allDay?null:+naive[4],mi:allDay?0:+naive[5]};
+    var dt=new Date(s);if(isNaN(dt))return null;
+    var p={};LA_PARTS.formatToParts(dt).forEach(function(x){if(x.type!=='literal')p[x.type]=x.value});
+    return{y:+p.year,mo:+p.month,d:+p.day,h:allDay?null:+p.hour,mi:allDay?0:+p.minute}
+  }
+  function icsDate(p,addDay){var d=new Date(p.y,p.mo-1,p.d+(addDay?1:0));return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate())}
+  function icsDateTime(p){return icsDate(p,false)+'T'+pad2(p.h)+pad2(p.mi||0)+'00'}
+  function icsStamp(){var d=new Date();return d.getUTCFullYear()+pad2(d.getUTCMonth()+1)+pad2(d.getUTCDate())+'T'+pad2(d.getUTCHours())+pad2(d.getUTCMinutes())+pad2(d.getUTCSeconds())+'Z'}
+  function googleUrl(e){
+    var start=evParts(e.start,e.all_day);if(!start)return'#';
+    var end=evParts(e.end||e.start,e.all_day)||start;
+    /* DTEND/end date is exclusive for all-day, so a one-day event ends the next morning. */
+    var dates=start.h==null?icsDate(start,false)+'/'+icsDate(end.h==null?end:start,true):icsDateTime(start)+'/'+icsDateTime(end.h==null?start:end);
+    var q={action:'TEMPLATE',text:e.title||'',dates:dates,details:(e.description||'')+'\n\nSource: '+(e.source_url||''),location:[e.venue,e.address,e.city].filter(Boolean).join(', ')};
+    if(start.h!=null)q.ctz='America/Los_Angeles';
+    return'https://calendar.google.com/calendar/render?'+new URLSearchParams(q).toString()
+  }
+  function downloadIcs(e){
+    var start=evParts(e.start,e.all_day);if(!start)return;
+    var end=evParts(e.end||e.start,e.all_day)||start;
+    var clean=function(v){return String(v==null?'':v).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;')};
+    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ambitious Harvest//Garden Events//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:'+clean(e.id)+'@ambitiousharvest.com','DTSTAMP:'+icsStamp()];
+    if(start.h==null){lines.push('DTSTART;VALUE=DATE:'+icsDate(start,false));lines.push('DTEND;VALUE=DATE:'+icsDate(end.h==null?end:start,true))}
+    else{lines.push('DTSTART:'+icsDateTime(start));lines.push('DTEND:'+icsDateTime(end.h==null?start:end))}
+    lines.push('SUMMARY:'+clean(e.title));
+    var place=[e.venue,e.address,e.city].filter(Boolean).join(', ');
+    if(place)lines.push('LOCATION:'+clean(place));
+    /* Details change and a downloaded file cannot update itself, so the
+       description carries the organizer link rather than implying it is fixed. */
+    var details=[e.description,e.source_url?'Confirm with the organizer: '+e.source_url:''].filter(Boolean).join(' ');
+    if(details)lines.push('DESCRIPTION:'+clean(details));
+    if(e.source_url)lines.push('URL:'+clean(e.source_url));
+    lines.push('END:VEVENT','END:VCALENDAR');
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lines.join('\r\n')+'\r\n'],{type:'text/calendar;charset=utf-8'}));a.download=(e.title||'garden-event').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.ics';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0)
+  }
   function card(e){var p=dateParts(e),tags=cats(e).slice(0,4).map(function(c){return'<span class="ge-tag">'+esc(labels[c]||c.replace(/-/g,' '))+'</span>'}).join('');var place=[e.venue,e.city].filter(Boolean).join(' - ');return'<article class="ge-card"><div class="ge-date"><span class="ge-dow">'+esc(p.dow)+'</span><span class="ge-day">'+esc(p.day)+'</span><span class="ge-month">'+esc(p.month)+'</span></div><div><h3>'+esc(e.title)+'</h3><div class="ge-meta">'+esc(timeLine(e))+(place?' - '+esc(place):'')+'</div>'+(e.recurrence?'<div class="ge-series">'+esc(e.recurrence)+'</div>':'')+(e.description?'<p class="ge-desc">'+esc(e.description)+'</p>':'')+'<div class="ge-tags">'+tags+'</div><div class="ge-actions"><a href="'+esc(safeUrl(e.source_url))+'" target="_blank" rel="noopener">Event details</a>'+(e.registration_url?'<a href="'+esc(safeUrl(e.registration_url))+'">RSVP</a>':'')+'<a href="'+esc(googleUrl(e))+'" target="_blank" rel="noopener">Google Calendar</a><button type="button" data-ics="'+esc(e.id)+'">Download .ics</button></div><div class="ge-source">'+esc(e.organizer||'')+'</div></div></article>'}
   function stampText(n){var bits=n===1?'1 upcoming event':n+' upcoming events';if(state.updated&&!isNaN(state.updated))bits+='. Updated '+state.updated.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});return bits}
   function render(){var now=new Date(),filtered=state.events.filter(function(e){return new Date(e.end||e.start)>=now&&e.status!=='cancelled'&&includesFilter(e)}),shown=filtered.slice(0,state.limit);count.textContent=stampText(filtered.length);list.innerHTML=shown.length?shown.map(card).join(''):'<div class="ge-status">No upcoming events match this filter.</div>';more.classList.toggle('ge-hidden',shown.length>=filtered.length);Array.prototype.forEach.call(list.querySelectorAll('[data-ics]'),function(b){b.addEventListener('click',function(){var id=b.getAttribute('data-ics'),event=state.events.find(function(e){return e.id===id});if(event)downloadIcs(event)})})}

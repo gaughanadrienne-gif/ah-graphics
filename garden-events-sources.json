@@ -99,8 +99,8 @@
     {
       "id": "ucsc_agroecology",
       "name": "UCSC Center for Agroecology",
-      "url": "https://events.ucsc.edu/organizer/center-for-agroecology/?ical=1",
-      "adapter": "ics",
+      "url": "https://events.ucsc.edu/wp-json/tribe/events/v1/events?per_page=50&organizer=386",
+      "adapter": "tribe_rest",
       "tier": "automatic",
       "role": "events",
       "categories": [
@@ -109,7 +109,11 @@
         "learn",
         "experience"
       ],
-      "notes": "Validate recurring-series end dates against the written description."
+      "default_categories": [
+        "experience"
+      ],
+      "previous_url": "https://events.ucsc.edu/organizer/center-for-agroecology/?ical=1",
+      "notes": "Restored 2026-07-29. The ?ical=1 export and every HTML page on events.ucsc.edu now answer 403 behind a Cloudflare bot challenge that a plain fetch cannot clear. The site's own public wp-json endpoint answers a standard request, so the source moved to it: same host, same publisher, better structured data. organizer=386 is Center for Agroecology; the numeric id is required, the slug returns 400. Validate recurring-series end dates against the written description."
     },
     {
       "id": "uc_master_gardeners",
@@ -144,7 +148,7 @@
       "id": "ucsc_arboretum",
       "name": "UCSC Arboretum & Botanic Garden",
       "url": "https://arboretum.ucsc.edu/visit/events/",
-      "adapter": "html_monitor",
+      "adapter": "arboretum_html",
       "tier": "monitored",
       "role": "events_and_recurring_tours",
       "categories": [
@@ -153,7 +157,11 @@
         "tour",
         "volunteer",
         "experience"
-      ]
+      ],
+      "default_categories": [
+        "experience"
+      ],
+      "notes": "Implemented 2026-07-29. Hand-authored WordPress page, no calendar plugin and no feed, so the adapter reads the curated 'Upcoming Events' list plus section headings that lead with a full date. Monitored tier: gateArboretum() must pass or nothing publishes. The events.ucsc.edu Tribe REST organizer id for the Arboretum is 365, but it carries only the two recurring series and none of the classes, so it is not a substitute for this page."
     },
     {
       "id": "santa_cruz_public_libraries",

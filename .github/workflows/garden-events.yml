@@ -29,10 +29,21 @@ jobs:
           const d=require('./garden-events-data.json');
           if(!Array.isArray(d.events)||!d.events.length) throw new Error('no events');
           if(!d.updated) throw new Error('missing top-level updated timestamp');
+          // The page shrinking without anyone noticing is this tool's main
+          // failure mode, so a collapse fails the build instead of shipping.
+          if(d.events.length < 12) throw new Error('event count collapsed to '+d.events.length);
+          const seen=new Map();
           for (const e of d.events) {
             if(!Array.isArray(e.categories)) throw new Error('categories is not an array: '+e.id);
+            if(!e.start || isNaN(new Date(e.start))) throw new Error('unparseable start on '+e.id);
+            const key=String(e.title).toLowerCase()+'|'+String(e.start).slice(0,10);
+            if(seen.has(key)) throw new Error('double-listed event: '+key+' ('+seen.get(key)+' and '+e.id+')');
+            seen.set(key, e.id);
             for (const [k,v] of Object.entries(e)) {
               if(typeof v==='string' && /[^\x20-\x7e]/.test(v)) throw new Error('non-ascii in '+e.id+'.'+k+': '+JSON.stringify(v));
+              // safeUrl() in the embed permits http, https and mailto; anything
+              // else renders as a dead '#' link, so catch it here instead.
+              if(/_url$/.test(k) && v && !/^(https?:\/\/|mailto:)/.test(v)) throw new Error('bad url in '+e.id+'.'+k+': '+v);
             }
           }
           console.log(d.events.length+' events validated');
