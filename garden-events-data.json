@@ -1,7 +1,7 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-07-29T14:57:03.037Z",
+  "updated_at": "2026-07-29T16:50:33.904Z",
   "events": [
     {
       "id": "sccfm-downtown",
@@ -136,21 +136,24 @@
     {
       "id": "ucsc-farm-guided-tour-2026-08-01",
       "title": "Free Guided Tour of the UCSC Farm",
-      "start": "2026-08-01T10:00:00-07:00",
-      "end": "2026-08-01T11:30:00-07:00",
+      "start": "2026-08-01T17:00:00.000Z",
+      "end": "2026-08-01T18:30:00.000Z",
       "venue": "UCSC Farm",
-      "address": "152 Farm Road, Santa Cruz, CA 95064",
+      "address": "152 Farm Rd",
       "city": "Santa Cruz",
       "categories": [
         "tour",
         "learn"
       ],
-      "description": "Tour the 30-acre organic farm's greenhouses, garden beds, orchards, row crops and children's garden while learning about organic farming and gardening. Free; RSVP requested. Heavy rain cancels.",
+      "description": "Take a free, guided tour of the 30-acre organic UCSC Farm. Visitors can enjoy touring the organically managed greenhouses, hand-worked garden beds, orchards, row crop fields, and children's garden, while learning about the history of the site and the basic concepts of organic farming and gardening.",
       "registration_url": "https://ucsantacruz.co1.qualtrics.com/jfe/form/SV_2to8lbHldsoUi1w",
       "source_url": "https://events.ucsc.edu/event/free-guided-tour-of-the-ucsc-farm-7-2026/2026-08-01/",
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
-      "reviewed_at": "2026-07-15"
+      "reviewed_at": "2026-07-15",
+      "all_day": false,
+      "source_id": "ucsc_agroecology",
+      "enriched_from": "ucsc_agroecology"
     },
     {
       "id": "live-earth-farm-u-pick-2026",
@@ -249,6 +252,46 @@
       "source_type": "recurring"
     },
     {
+      "id": "ucsc_agroecology-12382",
+      "source_id": "ucsc_agroecology",
+      "title": "Wildlife Cameras and Other Methods for Assessing Backyard Biodiversity",
+      "start": "2026-08-02T16:00:00.000Z",
+      "end": "2026-08-02T19:00:00.000Z",
+      "venue": "Hay Barn",
+      "city": "Santa Cruz",
+      "address": "94 Ranch View Road",
+      "categories": [
+        "experience"
+      ],
+      "description": "Home gardens, small farms, and wildland-agricultural interfaces can often be areas of increased water, food, and habitat resources for wildlife. Many people are interested in seeing wildlife on their properties, from the common visitors to the elusive wanderers.",
+      "all_day": false,
+      "source_url": "https://events.ucsc.edu/event/wildlife-cameras-and-other-methods-for-assessing-backyard-biodiversity/",
+      "registration_url": "https://center-for-agroecology.company.site/products/Wildlife-Cameras-and-other-Methods-for-Assessing-Backyard-Biodiversity-p838469579",
+      "cost": "$20 to $30",
+      "organizer": "UCSC Center for Agroecology",
+      "status": "confirmed",
+      "source_type": "api"
+    },
+    {
+      "id": "ucsc_arboretum-2026-08-04-free-community-day",
+      "source_id": "ucsc_arboretum",
+      "title": "Free Community Day",
+      "start": "2026-08-04T07:00:00.000Z",
+      "end": "2026-08-04T07:00:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "experience"
+      ],
+      "description": "Visit the garden on our monthly Community Day with FREE ADMISSION, Only on the First Tuesday of each month. See our hours of operation below.",
+      "all_day": true,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html",
+      "recurrence": "Open during garden hours, confirm before visiting"
+    },
+    {
       "id": "sccfm-felton",
       "title": "Felton Farmers' Market",
       "weekday": 2,
@@ -340,78 +383,109 @@
       "source_type": "recurring"
     },
     {
+      "id": "ucsc_agroecology-7241",
+      "source_id": "ucsc_agroecology",
+      "title": "Farm to Fork 2026",
+      "start": "2026-08-29T23:00:00.000Z",
+      "end": "2026-08-30T04:00:00.000Z",
+      "venue": "",
+      "city": "",
+      "address": "",
+      "categories": [
+        "tour"
+      ],
+      "description": "Join the Center for Agroecology for an evening at the Farm. Enjoy a reception and benefit dinner on the UCSC Farm followed by dancing in the Hay Barn! This event will feature music, appetizers, tours, and local wine followed by a seasonally-focused, locally-sourced meal featuring produce from the UCSC Farm and local...",
+      "all_day": false,
+      "source_url": "https://events.ucsc.edu/event/farm-to-fork-2026/",
+      "organizer": "UCSC Center for Agroecology",
+      "status": "confirmed",
+      "source_type": "api"
+    },
+    {
       "id": "arboretum-earth-friendly-soil-2026-08-30",
-      "title": "Earth-Friendly Gardening: Improving Your Soil",
-      "start": "2026-08-30T10:00:00-07:00",
-      "end": "2026-08-30T12:00:00-07:00",
+      "title": "Earth Friendly Gardening (Class 3 of 4): Improving Your Soil",
+      "start": "2026-08-30T17:00:00.000Z",
+      "end": "2026-08-30T19:00:00.000Z",
       "venue": "UCSC Arboretum & Botanic Garden",
       "address": "122 Arboretum Road, Santa Cruz, CA 95064",
       "city": "Santa Cruz",
       "categories": [
-        "learn",
-        "compost"
+        "learn"
       ],
-      "description": "A hands-on UC Master Gardener workshop on soil structure, beneficial soil life, drainage and amendments for healthier gardens and containers. Class is free with paid Arboretum admission; registration is required.",
+      "description": "Join the UC Master Gardeners of Monterey, San Benito & Santa Cruz Counties for this hands-on workshop exploring practical, science-based ways to improve your soil and grow healthier plants.",
       "registration_url": "https://www.zeffy.com/en-US/ticketing/earth-friendly-gardening-improving-your-soil",
       "source_url": "https://arboretum.ucsc.edu/visit/events/",
       "organizer": "UCSC Arboretum & UC Master Gardeners",
       "status": "confirmed",
-      "reviewed_at": "2026-07-15"
+      "reviewed_at": "2026-07-15",
+      "all_day": false,
+      "source_id": "ucsc_arboretum",
+      "enriched_from": "ucsc_arboretum"
     },
     {
       "id": "ucsc-farm-guided-tour-2026-09-12",
       "title": "Free Guided Tour of the UCSC Farm",
-      "start": "2026-09-12T10:00:00-07:00",
-      "end": "2026-09-12T11:30:00-07:00",
+      "start": "2026-09-12T17:00:00.000Z",
+      "end": "2026-09-12T18:30:00.000Z",
       "venue": "UCSC Farm",
-      "address": "152 Farm Road, Santa Cruz, CA 95064",
+      "address": "152 Farm Rd",
       "city": "Santa Cruz",
       "categories": [
         "tour",
         "learn"
       ],
-      "description": "Tour the 30-acre organic farm's greenhouses, garden beds, orchards, row crops and children's garden while learning about organic farming and gardening. Free; RSVP requested. Heavy rain cancels.",
+      "description": "Take a free, guided tour of the 30-acre organic UCSC Farm. Visitors can enjoy touring the organically managed greenhouses, hand-worked garden beds, orchards, row crop fields, and children's garden, while learning about the history of the site and the basic concepts of organic farming and gardening.",
       "registration_url": "https://ucsantacruz.co1.qualtrics.com/jfe/form/SV_2to8lbHldsoUi1w",
       "source_url": "https://events.ucsc.edu/event/free-guided-tour-of-the-ucsc-farm-7-2026/2026-09-12/",
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
-      "reviewed_at": "2026-07-15"
+      "reviewed_at": "2026-07-15",
+      "all_day": false,
+      "source_id": "ucsc_agroecology",
+      "enriched_from": "ucsc_agroecology"
     },
     {
       "id": "arboretum-earth-friendly-wildlife-2026-09-27",
-      "title": "Earth-Friendly Gardening: Protecting Wildlife",
-      "start": "2026-09-27T10:00:00-07:00",
-      "end": "2026-09-27T12:00:00-07:00",
+      "title": "Earth Friendly Gardening (Class 4 of 4): Protecting Wildlife and the Environment",
+      "start": "2026-09-27T17:00:00.000Z",
+      "end": "2026-09-27T19:00:00.000Z",
       "venue": "UCSC Arboretum & Botanic Garden",
       "address": "122 Arboretum Road, Santa Cruz, CA 95064",
       "city": "Santa Cruz",
       "categories": [
         "learn"
       ],
-      "description": "Learn garden practices that provide food, water and shelter for beneficial insects and birds while reducing pesticides, conserving water and protecting natural resources. The organizer says registration is coming soon.",
+      "description": "Your garden can make a difference! Discover simple, practical ways to create a healthier, more sustainable landscape by providing food, water, and shelter for pollinators, birds, and other beneficial creatures.",
       "source_url": "https://arboretum.ucsc.edu/visit/events/",
       "organizer": "UCSC Arboretum & UC Master Gardeners",
       "status": "confirmed",
-      "reviewed_at": "2026-07-15"
+      "reviewed_at": "2026-07-15",
+      "registration_url": "https://www.zeffy.com/en-US/ticketing/earth-friendly-gardening-the-fourth-one",
+      "all_day": false,
+      "source_id": "ucsc_arboretum",
+      "enriched_from": "ucsc_arboretum"
     },
     {
       "id": "ucsc-farm-guided-tour-2026-10-03",
       "title": "Free Guided Tour of the UCSC Farm",
-      "start": "2026-10-03T10:00:00-07:00",
-      "end": "2026-10-03T11:30:00-07:00",
+      "start": "2026-10-03T17:00:00.000Z",
+      "end": "2026-10-03T20:30:00.000Z",
       "venue": "UCSC Farm",
-      "address": "152 Farm Road, Santa Cruz, CA 95064",
+      "address": "152 Farm Rd",
       "city": "Santa Cruz",
       "categories": [
         "tour",
         "learn"
       ],
-      "description": "Tour the 30-acre organic farm's greenhouses, garden beds, orchards, row crops and children's garden while learning about organic farming and gardening. Free; RSVP requested. Heavy rain cancels.",
+      "description": "Take a free, guided tour of the 30-acre organic UCSC Farm. Visitors can enjoy touring the organically managed greenhouses, hand-worked garden beds, orchards, row crop fields, and children's garden, while learning about the history of the site and the basic concepts of organic farming and gardening.",
       "registration_url": "https://ucsantacruz.co1.qualtrics.com/jfe/form/SV_2to8lbHldsoUi1w",
       "source_url": "https://events.ucsc.edu/event/free-guided-tour-of-the-ucsc-farm-7-2026/2026-10-03/",
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
-      "reviewed_at": "2026-07-15"
+      "reviewed_at": "2026-07-15",
+      "all_day": false,
+      "source_id": "ucsc_agroecology",
+      "enriched_from": "ucsc_agroecology"
     },
     {
       "id": "open-farm-tours-south-county-2026-10-10",
@@ -450,6 +524,26 @@
       "reviewed_at": "2026-07-15"
     },
     {
+      "id": "ucsc_agroecology-12746",
+      "source_id": "ucsc_agroecology",
+      "title": "Harvest Festival",
+      "start": "2026-10-17T18:00:00.000Z",
+      "end": "2026-10-17T22:00:00.000Z",
+      "venue": "UCSC Farm",
+      "city": "Santa Cruz",
+      "address": "152 Farm Rd",
+      "categories": [
+        "experience"
+      ],
+      "description": "Connect with community on the campus farm at the annual Harvest Festival! Harvest Fest will have activities for all ages including face painting, flower pressing, pumpkin painting, cider pressing, tractor rides, live music, and more!",
+      "all_day": false,
+      "source_url": "https://events.ucsc.edu/event/harvest-festival-2026/",
+      "cost": "Free to $5",
+      "organizer": "UCSC Center for Agroecology",
+      "status": "confirmed",
+      "source_type": "api"
+    },
+    {
       "id": "lifelab-school-food-garden-tour-2026-10-22",
       "title": "Santa Cruz Area School Food and Garden Tour",
       "start": "2026-10-22T09:30:00-07:00",
@@ -468,8 +562,6 @@
       "reviewed_at": "2026-07-15"
     }
   ],
-  "warnings": [
-    "UCSC Center for Agroecology: HTTP 403"
-  ],
-  "updated": "2026-07-29T14:57:03.037Z"
+  "warnings": [],
+  "updated": "2026-07-29T16:50:33.904Z"
 }
