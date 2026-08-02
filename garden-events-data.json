@@ -1,76 +1,8 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-08-01T19:31:42.659Z",
+  "updated_at": "2026-08-02T19:32:15.753Z",
   "events": [
-    {
-      "id": "sccfm-live-oak",
-      "title": "Live Oak Farmers' Market",
-      "weekday": 0,
-      "start_time": "09:00",
-      "end_time": "13:00",
-      "season": "year-round",
-      "venue": "15th Avenue & East Cliff Drive",
-      "city": "Live Oak",
-      "categories": [
-        "market"
-      ],
-      "description": "A year-round neighborhood market with regional produce, meals and a seasonal music series.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/live-oak/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Sundays, 9:00 AM to 1:00 PM",
-      "start": "2026-08-02T16:00:00.000Z",
-      "end": "2026-08-02T20:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
-    {
-      "id": "ucsc_agroecology-12382",
-      "source_id": "ucsc_agroecology",
-      "title": "Wildlife Cameras and Other Methods for Assessing Backyard Biodiversity",
-      "start": "2026-08-02T16:00:00.000Z",
-      "end": "2026-08-02T19:00:00.000Z",
-      "venue": "Hay Barn",
-      "city": "Santa Cruz",
-      "address": "94 Ranch View Road",
-      "categories": [
-        "experience"
-      ],
-      "description": "Home gardens, small farms, and wildland-agricultural interfaces can often be areas of increased water, food, and habitat resources for wildlife. Many people are interested in seeing wildlife on their properties, from the common visitors to the elusive wanderers.",
-      "all_day": false,
-      "source_url": "https://events.ucsc.edu/event/wildlife-cameras-and-other-methods-for-assessing-backyard-biodiversity/",
-      "registration_url": "https://center-for-agroecology.company.site/products/Wildlife-Cameras-and-other-Methods-for-Assessing-Backyard-Biodiversity-p838469579",
-      "cost": "$20 to $30",
-      "organizer": "UCSC Center for Agroecology",
-      "status": "confirmed",
-      "source_type": "api"
-    },
-    {
-      "id": "live-earth-farm-u-pick-2026",
-      "title": "Live Earth Farm U-pick, Strawberries Open",
-      "weekdays": [
-        6,
-        0
-      ],
-      "start_time": "10:00",
-      "end_time": "15:00",
-      "season_start": "2026-05-16",
-      "season_end": "2026-10-31",
-      "venue": "Live Earth Farm",
-      "address": "1275 Green Valley Road, Watsonville, CA 95076",
-      "city": "Watsonville",
-      "categories": [
-        "u-pick"
-      ],
-      "description": "The farm currently lists strawberries as OPEN at $3/lb. Other crops open as they ripen. No reservation is needed; field abundance can change, so check the official crop-status page before leaving. No dogs.",
-      "source_url": "https://www.liveearthfarm.net/u-pick",
-      "organizer": "Live Earth Farm",
-      "recurrence": "Saturdays and Sundays, 10:00 AM to 3:00 PM, through late October; field abundance permitting",
-      "start": "2026-08-02T17:00:00.000Z",
-      "end": "2026-08-02T22:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
     {
       "id": "ucsc_arboretum-2026-08-04-free-community-day",
       "source_id": "ucsc_arboretum",
@@ -218,6 +150,53 @@
       "recurrence": "Saturdays, 9:00 AM to noon, July 11 to August 22; while supplies last",
       "start": "2026-08-08T16:00:00.000Z",
       "end": "2026-08-08T19:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
+      "id": "live-earth-farm-u-pick-2026",
+      "title": "Live Earth Farm U-pick, Strawberries Open",
+      "weekdays": [
+        6,
+        0
+      ],
+      "start_time": "10:00",
+      "end_time": "15:00",
+      "season_start": "2026-05-16",
+      "season_end": "2026-10-31",
+      "venue": "Live Earth Farm",
+      "address": "1275 Green Valley Road, Watsonville, CA 95076",
+      "city": "Watsonville",
+      "categories": [
+        "u-pick"
+      ],
+      "description": "The farm currently lists strawberries as OPEN at $3/lb. Other crops open as they ripen. No reservation is needed; field abundance can change, so check the official crop-status page before leaving. No dogs.",
+      "source_url": "https://www.liveearthfarm.net/u-pick",
+      "organizer": "Live Earth Farm",
+      "recurrence": "Saturdays and Sundays, 10:00 AM to 3:00 PM, through late October; field abundance permitting",
+      "start": "2026-08-08T17:00:00.000Z",
+      "end": "2026-08-08T22:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
+      "id": "sccfm-live-oak",
+      "title": "Live Oak Farmers' Market",
+      "weekday": 0,
+      "start_time": "09:00",
+      "end_time": "13:00",
+      "season": "year-round",
+      "venue": "15th Avenue & East Cliff Drive",
+      "city": "Live Oak",
+      "categories": [
+        "market"
+      ],
+      "description": "A year-round neighborhood market with regional produce, meals and a seasonal music series.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/live-oak/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Sundays, 9:00 AM to 1:00 PM",
+      "start": "2026-08-09T16:00:00.000Z",
+      "end": "2026-08-09T20:00:00.000Z",
       "status": "confirmed",
       "source_type": "recurring"
     },
@@ -501,6 +480,8 @@
       "reviewed_at": "2026-07-15"
     }
   ],
-  "warnings": [],
-  "updated": "2026-08-01T19:31:42.659Z"
+  "warnings": [
+    "California Native Plant Society: fetch failed"
+  ],
+  "updated": "2026-08-02T19:32:15.753Z"
 }
