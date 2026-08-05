@@ -769,5 +769,30 @@ copyBtn.addEventListener("click",function(){
 zone=zoneFromUrl()||savedZone()||"coastal";
 updAll();
 
+/* =====================================================================
+   FIT: center the widget on the viewport even when the host container
+   (a Squarespace code block) is narrower than the widget. Measures the
+   real container position, so it works at any block width or placement.
+   ===================================================================== */
+(function(){
+  var fitting=false;
+  function fit(){
+    if(fitting) return; fitting=true;
+    try{
+      var w=document.querySelector(".wtp-wrap"); if(!w) return;
+      var vw=document.documentElement.clientWidth;
+      var target=Math.min(980, vw-32);
+      w.style.width=target+"px";
+      w.style.maxWidth="none";
+      w.style.marginLeft="0px";
+      var rect=w.getBoundingClientRect();
+      var shift=(vw/2)-rect.left-(target/2);
+      w.style.marginLeft=Math.round(shift)+"px";
+    } finally { fitting=false; }
+  }
+  fit();
+  window.addEventListener("resize", fit);
+})();
+
 })();
 </script>
