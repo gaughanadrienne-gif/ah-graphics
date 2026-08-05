@@ -4375,3 +4375,68 @@ function ahIsFlockArticle(slug) {
     } catch (err) {}
   }, true);
 })();
+
+// === PLANTING CALENDAR PAGE - FREE CALENDAR PDF CAPTURE (2026-08-05) ===
+// The /planting-calendar tool had zero email capture while the homepage Free
+// Calendar form (the same offer) runs at 0.65% on cold homepage traffic. This
+// box offers the printable calendar to the exact audience already using the
+// interactive one. Same MailerLite fetch/no-cors mechanism and box styling as
+// the cluster cheat-sheet boxes above (account 1974108, Free Calendar form).
+// Fully reversible: remove this block.
+(function () {
+  var path = (location.pathname || '').replace(/\/+$/, '');
+  if (path !== '/planting-calendar') return;
+  setTimeout(function () {
+    if (document.querySelector('.ah-cal-optin')) return;
+    var anchor = document.getElementById('pc-tbl') || document.querySelector('[id^="pc-"]') ||
+                 document.querySelector('[class^="pc-"]');
+    if (!anchor) return;
+    var block = null, n = anchor;
+    while (n && n !== document.body) {
+      if (n.classList && (n.classList.contains('sqs-block-code') || n.classList.contains('sqs-block'))) block = n;
+      n = n.parentNode;
+    }
+    if (!block) block = anchor.parentNode;
+
+    var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/173377502828299397/subscribe';
+    var box = document.createElement('aside');
+    box.className = 'ah-cal-optin';
+    box.setAttribute('style', 'display:block;max-width:760px;margin:34px auto;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
+    box.innerHTML = '' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free printable</div>' +
+      '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Take the Santa Cruz Planting Calendar with you</div>' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Get the printable version of this calendar for the fridge or the potting bench, built for Santa Cruz County and nearby coastal growing zones. Enter your email and I will send the PDF straight to your inbox.</p>' +
+      '<form class="ah-cal-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the calendar</button>' +
+      '</form>' +
+      '<div class="ah-cal-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>';
+
+    block.parentNode.insertBefore(box, block.nextSibling);
+
+    var form = box.querySelector('.ah-cal-form');
+    var msg = box.querySelector('.ah-cal-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button');
+      var input = form.querySelector('input[name="fields[email]"]');
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') === -1) {
+        msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
+      }
+      btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        .then(function () {
+          box.innerHTML =
+            '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
+            '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
+            '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0;">Confirm your email with the link we just sent, and your printable planting calendar is on its way. If you do not see it, check your spam or promotions folder.</p>';
+        })
+        .catch(function () {
+          msg.style.display = 'block'; msg.textContent = 'Something went wrong. Please try again.';
+          btn.textContent = 'Send me the calendar'; btn.disabled = false;
+        });
+    });
+  }, 1700);
+})();
