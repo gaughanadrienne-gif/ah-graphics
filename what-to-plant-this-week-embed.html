@@ -568,6 +568,14 @@ function urgencyTier(monthsList,m){
   return {tier:3,label:"Still time this month",warn:false};
 }
 
+function monthsUnion(zd){
+  var seen={}, out=[];
+  ["i","d","x"].forEach(function(k){
+    (zd[k]||[]).forEach(function(mm){ if(!seen[mm]){ seen[mm]=1; out.push(mm); } });
+  });
+  return out.sort(function(a,b){ return a-b; });
+}
+
 function buildItems(zoneKey,month){
   var items=[];
   D.crops.forEach(function(cr){
@@ -575,17 +583,23 @@ function buildItems(zoneKey,month){
     if(!zd) return;
     var acts=["i","d","x"].filter(function(k){ return zd[k]&&zd[k].indexOf(month)!==-1; });
     if(acts.length===0) return;
-    // Card urgency = the single most time-sensitive action this crop has
-    // active this month (lowest tier number wins).
-    var best=null;
-    acts.forEach(function(k){
-      var u=urgencyTier(zd[k],month);
-      if(!best||u.tier<best.tier) best=u;
+    // Card badge = the CROP's overall window this month (union of all three
+    // action windows). Per-action edges are annotated on the action labels
+    // instead. The old rule took the most urgent single action, which showed
+    // "Last call" on a crop whose transplant window was actually OPENING
+    // (cabbage, coastal August: start-indoors ends while transplant begins).
+    var u=urgencyTier(monthsUnion(zd),month);
+    var labels=acts.map(function(k){
+      var au=urgencyTier(zd[k],month);
+      var lbl=ACT_LABEL[k];
+      if(au.tier===0||au.tier===1) lbl+=" (last call)";
+      else if(au.tier===2) lbl+=" (window opens)";
+      return lbl;
     });
     items.push({
       slug:cr.s, name:cr.n, category:cr.c, articleSlug:cr.a,
-      actionLabels:acts.map(function(k){return ACT_LABEL[k];}),
-      tier:best.tier, tierLabel:best.label, warn:best.warn
+      actionLabels:labels,
+      tier:u.tier, tierLabel:u.label, warn:u.warn
     });
   });
   return items;
