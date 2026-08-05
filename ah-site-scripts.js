@@ -4281,3 +4281,94 @@ function ahIsFlockArticle(slug) {
   else setTimeout(run, 200);
   setTimeout(run, 1500);   // the archive grid and nav can render late
 })();
+
+// ---------------------------------------------------------------------------
+// GA4 TOOL + SIGNUP EVENTS (added 2026-08-05)
+// Closes the tools audit P2 gap: no tool carried any usage instrumentation, so
+// tool conversion was unmeasurable. Events, not UTMs (internal UTMs overwrite
+// GA4 session attribution). Squarespace's native GA4 integration creates
+// window.dataLayer; pushing gtag-style arguments into it registers events on
+// the configured property. Every handler is wrapped so a failure here can
+// never break anything else in this file.
+(function () {
+  'use strict';
+
+  function gtagCompat() {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(arguments);
+  }
+  function send(name, params) {
+    try { gtagCompat('event', name, params || {}); } catch (err) {}
+  }
+
+  var TOOL_PATHS = {
+    '/planting-calendar': 'planting_calendar',
+    '/garden-conditions': 'garden_conditions',
+    '/build-your-flock': 'build_your_flock',
+    '/tomato-quiz': 'tomato_quiz',
+    '/local-resources': 'local_resources',
+    '/garden-events': 'garden_events',
+    '/your-garden-toolkit': 'garden_toolkit'
+  };
+  var path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+  var tool = TOOL_PATHS[path] || null;
+
+  // tool_engaged: fired ONCE per page load on the first click/change/input
+  // anywhere on a tool page. Deliberately broad (nav clicks count): this is an
+  // engagement proxy, and scoping to per-tool DOM selectors would break the
+  // moment a tool's markup changes.
+  if (tool) {
+    var engaged = false;
+    var markEngaged = function () {
+      if (engaged) return;
+      engaged = true;
+      send('tool_engaged', { tool_name: tool });
+      document.removeEventListener('click', markEngaged, true);
+      document.removeEventListener('change', markEngaged, true);
+      document.removeEventListener('input', markEngaged, true);
+    };
+    document.addEventListener('click', markEngaged, true);
+    document.addEventListener('change', markEngaged, true);
+    document.addEventListener('input', markEngaged, true);
+  }
+
+  // Click delegation: guide downloads + article-to-tool routing.
+  document.addEventListener('click', function (e) {
+    try {
+      var t = e.target;
+      var a = (t && t.closest) ? t.closest('a[href]') : null;
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var clean = href.split('?')[0].replace(/\/+$/, '');
+
+      // guide_download_click: the toolkit PDFs and any Squarespace file link.
+      if (/\.pdf$/i.test(clean) || href.indexOf('/s/') === 0) {
+        send('guide_download_click', { file_path: clean, page_path: path });
+        return;
+      }
+
+      // tool_cta_click: a link INTO a tool page from anywhere that is not
+      // that tool itself. Measures which pages actually route readers to the
+      // tools (audit P4: tools are internally near-invisible).
+      if (TOOL_PATHS[clean] && clean !== path) {
+        send('tool_cta_click', { tool_name: TOOL_PATHS[clean], page_path: path });
+      }
+    } catch (err) {}
+  }, true);
+
+  // email_signup: every MailerLite opt-in form this file renders uses an
+  // input named fields[email], and its submit handler prevents default, so a
+  // capture-phase listener sees the submit either way. Mirrors the handlers'
+  // own minimal validation so empty submits do not count.
+  document.addEventListener('submit', function (e) {
+    try {
+      var form = e.target;
+      if (!form || !form.querySelector) return;
+      var em = form.querySelector('input[name="fields[email]"]');
+      if (!em) return;
+      var v = (em.value || '').trim();
+      if (!v || v.indexOf('@') === -1) return;
+      send('email_signup', { page_path: path });
+    } catch (err) {}
+  }, true);
+})();
