@@ -1123,6 +1123,9 @@ document.addEventListener("DOMContentLoaded", function() {
     "santa-cruz-succulent-nursery-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
     "santa-cruz-vegetable-nursery-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
     "santa-cruz-u-pick-farm-road-trip": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-road-trip.html",
+    "fall-bulbs-central-coast-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fall2026.html",
+    "sowing-california-native-wildflower-seed-fall": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fall2026.html",
+    "first-rain-checklist-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fall2026.html",
   };
 
   // =========================================================================
