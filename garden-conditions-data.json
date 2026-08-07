@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-08-07T16:10:24.330Z",
+  "updated_at": "2026-08-07T17:10:28.540Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-08-07T16:10:24.330Z",
+      "updated": "2026-08-07T17:10:28.540Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 63,
+        "temperature": 64,
         "temperatureUnit": "F",
-        "apparentTemperature": 65,
+        "apparentTemperature": 66,
         "conditions": "Patchy Fog then Mostly Sunny",
         "detailedForecast": "Patchy fog before 8am. Mostly sunny. High near 78, with temperatures falling to around 75 in the afternoon. Southwest wind 1 to 7 mph.",
-        "wind": "3 mph",
-        "windSpeed": 3.2,
-        "windGust": 3.4,
-        "windDirection": "SW",
+        "wind": "2 mph",
+        "windSpeed": 2.2,
+        "windGust": 2.2,
+        "windDirection": "SSW",
         "precipitation": 0,
-        "soilTemp": 64,
+        "soilTemp": 65,
         "soilMoisture": 0.153,
-        "humidity": 89,
-        "vapourPressureDeficit": 0.22,
+        "humidity": 83,
+        "vapourPressureDeficit": 0.34,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -170,24 +170,24 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-08-07",
-          "high": 77.4,
+          "high": 79.9,
           "low": 58.3,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 7.95,
-          "evapotranspiration": 0.174,
-          "windGust": 9.6
+          "evapotranspiration": 0.176,
+          "windGust": 10.3
         },
         "upcoming": [
           {
             "date": "2026-08-07",
-            "high": 77.4,
+            "high": 79.9,
             "low": 58.3,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 7.95,
-            "evapotranspiration": 0.174,
-            "windGust": 9.6
+            "evapotranspiration": 0.176,
+            "windGust": 10.3
           },
           {
             "date": "2026-08-08",
@@ -464,7 +464,7 @@
       ]
     },
     "slv": {
-      "updated": "2026-08-07T16:10:24.330Z",
+      "updated": "2026-08-07T17:10:28.540Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -472,20 +472,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 66,
+        "temperature": 73,
         "temperatureUnit": "F",
-        "apparentTemperature": 69,
+        "apparentTemperature": 74,
         "conditions": "Sunny",
         "detailedForecast": "Sunny. High near 93, with temperatures falling to around 90 in the afternoon. South wind around 2 mph.",
-        "wind": "2 mph",
-        "windSpeed": 2.2,
-        "windGust": 2.2,
+        "wind": "3 mph",
+        "windSpeed": 3.4,
+        "windGust": 3.4,
         "windDirection": "SE",
         "precipitation": 0,
-        "soilTemp": 64,
+        "soilTemp": 66,
         "soilMoisture": 0.154,
-        "humidity": 87,
-        "vapourPressureDeficit": 0.28,
+        "humidity": 52,
+        "vapourPressureDeficit": 1.35,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -618,24 +618,24 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-08-07",
-          "high": 89.8,
+          "high": 92.1,
           "low": 57.8,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 8,
-          "evapotranspiration": 0.226,
-          "windGust": 9.4
+          "evapotranspiration": 0.239,
+          "windGust": 9.8
         },
         "upcoming": [
           {
             "date": "2026-08-07",
-            "high": 89.8,
+            "high": 92.1,
             "low": 57.8,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 8,
-            "evapotranspiration": 0.226,
-            "windGust": 9.4
+            "evapotranspiration": 0.239,
+            "windGust": 9.8
           },
           {
             "date": "2026-08-08",
@@ -901,18 +901,18 @@
       "alerts": [
         {
           "event": "Heat Advisory",
-          "headline": "Heat Advisory issued August 6 at 10:57PM PDT until August 9 at 10:00PM PDT by NWS San Francisco CA",
+          "headline": "Heat Advisory issued August 7 at 10:06AM PDT until August 9 at 10:00PM PDT by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...Daytime highs in the mid 90s to low 100s. Nighttime lows in\nthe mid 60s to mid 70s.\n\n* WHERE...The Santa Clara Valley and Eastern Hills, The East Bay\nHills and Valleys, Western Sonoma County Hills, The Santa Cruz\nMountains, Interior Monterey County and the Santa Lucia Range, Most\nof San Benito County and the Cholame Hills in Southeast Monterey\nCounty, and North Bay Interior Mountains.\n\n* WHEN...From 10 AM Saturday to 10 PM PDT Sunday.\n\n* IMPACTS...This level of heat affects most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health systems and in\nheat-sensitive industries.\n\n* ADDITIONAL DETAILS...The hottest locations will be across the far\ninterior.",
-          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles.Car interiors will reach lethal\ntemperatures in a matter of minutes.\n\nCooling shelters may be available in your area. Check with your city\nor county office of emergency management for locations and sign up\nfor local alerts via alertthebay.org.",
+          "description": "* WHAT...Daytime highs in the mid 90s to low 100s. Nighttime lows in\nthe mid 60s to low 80s (especially in the higher elevations).\n\n* WHERE...The Santa Clara Valley and Eastern Hills, The East Bay\nHills and Valleys, Western Sonoma County Hills, The Santa Cruz\nMountains, Interior Monterey County and the Santa Lucia Range, Most\nof San Benito County and the Cholame Hills in Southeast Monterey\nCounty, and North Bay Interior Mountains.\n\n* WHEN...From 10 AM Saturday to 10 PM PDT Sunday.\n\n* IMPACTS...This level of heat affects most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health systems and in\nheat-sensitive industries.",
+          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.\n\nCooling shelters may be available in your area. Check with your city\nor county office of emergency management for locations and sign up\nfor local alerts via alertthebay.org.",
           "expires": "2026-08-08T10:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9b4f0377d32dbce1d246fea63028182eb71c2d0d.001.1"
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b696643f05dbcb807d8bbc3c91551103cee14343.002.1"
         }
       ]
     },
     "watsonville": {
-      "updated": "2026-08-07T16:10:24.330Z",
+      "updated": "2026-08-07T17:10:28.540Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -920,20 +920,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 63,
+        "temperature": 67,
         "temperatureUnit": "F",
-        "apparentTemperature": 65,
+        "apparentTemperature": 70,
         "conditions": "Mostly Sunny",
         "detailedForecast": "Mostly sunny. High near 73, with temperatures falling to around 70 in the afternoon. Southwest wind 1 to 8 mph.",
-        "wind": "1 mph",
-        "windSpeed": 0.8,
-        "windGust": 1.1,
-        "windDirection": "SW",
+        "wind": "2 mph",
+        "windSpeed": 2,
+        "windGust": 2,
+        "windDirection": "W",
         "precipitation": 0,
         "soilTemp": 62,
         "soilMoisture": 0.251,
-        "humidity": 85,
-        "vapourPressureDeficit": 0.29,
+        "humidity": 74,
+        "vapourPressureDeficit": 0.6,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1066,24 +1066,24 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-08-07",
-          "high": 69.8,
+          "high": 70.9,
           "low": 55.5,
           "precipitation": 0,
           "precipitationProbability": 1,
           "uvIndex": 7.65,
-          "evapotranspiration": 0.139,
-          "windGust": 11.6
+          "evapotranspiration": 0.146,
+          "windGust": 12.5
         },
         "upcoming": [
           {
             "date": "2026-08-07",
-            "high": 69.8,
+            "high": 70.9,
             "low": 55.5,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.65,
-            "evapotranspiration": 0.139,
-            "windGust": 11.6
+            "evapotranspiration": 0.146,
+            "windGust": 12.5
           },
           {
             "date": "2026-08-08",
