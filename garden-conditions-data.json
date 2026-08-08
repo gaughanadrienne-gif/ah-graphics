@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-08-08T07:17:58.627Z",
+  "updated_at": "2026-08-08T08:01:33.729Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-08-08T07:17:58.627Z",
+      "updated": "2026-08-08T08:01:33.729Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -26,18 +26,18 @@
       "current": {
         "temperature": 60,
         "temperatureUnit": "F",
-        "apparentTemperature": 61,
+        "apparentTemperature": 62,
         "conditions": "Patchy Fog then Mostly Sunny",
         "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 76. Southwest wind 0 to 6 mph.",
-        "wind": "3 mph",
-        "windSpeed": 2.5,
-        "windGust": 2.5,
-        "windDirection": "ESE",
+        "wind": "2 mph",
+        "windSpeed": 2.2,
+        "windGust": 2.7,
+        "windDirection": "E",
         "precipitation": 0,
-        "soilTemp": 65,
+        "soilTemp": 64,
         "soilMoisture": 0.152,
-        "humidity": 98,
-        "vapourPressureDeficit": 0.05,
+        "humidity": 100,
+        "vapourPressureDeficit": 0,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -170,8 +170,8 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-08-08",
-          "high": 76.5,
-          "low": 58.4,
+          "high": 76.6,
+          "low": 58,
           "precipitation": 0,
           "precipitationProbability": 1,
           "uvIndex": 7.95,
@@ -181,8 +181,8 @@
         "upcoming": [
           {
             "date": "2026-08-08",
-            "high": 76.5,
-            "low": 58.4,
+            "high": 76.6,
+            "low": 58,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.95,
@@ -191,12 +191,12 @@
           },
           {
             "date": "2026-08-09",
-            "high": 73,
-            "low": 57.1,
+            "high": 71.6,
+            "low": 57,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.85,
-            "evapotranspiration": 0.176,
+            "evapotranspiration": 0.172,
             "windGust": 7.6
           },
           {
@@ -254,17 +254,17 @@
       "forecast": [
         {
           "name": "Overnight",
-          "startTime": "2026-08-08T00:00:00-07:00",
+          "startTime": "2026-08-08T01:00:00-07:00",
           "endTime": "2026-08-08T06:00:00-07:00",
           "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Patchy Fog",
-          "detailedForecast": "Patchy fog after 4am. Mostly cloudy, with a low around 57. East wind around 1 mph.",
+          "detailedForecast": "Patchy fog after 4am. Mostly cloudy, with a low around 57. Wind around 0 mph.",
           "icon": "https://api.weather.gov/icons/land/night/fog?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "1 mph",
-          "windDirection": "E"
+          "wind": "0 mph",
+          "windDirection": ""
         },
         {
           "name": "Saturday",
@@ -464,7 +464,7 @@
       ]
     },
     "slv": {
-      "updated": "2026-08-08T07:17:58.627Z",
+      "updated": "2026-08-08T08:01:33.729Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -472,20 +472,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 63,
+        "temperature": 60,
         "temperatureUnit": "F",
-        "apparentTemperature": 63,
+        "apparentTemperature": 62,
         "conditions": "Sunny",
         "detailedForecast": "Sunny. High near 94, with temperatures falling to around 92 in the afternoon. South southwest wind around 2 mph.",
-        "wind": "4 mph",
-        "windSpeed": 4.4,
-        "windGust": 6.5,
+        "wind": "3 mph",
+        "windSpeed": 2.5,
+        "windGust": 3.4,
         "windDirection": "SSE",
         "precipitation": 0,
-        "soilTemp": 65,
+        "soilTemp": 64,
         "soilMoisture": 0.153,
-        "humidity": 85,
-        "vapourPressureDeficit": 0.36,
+        "humidity": 94,
+        "vapourPressureDeficit": 0.11,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -618,8 +618,8 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-08-08",
-          "high": 90.8,
-          "low": 58.5,
+          "high": 89.9,
+          "low": 58.2,
           "precipitation": 0,
           "precipitationProbability": 1,
           "uvIndex": 7.95,
@@ -629,8 +629,8 @@
         "upcoming": [
           {
             "date": "2026-08-08",
-            "high": 90.8,
-            "low": 58.5,
+            "high": 89.9,
+            "low": 58.2,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.95,
@@ -639,12 +639,12 @@
           },
           {
             "date": "2026-08-09",
-            "high": 94.6,
-            "low": 59.4,
+            "high": 89.8,
+            "low": 58.9,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.95,
-            "evapotranspiration": 0.248,
+            "evapotranspiration": 0.243,
             "windGust": 12.3
           },
           {
@@ -702,7 +702,7 @@
       "forecast": [
         {
           "name": "Overnight",
-          "startTime": "2026-08-08T00:00:00-07:00",
+          "startTime": "2026-08-08T01:00:00-07:00",
           "endTime": "2026-08-08T06:00:00-07:00",
           "temperature": 58,
           "temperatureUnit": "F",
@@ -912,7 +912,7 @@
       ]
     },
     "watsonville": {
-      "updated": "2026-08-08T07:17:58.627Z",
+      "updated": "2026-08-08T08:01:33.729Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -922,15 +922,15 @@
       "current": {
         "temperature": 58,
         "temperatureUnit": "F",
-        "apparentTemperature": 60,
+        "apparentTemperature": 59,
         "conditions": "Patchy Fog then Mostly Sunny",
         "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 72. Southwest wind 1 to 8 mph.",
-        "wind": "3 mph",
-        "windSpeed": 2.5,
-        "windGust": 5.4,
-        "windDirection": "SSW",
+        "wind": "1 mph",
+        "windSpeed": 1.4,
+        "windGust": 2.9,
+        "windDirection": "SSE",
         "precipitation": 0,
-        "soilTemp": 62,
+        "soilTemp": 61,
         "soilMoisture": 0.25,
         "humidity": 100,
         "vapourPressureDeficit": 0,
@@ -1066,8 +1066,8 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-08-08",
-          "high": 67.5,
-          "low": 57.7,
+          "high": 67.4,
+          "low": 57.5,
           "precipitation": 0,
           "precipitationProbability": 2,
           "uvIndex": 7.6,
@@ -1077,8 +1077,8 @@
         "upcoming": [
           {
             "date": "2026-08-08",
-            "high": 67.5,
-            "low": 57.7,
+            "high": 67.4,
+            "low": 57.5,
             "precipitation": 0,
             "precipitationProbability": 2,
             "uvIndex": 7.6,
@@ -1087,12 +1087,12 @@
           },
           {
             "date": "2026-08-09",
-            "high": 72,
-            "low": 56,
+            "high": 70.5,
+            "low": 56.3,
             "precipitation": 0,
             "precipitationProbability": 3,
             "uvIndex": 7.6,
-            "evapotranspiration": 0.165,
+            "evapotranspiration": 0.166,
             "windGust": 10.5
           },
           {
@@ -1150,7 +1150,7 @@
       "forecast": [
         {
           "name": "Overnight",
-          "startTime": "2026-08-08T00:00:00-07:00",
+          "startTime": "2026-08-08T01:00:00-07:00",
           "endTime": "2026-08-08T06:00:00-07:00",
           "temperature": 57,
           "temperatureUnit": "F",
