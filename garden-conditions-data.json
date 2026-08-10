@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-08-10T02:36:43.498Z",
+  "updated_at": "2026-08-10T04:56:51.972Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-08-10T02:36:43.498Z",
+      "updated": "2026-08-10T04:56:51.972Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 67,
+        "temperature": 60,
         "temperatureUnit": "F",
-        "apparentTemperature": 69,
+        "apparentTemperature": 61,
         "conditions": "Patchy Fog then Mostly Sunny",
         "detailedForecast": "Patchy fog between 7am and 8am. Mostly sunny. High near 73, with temperatures falling to around 71 in the afternoon. South wind 0 to 5 mph.",
         "wind": "3 mph",
         "windSpeed": 3,
-        "windGust": 3.1,
-        "windDirection": "SE",
+        "windGust": 5.1,
+        "windDirection": "ENE",
         "precipitation": 0,
-        "soilTemp": 70,
-        "soilMoisture": 0.156,
-        "humidity": 82,
-        "vapourPressureDeficit": 0.48,
+        "soilTemp": 66,
+        "soilMoisture": 0.158,
+        "humidity": 91,
+        "vapourPressureDeficit": 0.2,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -171,7 +171,7 @@
         "today": {
           "date": "2026-08-09",
           "high": 72,
-          "low": 58.9,
+          "low": 58.7,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 6.75,
@@ -182,7 +182,7 @@
           {
             "date": "2026-08-09",
             "high": 72,
-            "low": 58.9,
+            "low": 58.7,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.75,
@@ -192,11 +192,11 @@
           {
             "date": "2026-08-10",
             "high": 72,
-            "low": 58.4,
+            "low": 57.4,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.35,
-            "evapotranspiration": 0.148,
+            "evapotranspiration": 0.162,
             "windGust": 9.8
           },
           {
@@ -224,7 +224,7 @@
             "high": 66.5,
             "low": 60.5,
             "precipitation": 0,
-            "precipitationProbability": 5,
+            "precipitationProbability": 8,
             "uvIndex": 6.75,
             "evapotranspiration": 0.126,
             "windGust": 8.5
@@ -234,7 +234,7 @@
             "high": 66.6,
             "low": 59.5,
             "precipitation": 0,
-            "precipitationProbability": 6,
+            "precipitationProbability": 4,
             "uvIndex": 7.7,
             "evapotranspiration": 0.157,
             "windGust": 8.9
@@ -244,7 +244,7 @@
             "high": 67.2,
             "low": 60.5,
             "precipitation": 0,
-            "precipitationProbability": 0,
+            "precipitationProbability": 1,
             "uvIndex": 7.65,
             "evapotranspiration": 0.154,
             "windGust": 8.9
@@ -254,7 +254,7 @@
       "forecast": [
         {
           "name": "Tonight",
-          "startTime": "2026-08-09T19:00:00-07:00",
+          "startTime": "2026-08-09T21:00:00-07:00",
           "endTime": "2026-08-10T06:00:00-07:00",
           "temperature": 58,
           "temperatureUnit": "F",
@@ -287,12 +287,12 @@
           "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 57. South southeast wind around 1 mph.",
+          "detailedForecast": "Partly cloudy, with a low around 57. North northeast wind around 1 mph.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 2,
           "wind": "1 mph",
-          "windDirection": "SSE"
+          "windDirection": "NNE"
         },
         {
           "name": "Tuesday",
@@ -301,12 +301,12 @@
           "temperature": 72,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 72. South southwest wind 1 to 5 mph.",
+          "detailedForecast": "Mostly sunny, with a high near 72. South wind 1 to 5 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 2,
           "wind": "1 to 5 mph",
-          "windDirection": "SSW"
+          "windDirection": "S"
         },
         {
           "name": "Tuesday Night",
@@ -315,12 +315,12 @@
           "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Mostly Cloudy then Patchy Fog",
-          "detailedForecast": "Patchy fog after 4am. Mostly cloudy, with a low around 57. West southwest wind around 2 mph.",
+          "detailedForecast": "Patchy fog after 4am. Mostly cloudy, with a low around 57. Southwest wind around 1 mph.",
           "icon": "https://api.weather.gov/icons/land/night/bkn/fog?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "2 mph",
-          "windDirection": "WSW"
+          "wind": "1 mph",
+          "windDirection": "SW"
         },
         {
           "name": "Wednesday",
@@ -347,7 +347,7 @@
           "icon": "https://api.weather.gov/icons/land/night/bkn/fog?size=medium",
           "isDaytime": false,
           "precipitation": 4,
-          "wind": "0 to 3 mph",
+          "wind": "2 mph",
           "windDirection": "SSW"
         },
         {
@@ -361,7 +361,7 @@
           "icon": "https://api.weather.gov/icons/land/day/fog/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 1,
-          "wind": "1 to 7 mph",
+          "wind": "2 to 8 mph",
           "windDirection": "SSW"
         },
         {
@@ -375,7 +375,7 @@
           "icon": "https://api.weather.gov/icons/land/night/bkn/fog?size=medium",
           "isDaytime": false,
           "precipitation": 5,
-          "wind": "0 to 5 mph",
+          "wind": "1 to 5 mph",
           "windDirection": "SSW"
         },
         {
@@ -389,7 +389,7 @@
           "icon": "https://api.weather.gov/icons/land/day/fog/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 1,
-          "wind": "1 to 6 mph",
+          "wind": "2 to 6 mph",
           "windDirection": "SSW"
         },
         {
@@ -403,7 +403,7 @@
           "icon": "https://api.weather.gov/icons/land/night/bkn/fog?size=medium",
           "isDaytime": false,
           "precipitation": 3,
-          "wind": "0 to 5 mph",
+          "wind": "0 to 3 mph",
           "windDirection": "WNW"
         },
         {
@@ -431,8 +431,8 @@
           "icon": "https://api.weather.gov/icons/land/night/sct/fog?size=medium",
           "isDaytime": false,
           "precipitation": 1,
-          "wind": "0 to 5 mph",
-          "windDirection": "W"
+          "wind": "0 to 3 mph",
+          "windDirection": "NW"
         },
         {
           "name": "Sunday",
@@ -446,25 +446,25 @@
           "isDaytime": true,
           "precipitation": 1,
           "wind": "0 to 7 mph",
-          "windDirection": "WSW"
+          "windDirection": "W"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
         {
           "event": "Coastal Flood Advisory",
-          "headline": "Coastal Flood Advisory issued August 9 at 10:28AM PDT until August 13 at 2:00AM PDT by NWS San Francisco CA",
+          "headline": "Coastal Flood Advisory issued August 9 at 9:43PM PDT until August 13 at 2:00AM PDT by NWS San Francisco CA",
           "severity": "Minor",
           "urgency": "Expected",
-          "description": "* WHAT...Up to 1.6 ft of inundation above ground level is\npossible in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Bayshore locations along the San Francisco Bay, San\nPablo Bay, and Monterey Bay.\n\n* WHEN...Until 2 AM PDT Thursday.\n\n* IMPACTS...Flooding of lots, parks, and roads with only\nisolated road closures expected.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high\ntide is expected to be 1.5 ft above normal (7.34 ft MLLW) at\n9:02 PM Sunday 8/9, 1.5 ft above normal (7.36 ft MLLW) at\n10:01 PM Monday 8/10, 1.6 ft above normal (7.44 ft MLLW) at\n10:57 PM Tuesday 8/11, and 1.3 ft above normal (7.14 ft MLLW)\nat 11:49 PM Wednesday 8/12. These predictions include both\nastronomical tides and roughly 3-6 inches of additional water\nmainly from a combination of thermal expansion and accumulated\nsea level rise since the tidal datum was established (1983-\n2001). High tide varies up to 90 minutes earlier or later\nalong the Pacific Coast and through the San Francisco Bay,\nrespectively.",
+          "description": "* WHAT...Up to 1.6 ft of inundation above ground level is\npossible in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Bayshore locations along the San Francisco Bay, San\nPablo Bay, and Monterey Bay.\n\n* WHEN...Until 2 AM PDT Thursday.\n\n* IMPACTS...Flooding of lots, parks, and roads with only\nisolated road closures expected.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high tide\nis expected to be 1.6 ft above normal (7.46 ft MLLW) at 10:01 PM\nMonday 8/10, 1.6 ft above normal (7.44 ft MLLW) at 10:57 PM\nTuesday 8/11, and 1.4 ft above normal (7.24 ft MLLW) at 11:49 PM\nWednesday 8/12. These predictions include both astronomical\ntides and roughly 3-6 inches of additional water mainly from a\ncombination of thermal expansion and accumulated sea level rise\nsince the tidal datum was established (1983-2001). High tide\nvaries up to 90 minutes earlier or later along the Pacific Coast\nand through the San Francisco Bay, respectively.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.",
-          "expires": "2026-08-09T22:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fd9a676b1e5cf732b7ef354986e0c5e31b311280.001.1"
+          "expires": "2026-08-10T23:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a3a515a39fed217747f34da5d576522adc521f48.001.1"
         }
       ]
     },
     "slv": {
-      "updated": "2026-08-10T02:36:43.498Z",
+      "updated": "2026-08-10T04:56:51.972Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -472,20 +472,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 77,
+        "temperature": 68,
         "temperatureUnit": "F",
-        "apparentTemperature": 76,
+        "apparentTemperature": 69,
         "conditions": "Mostly Sunny",
-        "detailedForecast": "Mostly sunny. High near 89, with temperatures falling to around 85 in the afternoon. South southeast wind around 2 mph.",
-        "wind": "4 mph",
-        "windSpeed": 4.2,
-        "windGust": 4.7,
-        "windDirection": "SSE",
+        "detailedForecast": "Mostly sunny. High near 89, with temperatures falling to around 85 in the afternoon. Southeast wind around 2 mph.",
+        "wind": "1 mph",
+        "windSpeed": 1,
+        "windGust": 3.1,
+        "windDirection": "NNW",
         "precipitation": 0,
-        "soilTemp": 71,
-        "soilMoisture": 0.156,
-        "humidity": 43,
-        "vapourPressureDeficit": 2.07,
+        "soilTemp": 66,
+        "soilMoisture": 0.158,
+        "humidity": 59,
+        "vapourPressureDeficit": 0.87,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -623,7 +623,7 @@
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 7.9,
-          "evapotranspiration": 0.225,
+          "evapotranspiration": 0.222,
           "windGust": 9.4
         },
         "upcoming": [
@@ -634,18 +634,18 @@
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 7.9,
-            "evapotranspiration": 0.225,
+            "evapotranspiration": 0.222,
             "windGust": 9.4
           },
           {
             "date": "2026-08-10",
-            "high": 84.9,
-            "low": 57.9,
+            "high": 86.1,
+            "low": 57.5,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 7.9,
-            "evapotranspiration": 0.212,
-            "windGust": 10.3
+            "evapotranspiration": 0.213,
+            "windGust": 11.2
           },
           {
             "date": "2026-08-11",
@@ -662,7 +662,7 @@
             "high": 78.9,
             "low": 53.9,
             "precipitation": 0,
-            "precipitationProbability": 1,
+            "precipitationProbability": 3,
             "uvIndex": 7.85,
             "evapotranspiration": 0.196,
             "windGust": 8.5
@@ -672,7 +672,7 @@
             "high": 71.9,
             "low": 54.3,
             "precipitation": 0,
-            "precipitationProbability": 10,
+            "precipitationProbability": 5,
             "uvIndex": 7.55,
             "evapotranspiration": 0.173,
             "windGust": 9.4
@@ -682,7 +682,7 @@
             "high": 74,
             "low": 53.9,
             "precipitation": 0,
-            "precipitationProbability": 6,
+            "precipitationProbability": 5,
             "uvIndex": 7.7,
             "evapotranspiration": 0.181,
             "windGust": 7.8
@@ -692,7 +692,7 @@
             "high": 76,
             "low": 54.3,
             "precipitation": 0,
-            "precipitationProbability": 0,
+            "precipitationProbability": 1,
             "uvIndex": 7.65,
             "evapotranspiration": 0.186,
             "windGust": 7.8
@@ -702,17 +702,17 @@
       "forecast": [
         {
           "name": "Tonight",
-          "startTime": "2026-08-09T19:00:00-07:00",
+          "startTime": "2026-08-09T21:00:00-07:00",
           "endTime": "2026-08-10T06:00:00-07:00",
           "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 57. West southwest wind around 1 mph.",
+          "detailedForecast": "Partly cloudy, with a low around 57. Wind around 0 mph.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "1 mph",
-          "windDirection": "WSW"
+          "wind": "0 mph",
+          "windDirection": ""
         },
         {
           "name": "Monday",
@@ -721,12 +721,12 @@
           "temperature": 89,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny. High near 89, with temperatures falling to around 85 in the afternoon. South southeast wind around 2 mph.",
+          "detailedForecast": "Mostly sunny. High near 89, with temperatures falling to around 85 in the afternoon. Southeast wind around 2 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 1,
           "wind": "2 mph",
-          "windDirection": "SSE"
+          "windDirection": "SE"
         },
         {
           "name": "Monday Night",
@@ -749,12 +749,12 @@
           "temperature": 87,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 87. South southwest wind 0 to 3 mph.",
+          "detailedForecast": "Sunny, with a high near 87. South wind 0 to 3 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 2,
           "wind": "0 to 3 mph",
-          "windDirection": "SSW"
+          "windDirection": "S"
         },
         {
           "name": "Tuesday Night",
@@ -795,8 +795,8 @@
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 4,
-          "wind": "5 mph",
-          "windDirection": "S"
+          "wind": "3 mph",
+          "windDirection": "SSW"
         },
         {
           "name": "Thursday",
@@ -809,8 +809,8 @@
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 4,
-          "wind": "6 mph",
-          "windDirection": "S"
+          "wind": "2 to 6 mph",
+          "windDirection": "SSW"
         },
         {
           "name": "Thursday Night",
@@ -823,7 +823,7 @@
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 5,
-          "wind": "3 mph",
+          "wind": "1 to 5 mph",
           "windDirection": "S"
         },
         {
@@ -838,7 +838,7 @@
           "isDaytime": true,
           "precipitation": 2,
           "wind": "3 mph",
-          "windDirection": "S"
+          "windDirection": "SSW"
         },
         {
           "name": "Friday Night",
@@ -851,8 +851,8 @@
           "icon": "https://api.weather.gov/icons/land/night/sct/fog?size=medium",
           "isDaytime": false,
           "precipitation": 2,
-          "wind": "2 mph",
-          "windDirection": "SW"
+          "wind": "0 to 3 mph",
+          "windDirection": "SSW"
         },
         {
           "name": "Saturday",
@@ -866,7 +866,7 @@
           "isDaytime": true,
           "precipitation": 2,
           "wind": "2 mph",
-          "windDirection": "SSW"
+          "windDirection": "SW"
         },
         {
           "name": "Saturday Night",
@@ -880,7 +880,7 @@
           "isDaytime": false,
           "precipitation": 1,
           "wind": "2 mph",
-          "windDirection": "WNW"
+          "windDirection": "NW"
         },
         {
           "name": "Sunday",
@@ -893,26 +893,26 @@
           "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
           "isDaytime": true,
           "precipitation": 2,
-          "wind": "3 mph",
-          "windDirection": "WSW"
+          "wind": "0 to 3 mph",
+          "windDirection": "WNW"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
         {
           "event": "Heat Advisory",
-          "headline": "Heat Advisory issued August 8 at 9:42PM PDT until August 9 at 10:00PM PDT by NWS San Francisco CA",
+          "headline": "Heat Advisory issued August 9 at 9:32PM PDT until August 9 at 10:00PM PDT by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...Daytime highs in the mid 90s to low 100s. Nighttime lows in\nthe mid 60s in the hills to low 80s (especially in the higher\nelevations).\n\n* WHERE...The Santa Clara Valley and Eastern Hills, The East Bay\nHills and Valleys, Western Sonoma County Hills, The Santa Cruz\nMountains, Interior Monterey County and the Santa Lucia Range, Most\nof San Benito County and the Cholame Hills in Southeast Monterey\nCounty, North Bay Interior Mountains, and Southern Salinas\nValley/Arroyo Seco and Lake San Antonio.\n\n* WHEN...Until 10 PM PDT Sunday.\n\n* IMPACTS...This level of heat affects most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health systems and in\nheat-sensitive industries.\n\n* ADDITIONAL DETAILS...The hottest locations will be across the far\ninterior.",
-          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.\n\nCooling shelters may be available in your area. Check with your city\nor county office of emergency management for locations and sign up\nfor local alerts via alertthebay.org.",
-          "expires": "2026-08-09T22:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fa23116493abce2d2af4dc3d95eb279a2a2bb077.001.1"
+          "description": "The threat has ended.",
+          "instruction": null,
+          "expires": "2026-08-09T22:45:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.44abcb9c27c73ec53209d2b299f4c7faf75af589.001.1"
         }
       ]
     },
     "watsonville": {
-      "updated": "2026-08-10T02:36:43.498Z",
+      "updated": "2026-08-10T04:56:51.972Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -920,20 +920,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 60,
+        "temperature": 59,
         "temperatureUnit": "F",
-        "apparentTemperature": 61,
+        "apparentTemperature": 59,
         "conditions": "Mostly Sunny",
-        "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 69 in the afternoon. South southwest wind 1 to 8 mph.",
-        "wind": "5 mph",
-        "windSpeed": 5.2,
-        "windGust": 6.5,
-        "windDirection": "WSW",
+        "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 69 in the afternoon. Southwest wind 1 to 8 mph.",
+        "wind": "3 mph",
+        "windSpeed": 3.2,
+        "windGust": 4,
+        "windDirection": "SW",
         "precipitation": 0,
-        "soilTemp": 67,
-        "soilMoisture": 0.251,
-        "humidity": 93,
-        "vapourPressureDeficit": 0.21,
+        "soilTemp": 63,
+        "soilMoisture": 0.253,
+        "humidity": 90,
+        "vapourPressureDeficit": 0.17,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1087,13 +1087,13 @@
           },
           {
             "date": "2026-08-10",
-            "high": 70.1,
-            "low": 57.7,
+            "high": 71.5,
+            "low": 56.7,
             "precipitation": 0,
             "precipitationProbability": 2,
             "uvIndex": 7.55,
-            "evapotranspiration": 0.153,
-            "windGust": 12.1
+            "evapotranspiration": 0.157,
+            "windGust": 13
           },
           {
             "date": "2026-08-11",
@@ -1110,7 +1110,7 @@
             "high": 70.2,
             "low": 56.1,
             "precipitation": 0,
-            "precipitationProbability": 2,
+            "precipitationProbability": 3,
             "uvIndex": 7.45,
             "evapotranspiration": 0.156,
             "windGust": 7.8
@@ -1120,7 +1120,7 @@
             "high": 68.7,
             "low": 55.8,
             "precipitation": 0,
-            "precipitationProbability": 6,
+            "precipitationProbability": 5,
             "uvIndex": 7.45,
             "evapotranspiration": 0.144,
             "windGust": 9.8
@@ -1130,7 +1130,7 @@
             "high": 69.5,
             "low": 56,
             "precipitation": 0,
-            "precipitationProbability": 5,
+            "precipitationProbability": 4,
             "uvIndex": 7.6,
             "evapotranspiration": 0.164,
             "windGust": 6.9
@@ -1140,7 +1140,7 @@
             "high": 69.8,
             "low": 54.7,
             "precipitation": 0,
-            "precipitationProbability": 1,
+            "precipitationProbability": 2,
             "uvIndex": 7.55,
             "evapotranspiration": 0.156,
             "windGust": 8.7
@@ -1150,17 +1150,17 @@
       "forecast": [
         {
           "name": "Tonight",
-          "startTime": "2026-08-09T19:00:00-07:00",
+          "startTime": "2026-08-09T21:00:00-07:00",
           "endTime": "2026-08-10T06:00:00-07:00",
           "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy, with a low around 57. South southeast wind around 3 mph.",
+          "detailedForecast": "Mostly cloudy, with a low around 57. South wind around 2 mph.",
           "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "3 mph",
-          "windDirection": "SSE"
+          "wind": "2 mph",
+          "windDirection": "S"
         },
         {
           "name": "Monday",
@@ -1169,12 +1169,12 @@
           "temperature": 71,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 69 in the afternoon. South southwest wind 1 to 8 mph.",
+          "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 69 in the afternoon. Southwest wind 1 to 8 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 1,
           "wind": "1 to 8 mph",
-          "windDirection": "SSW"
+          "windDirection": "SW"
         },
         {
           "name": "Monday Night",
@@ -1183,12 +1183,12 @@
           "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 57. South southwest wind 1 to 6 mph.",
+          "detailedForecast": "Partly cloudy, with a low around 57. Southwest wind 1 to 6 mph.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 2,
           "wind": "1 to 6 mph",
-          "windDirection": "SSW"
+          "windDirection": "SW"
         },
         {
           "name": "Tuesday",
@@ -1197,12 +1197,12 @@
           "temperature": 70,
           "temperatureUnit": "F",
           "conditions": "Patchy Fog then Mostly Sunny",
-          "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 70. South southwest wind 1 to 8 mph.",
+          "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 70. Southwest wind 1 to 8 mph.",
           "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
           "isDaytime": true,
           "precipitation": 2,
           "wind": "1 to 8 mph",
-          "windDirection": "SSW"
+          "windDirection": "SW"
         },
         {
           "name": "Tuesday Night",
@@ -1243,8 +1243,8 @@
           "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
           "precipitation": 3,
-          "wind": "2 to 9 mph",
-          "windDirection": "WSW"
+          "wind": "3 to 8 mph",
+          "windDirection": "SW"
         },
         {
           "name": "Thursday",
@@ -1257,8 +1257,8 @@
           "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 3,
-          "wind": "2 to 10 mph",
-          "windDirection": "WSW"
+          "wind": "3 to 12 mph",
+          "windDirection": "SW"
         },
         {
           "name": "Thursday Night",
@@ -1286,7 +1286,7 @@
           "isDaytime": true,
           "precipitation": 3,
           "wind": "2 to 10 mph",
-          "windDirection": "SSW"
+          "windDirection": "SW"
         },
         {
           "name": "Friday Night",
@@ -1300,7 +1300,7 @@
           "isDaytime": false,
           "precipitation": 3,
           "wind": "1 to 9 mph",
-          "windDirection": "WSW"
+          "windDirection": "SW"
         },
         {
           "name": "Saturday",
@@ -1349,13 +1349,13 @@
       "alerts": [
         {
           "event": "Coastal Flood Advisory",
-          "headline": "Coastal Flood Advisory issued August 9 at 10:28AM PDT until August 13 at 2:00AM PDT by NWS San Francisco CA",
+          "headline": "Coastal Flood Advisory issued August 9 at 9:43PM PDT until August 13 at 2:00AM PDT by NWS San Francisco CA",
           "severity": "Minor",
           "urgency": "Expected",
-          "description": "* WHAT...Up to 1.6 ft of inundation above ground level is\npossible in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Bayshore locations along the San Francisco Bay, San\nPablo Bay, and Monterey Bay.\n\n* WHEN...Until 2 AM PDT Thursday.\n\n* IMPACTS...Flooding of lots, parks, and roads with only\nisolated road closures expected.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high\ntide is expected to be 1.5 ft above normal (7.34 ft MLLW) at\n9:02 PM Sunday 8/9, 1.5 ft above normal (7.36 ft MLLW) at\n10:01 PM Monday 8/10, 1.6 ft above normal (7.44 ft MLLW) at\n10:57 PM Tuesday 8/11, and 1.3 ft above normal (7.14 ft MLLW)\nat 11:49 PM Wednesday 8/12. These predictions include both\nastronomical tides and roughly 3-6 inches of additional water\nmainly from a combination of thermal expansion and accumulated\nsea level rise since the tidal datum was established (1983-\n2001). High tide varies up to 90 minutes earlier or later\nalong the Pacific Coast and through the San Francisco Bay,\nrespectively.",
+          "description": "* WHAT...Up to 1.6 ft of inundation above ground level is\npossible in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Bayshore locations along the San Francisco Bay, San\nPablo Bay, and Monterey Bay.\n\n* WHEN...Until 2 AM PDT Thursday.\n\n* IMPACTS...Flooding of lots, parks, and roads with only\nisolated road closures expected.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high tide\nis expected to be 1.6 ft above normal (7.46 ft MLLW) at 10:01 PM\nMonday 8/10, 1.6 ft above normal (7.44 ft MLLW) at 10:57 PM\nTuesday 8/11, and 1.4 ft above normal (7.24 ft MLLW) at 11:49 PM\nWednesday 8/12. These predictions include both astronomical\ntides and roughly 3-6 inches of additional water mainly from a\ncombination of thermal expansion and accumulated sea level rise\nsince the tidal datum was established (1983-2001). High tide\nvaries up to 90 minutes earlier or later along the Pacific Coast\nand through the San Francisco Bay, respectively.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.",
-          "expires": "2026-08-09T22:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fd9a676b1e5cf732b7ef354986e0c5e31b311280.001.1"
+          "expires": "2026-08-10T23:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a3a515a39fed217747f34da5d576522adc521f48.001.1"
         }
       ]
     }
