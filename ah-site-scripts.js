@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var linkRow = document.createElement("div");
     linkRow.className = "ah-footer-links";
     linkRow.style.cssText = "text-align:center;padding:16px 20px 8px;font-family:Montserrat,sans-serif;font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.08);margin-bottom:8px;";
-    var sep = '<span style="color:#8c9c8c;margin:0 6px;">&#124;</span>';
+    var sep = '<span style="color:#657665;margin:0 6px;">&#124;</span>';
     var linkStyle = 'color:#5B7F5E;text-decoration:none;margin:0 8px;font-weight:600;letter-spacing:0.02em;';
     linkRow.innerHTML =
       '<a href="/start-here" style="' + linkStyle + '">Start Here</a>' + sep +
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
     pageConfig.others.forEach(function(r) {
       html += '<div style="margin-bottom:14px;text-align:center;">' +
         '<a href="' + r.href + '" style="color:#1c3c2c;font-weight:600;text-decoration:none;font-size:0.95rem;">' + r.name + '</a>' +
-        '<p style="color:#8c9c8c;font-size:0.85rem;margin:4px 0 0;line-height:1.4;">' + r.desc + '</p></div>';
+        '<p style="color:#657665;font-size:0.85rem;margin:4px 0 0;line-height:1.4;">' + r.desc + '</p></div>';
     });
     crossDiv.innerHTML = html;
 
@@ -405,7 +405,7 @@ document.addEventListener("DOMContentLoaded", function() {
     callout.className = 'ah-tomato-quiz-callout';
     callout.innerHTML = '' +
       '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#1a3b2a;border-radius:10px;padding:2rem;margin:2.5rem 0;text-align:center;">' +
-        '<p style="font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8c9c8c !important;margin:0 0 0.5rem 0;">Free Quiz</p>' +
+        '<p style="font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#657665 !important;margin:0 0 0.5rem 0;">Free Quiz</p>' +
         '<p style="font-family:Georgia,serif;font-size:1.4rem;font-weight:normal;color:#f8f9f0 !important;margin:0 0 0.75rem 0;line-height:1.3;">Not sure which tomato varieties grow best in your zone?</p>' +
         '<p style="font-size:0.9rem;color:#dde2d8 !important;margin:0 0 1.25rem 0;line-height:1.6;">Answer 4 quick questions and get zone-matched variety recommendations, plus a free Tomato Variety Selector PDF.</p>' +
         '<a href="/tomato-quiz" style="display:inline-block;background-color:#f8f9f0;color:#1a3b2a !important;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-family:Montserrat,Arial,sans-serif;font-size:0.9rem;font-weight:700;">Take the Quiz</a>' +
