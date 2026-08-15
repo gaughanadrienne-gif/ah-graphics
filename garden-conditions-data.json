@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-08-15T18:48:58.607Z",
+  "updated_at": "2026-08-15T19:37:24.543Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-08-15T18:48:58.607Z",
+      "updated": "2026-08-15T19:37:24.543Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 67,
+        "temperature": 71,
         "temperatureUnit": "F",
-        "apparentTemperature": 67,
-        "conditions": "Slight Chance Drizzle then Mostly Sunny",
-        "detailedForecast": "A slight chance of drizzle before noon. Mostly sunny, with a high near 75. West southwest wind 5 to 9 mph. Chance of precipitation is 20%.",
-        "wind": "5 mph",
-        "windSpeed": 5.4,
-        "windGust": 5.8,
-        "windDirection": "SW",
+        "apparentTemperature": 74,
+        "conditions": "Mostly Sunny",
+        "detailedForecast": "Mostly sunny, with a high near 75. West wind around 9 mph.",
+        "wind": "7 mph",
+        "windSpeed": 7.4,
+        "windGust": 8.5,
+        "windDirection": "WSW",
         "precipitation": 0,
-        "soilTemp": 67,
+        "soilTemp": 70,
         "soilMoisture": 0.147,
-        "humidity": 73,
-        "vapourPressureDeficit": 0.46,
+        "humidity": 64,
+        "vapourPressureDeficit": 0.69,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -253,18 +253,18 @@
       },
       "forecast": [
         {
-          "name": "Today",
-          "startTime": "2026-08-15T11:00:00-07:00",
+          "name": "This Afternoon",
+          "startTime": "2026-08-15T12:00:00-07:00",
           "endTime": "2026-08-15T18:00:00-07:00",
           "temperature": 75,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Drizzle then Mostly Sunny",
-          "detailedForecast": "A slight chance of drizzle before noon. Mostly sunny, with a high near 75. West southwest wind 5 to 9 mph. Chance of precipitation is 20%.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,20/sct?size=medium",
+          "conditions": "Mostly Sunny",
+          "detailedForecast": "Mostly sunny, with a high near 75. West wind around 9 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
-          "precipitation": 15,
-          "wind": "5 to 9 mph",
-          "windDirection": "WSW"
+          "precipitation": 0,
+          "wind": "9 mph",
+          "windDirection": "W"
         },
         {
           "name": "Tonight",
@@ -453,7 +453,7 @@
       "alerts": []
     },
     "slv": {
-      "updated": "2026-08-15T18:48:58.607Z",
+      "updated": "2026-08-15T19:37:24.543Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -461,20 +461,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 71,
+        "temperature": 75,
         "temperatureUnit": "F",
-        "apparentTemperature": 76,
-        "conditions": "Slight Chance Drizzle then Sunny",
-        "detailedForecast": "A slight chance of drizzle before noon. Sunny. High near 82, with temperatures falling to around 79 in the afternoon. Northwest wind around 5 mph. Chance of precipitation is 20%.",
-        "wind": "4 mph",
-        "windSpeed": 4.2,
+        "apparentTemperature": 80,
+        "conditions": "Sunny",
+        "detailedForecast": "Sunny. High near 82, with temperatures falling to around 79 in the afternoon. Northwest wind around 5 mph.",
+        "wind": "5 mph",
+        "windSpeed": 4.6,
         "windGust": 5.1,
-        "windDirection": "ESE",
+        "windDirection": "SE",
         "precipitation": 0,
-        "soilTemp": 66,
+        "soilTemp": 68,
         "soilMoisture": 0.15,
-        "humidity": 63,
-        "vapourPressureDeficit": 0.58,
+        "humidity": 55,
+        "vapourPressureDeficit": 1.1,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -690,16 +690,16 @@
       },
       "forecast": [
         {
-          "name": "Today",
-          "startTime": "2026-08-15T11:00:00-07:00",
+          "name": "This Afternoon",
+          "startTime": "2026-08-15T12:00:00-07:00",
           "endTime": "2026-08-15T18:00:00-07:00",
           "temperature": 82,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Drizzle then Sunny",
-          "detailedForecast": "A slight chance of drizzle before noon. Sunny. High near 82, with temperatures falling to around 79 in the afternoon. Northwest wind around 5 mph. Chance of precipitation is 20%.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,20/few?size=medium",
+          "conditions": "Sunny",
+          "detailedForecast": "Sunny. High near 82, with temperatures falling to around 79 in the afternoon. Northwest wind around 5 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
-          "precipitation": 15,
+          "precipitation": 0,
           "wind": "5 mph",
           "windDirection": "NW"
         },
@@ -890,7 +890,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-08-15T18:48:58.607Z",
+      "updated": "2026-08-15T19:37:24.543Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -898,20 +898,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 69,
+        "temperature": 71,
         "temperatureUnit": "F",
-        "apparentTemperature": 73,
-        "conditions": "Slight Chance Drizzle then Sunny",
-        "detailedForecast": "A slight chance of drizzle before noon. Sunny, with a high near 70. West southwest wind 3 to 9 mph. Chance of precipitation is 20%.",
-        "wind": "5 mph",
-        "windSpeed": 4.8,
-        "windGust": 5.1,
-        "windDirection": "WSW",
+        "apparentTemperature": 74,
+        "conditions": "Sunny",
+        "detailedForecast": "Sunny, with a high near 70. West southwest wind 6 to 9 mph.",
+        "wind": "7 mph",
+        "windSpeed": 7.2,
+        "windGust": 7.8,
+        "windDirection": "W",
         "precipitation": 0,
-        "soilTemp": 66,
-        "soilMoisture": 0.252,
-        "humidity": 69,
-        "vapourPressureDeficit": 0.54,
+        "soilTemp": 68,
+        "soilMoisture": 0.251,
+        "humidity": 67,
+        "vapourPressureDeficit": 0.79,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1127,17 +1127,17 @@
       },
       "forecast": [
         {
-          "name": "Today",
-          "startTime": "2026-08-15T11:00:00-07:00",
+          "name": "This Afternoon",
+          "startTime": "2026-08-15T12:00:00-07:00",
           "endTime": "2026-08-15T18:00:00-07:00",
           "temperature": 70,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Drizzle then Sunny",
-          "detailedForecast": "A slight chance of drizzle before noon. Sunny, with a high near 70. West southwest wind 3 to 9 mph. Chance of precipitation is 20%.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,20/few?size=medium",
+          "conditions": "Sunny",
+          "detailedForecast": "Sunny, with a high near 70. West southwest wind 6 to 9 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
-          "precipitation": 15,
-          "wind": "3 to 9 mph",
+          "precipitation": 0,
+          "wind": "6 to 9 mph",
           "windDirection": "WSW"
         },
         {
