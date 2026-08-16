@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-08-16T15:39:06.205Z",
+  "updated_at": "2026-08-16T16:44:11.781Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-08-16T15:39:06.205Z",
+      "updated": "2026-08-16T16:44:11.781Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 60,
+        "temperature": 63,
         "temperatureUnit": "F",
-        "apparentTemperature": 62,
-        "conditions": "Patchy Fog then Mostly Sunny",
-        "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Mostly sunny. High near 73, with temperatures falling to around 71 in the afternoon. West southwest wind 1 to 7 mph. Chance of precipitation is 20%.",
-        "wind": "1 mph",
-        "windSpeed": 1.1,
-        "windGust": 1.8,
+        "apparentTemperature": 63,
+        "conditions": "Slight Chance Drizzle then Mostly Sunny",
+        "detailedForecast": "A slight chance of drizzle before 11am. Mostly sunny. High near 73, with temperatures falling to around 71 in the afternoon. Southwest wind 2 to 7 mph. Chance of precipitation is 20%.",
+        "wind": "4 mph",
+        "windSpeed": 4.3,
+        "windGust": 4.7,
         "windDirection": "SW",
         "precipitation": 0,
-        "soilTemp": 62,
+        "soilTemp": 63,
         "soilMoisture": 0.146,
-        "humidity": 90,
-        "vapourPressureDeficit": 0.14,
+        "humidity": 83,
+        "vapourPressureDeficit": 0.22,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -254,17 +254,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-08-16T07:00:00-07:00",
+          "startTime": "2026-08-16T09:00:00-07:00",
           "endTime": "2026-08-16T18:00:00-07:00",
           "temperature": 73,
           "temperatureUnit": "F",
-          "conditions": "Patchy Fog then Mostly Sunny",
-          "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Mostly sunny. High near 73, with temperatures falling to around 71 in the afternoon. West southwest wind 1 to 7 mph. Chance of precipitation is 20%.",
+          "conditions": "Slight Chance Drizzle then Mostly Sunny",
+          "detailedForecast": "A slight chance of drizzle before 11am. Mostly sunny. High near 73, with temperatures falling to around 71 in the afternoon. Southwest wind 2 to 7 mph. Chance of precipitation is 20%.",
           "icon": "https://api.weather.gov/icons/land/day/rain,20/sct?size=medium",
           "isDaytime": true,
           "precipitation": 15,
-          "wind": "1 to 7 mph",
-          "windDirection": "WSW"
+          "wind": "2 to 7 mph",
+          "windDirection": "SW"
         },
         {
           "name": "Tonight",
@@ -453,7 +453,7 @@
       "alerts": []
     },
     "slv": {
-      "updated": "2026-08-16T15:39:06.205Z",
+      "updated": "2026-08-16T16:44:11.781Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -461,20 +461,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 59,
+        "temperature": 67,
         "temperatureUnit": "F",
-        "apparentTemperature": 61,
-        "conditions": "Patchy Fog then Sunny",
-        "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Sunny. High near 86, with temperatures falling to around 82 in the afternoon. South southeast wind 0 to 3 mph. Chance of precipitation is 20%.",
+        "apparentTemperature": 69,
+        "conditions": "Slight Chance Drizzle then Sunny",
+        "detailedForecast": "A slight chance of drizzle before 11am. Sunny. High near 86, with temperatures falling to around 82 in the afternoon. South wind 0 to 3 mph. Chance of precipitation is 20%.",
         "wind": "2 mph",
-        "windSpeed": 1.6,
-        "windGust": 1.6,
-        "windDirection": "SE",
+        "windSpeed": 2,
+        "windGust": 2,
+        "windDirection": "E",
         "precipitation": 0,
-        "soilTemp": 59,
-        "soilMoisture": 0.147,
-        "humidity": 91,
-        "vapourPressureDeficit": 0.03,
+        "soilTemp": 61,
+        "soilMoisture": 0.146,
+        "humidity": 71,
+        "vapourPressureDeficit": 0.38,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -691,17 +691,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-08-16T07:00:00-07:00",
+          "startTime": "2026-08-16T09:00:00-07:00",
           "endTime": "2026-08-16T18:00:00-07:00",
           "temperature": 86,
           "temperatureUnit": "F",
-          "conditions": "Patchy Fog then Sunny",
-          "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Sunny. High near 86, with temperatures falling to around 82 in the afternoon. South southeast wind 0 to 3 mph. Chance of precipitation is 20%.",
+          "conditions": "Slight Chance Drizzle then Sunny",
+          "detailedForecast": "A slight chance of drizzle before 11am. Sunny. High near 86, with temperatures falling to around 82 in the afternoon. South wind 0 to 3 mph. Chance of precipitation is 20%.",
           "icon": "https://api.weather.gov/icons/land/day/rain,20/few?size=medium",
           "isDaytime": true,
           "precipitation": 15,
           "wind": "0 to 3 mph",
-          "windDirection": "SSE"
+          "windDirection": "S"
         },
         {
           "name": "Tonight",
@@ -890,7 +890,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-08-16T15:39:06.205Z",
+      "updated": "2026-08-16T16:44:11.781Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -898,20 +898,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 60,
+        "temperature": 62,
         "temperatureUnit": "F",
-        "apparentTemperature": 62,
+        "apparentTemperature": 63,
         "conditions": "Patchy Fog then Mostly Sunny",
-        "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Mostly sunny. High near 69, with temperatures falling to around 66 in the afternoon. South southwest wind 1 to 9 mph. Chance of precipitation is 20%.",
-        "wind": "2 mph",
-        "windSpeed": 2.2,
-        "windGust": 2.5,
+        "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Mostly sunny. High near 69, with temperatures falling to around 66 in the afternoon. West southwest wind 1 to 9 mph. Chance of precipitation is 20%.",
+        "wind": "4 mph",
+        "windSpeed": 3.5,
+        "windGust": 4.3,
         "windDirection": "WNW",
         "precipitation": 0,
-        "soilTemp": 61,
+        "soilTemp": 62,
         "soilMoisture": 0.253,
-        "humidity": 90,
-        "vapourPressureDeficit": 0.14,
+        "humidity": 85,
+        "vapourPressureDeficit": 0.22,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1128,17 +1128,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-08-16T07:00:00-07:00",
+          "startTime": "2026-08-16T09:00:00-07:00",
           "endTime": "2026-08-16T18:00:00-07:00",
           "temperature": 69,
           "temperatureUnit": "F",
           "conditions": "Patchy Fog then Mostly Sunny",
-          "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Mostly sunny. High near 69, with temperatures falling to around 66 in the afternoon. South southwest wind 1 to 9 mph. Chance of precipitation is 20%.",
+          "detailedForecast": "Patchy fog and a slight chance of drizzle before 11am. Mostly sunny. High near 69, with temperatures falling to around 66 in the afternoon. West southwest wind 1 to 9 mph. Chance of precipitation is 20%.",
           "icon": "https://api.weather.gov/icons/land/day/rain,20/sct?size=medium",
           "isDaytime": true,
           "precipitation": 15,
           "wind": "1 to 9 mph",
-          "windDirection": "SSW"
+          "windDirection": "WSW"
         },
         {
           "name": "Tonight",
