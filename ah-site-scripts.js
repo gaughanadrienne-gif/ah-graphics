@@ -1077,7 +1077,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "santa-cruz-garden-checklist-september": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-miscellaneous.html",
     "soaker-hoses-vs-sprinklers": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
     "square-foot-gardening-vs-row-gardening": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
-    "start-broccoli-cauliflower-seeds-fall-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-brassicas.html",
+    "start-broccoli-cauliflower-seeds-fall-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-08.html",
     "starting-seeds-indoors-vs-direct-sowing": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-microgreens.html",
     "straw-mulch-vs-wood-chip-mulch": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
     "succession-planting-vs-all-at-once-planting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-gardenplanning.html",
@@ -1109,7 +1109,7 @@ document.addEventListener("DOMContentLoaded", function() {
     "crops-regrow-after-cutting": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
     "crops-small-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
     "crops-store-well-after-harvest": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
-    "plants-repel-garden-pests-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-listicles.html",
+    "plants-repel-garden-pests-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-08.html",
     "native-groundcovers-for-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
     "native-plants-by-microclimate-what-to-grow-where-in-santa-cruz-county": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-nativeplants.html",
     "growing-ranunculus-in-santa-cruz-county-springs-most-elegant-cut-flower": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-cutflowers.html",
@@ -1126,6 +1126,9 @@ document.addEventListener("DOMContentLoaded", function() {
     "fall-bulbs-central-coast-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fall2026.html",
     "sowing-california-native-wildflower-seed-fall": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fall2026.html",
     "first-rain-checklist-santa-cruz-gardens": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-fall2026.html",
+    "canning-preserving-tomatoes-california-guide": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-08.html",
+    "building-fall-winter-garden-coastal-california": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-08.html",
+    "protect-seedlings-from-slugs-and-snails": "https://gaughanadrienne-gif.github.io/ah-graphics/ah-gfx-ahgap-2026-08.html",
   };
 
   // =========================================================================
