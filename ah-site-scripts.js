@@ -39,42 +39,30 @@ document.addEventListener("DOMContentLoaded", function() {
     var blocks = heroSection.querySelectorAll(".sqs-block");
     var lastBlock = blocks[blocks.length - 1];
     if (lastBlock) {
+      // 2026-08-19 flow pass: the CTA used to be appended AFTER the fluid-engine
+      // grid, which rendered it on the dark strip under the inset hero photo,
+      // orphaned from the headline. It now lives inside the hero text block,
+      // directly under the subtitle, left-aligned with the headline, rosewood
+      // like every other action button on the page.
       var ctaDiv = document.createElement("div");
       ctaDiv.className = "ah-hero-cta";
-      ctaDiv.style.cssText = "text-align:center;margin-top:28px;padding:0 20px;";
+      ctaDiv.style.cssText = "text-align:left;margin-top:26px;padding:0;";
       var btn = document.createElement("a");
       btn.href = "/start-here";
       btn.className = "sqs-block-button-element";
       btn.textContent = "Start Here";
-      btn.style.cssText = "display:inline-block;background-color:#5B7F5E;color:#f8f9f0;border:none;border-radius:6px;font-family:Montserrat,sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.04em;text-transform:uppercase;padding:16px 40px;text-decoration:none;transition:background-color 0.3s ease,transform 0.2s ease;box-shadow:0 2px 8px rgba(0,0,0,0.15);";
-      btn.onmouseover = function() { this.style.backgroundColor = "#4A6B4D"; };
-      btn.onmouseout = function() { this.style.backgroundColor = "#5B7F5E"; };
+      btn.style.cssText = "display:inline-block;background-color:#8f4f45;color:#f8f9f0;border:none;border-radius:3px;font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:15px 30px;text-decoration:none;transition:background-color 0.3s ease;";
+      btn.onmouseover = function() { this.style.backgroundColor = "#754038"; };
+      btn.onmouseout = function() { this.style.backgroundColor = "#8f4f45"; };
       ctaDiv.appendChild(btn);
-      lastBlock.parentNode.insertBefore(ctaDiv, lastBlock.nextSibling);
+      var heroText = lastBlock.querySelector(".sqs-html-content");
+      if (heroText) heroText.appendChild(ctaDiv);
+      else lastBlock.parentNode.insertBefore(ctaDiv, lastBlock.nextSibling);
     }
   }
 
-  // UPDATED Footer links - now includes all 5 key pages
-  var footer = document.querySelector("footer");
-  if (footer) {
-    var linkRow = document.createElement("div");
-    linkRow.className = "ah-footer-links";
-    linkRow.style.cssText = "text-align:center;padding:16px 20px 8px;font-family:Montserrat,sans-serif;font-size:0.85rem;border-top:1px solid rgba(0,0,0,0.08);margin-bottom:8px;";
-    var sep = '<span style="color:#657665;margin:0 6px;">&#124;</span>';
-    var linkStyle = 'color:#5B7F5E;text-decoration:none;margin:0 8px;font-weight:600;letter-spacing:0.02em;';
-    linkRow.innerHTML =
-      '<a href="/start-here" style="' + linkStyle + '">Start Here</a>' + sep +
-      '<a href="/garden-conditions" style="' + linkStyle + '">Garden Conditions</a>' + sep +
-      '<a href="/your-garden-toolkit" style="' + linkStyle + '">Garden Toolkit</a>' + sep +
-      '<a href="/garden-events" style="' + linkStyle + '">Garden Events</a>' + sep +
-      '<a href="/your-garden-toolkit" style="' + linkStyle + '">Free Planting Calendar</a>';
-    var firstChild = footer.querySelector("[class*='footer-'] > div, footer > section, footer > div");
-    if (firstChild) {
-      firstChild.parentNode.insertBefore(linkRow, firstChild);
-    } else {
-      footer.insertBefore(linkRow, footer.firstChild);
-    }
-  }
+  // (2026-08-19) The old "ah-footer-links" quick-links row was removed here:
+  // it duplicated the Explore column of the enriched footer below.
 
   // ============================================================
   // NEW: Cross-link "More Free Resources" on resource pages
@@ -3104,19 +3092,30 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === FOOTER ENRICHMENT (2026-06-16, session 41) ===
-// Global. Prepends a brand + social + quick-links + newsletter-CTA band above the
-// existing footer (which had nav links only -- no Shop link, no social, no
-// newsletter). Links point to real destinations. Fully reversible.
+// === FOOTER: ONE COHESIVE BLOCK (2026-06-16 enrichment, rebuilt 2026-08-19) ===
+// Global. The footer used to be three stacked things: a quick-links row, a
+// brand/Explore/calendar-button band, and Squarespace's own section with the
+// copyright, four policy links stacked vertically and a search box. Now it is
+// one block: brand + social | Explore | the real calendar signup (inline
+// MailerLite email field, form 173377502828299397, the same form that used to
+// sit mid-homepage), then one slim bottom row with the policy links inline,
+// the copyright and the site search. The Squarespace section's SEARCH block is
+// MOVED (not cloned) into the bottom row so its script binding survives; the
+// original section is then hidden. If anything here fails, the original
+// section stays visible, so the page degrades to the old footer, never to none.
 (function () {
+  var ML_FORM_ID = '34527019';
+  var ML_ACTION = 'https://assets.mailerlite.com/jsonp/1974108/forms/173377502828299397/subscribe';
+  var ML_SCRIPT = 'https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024';
+
   function build() {
     var foot = document.querySelector('#footer-sections');
     if (!foot || document.getElementById('ah-foot-style') || foot.querySelector('.ah-foot-enhance')) return;
 
     var css =
-    '.ah-foot-enhance{display:grid;grid-template-columns:1.5fr 1fr 1.3fr;gap:40px;max-width:1100px;margin:0 auto;padding:48px 28px 40px;border-bottom:1px solid rgba(255,255,255,.13)}' +
-    '.ah-foot-enhance .ah-fe-logo{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:22px;color:#F8F9F0!important;margin-bottom:10px}' +
-    '.ah-foot-enhance p{font:14px/1.55 Montserrat,sans-serif;color:#b9c7b6!important;margin:0 0 16px;max-width:32ch}' +
+    '.ah-foot-enhance{display:grid;grid-template-columns:1.4fr 1fr 1.4fr;gap:48px;max-width:1100px;margin:0 auto;padding:52px 28px 40px}' +
+    '.ah-foot-enhance .ah-fe-logo{font-family:Fraunces,"Palatino Linotype",Georgia,serif;font-size:24px;color:#F8F9F0!important;margin-bottom:10px}' +
+    '.ah-foot-enhance p{font:14px/1.55 Montserrat,sans-serif;color:#b9c7b6!important;margin:0 0 16px;max-width:34ch}' +
     '.ah-foot-enhance h4{font:700 11px/1 Montserrat,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#F8F9F0!important;margin:0 0 14px}' +
     '.ah-foot-enhance a{display:block;font:14px/1.4 Montserrat,sans-serif;color:#cdd6c8!important;text-decoration:none!important;border-bottom:0!important;padding:5px 0;background-image:none!important}' +
     '.ah-foot-enhance a:hover{color:#fff!important}' +
@@ -3124,9 +3123,27 @@ function ahIsFlockArticle(slug) {
     '.ah-fe-social a{width:36px;height:36px;border:1px solid rgba(255,255,255,.28);border-radius:50%;display:flex!important;align-items:center;justify-content:center;padding:0!important}' +
     '.ah-fe-social a:hover{background:rgba(255,255,255,.12)}' +
     '.ah-fe-social svg{width:16px;height:16px;color:#dfe6da}' +
-    '.ah-fe-btn{display:inline-block!important;background:#8f4f45!important;color:#f8f9f0!important;font:700 12px/1 Montserrat,sans-serif!important;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px!important;border-radius:3px;margin-top:4px}' +
-    '.ah-fe-btn:hover{background:#754038!important;color:#f8f9f0!important}' +
-    '@media(max-width:760px){.ah-foot-enhance{grid-template-columns:1fr;gap:28px}}';
+    /* inline signup */
+    '.ah-fe-form{display:flex;gap:8px;align-items:stretch;max-width:420px}' +
+    '.ah-fe-form input[type=email]{flex:1 1 auto;min-width:0;height:44px;padding:0 14px;border:1px solid rgba(255,255,255,.32);border-radius:3px;background:rgba(255,255,255,.06);color:#F8F9F0;font:14px Montserrat,sans-serif}' +
+    '.ah-fe-form input[type=email]::placeholder{color:#9fb09c}' +
+    '.ah-fe-form input[type=email]:focus{outline:2px solid #dde2d8;outline-offset:1px;background:rgba(255,255,255,.1)}' +
+    '.ah-fe-form button.primary{flex:0 0 auto;height:44px;padding:0 18px;border:0;border-radius:3px;background:#8f4f45;color:#f8f9f0;font:700 12px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap}' +
+    '.ah-fe-form button.primary:hover{background:#754038}' +
+    '.ah-fe-form button.loading{display:none}' +
+    '.ah-fe-fine{font:12px/1.5 Montserrat,sans-serif!important;color:#8fa38c!important;margin:10px 0 0!important}' +
+    '.ah-fe-success{display:none;font:14px/1.5 Montserrat,sans-serif;color:#dde2d8;border:1px solid rgba(255,255,255,.28);border-radius:3px;padding:12px 14px}' +
+    /* bottom row */
+    '.ah-foot-bottom{max-width:1100px;margin:0 auto;padding:22px 28px 34px;border-top:1px solid rgba(255,255,255,.13);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}' +
+    '.ah-foot-bottom .ah-fb-left{flex:1 1 480px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font:12.5px/1.4 Montserrat,sans-serif;color:#9fb09c}' +
+    '.ah-foot-bottom .ah-fb-left a{color:#cdd6c8!important;text-decoration:none!important;border-bottom:0!important;background-image:none!important;font:12.5px/1.4 Montserrat,sans-serif}' +
+    '.ah-foot-bottom .ah-fb-left a:hover{color:#fff!important}' +
+    '.ah-foot-bottom .ah-fb-dot{opacity:.5}' +
+    '.ah-foot-bottom .ah-fb-search{flex:0 1 240px;max-width:100%}' +
+    '.ah-foot-bottom .ah-fb-search .sqs-block-content{padding:0!important}' +
+    '.ah-foot-bottom .ah-fb-search .fe-block{position:static!important;width:auto!important;height:auto!important;transform:none!important}' +
+    '.ah-foot-hidden{display:none!important}' +
+    '@media(max-width:760px){.ah-foot-enhance{grid-template-columns:1fr;gap:28px;padding:40px 22px 28px}.ah-foot-bottom{flex-direction:column;align-items:flex-start;padding:20px 22px 30px}.ah-foot-bottom .ah-fb-search{flex-basis:auto;width:100%}}';
     var st = document.createElement('style'); st.id = 'ah-foot-style'; st.textContent = css;
     document.head.appendChild(st);
 
@@ -3135,6 +3152,7 @@ function ahIsFlockArticle(slug) {
     var fb = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3H13V9c0-.9.3-1.5 1.6-1.5H17V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4V11H8v3h2.6v8H13z"/></svg>';
     var th = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 11.3c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.5-4.7-1.6 0-3 .7-3.8 2l1.4 1c.6-.9 1.5-1.1 2.4-1.1 1.5 0 2.3.9 2.5 2.4-.6-.1-1.2-.2-1.9-.2-2.5 0-4.1 1.3-4 3.3 0 1.6 1.4 2.7 3.1 2.7 1.4 0 2.9-.8 3.4-2.7.3.6.6 1.4.6 2.4 0 1.9-1.6 3.9-4.9 3.9-3.6 0-5.2-2.4-5.2-6.1S6.9 6 10.5 6c2.3 0 3.9.9 4.9 2.3l1.5-1C15.6 5.4 13.4 4.3 10.5 4.3 5.7 4.3 3 7.3 3 12s2.7 7.7 7.5 7.7c4.3 0 6.7-2.7 6.7-5.6 0-1.5-.6-2.7-1.7-3.5z"/></svg>';
 
+    // ---- Band 1: brand | explore | signup ----
     var band = document.createElement('div'); band.className = 'ah-foot-enhance';
     band.innerHTML = '<div><div class="ah-fe-logo">Ambitious Harvest</div>' +
       '<p>Practical, locally grounded gardening for Santa Cruz County and the greater Bay Area.</p>' +
@@ -3143,9 +3161,64 @@ function ahIsFlockArticle(slug) {
       '<a href="https://www.pinterest.com/AmbitiousHarvest" aria-label="Pinterest">' + pin + '</a>' +
       '<a href="https://www.facebook.com/AmbitiousHarvest/" aria-label="Facebook">' + fb + '</a>' +
       '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
-      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/store">Shop Guides &amp; Kits</a></div>' +
-      '<div><h4>Grow with the seasons</h4><p>Get the free Santa Cruz planting calendar, plus seasonal reminders and new guides.</p><a class="ah-fe-btn" href="/your-garden-toolkit">Get the free calendar →</a></div>';
+      '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/planting-calendar">Planting Calendar</a><a href="/store">Shop Guides &amp; Kits</a><a href="/about">About</a></div>' +
+      '<div><h4>Free Santa Cruz planting calendar</h4>' +
+      '<p>One email a week with seasonal reminders and new guides. No spam, unsubscribe anytime.</p>' +
+      '<div id="mlb2-' + ML_FORM_ID + '" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-' + ML_FORM_ID + '">' +
+        '<div class="row-form">' +
+          '<form class="ml-block-form ah-fe-form" action="' + ML_ACTION + '" data-code="" method="post" target="_blank">' +
+            '<input aria-label="Email address" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="Your email" autocomplete="email" required>' +
+            '<input type="hidden" name="ml-submit" value="1">' +
+            '<button type="submit" class="primary">Get the calendar</button>' +
+            '<button disabled="disabled" style="display:none" type="button" class="loading"><span class="sr-only">Loading...</span></button>' +
+            '<input type="hidden" name="anticsrf" value="true">' +
+          '</form>' +
+        '</div>' +
+        '<div class="row-success ah-fe-success">Thank you. Check your inbox for the calendar link.</div>' +
+      '</div>' +
+      '<p class="ah-fe-fine">Delivered as a printable PDF.</p></div>';
     foot.insertBefore(band, foot.firstChild);
+
+    // ---- Band 2: slim bottom row built from the Squarespace footer section ----
+    var sq = foot.querySelector('section[data-section-id]');
+    var bottom = document.createElement('div'); bottom.className = 'ah-foot-bottom';
+    var left = document.createElement('div'); left.className = 'ah-fb-left';
+    var links = [];
+    if (sq) {
+      var seen = {};
+      [].forEach.call(sq.querySelectorAll('.collectionlink-title a, .sqs-html-content a'), function (a) {
+        var href = a.getAttribute('href') || ''; var label = (a.textContent || '').trim();
+        if (!href || !label || seen[href]) return; seen[href] = 1;
+        links.push('<a href="' + href + '">' + label + '</a>');
+      });
+    }
+    if (!links.length) {
+      links = ['<a href="/privacy-policy">Privacy Policy</a>', '<a href="/refund-policy">Refund Policy</a>',
+               '<a href="/disclosure">Disclosure</a>', '<a href="/terms-of-use">Terms of Use</a>'];
+    }
+    var year = new Date().getFullYear();
+    left.innerHTML = links.join('<span class="ah-fb-dot">&middot;</span>') +
+      '<span class="ah-fb-dot">&middot;</span><span>&copy; ' + year + ' Ambitious Harvest, LLC. All rights reserved.</span>';
+    bottom.appendChild(left);
+    var searchBlock = sq && sq.querySelector('.sqs-block-search');
+    if (searchBlock) {
+      var holder = document.createElement('div'); holder.className = 'ah-fb-search';
+      var feWrap = searchBlock.closest('.fe-block') || searchBlock;
+      holder.appendChild(feWrap);
+      bottom.appendChild(holder);
+    }
+    foot.insertBefore(bottom, band.nextSibling);
+    if (sq) sq.classList.add('ah-foot-hidden');
+
+    // ---- MailerLite binding (AJAX submit + inline success) ----
+    window['ml_webform_success_' + ML_FORM_ID] = function () {
+      var c = document.getElementById('mlb2-' + ML_FORM_ID); if (!c) return;
+      var f = c.querySelector('.row-form'), ok = c.querySelector('.row-success');
+      if (f) f.style.display = 'none'; if (ok) ok.style.display = 'block';
+    };
+    if (!document.querySelector('script[src^="https://groot.mailerlite.com/js/w/webforms.min.js"]')) {
+      var sc = document.createElement('script'); sc.src = ML_SCRIPT; sc.async = true; document.body.appendChild(sc);
+    }
   }
   function boot() {
     if (document.querySelector('#footer-sections')) return build();
@@ -4435,4 +4508,93 @@ function ahIsFlockArticle(slug) {
     fix();
   }
   window.addEventListener('resize', fix);
+})();
+
+// === HOMEPAGE FLOW PASS (2026-08-19) ===
+// Homepage only. Two layout fixes the editor cannot express cleanly:
+// (1) Tools section 6931d4ad6d3823703aa2dd48: the four dark cards were authored
+//     as a 2x2 on rows 10-26 / 36-52 of a 52-row grid (482px cards for ~230px
+//     of content, 300px gap between rows, 1,668px section). On desktop they now
+//     sit in ONE row on an auto-sized grid row directly under the header
+//     (about 620px section). Mobile layout is untouched. Fluid-engine grid
+//     placement is layered !important, so this is element-style, like the
+//     Latest-section fix (see fluid-engine-grid-rules-beat-custom-css-use-site-scripts).
+// (2) What to Plant This Week section 6a739a13d02880699baa6af2: the widget is
+//     the full tool (kicker, zone-link copier, 8 cards with two buttons each,
+//     attribution footer, 1,314px). On the homepage it is trimmed to a compact
+//     strip: heading + week line, one-row zone controls, the first FOUR cards
+//     with one link each, and one line pointing at the full Planting Calendar.
+//     The widget itself (and /planting-calendar) is unchanged; this is CSS plus
+//     a small post-render rewrite of the "Showing N of M" line.
+(function () {
+  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
+  var TOOLS = '6931d4ad6d3823703aa2dd48', WTP = '6a739a13d02880699baa6af2';
+  var CARDS = { '55b9aaf15e2bc0f2a0f4': [2, 8], '1bab4141a89c0b28acbf': [8, 14], 'c73329c077ccbc09677e': [14, 20], '5f7f0504aef65bc36cea': [20, 26] };
+  var HDR = '8b6a6257ee154c598e99';
+  var mq = window.matchMedia('(min-width: 768px)');
+
+  function layoutTools() {
+    var sec = document.querySelector('section[data-section-id="' + TOOLS + '"]'); if (!sec) return;
+    var fe = sec.querySelector('.fluid-engine'); if (!fe) return;
+    var desktop = mq.matches;
+    var set = function (el, prop, val) { if (desktop) el.style.setProperty(prop, val, 'important'); else el.style.removeProperty(prop); };
+    var h = sec.querySelector('.fe-block-' + HDR);
+    if (h) { set(h, 'grid-row-start', '1'); set(h, 'grid-row-end', '8'); set(h, 'grid-column-start', '2'); set(h, 'grid-column-end', '26'); }
+    Object.keys(CARDS).forEach(function (id) {
+      var b = sec.querySelector('.fe-block-' + id); if (!b) return;
+      set(b, 'grid-row-start', '10'); set(b, 'grid-row-end', '11');
+      set(b, 'grid-column-start', String(CARDS[id][0])); set(b, 'grid-column-end', String(CARDS[id][1]));
+      set(b, 'align-self', 'stretch'); set(b, 'margin', '0 8px');
+    });
+    set(fe, 'grid-template-rows', 'repeat(9, minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)) auto');
+  }
+
+  function compactWtp() {
+    var sec = document.querySelector('section[data-section-id="' + WTP + '"]'); if (!sec) return;
+    if (!document.getElementById('ah-wtp-compact-style')) {
+      var S = 'section[data-section-id="' + WTP + '"] #ah-wtp-root ';
+      var css =
+        /* the section is "Medium" height, which pads a 500px widget out to 940px; size it to content */
+        'section[data-section-id="' + WTP + '"]{min-height:0!important}' +
+        'section[data-section-id="' + WTP + '"] .content-wrapper{min-height:0!important;padding-top:44px!important;padding-bottom:44px!important}' +
+        S + '.wtp-wrap{padding:26px 22px 22px!important}' +
+        S + '.wtp-brand{display:none!important}' +
+        S + '.wtp-hdr{margin-bottom:14px!important}' +
+        S + '.wtp-hdr h1{font-size:30px!important;margin-bottom:6px!important}' +
+        S + '.wtp-ctrls{padding:12px 14px!important;margin-bottom:16px!important;gap:14px!important;align-items:flex-end!important}' +
+        S + '.wtp-znote{flex-basis:100%!important;margin:0!important;font-size:12.5px!important}' +
+        S + '.wtp-share{display:none!important}' +
+        S + '.wtp-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}' +
+        S + '.wtp-card:nth-child(n+5){display:none!important}' +
+        S + '.wtp-card{padding:14px 14px 12px!important}' +
+        S + '.wtp-clinks a.wtp-cal-link{display:none!important}' +
+        S + '.wtp-more{margin-top:14px!important;text-align:center!important}' +
+        S + '.wtp-ft{display:none!important}' +
+        '@media(max-width:900px){' + S + '.wtp-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}' +
+        '@media(max-width:520px){' + S + '.wtp-grid{grid-template-columns:1fr!important}' + S + '.wtp-card:nth-child(n+4){display:none!important}}';
+      var st = document.createElement('style'); st.id = 'ah-wtp-compact-style'; st.textContent = css;
+      document.head.appendChild(st);
+    }
+    var grid = sec.querySelector('#wtp-grid'), more = sec.querySelector('#wtp-more');
+    if (!grid || !more) return;
+    var rewrite = function () {
+      var total = grid.querySelectorAll('.wtp-card').length; if (!total) return;
+      var m = (more.textContent || '').match(/of (\d+) crops? active in ([A-Za-z]+)/);
+      var all = m ? parseInt(m[1], 10) : total, month = m ? m[2] : '';
+      var shown = Math.min(4, total);
+      if (/you can plant/.test(more.textContent || '')) return; // already ours
+      more.innerHTML = shown + ' of the ' + all + ' crops you can plant' + (month ? ' in ' + month : '') + ' for this zone. ' +
+        '<a href="/planting-calendar">See the full month in the Planting Calendar</a>';
+    };
+    rewrite();
+    new MutationObserver(function () { setTimeout(rewrite, 0); }).observe(grid, { childList: true });
+  }
+
+  function boot() {
+    if (!onHome()) return;
+    layoutTools(); compactWtp();
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(layoutTools, 120); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
