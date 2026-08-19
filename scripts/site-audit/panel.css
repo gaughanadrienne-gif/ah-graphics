@@ -1,0 +1,5 @@
+/* 2026-08-19 site-wide: nav fits on one line at laptop widths (8 items + cart + CTA) */
+@media (min-width: 1100px) { .header-nav-item { margin-right: 16px !important; } .header-nav-item a, .header-nav-folder-title { font-size: 12px !important; letter-spacing: 0.3px !important; } .header-actions .btn { padding-left: 18px !important; padding-right: 18px !important; } }
+/* 2026-08-19 site-wide: one primary button color (rosewood). Store add-to-cart keeps the theme. */
+a.sqs-block-button-element.sqs-button-element--primary, .form-wrapper .form-button-wrapper .button { background-color: #8f4f45 !important; border-color: #8f4f45 !important; color: #f8f9f0 !important; }
+a.sqs-block-button-element.sqs-button-element--primary:hover, .form-wrapper .form-button-wrapper .button:hover { background-color: #754038 !important; border-color: #754038 !important; }
