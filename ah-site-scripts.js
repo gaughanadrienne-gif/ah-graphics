@@ -4427,3 +4427,31 @@ function ahIsFlockArticle(slug) {
     fix();
   }
 })();
+
+// Store band spacing (2026-08-19). The Featured Products template leaves 4
+// empty grid rows (~176px) between the product row (rows 5-18) and the Shop
+// All button (rows 22-24). Same layered-!important situation as the Latest
+// section, so pull the button up with element styles. Desktop grid only.
+(function () {
+  function fix() {
+    try {
+      var btn = document.querySelector(
+        '[data-section-id="6a84de343e4bd40e63be8832"] .sqs-block-button');
+      var block = btn && btn.closest('.fe-block');
+      if (!block) return;
+      if (window.innerWidth >= 768) {
+        block.style.setProperty('grid-row-start', '19', 'important');
+        block.style.setProperty('grid-row-end', '21', 'important');
+      } else {
+        block.style.removeProperty('grid-row-start');
+        block.style.removeProperty('grid-row-end');
+      }
+    } catch (err) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fix);
+  } else {
+    fix();
+  }
+  window.addEventListener('resize', fix);
+})();
