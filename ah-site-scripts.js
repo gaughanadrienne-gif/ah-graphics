@@ -4622,3 +4622,138 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
+
+// === SITE FLOW PASS (2026-08-19, evening) ===
+// Follow-up to the homepage flow pass, from the site-wide design audit of the
+// 13 nav pages. Every item here is layout the editor cannot express cleanly:
+// (1) FIT-TO-CONTENT: single-code-block tool/sales pages were authored on a
+//     fixed grid far taller than the embed (Toolkit 5,508px section for a
+//     3,084px block = 2,400px of cream; Garden Consulting 5,840 for 1,962 =
+//     3,900px of dark green; smaller gaps on Conditions, Tomato Quiz, Flock,
+//     Local Resources). The grid rows become `auto`, the block sits on row 1.
+// (2) HERO BANNERS on Start Here, About, Local Resources: full-bleed photo
+//     instead of the inset panel with dark bands, Fraunces heading, and a
+//     left-to-right forest scrim so the text has guaranteed contrast (Local
+//     Resources had white text straight on the photo).
+// (3) Small tightenings: About intro heading aligned with its body copy;
+//     Contact social-icon block widened so the four icons sit on one row;
+//     Flock widget's duplicate hero (the page already has an H1 + intro);
+//     Planting Calendar "What to Plant in <month>" chips de-duplicated.
+// (4) Homepage on phones: the 2026-08-19 compaction was desktop-only; the
+//     Latest and tools sections drop their fixed mobile row counts so they size
+//     to content (the native mobile list keeps all 8 posts; hiding items there
+//     would leave the JS-sized container's empty space behind).
+(function () {
+  var U = 'minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)';
+  var mq = window.matchMedia('(min-width: 768px)');
+  function sec(id) { return document.querySelector('section[data-section-id="' + id + '"]'); }
+  function imp(el, p, v) { if (el) el.style.setProperty(p, v, 'important'); }
+  function css(id, text) {
+    if (document.getElementById(id)) return;
+    var st = document.createElement('style'); st.id = id; st.textContent = text; document.head.appendChild(st);
+  }
+
+  // ---- (1) fit-to-content ----
+  var FIT = [
+    '6945b7246bdafb508fd7bc6c', // /your-garden-toolkit
+    '6a46ab24a4ee56000e0007d4', // /garden-review
+    '695c4d3b6b60b009f20b9894', // /garden-conditions dashboard
+    '69c08d22eb91792d6973d7a9', // /tomato-quiz
+    '6a3178ab3bc618453b7d4a65', // /build-your-flock
+    '69321b14d78ddc11253612e8'  // /local-resources directory
+  ];
+  function fit() {
+    FIT.forEach(function (id) {
+      var s = sec(id); if (!s) return;
+      var fe = s.querySelector('.fluid-engine'); if (!fe) return;
+      var blocks = s.querySelectorAll('.fe-block'); if (blocks.length !== 1) return;
+      imp(s, 'min-height', '0');
+      var cw = s.querySelector('.content-wrapper'); imp(cw, 'min-height', '0');
+      imp(fe, 'grid-template-rows', 'auto');
+      imp(blocks[0], 'grid-row-start', '1'); imp(blocks[0], 'grid-row-end', '2'); imp(blocks[0], 'height', 'auto');
+    });
+  }
+
+  // ---- (2) hero banners ----
+  var HEROES = {
+    '6931ddab1c27a30f3703296e': { text: 'ebe8d95dc940f4132ad4' },           // /start-here
+    '6266f6996b688e64007b36b3': { text: null },                              // /about (banner text is the section's own)
+    '6932161b696f554292e1dd78': { text: 'yui_3_17_2_1_1764780641055_26110' } // /local-resources
+  };
+  function heroes() {
+    var rules = '';
+    Object.keys(HEROES).forEach(function (id) {
+      var S = 'section[data-section-id="' + id + '"]';
+      rules +=
+        S + '{min-height:0!important}' +
+        S + ' .section-background{top:0!important;right:0!important;bottom:0!important;left:0!important;border-radius:0!important}' +
+        S + ' .section-background img{object-fit:cover!important}' +
+        S + ' .content-wrapper{padding-top:72px!important;padding-bottom:72px!important;min-height:360px!important}' +
+        S + ' h1, ' + S + ' h2, ' + S + ' h3, ' + S + ' h4{font-family:Fraunces,"Palatino Linotype",Georgia,serif!important;font-weight:400!important;color:#F8F9F0!important;text-shadow:none!important}' +
+        S + ' h1, ' + S + ' h4{font-size:44px!important;line-height:1.1!important}' +
+        S + ' h1 *, ' + S + ' h2 *, ' + S + ' h3 *, ' + S + ' h4 *{font-family:inherit!important;font-weight:inherit!important}' +
+        S + ' p{color:#F8F9F0!important}' +
+        /* left-to-right forest scrim so left-aligned text always has contrast (the canvas uses a solid panel; this is the photo equivalent) */
+        S + ' .section-background{overflow:hidden!important}' +
+        S + ' .section-background::after{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;background:linear-gradient(90deg, rgba(26,59,42,.82) 0%, rgba(26,59,42,.58) 45%, rgba(26,59,42,.18) 100%)}' +
+        S + ' .section-background-overlay{opacity:0!important}';
+    });
+    css('ah-site-hero-style', rules);
+  }
+
+  // ---- (3) tightenings ----
+  function about() {
+    var s = sec('6910bfbcfd2b1773c4e1168e'); if (!s) return; // About intro: heading block 2-6/2-19, body 5-8/2-26
+    var head = s.querySelector('.fe-block-yui_3_17_2_1_1764780641055_20238');
+    var body = s.querySelector('.fe-block-85a6a4181cb23595b65f');
+    if (!head || !body || !mq.matches) return;
+    // Both blocks hold a centered 720px text container; the heading block spans
+    // cols 2-19 and the body cols 2-26, so their centers differ by ~195px. Give
+    // the heading the body's column span and the two line up.
+    imp(head, 'grid-column-start', '2'); imp(head, 'grid-column-end', '26');
+    imp(head, 'grid-row-start', '1'); imp(head, 'grid-row-end', '4'); imp(body, 'grid-row-start', '4'); imp(body, 'grid-row-end', '7');
+    imp(s.querySelector('.fluid-engine'), 'grid-template-rows', 'repeat(6, ' + U + ')');
+  }
+  function contact() {
+    var s = sec('65d50289c1b9e7199f7df0b0'); if (!s || !mq.matches) return;
+    var icons = s.querySelector('.fe-block-65d502897771c82c522f3fee'); if (!icons) return;
+    imp(icons, 'grid-column-start', '8'); imp(icons, 'grid-column-end', '16'); // 4 icons on one row
+  }
+  function flock() {
+    css('ah-flock-style', 'section[data-section-id="6a3178ab3bc618453b7d4a65"] .bf-hero h2, section[data-section-id="6a3178ab3bc618453b7d4a65"] .bf-hero > p{display:none!important}' +
+      'section[data-section-id="6a3178ab3bc618453b7d4a65"] .bf-hero{padding-top:0!important;margin-top:0!important}');
+  }
+  function calendarChips() {
+    var box = document.getElementById('pc-ntags'); if (!box) return;
+    var dedupe = function () {
+      var seen = {}; [].forEach.call(box.children, function (c) { var k = (c.textContent || '').trim().toLowerCase(); if (!k) return; if (seen[k]) c.style.display = 'none'; else seen[k] = 1; });
+    };
+    dedupe(); new MutationObserver(function () { setTimeout(dedupe, 0); }).observe(box, { childList: true });
+  }
+
+  // ---- (4) homepage on phones ----
+  function homeMobile() {
+    if (!document.querySelector('section[data-section-id="6416251a82bfa26c010c2d53"]')) return;
+    if (mq.matches) return;
+    // Latest: the summary block was authored on mobile rows 6-97 (91 x 24px minimum); size it to content.
+    var L = sec('6416251a82bfa26c010c2d53');
+    if (L) {
+      var fe = L.querySelector('.fluid-engine');
+      var b = L.querySelector('.fe-block-yui_3_17_2_1_1679165300179_72306');
+      var btn = L.querySelector('.fe-block-yui_3_17_2_1_1764872163296_16045');
+      if (fe && b) { imp(b, 'grid-row-start', '6'); imp(b, 'grid-row-end', '7'); imp(fe, 'grid-template-rows', 'repeat(5, minmax(24px, auto)) auto minmax(24px, auto) minmax(24px, auto)'); }
+      if (btn) { imp(btn, 'grid-row-start', '8'); imp(btn, 'grid-row-end', '9'); }
+    }
+    // Tools: four cards authored on 2-row slots; let each take its content height.
+    var T = sec('6931d4ad6d3823703aa2dd48');
+    if (T) { var tfe = T.querySelector('.fluid-engine'); if (tfe) imp(tfe, 'grid-auto-rows', 'auto'); }
+  }
+
+  function run() { fit(); heroes(); about(); contact(); flock(); calendarChips(); homeMobile(); }
+  function boot() {
+    run();
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { fit(); about(); contact(); homeMobile(); }, 150); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
