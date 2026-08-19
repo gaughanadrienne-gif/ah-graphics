@@ -1,7 +1,7 @@
 import json, os, sys, time
 from playwright.sync_api import sync_playwright
 
-OUT = r"C:\Users\Adrie\AppData\Local\Temp\claude\C--Users-Adrie\27c318a7-1e62-46a0-9f85-08586d774e5f\scratchpad\audit"
+OUT = r"./audit"
 os.makedirs(OUT, exist_ok=True)
 PAGES = [
     ("start-here", "/start-here"),

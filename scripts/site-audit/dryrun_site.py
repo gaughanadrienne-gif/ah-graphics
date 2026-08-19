@@ -1,12 +1,12 @@
 import json, os, re, sys
 from playwright.sync_api import sync_playwright
-OUT = r"C:\Users\Adrie\AppData\Local\Temp\claude\C--Users-Adrie\27c318a7-1e62-46a0-9f85-08586d774e5f\scratchpad\audit2"
+OUT = r"./audit2"
 os.makedirs(OUT, exist_ok=True)
 src = open(r"C:\Users\Adrie\OneDrive\Ambitious Harvest Co\Website\ah-graphics\ah-site-scripts.js", encoding="utf-8").read()
 i = src.find("// === SITE FLOW PASS")
 block = src[i:]
 # also the CSS planned for the Custom CSS panel
-panel_css = open(r"C:\Users\Adrie\AppData\Local\Temp\claude\C--Users-Adrie\27c318a7-1e62-46a0-9f85-08586d774e5f\scratchpad\panel.css", encoding="utf-8").read()
+panel_css = open(r"./panel.css", encoding="utf-8").read()
 pages = sys.argv[1:] or ["start-here","your-garden-toolkit","garden-review","about","contact","garden-conditions","tomato-quiz","build-your-flock","local-resources","planting-calendar"]
 MEASURE = r"""
 () => ({total: document.documentElement.scrollHeight, navWraps: (()=>{const items=[...document.querySelectorAll('.header-nav-item')].filter(i=>i.getBoundingClientRect().width>0); const tops=[...new Set(items.map(i=>Math.round(i.getBoundingClientRect().top)))]; return tops.length;})(),
