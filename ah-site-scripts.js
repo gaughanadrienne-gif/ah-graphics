@@ -4378,3 +4378,33 @@ function ahIsFlockArticle(slug) {
     } catch (err) {}
   }, true);
 })();
+
+// Homepage Latest-from-the-Garden layout fix (2026-08-19). The summary list
+// block was authored on grid rows 8-31, underneath the section's heading
+// (rows 1-12) and intro line (rows 12-20), so at desktop widths the intro
+// text renders on top of the first article image. The engine's own grid
+// rules are layered !important, which beats any custom-CSS override, so the
+// only stylesheet-independent fix is an element-level longhand. Rows are
+// auto-sized, so moving the start line reflows the whole section cleanly.
+// Mobile (<768px) uses a different grid; leave it untouched.
+(function () {
+  var SEL = '[data-section-id="6416251a82bfa26c010c2d53"] ' +
+    '.fe-block-yui_3_17_2_1_1679165300179_72306';
+  function fix() {
+    try {
+      var b = document.querySelector(SEL);
+      if (!b) return;
+      if (window.innerWidth >= 768) {
+        b.style.setProperty('grid-row-start', '20', 'important');
+      } else {
+        b.style.removeProperty('grid-row-start');
+      }
+    } catch (err) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fix);
+  } else {
+    fix();
+  }
+  window.addEventListener('resize', fix);
+})();
