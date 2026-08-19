@@ -4749,7 +4749,24 @@ function ahIsFlockArticle(slug) {
     if (T) { var tfe = T.querySelector('.fluid-engine'); if (tfe) imp(tfe, 'grid-auto-rows', 'auto'); }
   }
 
-  function run() { fit(); heroes(); about(); contact(); flock(); calendarChips(); homeMobile(); }
+  // ---- (5) /store: the two consulting services are the newest products, so the
+  //      default newest-first sort puts $500 / $49 services ahead of every guide.
+  //      The product grid is a CSS grid; `order` moves the service tiles to the end
+  //      without touching product data. Re-applied on list re-renders (filters).
+  function storeServicesLast() {
+    if (location.pathname.replace(/\/$/, '') !== '/store') return;
+    var apply = function () {
+      [].forEach.call(document.querySelectorAll('.product-list-item'), function (tile) {
+        var a = tile.querySelector('a[href*="/store/p/virtual-garden"]');
+        if (a) tile.style.setProperty('order', '99', 'important');
+      });
+    };
+    apply();
+    var list = document.querySelector('.product-list');
+    if (list) new MutationObserver(function () { setTimeout(apply, 0); }).observe(list, { childList: true, subtree: true });
+  }
+
+  function run() { fit(); heroes(); about(); contact(); flock(); calendarChips(); homeMobile(); storeServicesLast(); }
   function boot() {
     run();
     var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { fit(); about(); contact(); homeMobile(); }, 150); });
