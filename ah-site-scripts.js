@@ -4408,3 +4408,22 @@ function ahIsFlockArticle(slug) {
   }
   window.addEventListener('resize', fix);
 })();
+
+// Shop All link fix (2026-08-19). The homepage Featured Products template
+// shipped its Shop All button with an empty href, and the page editor is
+// currently undrivable (extension frame conflicts), so point the anchor at
+// the store at runtime. No-op once a real link is authored in the editor.
+(function () {
+  function fix() {
+    try {
+      var a = document.querySelector(
+        '[data-section-id="6a84de343e4bd40e63be8832"] a.sqs-block-button-element');
+      if (a && !a.getAttribute('href')) a.setAttribute('href', '/store');
+    } catch (err) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fix);
+  } else {
+    fix();
+  }
+})();
