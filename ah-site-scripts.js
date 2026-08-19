@@ -51,9 +51,13 @@ document.addEventListener("DOMContentLoaded", function() {
       btn.href = "/start-here";
       btn.className = "sqs-block-button-element";
       btn.textContent = "Start Here";
-      btn.style.cssText = "display:inline-block;background-color:#8f4f45;color:#f8f9f0;border:none;border-radius:3px;font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:15px 30px;text-decoration:none;transition:background-color 0.3s ease;";
-      btn.onmouseover = function() { this.style.backgroundColor = "#754038"; };
-      btn.onmouseout = function() { this.style.backgroundColor = "#8f4f45"; };
+      btn.style.cssText = "display:inline-block;color:#f8f9f0;border:none;border-radius:3px;font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:15px 30px;text-decoration:none;transition:background-color 0.3s ease;";
+      // Squarespace's button component stylesheet sets the background with
+      // !important from the theme (sage), so a plain inline color loses; the
+      // inline declaration has to be !important too.
+      btn.style.setProperty("background-color", "#8f4f45", "important");
+      btn.onmouseover = function() { this.style.setProperty("background-color", "#754038", "important"); };
+      btn.onmouseout = function() { this.style.setProperty("background-color", "#8f4f45", "important"); };
       ctaDiv.appendChild(btn);
       var heroText = lastBlock.querySelector(".sqs-html-content");
       if (heroText) heroText.appendChild(ctaDiv);
@@ -4452,35 +4456,10 @@ function ahIsFlockArticle(slug) {
   }, true);
 })();
 
-// Homepage Latest-from-the-Garden layout fix (2026-08-19). The summary list
-// block was authored on grid rows 8-31, underneath the section's heading
-// (rows 1-12) and intro line (rows 12-20), so at desktop widths the intro
-// text renders on top of the first article image. The engine's own grid
-// rules are layered !important, which beats any custom-CSS override, so the
-// only stylesheet-independent fix is an element-level longhand. Rows are
-// auto-sized, so moving the start line reflows the whole section cleanly.
-// Mobile (<768px) uses a different grid; leave it untouched.
-(function () {
-  var SEL = '[data-section-id="6416251a82bfa26c010c2d53"] ' +
-    '.fe-block-yui_3_17_2_1_1679165300179_72306';
-  function fix() {
-    try {
-      var b = document.querySelector(SEL);
-      if (!b) return;
-      if (window.innerWidth >= 768) {
-        b.style.setProperty('grid-row-start', '20', 'important');
-      } else {
-        b.style.removeProperty('grid-row-start');
-      }
-    } catch (err) {}
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fix);
-  } else {
-    fix();
-  }
-  window.addEventListener('resize', fix);
-})();
+// (The 2026-08-19 Latest-from-the-Garden row-start patch that lived here was
+// superseded the same day by the HOMEPAGE FLOW PASS block at the end of this
+// file, which lays the whole section out as a 3-column grid of 6 posts.)
+
 
 // Store band spacing (2026-08-19). The Featured Products template leaves 4
 // empty grid rows (~176px) between the product row (rows 5-18) and the Shop
@@ -4511,7 +4490,7 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === HOMEPAGE FLOW PASS (2026-08-19) ===
-// Homepage only. Two layout fixes the editor cannot express cleanly:
+// Homepage only. Three layout fixes the editor cannot express cleanly:
 // (1) Tools section 6931d4ad6d3823703aa2dd48: the four dark cards were authored
 //     as a 2x2 on rows 10-26 / 36-52 of a 52-row grid (482px cards for ~230px
 //     of content, 300px gap between rows, 1,668px section). On desktop they now
@@ -4527,8 +4506,10 @@ function ahIsFlockArticle(slug) {
 //     The widget itself (and /planting-calendar) is unchanged; this is CSS plus
 //     a small post-render rewrite of the "Showing N of M" line.
 (function () {
-  function onHome() { return location.pathname.replace(/\/$/, '') === '' && document.querySelector('#sections'); }
   var TOOLS = '6931d4ad6d3823703aa2dd48', WTP = '6a739a13d02880699baa6af2';
+  // Homepage test by its own section ids (this template has no #sections element,
+  // which is why the older "why3" hero block elsewhere in this file never ran).
+  function onHome() { return !!document.querySelector('section[data-section-id="' + TOOLS + '"], section[data-section-id="' + WTP + '"]'); }
   var CARDS = { '55b9aaf15e2bc0f2a0f4': [2, 8], '1bab4141a89c0b28acbf': [8, 14], 'c73329c077ccbc09677e': [14, 20], '5f7f0504aef65bc36cea': [20, 26] };
   var HDR = '8b6a6257ee154c598e99';
   var mq = window.matchMedia('(min-width: 768px)');
@@ -4590,10 +4571,53 @@ function ahIsFlockArticle(slug) {
     new MutationObserver(function () { setTimeout(rewrite, 0); }).observe(grid, { childList: true });
   }
 
+  // (3) Latest from the Garden 6416251a82bfa26c010c2d53: the summary block is
+  //     the "list, thumbnail left" design with 8 posts, each ~400px tall, on a
+  //     135-row grid (3,400px section). On desktop it is restyled as a 3-column
+  //     grid of the first 6 posts (image, title, 3-line excerpt, date + category)
+  //     with the heading, intro and View All button pulled tight around it
+  //     (~1,400px). The block keeps fetching 8 posts; 7-8 are hidden. Mobile
+  //     keeps the native list. Replaces the earlier row-start-20 patch.
+  var LATEST = '6416251a82bfa26c010c2d53';
+  var LATEST_BLOCKS = { 'yui_3_17_2_1_1762704351932_5330': ['1', '4'], 'yui_3_17_2_1_1764780641055_13325': ['4', '6'], 'yui_3_17_2_1_1679165300179_72306': ['7', '8'], 'yui_3_17_2_1_1764872163296_16045': ['9', '10'] };
+  function layoutLatest() {
+    var sec = document.querySelector('section[data-section-id="' + LATEST + '"]'); if (!sec) return;
+    var fe = sec.querySelector('.fluid-engine'); if (!fe) return;
+    var desktop = mq.matches;
+    if (!document.getElementById('ah-latest-grid-style')) {
+      var S = '@media (min-width: 768px) { section[data-section-id="' + LATEST + '"] ';
+      var E = '}';
+      var css =
+        S + '.sqs-block-summary-v2 .sqs-block-content{max-width:1100px!important;margin:0 auto!important}' + E +
+        S + '.summary-block-header,' + S.replace('@media (min-width: 768px) { ', '') + '.summary-carousel-pager{display:none!important}' + E +
+        S + '.summary-item-list-container{height:auto!important}' + E +
+        S + '.summary-item-list{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:36px 28px!important;height:auto!important;position:static!important}' + E +
+        S + '.summary-item{position:static!important;width:auto!important;height:auto!important;top:auto!important;left:auto!important;transform:none!important;margin:0!important;padding:0!important;display:block!important;opacity:1!important}' + E +
+        S + '.summary-item:nth-child(n+7){display:none!important}' + E +
+        S + '.summary-thumbnail-outer-container{float:none!important;width:100%!important;height:auto!important;margin:0 0 14px!important;padding:0!important}' + E +
+        S + '.summary-thumbnail-container{float:none!important;width:100%!important;margin:0!important;padding:0!important;display:block!important}' + E +
+        S + '.summary-thumbnail{height:auto!important;width:100%!important;aspect-ratio:3/2!important;padding-bottom:0!important;position:relative!important;overflow:hidden!important}' + E +
+        S + '.summary-thumbnail img{position:absolute!important;top:0!important;left:0!important;width:100%!important;height:100%!important;object-fit:cover!important}' + E +
+        S + '.summary-content{float:none!important;width:100%!important;padding:0!important;margin:0!important;display:block!important}' + E +
+        S + '.summary-title{font-size:19px!important;line-height:1.3!important;margin:0 0 8px!important}' + E +
+        S + '.summary-excerpt{font-size:14px!important;display:-webkit-box!important;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}' + E +
+        S + '.summary-excerpt p{margin:0!important}' + E;
+      var st = document.createElement('style'); st.id = 'ah-latest-grid-style'; st.textContent = css;
+      document.head.appendChild(st);
+    }
+    var set = function (el, prop, val) { if (desktop) el.style.setProperty(prop, val, 'important'); else el.style.removeProperty(prop); };
+    Object.keys(LATEST_BLOCKS).forEach(function (id) {
+      var b = sec.querySelector('.fe-block-' + id); if (!b) return;
+      set(b, 'grid-row-start', LATEST_BLOCKS[id][0]); set(b, 'grid-row-end', LATEST_BLOCKS[id][1]);
+    });
+    var U = 'minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)';
+    set(fe, 'grid-template-rows', 'repeat(6, ' + U + ') auto ' + U + ' ' + U);
+  }
+
   function boot() {
     if (!onHome()) return;
-    layoutTools(); compactWtp();
-    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(layoutTools, 120); });
+    layoutTools(); compactWtp(); layoutLatest();
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { layoutTools(); layoutLatest(); }, 120); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
