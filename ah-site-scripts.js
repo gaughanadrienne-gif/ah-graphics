@@ -4641,8 +4641,8 @@ function ahIsFlockArticle(slug) {
 //     Planting Calendar "What to Plant in <month>" chips de-duplicated.
 // (4) Homepage on phones: the 2026-08-19 compaction was desktop-only; the
 //     Latest and tools sections drop their fixed mobile row counts so they size
-//     to content (the native mobile list keeps all 8 posts; hiding items there
-//     would leave the JS-sized container's empty space behind).
+//     to content, and the mobile list trims to 6 posts (its items are static,
+//     so hiding the last two leaves no gap).
 (function () {
   var U = 'minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)';
   var mq = window.matchMedia('(min-width: 768px)');
@@ -4734,6 +4734,8 @@ function ahIsFlockArticle(slug) {
   // ---- (4) homepage on phones ----
   function homeMobile() {
     if (!document.querySelector('section[data-section-id="6416251a82bfa26c010c2d53"]')) return;
+    // Mobile summary items are position:static (verified 2026-08-19), so hiding 7-8 is safe there.
+    css('ah-home-mobile-style', '@media (max-width: 767px){section[data-section-id="6416251a82bfa26c010c2d53"] .summary-item:nth-child(n+7){display:none!important}}');
     if (mq.matches) return;
     // Latest: the summary block was authored on mobile rows 6-97 (91 x 24px minimum); size it to content.
     var L = sec('6416251a82bfa26c010c2d53');
