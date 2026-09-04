@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-09-04T14:23:47.185Z",
+  "updated_at": "2026-09-04T18:28:04.963Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-09-04T14:23:47.185Z",
+      "updated": "2026-09-04T18:28:04.963Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 57,
+        "temperature": 68,
         "temperatureUnit": "F",
-        "apparentTemperature": 56,
+        "apparentTemperature": 69,
         "conditions": "Sunny",
-        "detailedForecast": "Sunny. High near 73, with temperatures falling to around 71 in the afternoon. West wind 1 to 9 mph.",
-        "wind": "3 mph",
-        "windSpeed": 3.4,
-        "windGust": 3.4,
-        "windDirection": "N",
+        "detailedForecast": "Sunny. High near 73, with temperatures falling to around 71 in the afternoon. West southwest wind 5 to 9 mph.",
+        "wind": "9 mph",
+        "windSpeed": 9.1,
+        "windGust": 10.7,
+        "windDirection": "WSW",
         "precipitation": 0,
-        "soilTemp": 63,
+        "soilTemp": 68,
         "soilMoisture": 0.123,
-        "humidity": 80,
-        "vapourPressureDeficit": 0.33,
+        "humidity": 72,
+        "vapourPressureDeficit": 0.6,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -170,23 +170,23 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-09-04",
-          "high": 74.3,
-          "low": 57,
+          "high": 73.5,
+          "low": 57.2,
           "precipitation": 0,
           "precipitationProbability": 11,
           "uvIndex": 7.15,
-          "evapotranspiration": 0.175,
+          "evapotranspiration": 0.167,
           "windGust": 17.9
         },
         "upcoming": [
           {
             "date": "2026-09-04",
-            "high": 74.3,
-            "low": 57,
+            "high": 73.5,
+            "low": 57.2,
             "precipitation": 0,
             "precipitationProbability": 11,
             "uvIndex": 7.15,
-            "evapotranspiration": 0.175,
+            "evapotranspiration": 0.167,
             "windGust": 17.9
           },
           {
@@ -196,57 +196,57 @@
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 7.1,
-            "evapotranspiration": 0.183,
+            "evapotranspiration": 0.185,
             "windGust": 17.2
           },
           {
             "date": "2026-09-06",
-            "high": 74.9,
+            "high": 75.5,
             "low": 54.6,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 7,
-            "evapotranspiration": 0.178,
+            "evapotranspiration": 0.182,
             "windGust": 11.6
           },
           {
             "date": "2026-09-07",
-            "high": 70.6,
-            "low": 57.1,
+            "high": 71.5,
+            "low": 57.5,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 7,
-            "evapotranspiration": 0.16,
+            "evapotranspiration": 0.165,
             "windGust": 5.8
           },
           {
             "date": "2026-09-08",
             "high": 71.3,
-            "low": 59.1,
+            "low": 59.8,
             "precipitation": 0,
-            "precipitationProbability": 18,
-            "uvIndex": 7,
-            "evapotranspiration": 0.161,
+            "precipitationProbability": 7,
+            "uvIndex": 6.8,
+            "evapotranspiration": 0.159,
             "windGust": 7.8
           },
           {
             "date": "2026-09-09",
-            "high": 75.3,
-            "low": 59.5,
+            "high": 77,
+            "low": 60.2,
             "precipitation": 0,
             "precipitationProbability": 21,
-            "uvIndex": 3.15,
-            "evapotranspiration": 0.101,
+            "uvIndex": 3.4,
+            "evapotranspiration": 0.106,
             "windGust": 10.1
           },
           {
             "date": "2026-09-10",
             "high": 77.5,
-            "low": 66.7,
-            "precipitation": 0,
-            "precipitationProbability": 17,
-            "uvIndex": 7,
-            "evapotranspiration": 0.194,
+            "low": 67,
+            "precipitation": 0.024,
+            "precipitationProbability": 21,
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.172,
             "windGust": 23.3
           }
         ]
@@ -254,17 +254,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-09-04T07:00:00-07:00",
+          "startTime": "2026-09-04T11:00:00-07:00",
           "endTime": "2026-09-04T18:00:00-07:00",
           "temperature": 73,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny. High near 73, with temperatures falling to around 71 in the afternoon. West wind 1 to 9 mph.",
+          "detailedForecast": "Sunny. High near 73, with temperatures falling to around 71 in the afternoon. West southwest wind 5 to 9 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "1 to 9 mph",
-          "windDirection": "W"
+          "wind": "5 to 9 mph",
+          "windDirection": "WSW"
         },
         {
           "name": "Tonight",
@@ -453,18 +453,18 @@
       "alerts": [
         {
           "event": "Beach Hazards Statement",
-          "headline": "Beach Hazards Statement issued September 3 at 11:21PM PDT until September 7 at 11:00PM PDT by NWS San Francisco CA",
+          "headline": "Beach Hazards Statement issued September 4 at 8:39AM PDT until September 7 at 11:00PM PDT by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...Increased risk of sneaker waves and strong rip currents\ndue to incoming long period southerly swell associated with\ntropical activity in the Eastern Pacific Ocean. Breaking waves\nto around 10 feet expected.\n\n* WHERE...Pacific Coast beaches.\n\n* WHEN...From Friday morning through Monday evening.\n\n* IMPACTS...Dangerous conditions are forecast along the\nshoreline. Hazards include sneaker waves, strong rip currents,\nand large breaking waves.",
+          "description": "* WHAT...Increased risk of sneaker waves and strong rip currents\ndue to incoming long period southerly swell associated with\ntropical activity in the Eastern Pacific Ocean. Breaking waves\nto around 10 feet expected.\n\n* WHERE...Pacific Coast beaches.\n\n* WHEN...Through 11 PM PDT Monday.\n\n* IMPACTS...Dangerous conditions are forecast along the\nshoreline. Hazards include sneaker waves, strong rip currents,\nand large breaking waves.",
           "instruction": "Stay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-09-04T09:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1c34c50c277df625c213dbd50937673400a5e68d.002.1"
+          "expires": "2026-09-04T21:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9f13d87f670a1ca2a3175a74656de9f17ef37f3a.002.1"
         }
       ]
     },
     "slv": {
-      "updated": "2026-09-04T14:23:47.185Z",
+      "updated": "2026-09-04T18:28:04.963Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -472,20 +472,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 58,
+        "temperature": 72,
         "temperatureUnit": "F",
-        "apparentTemperature": 56,
+        "apparentTemperature": 72,
         "conditions": "Sunny",
-        "detailedForecast": "Sunny. High near 80, with temperatures falling to around 76 in the afternoon. North wind 0 to 6 mph.",
-        "wind": "5 mph",
-        "windSpeed": 4.6,
-        "windGust": 6.3,
-        "windDirection": "NW",
+        "detailedForecast": "Sunny. High near 80, with temperatures falling to around 76 in the afternoon. North northwest wind 2 to 6 mph.",
+        "wind": "6 mph",
+        "windSpeed": 6,
+        "windGust": 8.1,
+        "windDirection": "NNW",
         "precipitation": 0,
-        "soilTemp": 60,
+        "soilTemp": 68,
         "soilMoisture": 0.129,
-        "humidity": 72,
-        "vapourPressureDeficit": 0.42,
+        "humidity": 47,
+        "vapourPressureDeficit": 1.36,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -618,31 +618,31 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-09-04",
-          "high": 76.4,
+          "high": 76.9,
           "low": 57.2,
           "precipitation": 0,
           "precipitationProbability": 10,
           "uvIndex": 7.15,
-          "evapotranspiration": 0.191,
-          "windGust": 14.8
+          "evapotranspiration": 0.19,
+          "windGust": 15.4
         },
         "upcoming": [
           {
             "date": "2026-09-04",
-            "high": 76.4,
+            "high": 76.9,
             "low": 57.2,
             "precipitation": 0,
             "precipitationProbability": 10,
             "uvIndex": 7.15,
-            "evapotranspiration": 0.191,
-            "windGust": 14.8
+            "evapotranspiration": 0.19,
+            "windGust": 15.4
           },
           {
             "date": "2026-09-05",
             "high": 76,
             "low": 54,
             "precipitation": 0,
-            "precipitationProbability": 0,
+            "precipitationProbability": 1,
             "uvIndex": 7.1,
             "evapotranspiration": 0.185,
             "windGust": 14.5
@@ -650,51 +650,51 @@
           {
             "date": "2026-09-06",
             "high": 78.7,
-            "low": 49.8,
+            "low": 50.3,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 7,
-            "evapotranspiration": 0.19,
+            "evapotranspiration": 0.189,
             "windGust": 12.3
           },
           {
             "date": "2026-09-07",
-            "high": 84.3,
+            "high": 85.6,
             "low": 49.9,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 7,
-            "evapotranspiration": 0.192,
+            "uvIndex": 7.05,
+            "evapotranspiration": 0.195,
             "windGust": 6.5
           },
           {
             "date": "2026-09-08",
-            "high": 82.7,
-            "low": 52.8,
+            "high": 83.6,
+            "low": 54.8,
             "precipitation": 0,
-            "precipitationProbability": 16,
-            "uvIndex": 7,
-            "evapotranspiration": 0.195,
+            "precipitationProbability": 7,
+            "uvIndex": 6.65,
+            "evapotranspiration": 0.189,
             "windGust": 7.8
           },
           {
             "date": "2026-09-09",
-            "high": 81.7,
-            "low": 52.5,
+            "high": 78.6,
+            "low": 54.6,
             "precipitation": 0,
-            "precipitationProbability": 20,
-            "uvIndex": 3.05,
-            "evapotranspiration": 0.107,
+            "precipitationProbability": 21,
+            "uvIndex": 2.15,
+            "evapotranspiration": 0.08,
             "windGust": 8.1
           },
           {
             "date": "2026-09-10",
-            "high": 86.9,
-            "low": 65.3,
-            "precipitation": 0,
-            "precipitationProbability": 18,
-            "uvIndex": 7,
-            "evapotranspiration": 0.204,
+            "high": 89.9,
+            "low": 64.7,
+            "precipitation": 0.035,
+            "precipitationProbability": 23,
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.187,
             "windGust": 12.5
           }
         ]
@@ -702,17 +702,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-09-04T07:00:00-07:00",
+          "startTime": "2026-09-04T11:00:00-07:00",
           "endTime": "2026-09-04T18:00:00-07:00",
           "temperature": 80,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny. High near 80, with temperatures falling to around 76 in the afternoon. North wind 0 to 6 mph.",
-          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
+          "detailedForecast": "Sunny. High near 80, with temperatures falling to around 76 in the afternoon. North northwest wind 2 to 6 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/skc?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "0 to 6 mph",
-          "windDirection": "N"
+          "wind": "2 to 6 mph",
+          "windDirection": "NNW"
         },
         {
           "name": "Tonight",
@@ -901,7 +901,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-09-04T14:23:47.185Z",
+      "updated": "2026-09-04T18:28:04.963Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -909,20 +909,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 59,
+        "temperature": 70,
         "temperatureUnit": "F",
-        "apparentTemperature": 60,
+        "apparentTemperature": 71,
         "conditions": "Sunny",
-        "detailedForecast": "Sunny. High near 69, with temperatures falling to around 67 in the afternoon. Southwest wind 1 to 9 mph, with gusts as high as 18 mph.",
-        "wind": "4 mph",
-        "windSpeed": 3.6,
-        "windGust": 4.5,
-        "windDirection": "S",
+        "detailedForecast": "Sunny. High near 69, with temperatures falling to around 67 in the afternoon. West southwest wind 3 to 9 mph, with gusts as high as 18 mph.",
+        "wind": "9 mph",
+        "windSpeed": 9.2,
+        "windGust": 10.3,
+        "windDirection": "W",
         "precipitation": 0,
-        "soilTemp": 63,
-        "soilMoisture": 0.261,
-        "humidity": 95,
-        "vapourPressureDeficit": 0.08,
+        "soilTemp": 68,
+        "soilMoisture": 0.26,
+        "humidity": 62,
+        "vapourPressureDeficit": 0.98,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1055,24 +1055,24 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-09-04",
-          "high": 71.2,
-          "low": 57.6,
+          "high": 70.8,
+          "low": 57,
           "precipitation": 0,
           "precipitationProbability": 7,
-          "uvIndex": 6.95,
-          "evapotranspiration": 0.15,
-          "windGust": 17
+          "uvIndex": 7,
+          "evapotranspiration": 0.149,
+          "windGust": 14.8
         },
         "upcoming": [
           {
             "date": "2026-09-04",
-            "high": 71.2,
-            "low": 57.6,
+            "high": 70.8,
+            "low": 57,
             "precipitation": 0,
             "precipitationProbability": 7,
-            "uvIndex": 6.95,
-            "evapotranspiration": 0.15,
-            "windGust": 17
+            "uvIndex": 7,
+            "evapotranspiration": 0.149,
+            "windGust": 14.8
           },
           {
             "date": "2026-09-05",
@@ -1080,58 +1080,58 @@
             "low": 50.4,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.9,
+            "uvIndex": 6.85,
             "evapotranspiration": 0.155,
             "windGust": 13.6
           },
           {
             "date": "2026-09-06",
-            "high": 73.1,
-            "low": 50.6,
+            "high": 74.1,
+            "low": 50.9,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.8,
-            "evapotranspiration": 0.164,
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.166,
             "windGust": 11.9
           },
           {
             "date": "2026-09-07",
-            "high": 76.3,
-            "low": 50.6,
+            "high": 76.8,
+            "low": 50.4,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.75,
-            "evapotranspiration": 0.164,
+            "evapotranspiration": 0.167,
             "windGust": 5.4
           },
           {
             "date": "2026-09-08",
-            "high": 73.8,
-            "low": 53.6,
+            "high": 74.3,
+            "low": 53.8,
             "precipitation": 0,
-            "precipitationProbability": 16,
-            "uvIndex": 6.7,
-            "evapotranspiration": 0.157,
+            "precipitationProbability": 11,
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.158,
             "windGust": 7.4
           },
           {
             "date": "2026-09-09",
-            "high": 79.2,
-            "low": 54,
+            "high": 85.1,
+            "low": 55.1,
             "precipitation": 0,
-            "precipitationProbability": 19,
-            "uvIndex": 3.3,
-            "evapotranspiration": 0.102,
+            "precipitationProbability": 21,
+            "uvIndex": 4.45,
+            "evapotranspiration": 0.117,
             "windGust": 7.8
           },
           {
             "date": "2026-09-10",
-            "high": 89.3,
-            "low": 64.6,
-            "precipitation": 0,
+            "high": 85.8,
+            "low": 63.7,
+            "precipitation": 0.035,
             "precipitationProbability": 16,
-            "uvIndex": 7,
-            "evapotranspiration": 0.208,
+            "uvIndex": 6.9,
+            "evapotranspiration": 0.185,
             "windGust": 12.3
           }
         ]
@@ -1139,17 +1139,17 @@
       "forecast": [
         {
           "name": "Today",
-          "startTime": "2026-09-04T07:00:00-07:00",
+          "startTime": "2026-09-04T11:00:00-07:00",
           "endTime": "2026-09-04T18:00:00-07:00",
           "temperature": 69,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny. High near 69, with temperatures falling to around 67 in the afternoon. Southwest wind 1 to 9 mph, with gusts as high as 18 mph.",
+          "detailedForecast": "Sunny. High near 69, with temperatures falling to around 67 in the afternoon. West southwest wind 3 to 9 mph, with gusts as high as 18 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
-          "precipitation": 2,
-          "wind": "1 to 9 mph",
-          "windDirection": "SW"
+          "precipitation": 0,
+          "wind": "3 to 9 mph",
+          "windDirection": "WSW"
         },
         {
           "name": "Tonight",
@@ -1338,13 +1338,13 @@
       "alerts": [
         {
           "event": "Beach Hazards Statement",
-          "headline": "Beach Hazards Statement issued September 3 at 11:21PM PDT until September 7 at 11:00PM PDT by NWS San Francisco CA",
+          "headline": "Beach Hazards Statement issued September 4 at 8:39AM PDT until September 7 at 11:00PM PDT by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...Increased risk of sneaker waves and strong rip currents\ndue to incoming long period southerly swell associated with\ntropical activity in the Eastern Pacific Ocean. Breaking waves\nto around 10 feet expected.\n\n* WHERE...Pacific Coast beaches.\n\n* WHEN...From Friday morning through Monday evening.\n\n* IMPACTS...Dangerous conditions are forecast along the\nshoreline. Hazards include sneaker waves, strong rip currents,\nand large breaking waves.",
+          "description": "* WHAT...Increased risk of sneaker waves and strong rip currents\ndue to incoming long period southerly swell associated with\ntropical activity in the Eastern Pacific Ocean. Breaking waves\nto around 10 feet expected.\n\n* WHERE...Pacific Coast beaches.\n\n* WHEN...Through 11 PM PDT Monday.\n\n* IMPACTS...Dangerous conditions are forecast along the\nshoreline. Hazards include sneaker waves, strong rip currents,\nand large breaking waves.",
           "instruction": "Stay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-09-04T09:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1c34c50c277df625c213dbd50937673400a5e68d.002.1"
+          "expires": "2026-09-04T21:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9f13d87f670a1ca2a3175a74656de9f17ef37f3a.002.1"
         }
       ]
     }
