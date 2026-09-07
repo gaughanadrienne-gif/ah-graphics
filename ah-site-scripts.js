@@ -25,8 +25,8 @@
  * March 2026 - Tasks: Footer links, Cross-links, H2/H3 headings
  *
  * This is the UPDATED footer code injection content.
- * Deploy via POST /api/config/SaveInjectionSettings
- * IMPORTANT: Must send both `postItem` and `footer` fields together.
+ * Served through the existing GitHub Pages site-script loader.
+ * Never use SaveInjectionSettings: see feedback_code_injection_safety.md.
  */
 
 // ============================================================
@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
       ctaDiv.className = "ah-hero-cta";
       ctaDiv.style.cssText = "text-align:left;margin-top:26px;padding:0;";
       var btn = document.createElement("a");
-      btn.href = "/start-here";
+      btn.href = "#my-garden";
       btn.className = "sqs-block-button-element";
-      btn.textContent = "Start Here";
+      btn.textContent = "Show me my garden";
       btn.style.cssText = "display:inline-block;color:#f8f9f0;border:none;border-radius:3px;font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:15px 30px;text-decoration:none;transition:background-color 0.3s ease;";
       // Squarespace's button component stylesheet sets the background with
       // !important from the theme (sage), so a plain inline color loses; the
@@ -1994,12 +1994,12 @@ function ahIsFlockArticle(slug) {
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Berry Growing Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">A free one-page quick reference for growing strawberries, blueberries, blackberries, raspberries, and mulberries in coastal California. Enter your email and I will send the PDF straight to your inbox.</p>' +
-      '<form class="ah-berry-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+      '<form class="ah-berry-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
       '</form>' +
       '<div class="ah-berry-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
-      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>';
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips. Unsubscribe anytime.</div>';
 
     var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
     for (var i = 0; i < h2s.length; i++) {
@@ -2022,7 +2022,7 @@ function ahIsFlockArticle(slug) {
         msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
       }
       btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
-      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'cors' }).then(window.AHAcceptSignupResponse)
         .then(function () {
           box.innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
@@ -2084,12 +2084,12 @@ function ahIsFlockArticle(slug) {
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">' + m.title + '</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">' + m.blurb + '</p>' +
-      '<form class="ah-lm-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+      '<form class="ah-lm-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">' + (m.cta || 'Send me the cheat sheet') + '</button>' +
       '</form>' +
       '<div class="ah-lm-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
-      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>';
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips. Unsubscribe anytime.</div>';
 
     var h2s = body.querySelectorAll('h2'), faqH = null, lastNon = null;
     for (var j = 0; j < h2s.length; j++) {
@@ -2112,7 +2112,7 @@ function ahIsFlockArticle(slug) {
         msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
       }
       btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
-      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'cors' }).then(window.AHAcceptSignupResponse)
         .then(function () {
           box.innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
@@ -2218,12 +2218,12 @@ function ahIsFlockArticle(slug) {
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Working out your planting dates? Grab the free one-page seed starting cheat sheet: what to start indoors versus sow direct, sow-depth and timing, and how to avoid damping off, tuned to coastal California. Enter your email and I will send the PDF.</p>' +
-      '<form class="ah-cal-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+      '<form class="ah-cal-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
       '</form>' +
       '<div class="ah-cal-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
-      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips about twice a month. Unsubscribe anytime.</div>' +
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening tips. Unsubscribe anytime.</div>' +
       '</aside>';
     if (toolSec.nextSibling) toolSec.parentNode.insertBefore(wrap, toolSec.nextSibling);
     else toolSec.parentNode.appendChild(wrap);
@@ -2234,7 +2234,7 @@ function ahIsFlockArticle(slug) {
       var email = (input.value || '').trim();
       if (!email || email.indexOf('@') === -1) { msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return; }
       btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
-      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'cors' }).then(window.AHAcceptSignupResponse)
         .then(function () {
           wrap.querySelector('aside').innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
@@ -2263,12 +2263,12 @@ function ahIsFlockArticle(slug) {
     return '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free download</div>' +
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Keep your flock safe at night. Grab the free one-page predator-proofing checklist for Santa Cruz County coops: hardware cloth, the buried apron, raccoon-proof latches, and a simple nightly lock-up routine. Enter your email and I will send the PDF.</p>' +
-      '<form class="ah-flock-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+      '<form class="ah-flock-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the checklist</button>' +
       '</form>' +
       '<div class="ah-flock-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
-      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening and flock tips about twice a month. Unsubscribe anytime.</div>';
+      '<div style="font:12px/1.5 Montserrat,sans-serif;color:#6b6b66!important;margin-top:11px;">You will also get practical Santa Cruz gardening and flock tips. Unsubscribe anytime.</div>';
   }
   function wire(container, asideEl) {
     var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
@@ -2279,7 +2279,7 @@ function ahIsFlockArticle(slug) {
       var email = (input.value || '').trim();
       if (!email || email.indexOf('@') === -1) { msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return; }
       btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
-      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'cors' }).then(window.AHAcceptSignupResponse)
         .then(function () {
           asideEl.innerHTML = '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
             '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">Check your inbox</div>' +
@@ -2375,8 +2375,8 @@ function ahIsFlockArticle(slug) {
     box.innerHTML = '' +
       '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free planting guide</div>' +
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;line-height:1.25;margin:0 0 7px;">Know what to plant, and when, in Santa Cruz County</div>' +
-      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Join the free Ambitious Harvest email list for seasonal planting reminders and practical Central Coast gardening notes about twice a month. As a welcome, I will send you the one-page California Seed Starting Cheat Sheet, so you always know what to start indoors, what to sow direct, and the right timing for your zone.</p>' +
-      '<form class="ah-news-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
+      '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Join the free Ambitious Harvest email list for seasonal planting reminders and practical Central Coast gardening notes. As a welcome, I will send you the one-page California Seed Starting Cheat Sheet, so you always know what to start indoors, what to sow direct, and the right timing for your zone.</p>' +
+      '<form class="ah-news-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
         '<input type="email" name="fields[email]" required placeholder="Your email address" autocomplete="email" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#8f4f45!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the planting guide</button>' +
       '</form>' +
@@ -2396,7 +2396,7 @@ function ahIsFlockArticle(slug) {
         msg.style.display = 'block'; msg.textContent = 'Please enter a valid email address.'; return;
       }
       btn.textContent = 'Sending...'; btn.disabled = true; msg.style.display = 'none';
-      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), mode: 'cors' }).then(window.AHAcceptSignupResponse)
         .then(function () {
           box.innerHTML =
             '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Almost there</div>' +
@@ -3167,7 +3167,7 @@ function ahIsFlockArticle(slug) {
       '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
       '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/planting-calendar">Planting Calendar</a><a href="/store">Shop Guides &amp; Kits</a><a href="/about">About</a></div>' +
       '<div><h4>Free Santa Cruz planting calendar</h4>' +
-      '<p>One email a week with seasonal reminders and new guides. No spam, unsubscribe anytime.</p>' +
+      '<p>Seasonal gardening emails with seasonal reminders and new guides. No spam, unsubscribe anytime.</p>' +
       '<div id="mlb2-' + ML_FORM_ID + '" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-' + ML_FORM_ID + '">' +
         '<div class="row-form">' +
           '<form class="ml-block-form ah-fe-form" action="' + ML_ACTION + '" data-code="" method="post" target="_blank">' +
@@ -4405,7 +4405,7 @@ function ahIsFlockArticle(slug) {
     var markEngaged = function () {
       if (engaged) return;
       engaged = true;
-      send('tool_engaged', { tool_name: tool });
+      send('tool_page_interaction', { tool_name: tool, measurement_scope: 'page_interaction_proxy' });
       document.removeEventListener('click', markEngaged, true);
       document.removeEventListener('change', markEngaged, true);
       document.removeEventListener('input', markEngaged, true);
@@ -4439,7 +4439,7 @@ function ahIsFlockArticle(slug) {
     } catch (err) {}
   }, true);
 
-  // email_signup: every MailerLite opt-in form this file renders uses an
+  // email_signup_attempt: every MailerLite opt-in form this file renders uses an
   // input named fields[email], and its submit handler prevents default, so a
   // capture-phase listener sees the submit either way. Mirrors the handlers'
   // own minimal validation so empty submits do not count.
@@ -4451,7 +4451,7 @@ function ahIsFlockArticle(slug) {
       if (!em) return;
       var v = (em.value || '').trim();
       if (!v || v.indexOf('@') === -1) return;
-      send('email_signup', { page_path: path });
+      send('email_signup_attempt', { page_path: path, measurement_scope: 'attempt_only' });
     } catch (err) {}
   }, true);
 })();
@@ -4723,13 +4723,7 @@ function ahIsFlockArticle(slug) {
     css('ah-flock-style', 'section[data-section-id="6a3178ab3bc618453b7d4a65"] .bf-hero h2, section[data-section-id="6a3178ab3bc618453b7d4a65"] .bf-hero > p{display:none!important}' +
       'section[data-section-id="6a3178ab3bc618453b7d4a65"] .bf-hero{padding-top:0!important;margin-top:0!important}');
   }
-  function calendarChips() {
-    var box = document.getElementById('pc-ntags'); if (!box) return;
-    var dedupe = function () {
-      var seen = {}; [].forEach.call(box.children, function (c) { var k = (c.textContent || '').trim().toLowerCase(); if (!k) return; if (seen[k]) c.style.display = 'none'; else seen[k] = 1; });
-    };
-    dedupe(); new MutationObserver(function () { setTimeout(dedupe, 0); }).observe(box, { childList: true });
-  }
+  function calendarChips() { /* Activity labels are preserved by AH Growth. */ }
 
   // ---- (4) homepage on phones ----
   function homeMobile() {
@@ -4775,4 +4769,162 @@ function ahIsFlockArticle(slug) {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
+})();
+
+// AH REVENUE SPRINT 2026-09-06: task semantics, saved garden, and measured paths.
+// Existing crop dates are reused unchanged. No account, purchase, or confirmed-signup event is invented.
+(function () {
+  'use strict';
+  if (window.AHGrowth) return;
+  var VERSION = '2026-09-06.1', DATA = {"zones":{"coastal":{"name":"Coastal"},"inland_valley":{"name":"Inland Valley"},"mountain":{"name":"Mountain"},"desert":{"name":"Desert"}},"zip":{"900":"inland_valley","901":"inland_valley","902":"coastal","903":"inland_valley","904":"coastal","905":"inland_valley","906":"inland_valley","907":"coastal","908":"inland_valley","910":"inland_valley","911":"inland_valley","912":"inland_valley","913":"inland_valley","914":"inland_valley","915":"inland_valley","916":"inland_valley","917":"inland_valley","918":"inland_valley","919":"inland_valley","920":"coastal","921":"coastal","922":"desert","923":"inland_valley","924":"inland_valley","925":"inland_valley","926":"inland_valley","927":"inland_valley","928":"inland_valley","930":"coastal","931":"coastal","932":"inland_valley","933":"inland_valley","934":"coastal","935":"desert","936":"inland_valley","937":"inland_valley","938":"inland_valley","939":"coastal","940":"coastal","941":"coastal","942":"inland_valley","943":"coastal","944":"coastal","945":"coastal","946":"coastal","947":"coastal","948":"coastal","949":"coastal","950":"coastal","951":"coastal","952":"inland_valley","953":"inland_valley","954":"coastal","955":"coastal","956":"inland_valley","957":"inland_valley","958":"inland_valley","959":"mountain","960":"mountain","961":"mountain"},"crops":[{"s":"tomatoes","n":"Tomatoes","c":"vegetables","z":{"coastal":{"i":[1,2,3],"d":[],"x":[3,4,5],"h":[6,7,8,9,10]},"inland_valley":{"i":[1,2],"d":[],"x":[3,4,5],"h":[5,6,7,8,9,10]},"mountain":{"i":[2,3,4],"d":[],"x":[5,6],"h":[7,8,9]},"desert":{"i":[12,1],"d":[],"x":[1,2,3],"h":[4,5,6,10,11]}}},{"s":"bell-peppers","n":"Bell Peppers","c":"vegetables","z":{"coastal":{"i":[1,2,3],"d":[],"x":[4,5],"h":[7,8,9,10]},"inland_valley":{"i":[1,2],"d":[],"x":[4,5],"h":[6,7,8,9,10]},"mountain":{"i":[2,3,4],"d":[],"x":[5,6],"h":[7,8,9]},"desert":{"i":[12,1],"d":[],"x":[2,3],"h":[4,5,6,10,11]}}},{"s":"hot-peppers","n":"Hot Peppers","c":"vegetables","z":{"coastal":{"i":[1,2,3],"d":[],"x":[4,5],"h":[7,8,9,10]},"inland_valley":{"i":[1,2],"d":[],"x":[4,5],"h":[6,7,8,9,10]},"mountain":{"i":[2,3,4],"d":[],"x":[5,6],"h":[8,9]},"desert":{"i":[12,1],"d":[],"x":[2,3],"h":[4,5,6,10,11]}}},{"s":"zucchini","n":"Zucchini","c":"vegetables","z":{"coastal":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[5,6,7,8,9,10]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[5,6,7,8,9]},"mountain":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[7,8,9]},"desert":{"i":[1,2],"d":[2,3],"x":[2,3],"h":[4,5,6]}}},{"s":"cucumbers","n":"Cucumbers","c":"vegetables","z":{"coastal":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[6,7,8,9]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[5,6,7,8,9]},"mountain":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[7,8,9]},"desert":{"i":[1,2],"d":[2,3],"x":[2,3],"h":[4,5,6]}}},{"s":"green-beans","n":"Green Beans","c":"vegetables","z":{"coastal":{"i":[],"d":[4,5,6,7],"x":[],"h":[6,7,8,9,10]},"inland_valley":{"i":[],"d":[4,5,7,8],"x":[],"h":[6,7,8,9,10]},"mountain":{"i":[],"d":[5,6,7],"x":[],"h":[7,8,9]},"desert":{"i":[],"d":[1,2,3,8],"x":[],"h":[3,4,5,10,11]}}},{"s":"lettuce","n":"Lettuce","c":"vegetables","z":{"coastal":{"i":[1,2,8,9],"d":[2,3,4,5,6,7,8,9,10],"x":[2,3,4,9,10],"h":[3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[8,9],"d":[9,10,11,2,3],"x":[9,10,2,3],"h":[10,11,12,1,2,3,4,5]},"mountain":{"i":[2,3],"d":[4,5,8,9],"x":[4,5],"h":[5,6,7,9,10]},"desert":{"i":[9,10],"d":[9,10,11,12],"x":[10,11],"h":[11,12,1,2,3,4]}}},{"s":"spinach","n":"Spinach","c":"vegetables","z":{"coastal":{"i":[],"d":[8,9,10,11,12,1,2,3],"x":[],"h":[10,11,12,1,2,3,4,5]},"inland_valley":{"i":[],"d":[9,10,11,1,2],"x":[],"h":[11,12,1,2,3,4]},"mountain":{"i":[3],"d":[4,5,8,9],"x":[4,5],"h":[5,6,9,10]},"desert":{"i":[],"d":[9,10,11],"x":[],"h":[11,12,1,2,3]}}},{"s":"kale","n":"Kale","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3,4,5,7,8,9,10,11,12],"x":[2,3,4,8,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[7,8],"d":[8,9,10,2,3],"x":[9,10,3,4],"h":[10,11,12,1,2,3,4,5,6]},"mountain":{"i":[2,3],"d":[4,5,7,8],"x":[4,5,8,9],"h":[5,6,7,8,9,10,11]},"desert":{"i":[9],"d":[9,10,11],"x":[10,11],"h":[11,12,1,2,3,4]}}},{"s":"carrots","n":"Carrots","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3,4,5,7,8,9],"x":[],"h":[3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[],"d":[2,3,4,8,9],"x":[],"h":[4,5,6,10,11,12]},"mountain":{"i":[],"d":[4,5,6,7],"x":[],"h":[7,8,9,10]},"desert":{"i":[],"d":[9,10,11,12],"x":[],"h":[12,1,2,3,4]}}},{"s":"radishes","n":"Radishes","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3,4,5,8,9,10,11,12],"x":[],"h":[2,3,4,5,6,9,10,11,12]},"inland_valley":{"i":[],"d":[9,10,11,2,3,4],"x":[],"h":[10,11,12,3,4,5]},"mountain":{"i":[],"d":[3,4,5,8,9],"x":[],"h":[4,5,6,9,10]},"desert":{"i":[],"d":[9,10,11,12,1,2],"x":[],"h":[10,11,12,1,2,3]}}},{"s":"beets","n":"Beets","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3,4,5,8,9,10,11],"x":[],"h":[3,4,5,6,7,10,11,12]},"inland_valley":{"i":[],"d":[2,3,4,8,9,10],"x":[],"h":[4,5,6,10,11,12]},"mountain":{"i":[],"d":[4,5,6,7,8],"x":[],"h":[6,7,8,9,10]},"desert":{"i":[],"d":[9,10,11,12,1,2],"x":[],"h":[11,12,1,2,3,4]}}},{"s":"onions","n":"Onions","c":"vegetables","z":{"coastal":{"i":[9,10],"d":[10,11,12,1],"x":[11,12,1,2],"h":[5,6,7]},"inland_valley":{"i":[9,10],"d":[10,11,1],"x":[11,12,1,2],"h":[5,6,7]},"mountain":{"i":[1,2,3],"d":[3,4],"x":[4,5],"h":[7,8,9]},"desert":{"i":[9,10],"d":[10,11],"x":[10,11,12],"h":[3,4,5]}}},{"s":"garlic","n":"Garlic","c":"vegetables","z":{"coastal":{"i":[],"d":[10,11,12],"x":[],"h":[5,6,7]},"inland_valley":{"i":[],"d":[10,11],"x":[],"h":[5,6,7]},"mountain":{"i":[],"d":[9,10],"x":[],"h":[6,7,8]},"desert":{"i":[],"d":[10,11,12],"x":[],"h":[4,5]}}},{"s":"peas","n":"Peas","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3,9,10,11],"x":[],"h":[3,4,5,6,11,12]},"inland_valley":{"i":[],"d":[10,11,1,2,3],"x":[],"h":[3,4,5]},"mountain":{"i":[],"d":[3,4,5],"x":[],"h":[5,6,7]},"desert":{"i":[],"d":[10,11,12,1],"x":[],"h":[1,2,3,4]}}},{"s":"broccoli","n":"Broccoli","c":"vegetables","z":{"coastal":{"i":[1,2,6,7],"d":[7,8,9],"x":[2,3,8,9],"h":[4,5,10,11,12]},"inland_valley":{"i":[7,8,12,1],"d":[7,8],"x":[8,9,1,2],"h":[10,11,12,3,4,5]},"mountain":{"i":[2,3,6,7],"d":[],"x":[4,5,7,8],"h":[6,7,9,10]},"desert":{"i":[8,9],"d":[9,10],"x":[9,10],"h":[11,12,1,2]}}},{"s":"cauliflower","n":"Cauliflower","c":"vegetables","z":{"coastal":{"i":[1,2,6,7],"d":[],"x":[2,3,8,9],"h":[4,5,10,11,12]},"inland_valley":{"i":[7,8,12,1],"d":[],"x":[8,9,1,2],"h":[10,11,12,3,4,5]},"mountain":{"i":[2,3,6,7],"d":[],"x":[4,5,7,8],"h":[6,7,9,10]},"desert":{"i":[8,9],"d":[],"x":[9,10],"h":[12,1,2]}}},{"s":"cabbage","n":"Cabbage","c":"vegetables","z":{"coastal":{"i":[1,7,8],"d":[7,8,9],"x":[2,3,8,9,10],"h":[4,5,11,12,1]},"inland_valley":{"i":[7,8,12,1],"d":[],"x":[8,9,1,2],"h":[10,11,12,3,4,5]},"mountain":{"i":[2,3],"d":[],"x":[4,5],"h":[6,7,8]},"desert":{"i":[8,9],"d":[],"x":[9,10],"h":[12,1,2,3]}}},{"s":"corn","n":"Corn","c":"vegetables","z":{"coastal":{"i":[],"d":[5,6,7],"x":[],"h":[8,9,10]},"inland_valley":{"i":[],"d":[3,4,5,6,7],"x":[],"h":[6,7,8,9,10]},"mountain":{"i":[4],"d":[5,6],"x":[5,6],"h":[8,9]},"desert":{"i":[],"d":[2,3],"x":[],"h":[5,6]}}},{"s":"potatoes","n":"Potatoes","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3],"x":[],"h":[5,6,7,8]},"inland_valley":{"i":[],"d":[1,2,3],"x":[],"h":[5,6,7]},"mountain":{"i":[],"d":[4,5],"x":[],"h":[7,8,9]},"desert":{"i":[],"d":[1,2],"x":[],"h":[4,5]}}},{"s":"sweet-potatoes","n":"Sweet Potatoes","c":"vegetables","z":{"coastal":{"i":[],"d":[],"x":[5,6],"h":[9,10,11]},"inland_valley":{"i":[],"d":[],"x":[4,5,6],"h":[9,10]},"mountain":{"i":[],"d":[],"x":[6],"h":[9,10]},"desert":{"i":[],"d":[],"x":[3,4],"h":[7,8]}}},{"s":"eggplant","n":"Eggplant","c":"vegetables","z":{"coastal":{"i":[1,2,3],"d":[],"x":[4,5],"h":[7,8,9,10]},"inland_valley":{"i":[1,2],"d":[],"x":[4,5],"h":[6,7,8,9,10]},"mountain":{"i":[2,3,4],"d":[],"x":[5,6],"h":[8,9]},"desert":{"i":[12,1],"d":[],"x":[2,3],"h":[4,5,6]}}},{"s":"winter-squash","n":"Winter Squash","c":"vegetables","z":{"coastal":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[9,10,11]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[8,9,10]},"mountain":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[9,10]},"desert":{"i":[1,2],"d":[2,3],"x":[2,3],"h":[5,6]}}},{"s":"pumpkins","n":"Pumpkins","c":"vegetables","z":{"coastal":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[9,10]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[8,9,10]},"mountain":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[9,10]},"desert":{"i":[1,2],"d":[2,3],"x":[2,3],"h":[5,6]}}},{"s":"swiss-chard","n":"Swiss Chard","c":"vegetables","z":{"coastal":{"i":[],"d":[1,2,3,4,5,6,7,8,9,10,11,12],"x":[],"h":[2,3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[],"d":[2,3,4,8,9,10],"x":[],"h":[3,4,5,6,7,10,11,12]},"mountain":{"i":[3],"d":[4,5,6,7,8],"x":[4,5],"h":[5,6,7,8,9,10,11]},"desert":{"i":[],"d":[9,10,11,2,3],"x":[],"h":[11,12,1,2,3,4,5]}}},{"s":"basil","n":"Basil","c":"herbs","z":{"coastal":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[5,6,7,8,9,10]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[5,6,7,8,9,10]},"mountain":{"i":[3,4],"d":[6],"x":[5,6],"h":[6,7,8,9]},"desert":{"i":[1,2],"d":[2,3],"x":[2,3],"h":[3,4,5,10,11]}}},{"s":"cilantro","n":"Cilantro","c":"herbs","z":{"coastal":{"i":[],"d":[1,2,3,4,9,10,11,12],"x":[],"h":[2,3,4,5,6,10,11,12]},"inland_valley":{"i":[],"d":[9,10,11,2,3],"x":[],"h":[10,11,12,3,4,5]},"mountain":{"i":[],"d":[4,5,8,9],"x":[],"h":[5,6,7,9,10]},"desert":{"i":[],"d":[9,10,11,12,1,2],"x":[],"h":[10,11,12,1,2,3,4]}}},{"s":"dill","n":"Dill","c":"herbs","z":{"coastal":{"i":[],"d":[3,4,5,9,10],"x":[],"h":[5,6,7,8,11,12]},"inland_valley":{"i":[],"d":[3,4,9,10],"x":[],"h":[5,6,7,11,12]},"mountain":{"i":[],"d":[4,5,6],"x":[],"h":[6,7,8,9]},"desert":{"i":[],"d":[10,11,2,3],"x":[],"h":[12,1,2,4,5]}}},{"s":"oregano","n":"Oregano","c":"herbs","z":{"coastal":{"i":[2,3],"d":[4,5],"x":[3,4,5,9,10],"h":[4,5,6,7,8,9,10,11]},"inland_valley":{"i":[2,3],"d":[4,5],"x":[3,4,5,9,10],"h":[4,5,6,7,8,9,10]},"mountain":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[6,7,8,9]},"desert":{"i":[9,10],"d":[10,11],"x":[10,11,2,3],"h":[11,12,1,2,3,4,5]}}},{"s":"parsley","n":"Parsley","c":"herbs","z":{"coastal":{"i":[1,2,8,9],"d":[2,3,4,9,10,11],"x":[3,4,10,11],"h":[3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[1,2,8,9],"d":[2,3,9,10],"x":[3,4,10,11],"h":[3,4,5,6,10,11,12]},"mountain":{"i":[2,3],"d":[4,5],"x":[4,5],"h":[5,6,7,8,9,10]},"desert":{"i":[9,10],"d":[10,11,12],"x":[10,11],"h":[11,12,1,2,3,4]}}},{"s":"rosemary","n":"Rosemary","c":"herbs","z":{"coastal":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"mountain":{"i":[],"d":[],"x":[5,6],"h":[5,6,7,8,9,10]},"desert":{"i":[],"d":[],"x":[10,11,2,3],"h":[1,2,3,4,5,10,11,12]}}},{"s":"thyme","n":"Thyme","c":"herbs","z":{"coastal":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"mountain":{"i":[3,4],"d":[],"x":[5,6],"h":[5,6,7,8,9,10]},"desert":{"i":[],"d":[],"x":[10,11,2,3],"h":[1,2,3,4,5,10,11,12]}}},{"s":"mint","n":"Mint","c":"herbs","z":{"coastal":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[3,4,5,6,7,8,9,10,11]},"inland_valley":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[3,4,5,6,7,8,9,10]},"mountain":{"i":[],"d":[],"x":[5,6],"h":[5,6,7,8,9]},"desert":{"i":[],"d":[],"x":[10,11,2,3],"h":[10,11,12,1,2,3,4,5]}}},{"s":"chives","n":"Chives","c":"herbs","z":{"coastal":{"i":[1,2],"d":[3,4,9,10],"x":[3,4,9,10],"h":[3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[1,2],"d":[3,4,9,10],"x":[3,4,9,10],"h":[3,4,5,6,7,8,9,10,11]},"mountain":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[5,6,7,8,9,10]},"desert":{"i":[9,10],"d":[10,11],"x":[10,11],"h":[11,12,1,2,3,4,5]}}},{"s":"sage","n":"Sage","c":"herbs","z":{"coastal":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"mountain":{"i":[3,4],"d":[],"x":[5,6],"h":[5,6,7,8,9,10]},"desert":{"i":[],"d":[],"x":[10,11,2,3],"h":[1,2,3,4,5,10,11,12]}}},{"s":"strawberries","n":"Strawberries","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[8,9,10,11,2,3],"h":[3,4,5,6,7,8,9,10]},"inland_valley":{"i":[],"d":[],"x":[9,10,11,2,3],"h":[3,4,5,6,7]},"mountain":{"i":[],"d":[],"x":[4,5],"h":[6,7,8]},"desert":{"i":[],"d":[],"x":[10,11,12],"h":[2,3,4,5]}}},{"s":"blueberries","n":"Blueberries","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[11,12,1,2],"h":[5,6,7,8]},"inland_valley":{"i":[],"d":[],"x":[12,1,2],"h":[5,6,7]},"mountain":{"i":[],"d":[],"x":[3,4],"h":[6,7,8]},"desert":{"i":[],"d":[],"x":[11,12,1],"h":[4,5,6]}}},{"s":"blackberries","n":"Blackberries","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[12,1,2],"h":[6,7,8]},"inland_valley":{"i":[],"d":[],"x":[12,1,2],"h":[5,6,7,8]},"mountain":{"i":[],"d":[],"x":[3,4],"h":[7,8,9]},"desert":{"i":[],"d":[],"x":[12,1,2],"h":[5,6]}}},{"s":"raspberries","n":"Raspberries","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[12,1,2],"h":[6,7,8,9,10]},"inland_valley":{"i":[],"d":[],"x":[12,1,2],"h":[5,6,7,8,9]},"mountain":{"i":[],"d":[],"x":[3,4],"h":[7,8,9]},"desert":{"i":[],"d":[],"x":[12,1],"h":[4,5,6]}}},{"s":"watermelon","n":"Watermelon","c":"fruits","z":{"coastal":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[8,9,10]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[7,8,9]},"mountain":{"i":[4],"d":[5,6],"x":[5,6],"h":[8,9]},"desert":{"i":[12,1],"d":[1,2,3],"x":[1,2,3],"h":[5,6]}}},{"s":"cantaloupe","n":"Cantaloupe","c":"fruits","z":{"coastal":{"i":[3,4],"d":[5,6],"x":[5,6],"h":[8,9,10]},"inland_valley":{"i":[2,3],"d":[4,5,6],"x":[4,5],"h":[7,8,9]},"mountain":{"i":[4],"d":[5,6],"x":[5,6],"h":[8,9]},"desert":{"i":[12,1],"d":[1,2,3],"x":[1,2,3],"h":[5,6]}}},{"s":"citrus","n":"Citrus","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[3,4,5,9,10],"h":[11,12,1,2,3,4,5,6,7]},"inland_valley":{"i":[],"d":[],"x":[3,4,5],"h":[11,12,1,2,3,4,5,6]},"mountain":{"i":[],"d":[],"x":[5,6],"h":[11,12,1,2]},"desert":{"i":[],"d":[],"x":[2,3,10,11],"h":[11,12,1,2,3,4,5]}}},{"s":"figs","n":"Figs","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[12,1,2,3],"h":[6,7,8,9,10]},"inland_valley":{"i":[],"d":[],"x":[12,1,2],"h":[6,7,8,9,10]},"mountain":{"i":[],"d":[],"x":[3,4],"h":[8,9,10]},"desert":{"i":[],"d":[],"x":[12,1,2],"h":[5,6,7,10,11]}}},{"s":"grapes","n":"Grapes","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[1,2,3],"h":[8,9,10]},"inland_valley":{"i":[],"d":[],"x":[1,2],"h":[7,8,9,10]},"mountain":{"i":[],"d":[],"x":[3,4],"h":[9,10]},"desert":{"i":[],"d":[],"x":[12,1,2],"h":[6,7,8]}}},{"s":"avocado","n":"Avocado","c":"fruits","z":{"coastal":{"i":[],"d":[],"x":[3,4,5],"h":[1,2,3,4,5,6,7,8,9,10,11,12]},"inland_valley":{"i":[],"d":[],"x":[3,4,5],"h":[2,3,4,5,6,7,8,9,10,11]},"mountain":{"i":[],"d":[],"x":[],"h":[]},"desert":{"i":[],"d":[],"x":[3,4],"h":[2,3,4,5,6,7,8,9]}}}]};
+  var path = location.pathname.replace(/\/$/, '') || '/', activeProfile=null;
+  var names = {i:'Start indoors',d:'Direct sow',x:'Transplant',h:'Harvest established plants'};
+  var colors = {i:'si',d:'ds',x:'tp',h:'hv'};
+  function q(s, root) { return (root || document).querySelector(s); }
+  function all(s, root) { return Array.prototype.slice.call((root || document).querySelectorAll(s)); }
+  function event(name, values) {
+    if (window.__AH_QA__) return;
+    var params = Object.assign({implementation_version:VERSION,page_path:path},values || {});
+    window.dataLayer = window.dataLayer || [];
+    function push() { window.dataLayer.push(arguments); }
+    push('event',name,params);
+  }
+  function el(tag, text, cls) { var e=document.createElement(tag); if(text)e.textContent=text; if(cls)e.className=cls; return e; }
+  function currentMonth() { return Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',month:'numeric'}).format(new Date())); }
+  function monthName(m) { return new Intl.DateTimeFormat('en-US',{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(2026,m-1,15))); }
+  function stored() { try { return JSON.parse(localStorage.getItem('ah_garden_profile_v1') || 'null'); } catch(e) { return null; } }
+  function valid(p) { return p && /^\d{5}$/.test(p.zip) && DATA.zones[p.zone] && ['full','partial','shade'].indexOf(p.sun)>=0 && ['ground','raised_beds','containers','mixed'].indexOf(p.environment)>=0 && ['vegetables','fruit','flowers','natives','herbs'].indexOf(p.interest)>=0; }
+  function actions(c,z,m) { var d=c.z[z]; return d ? ['i','d','x','h'].filter(function(k){return d[k].indexOf(m)>=0;}) : []; }
+  window.AHGrowth={version:VERSION,actions:actions,data:DATA};
+  // False until an owner-authorized signup test verifies all fields through the MailerLite API.
+  var PROFILE_EMAIL_VERIFIED=false;
+  window.AHAcceptSignupResponse=function(response){
+    if(!response.ok)throw new Error('Signup request failed');
+    return response.json().then(function(data){
+      if(!data||data.success!==true)throw new Error('Signup was not accepted');
+      var match=(response.url||'').match(/forms\/(\d+)\/subscribe/);
+      event('email_signup_accepted',{form_id:match?match[1]:'unknown',measurement_scope:'accepted_request_not_confirmed_subscriber'});
+      return data;
+    });
+  };
+
+  var style=el('style'); style.id='ah-growth-style';
+  style.textContent='.ah-garden{box-sizing:border-box;background:#f8f9f0;color:#1a3b2a;padding:40px 24px;margin:0 auto;font:16px/1.65 Montserrat,sans-serif;width:100%;max-width:1100px}.ah-garden *{box-sizing:border-box}section[data-section-id="6402865e8544e5fc30e1d9b6"] .content-wrapper{padding:48px 22px!important}section[data-section-id="6402865e8544e5fc30e1d9b6"] .fluid-engine{display:block!important;min-height:360px!important}section[data-section-id="6402865e8544e5fc30e1d9b6"] .fe-block{position:relative!important;margin-bottom:20px!important;max-width:850px}section[data-section-id="6402865e8544e5fc30e1d9b6"] h1{font-size:clamp(32px,5vw,62px)!important;text-wrap:balance}section[data-section-id="6402865e8544e5fc30e1d9b6"] p{max-width:65ch}.ah-garden h2{font:400 clamp(28px,4vw,42px)/1.15 Fraunces,Georgia,serif!important;margin:0 0 16px!important;color:#1a3b2a!important}.ah-garden h3{font:600 22px/1.35 Fraunces,Georgia,serif!important;margin:24px 0 10px!important;color:#1a3b2a!important}.ah-garden p{max-width:70ch;margin:10px 0!important;color:#1a3b2a!important}.ah-garden-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.ah-garden label{display:block;font-weight:600;font-size:14px}.ah-garden input,.ah-garden select{display:block;width:100%;min-width:0;min-height:48px;font:16px Montserrat,sans-serif;padding:11px;border:1px solid #63705f;border-radius:6px;background:white;color:#1a3b2a;margin:5px 0 0}.ah-garden button,.ah-garden .ah-action{display:inline-block;min-height:48px;background:#8f4f45!important;color:#fff!important;padding:12px 20px;border:0;border-radius:6px;font:600 15px/1.6 Montserrat,sans-serif;text-decoration:none;margin:16px 12px 0 0;cursor:pointer}.ah-garden button:disabled{opacity:.65;cursor:wait}.ah-garden a{color:#2e6b46!important;text-decoration:underline;text-underline-offset:3px}.ah-garden :focus-visible,.ah-cal-action:focus-visible{outline:3px solid #2e6b46;outline-offset:3px}.ah-garden small{display:block;color:#405341;font-size:13px;line-height:1.6}.ah-garden ul{padding-left:22px!important;margin:12px 0!important}.ah-garden li{margin:8px 0}.ah-garden [hidden]{display:none!important}.ah-cal-group{width:100%;margin:8px 0 12px}.ah-cal-group strong{display:block;color:#1a3b2a;font:600 15px/1.5 Montserrat,sans-serif;margin:0 0 8px}.ah-cal-group .pc-nt{display:inline-block!important;margin:0 7px 7px 0!important;min-height:44px}.ah-cal-control{margin:16px 0;font:600 14px/1.5 Montserrat,sans-serif;color:#1a3b2a}.ah-cal-control select{margin-left:10px;min-height:44px;padding:8px;border:1px solid #63705f;border-radius:6px;background:#fff;color:#1a3b2a;font:15px Montserrat,sans-serif}.ah-cal-status{font:500 14px/1.65 Montserrat,sans-serif;color:#1a3b2a;margin:12px 0}.ah-next-step{margin:24px 0!important;font:500 16px/1.7 Montserrat,sans-serif}.ah-foot-enhance>*{min-width:0}@media(max-width:767px){.ah-garden{padding:30px 22px}.ah-garden-fields{grid-template-columns:1fr}.ah-garden button{width:100%;margin-right:0}.ah-cal-control select{display:block;margin:8px 0 0;width:100%}.header-burger-btn{min-height:44px!important}}';
+  document.head.appendChild(style);
+
+  function calendar() {
+    var wrap=q('.pc-wrap'); if(!wrap || wrap.dataset.ahSemantics)return;
+    wrap.dataset.ahSemantics=VERSION;
+    all('p',wrap).forEach(function(p){if(p.textContent.indexOf('If you garden in Santa Cruz County')>=0)p.textContent='ZIP prefixes select a broad California region, not your exact microclimate. Check the region against your local frost, fog, and exposure.';});
+    var tags=q('#pc-ntags'),tbody=q('#pc-tbody'),month=q('#pc-msel'),zone=q('#pc-zsel');
+    if(!tags || !tbody || !month || !zone)return;
+    var ctrl=el('label','Show activities:','ah-cal-control'); ctrl.htmlFor='ah-cal-action';
+    var select=el('select',null,'ah-cal-action'); select.id='ah-cal-action';
+    [['all','All activities'],['plant','Plant now: direct sow or transplant'],['i','Prepare: start indoors'],['d','Direct sow'],['x','Transplant'],['h','Harvest established plants']].forEach(function(o){var opt=el('option',o[1]);opt.value=o[0];select.appendChild(opt);});
+    ctrl.appendChild(select);var toggle=q('#pc-vnote');toggle.parentNode.insertBefore(ctrl,toggle.nextSibling);
+    function m(){return month.value==='all'?currentMonth():Number(month.value)+1;}
+    function matches(acts){return select.value==='all'||(select.value==='plant'?acts.indexOf('d')>=0||acts.indexOf('x')>=0:acts.indexOf(select.value)>=0);}
+    function render(){
+      var mn=m(),z=zone.value;
+      q('#pc-ntitle').textContent='Garden tasks in '+monthName(mn);
+      var now=q('.pc-vb[data-v="now"]');if(now)now.textContent="This month's tasks";
+      var isYear=q('.pc-vb[data-v="year"][aria-pressed="true"]');
+      toggle.textContent=(isYear?(select.value==='all'?'Showing all crops across the full year. ':'Showing full-year timelines for crops with '+select.options[select.selectedIndex].text.toLowerCase()+' in '+monthName(mn)+'. '):'Showing '+monthName(mn)+' activities in the '+DATA.zones[z].name+' region. ')+'Harvest windows apply to established plants, not new sowing or transplants.';
+      if(tags.querySelector(':scope > .pc-nt')){
+        var buttons=all('.pc-nt',tags); var groups={};
+        ['i','d','x','h'].forEach(function(k){var group=el('div',null,'ah-cal-group');group.dataset.action=k;group.appendChild(el('strong',names[k]));groups[k]=group;});
+        buttons.forEach(function(b){var key=Object.keys(colors).find(function(k){return colors[k]===b.dataset.a;});if(key){b.style.removeProperty('display');groups[key].appendChild(b);}});
+        tags.replaceChildren();['i','d','x','h'].forEach(function(k){if(groups[k].children.length>1)tags.appendChild(groups[k]);});
+      }
+      all('.ah-cal-group',tags).forEach(function(g){g.hidden=select.value!=='all'&&(select.value==='plant'?g.dataset.action!=='d'&&g.dataset.action!=='x':g.dataset.action!==select.value);});
+      var count=0;all('tr[data-s]',tbody).forEach(function(row){var c=DATA.crops.find(function(c){return c.s===row.dataset.s;});var yes=!!c && matches(actions(c,z,mn));row.hidden=!yes;if(yes)count++;});
+      all('tr.pc-cr',tbody).forEach(function(row){var next=row.nextElementSibling,visible=false;while(next&&!next.classList.contains('pc-cr')){if(next.dataset.s&&!next.hidden)visible=true;next=next.nextElementSibling;}row.hidden=!visible;var category=row.textContent.replace(/\s*\(\d+\)\s*$/, '').trim();var categoryCount=0;next=row.nextElementSibling;while(next&&!next.classList.contains('pc-cr')){if(next.dataset.s&&!next.hidden)categoryCount++;next=next.nextElementSibling;}if(row.firstElementChild)row.firstElementChild.textContent=category+' ('+categoryCount+')';});
+      q('#pc-cc').textContent='Showing '+count+' crop'+(count===1?'':'s')+(select.value==='all'&&isYear?' across the year':' for '+monthName(mn));
+      var empty=q('#ah-cal-empty');if(!empty){empty=el('p',null,'ah-cal-status');empty.id='ah-cal-empty';tbody.closest('table').parentNode.appendChild(empty);}empty.textContent='No crops match these activities and filters. Try another activity, month, or region.';empty.hidden=count>0;
+    }
+    function syncProfile(zip){
+      if(!activeProfile)return;
+      if(zip){activeProfile.zip=zip;var input=q('#ah-garden-form [name=zip]');if(input)input.value=zip;}
+      activeProfile.zone=zone.value;
+      var profileRegion=q('#ah-garden-result select[aria-label="Calendar region"]');
+      if(profileRegion&&(profileRegion.value!==zone.value||zip)){profileRegion.value=zone.value;profileRegion.dispatchEvent(new Event('change',{bubbles:true}));}
+    }
+    function zipUsed(){var input=q('#pc-zip'),message=q('#pc-zmsg');var zip=input?input.value.trim():'';if(/^\d{5}$/.test(zip)&&DATA.zip[zip.slice(0,3)]&&!message.classList.contains('pc-err')){syncProfile(zip);event('zip_entered',{climate_zone:zone.value,entry_point:'calendar_zip'});}}
+    var pending=false;function schedule(){if(pending)return;pending=true;setTimeout(function(){pending=false;render();},0);}
+    new MutationObserver(schedule).observe(tbody,{childList:true});new MutationObserver(schedule).observe(tags,{childList:true});
+    select.addEventListener('change',function(e){render();if(e.isTrusted)event('planting_calendar_used',{activity:select.value,climate_zone:zone.value,month:m()});});
+    wrap.addEventListener('change',function(e){if(e.target===select)return;schedule();if(e.isTrusted&&e.target===zone)syncProfile();if(e.isTrusted&&(e.target===zone||e.target===month))event('planting_calendar_used',{climate_zone:zone.value,month:m()});});
+    var started=false;function start(e){if(!e.isTrusted||started||!e.target.closest('button,select,input,tr[data-s]'))return;started=true;event('tool_start',{tool_name:'planting_calendar'});}wrap.addEventListener('input',start);wrap.addEventListener('change',start);function cropAction(e){start(e);if(e.isTrusted&&e.target.closest('#pc-zbtn'))zipUsed();if(!e.target.closest('button,select,input,tr[data-s]'))return;var crop=e.target.closest('[data-s]');if(crop){if(e.isTrusted)event('planting_calendar_crop_clicked',{crop_slug:crop.dataset.s,climate_zone:zone.value,month:m()});setTimeout(function(){var c=DATA.crops.find(function(c){return c.s===crop.dataset.s;});if(!c)return;if(c.s==='onions'){q('#dd-tip').textContent='Choose onion varieties for your latitude and planting season. Day-length requirements differ between short-, intermediate-, and long-day onions. Check local UC guidance before buying.';}var a=actions(c,zone.value,m());var note=q('#ah-cal-detail-status');if(!note){note=el('p',null,'ah-cal-status');note.id='ah-cal-detail-status';q('#dd-tip').parentNode.insertBefore(note,q('#dd-tip'));}note.textContent=monthName(m())+': '+(a.length?a.map(function(k){return names[k];}).join('; '):'No activity window listed.')+(!a.some(function(k){return k!=='h';})?' No starting window is listed for this month.':'');},0);}}
+    wrap.addEventListener('click',cropAction);wrap.addEventListener('keydown',function(e){if(e.isTrusted&&e.key==='Enter'&&e.target.id==='pc-zip')zipUsed();if((e.key==='Enter'||e.key===' ')&&e.target.closest('tr[data-s]'))cropAction(e);});
+    month.addEventListener('change',function(){if(month.value==='all'){month.value=String(currentMonth()-1);month.dispatchEvent(new Event('change',{bubbles:true}));month.value='all';}});
+    month.value=String(currentMonth()-1);month.dispatchEvent(new Event('change',{bubbles:true}));
+    var saved=stored();if(valid(saved)){zone.value=saved.zone;zone.dispatchEvent(new Event('change',{bubbles:true}));}
+    render();
+  }
+
+  function profile(){
+    var home=path==='/',cal=path==='/planting-calendar';if(!home&&!cal||q('#my-garden'))return;
+    var target=home?q('section[data-section-id="6402865e8544e5fc30e1d9b6"]'):q('.pc-wrap')?.closest('section');if(!target)return;
+    var root=el('section',null,'ah-garden');root.id='my-garden';root.setAttribute('aria-labelledby','ah-garden-title');
+    root.innerHTML='<h2 id="ah-garden-title">Show me my garden</h2><p>Start with your California location, light, and growing space. Save useful planting tools and resources for your next visit.</p><form id="ah-garden-form"><div class="ah-garden-fields"><label>California ZIP code<input name="zip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" required></label><label>Sun<select name="sun"><option value="full">Full sun</option><option value="partial">Partial sun</option><option value="shade">Shade</option></select></label><label>Growing space<select name="environment"><option value="ground">In the ground</option><option value="raised_beds">Raised beds</option><option value="containers">Containers</option><option value="mixed">A mix of spaces</option></select></label><label>Main interest<select name="interest"><option value="vegetables">Vegetables</option><option value="fruit">Fruit</option><option value="flowers">Flowers</option><option value="natives">California natives</option><option value="herbs">Herbs</option></select></label></div><button type="submit">Show my garden</button><small>Your profile stays in this browser. No account or email is required.</small><p id="ah-garden-message" role="status"></p></form><div id="ah-garden-result" hidden></div>';
+    target.insertAdjacentElement('afterend',root);
+    var form=q('form',root),result=q('#ah-garden-result',root),msg=q('#ah-garden-message',root),started=false;
+    form.addEventListener('input',function(){if(!started){started=true;event('garden_profile_started',{entry_point:home?'homepage':'calendar'});}});
+    function show(p,persisted){
+      activeProfile=p;
+      var calendarZone=q('#pc-zsel');if(calendarZone&&calendarZone.value!==p.zone){calendarZone.value=p.zone;calendarZone.dispatchEvent(new Event('change',{bubbles:true}));}
+      result.hidden=false;result.replaceChildren();result.appendChild(el('h3','Your garden in '+monthName(currentMonth())));
+      result.appendChild(el('p',p.zip+' · '+DATA.zones[p.zone].name+' regional calendar'));
+      result.appendChild(el('small','ZIP lookup selects a broad California region, not your exact microclimate. Frost pockets, coastal fog, light, and growing space can change what works.'));
+      var regionLabel=el('label','Calendar region');var region=el('select');region.setAttribute('aria-label','Calendar region');Object.keys(DATA.zones).forEach(function(z){var o=el('option',DATA.zones[z].name);o.value=z;region.appendChild(o);});region.value=p.zone;regionLabel.appendChild(region);result.appendChild(regionLabel);
+      region.addEventListener('change',function(){p.zone=region.value;var savedOK=false;try{localStorage.setItem('ah_garden_profile_v1',JSON.stringify(p));savedOK=true;}catch(e){}show(p,savedOK);event('garden_profile_updated',{climate_zone:p.zone});});
+      var cat={vegetables:'vegetables',fruit:'fruits',herbs:'herbs'}[p.interest];
+      if(cat&&p.sun==='full'){
+        var crops=DATA.crops.filter(function(c){return c.c===cat&&actions(c,p.zone,currentMonth()).some(function(k){return k==='d'||k==='x';});}).slice(0,6);
+        result.appendChild(el('h3','Planting windows to explore'));
+        result.appendChild(el('small','Timing from the regional calendar. Check each crop\'s space, variety, and site needs before planting.'));
+        if(crops.length){var ul=el('ul');crops.forEach(function(c){ul.appendChild(el('li',c.n+': '+actions(c,p.zone,currentMonth()).filter(function(k){return k==='d'||k==='x';}).map(function(k){return names[k];}).join(' or ')));});result.appendChild(ul);}else result.appendChild(el('p','No outdoor planting window is listed for this interest and region this month. Use the calendar to plan ahead.'));
+      }
+      var links=[['/planting-calendar','Check planting and harvest windows'],['/garden-conditions','Check Santa Cruz County garden conditions'],['/local-resources','Find local nurseries and resources'],['/garden-events','Find a local gardening event']];
+      if(p.sun!=='full')links.unshift(['/learn/vegetables-partial-shade-california','Match your plants to your available light']);
+      if(p.environment==='containers' && p.interest==='fruit')links.unshift(['/learn/grow-blackberries-containers','Explore growing blackberries in containers']);
+      if(p.interest==='natives')links.unshift(['/local-resources','Find local California native plant resources']);
+      if(p.interest==='flowers' && p.sun==='full')links.unshift(['/store/p/california-dahlia-growing-guide','Explore the California Dahlia Growing Guide']);
+      if(p.interest==='fruit')links.push(['/store/p/california-berry-growing-guide','Plan the next steps with the California Berry Growing Guide']);
+      result.appendChild(el('h3','Your next useful steps'));var list=el('ul');links.forEach(function(l){var li=el('li'),a=el('a',l[1]);a.href=l[0];li.appendChild(a);list.appendChild(li);});result.appendChild(list);
+      result.appendChild(el('p',persisted?'Saved on this device. Come back here to update your garden.':'This browser could not save your profile. These results will remain until you leave the page.'));
+      var capture=el('div');capture.innerHTML='<h3>Keep your garden moving</h3><p>Get the California Seed Starting Cheat Sheet and seasonal Santa Cruz gardening emails.</p><form id="ah-garden-signup" class="ml-block-form"><label>Your email address<input type="email" name="fields[email]" autocomplete="email" required></label><button type="submit">Send me the guide and garden notes</button><small>Unsubscribe anytime. '+(PROFILE_EMAIL_VERIFIED?'Signing up shares your email and these garden details with MailerLite.':'Your saved garden stays in this browser. Emails currently cover regional seasonal topics.')+'</small><p role="status" class="ah-garden-signup-message"></p></form>';result.appendChild(capture);
+      var signup=q('form',capture),signupMessage=q('.ah-garden-signup-message',capture);
+      signup.addEventListener('submit',function(e){
+        e.preventDefault();if(!signup.reportValidity())return;
+        var button=q('button',signup);button.disabled=true;button.textContent='Sending...';signupMessage.textContent='';
+        var payload=new FormData(signup);
+        if(PROFILE_EMAIL_VERIFIED){var fields={z_i_p:p.zip,climate_zone:p.zone,sun_exposure:p.sun,garden_type:p.environment,primary_interest:p.interest};Object.keys(fields).forEach(function(k){payload.set('fields['+k+']',fields[k]);});}
+        fetch('https://assets.mailerlite.com/jsonp/1974108/forms/191102468073981272/subscribe',{method:'POST',body:payload,mode:'cors'}).then(window.AHAcceptSignupResponse).then(function(){
+          signup.replaceChildren(el('p','Your request was accepted. Check your inbox for any confirmation step and your guide. You can keep using your garden tools now.'));
+        }).catch(function(){signupMessage.textContent='We could not complete your signup. Check your email address and try again.';button.disabled=false;button.textContent='Send me the guide and garden notes';});
+      });
+      var clear=el('button','Clear saved garden');clear.type='button';clear.addEventListener('click',function(){try{localStorage.removeItem('ah_garden_profile_v1');}catch(e){}activeProfile=null;result.hidden=true;form.reset();msg.textContent='Saved garden cleared.';event('garden_profile_cleared');});result.appendChild(clear);
+    }
+    form.addEventListener('submit',function(e){e.preventDefault();if(!form.reportValidity())return;var d=new FormData(form),zip=d.get('zip'),zone=DATA.zip[zip.slice(0,3)];if(!zone){msg.textContent='We could not match this ZIP to a California region. Use the calendar region selector instead.';return;}var p={zip:zip,zone:zone,sun:d.get('sun'),environment:d.get('environment'),interest:d.get('interest')};var saved=false;try{localStorage.setItem('ah_garden_profile_v1',JSON.stringify(p));saved=true;}catch(err){}show(p,saved);msg.textContent='Your garden profile is ready below.';event('zip_entered',{climate_zone:p.zone,entry_point:home?'homepage':'calendar'});event('garden_profile_completed',{climate_zone:p.zone,sun_exposure:p.sun,garden_type:p.environment,primary_interest:p.interest,entry_point:home?'homepage':'calendar'});result.scrollIntoView({behavior:'auto',block:'start'});});
+    var saved=stored();if(valid(saved)){['zip','sun','environment','interest'].forEach(function(k){form.elements[k].value=saved[k];});show(saved,true);}
+    if(home){var hero=q('section[data-section-id="6402865e8544e5fc30e1d9b6"]');var heading=q('h1',hero);if(heading)heading.textContent='Know what to do in your garden today.';var start=all('a',hero).find(function(a){return a.textContent.trim().toLowerCase()==='start here';});if(start){start.href='#my-garden';start.textContent='Show me my garden';}var tools=q('section[data-section-id="6931d4ad6d3823703aa2dd48"]'),guides=q('section[data-section-id="6a84de343e4bd40e63be8832"]');if(tools&&guides&&tools.parentNode===guides.parentNode)guides.parentNode.insertBefore(tools,guides);}
+  }
+
+  function articleLinks(){
+    var copy={
+      '/learn/beginner-vegetables-california':['Before choosing your first crops, ','/planting-calendar','check the planting calendar for your California zone','. Match seed starting, direct sowing, and transplanting to the season.'],
+      '/learn/late-season-planting-california':['The windows below cover several months. ','/planting-calendar','Check your zone and month in the planting calendar',' before buying seeds or transplants. Harvest windows refer to established plants.'],
+      '/learn/best-cover-crops-home-garden':['Plan the crop that comes next before choosing your cover crop. ','/planting-calendar','Check the planting calendar for your next vegetable crop',', then leave time for ending the cover crop and preparing the bed.']
+    }[path];if(!copy||q('.ah-next-step'))return;
+    var body=q('.blog-item-content-wrapper')||q('[data-content-field="body"]')||q('.entry-content');if(!body)return;var head=all('h2',body).find(function(h){return !h.closest('aside,.ah-graphic,.ah-prod,.ah-relwrap');});if(!head)return;
+    var p=el('p',null,'ah-next-step'),a=el('a',copy[2]);a.href=copy[1];p.appendChild(document.createTextNode(copy[0]));p.appendChild(a);p.appendChild(document.createTextNode(copy[3]));head.parentNode.insertBefore(p,head);
+  }
+  function retireReferral(){all('a[href*="status.firewards.com"]').forEach(function(a){var item=a.closest('.header-nav-item,.header-menu-nav-item');if(item&&item.querySelectorAll('a').length===1)item.remove();else a.remove();});}
+  function productEvent(){if(path.indexOf('/store/p/')!==0)return;var scripts=all('script[type="application/ld+json"]'),product;
+    function find(o){if(!o||typeof o!=='object')return;if(o['@type']==='Product'||Array.isArray(o['@type'])&&o['@type'].indexOf('Product')>=0)product=o;Object.keys(o).forEach(function(k){if(typeof o[k]==='object'){if(Array.isArray(o[k]))o[k].forEach(find);else find(o[k]);}});}
+    scripts.forEach(function(s){try{find(JSON.parse(s.textContent));}catch(e){}});if(!product)return;var offer=Array.isArray(product.offers)?product.offers[0]:product.offers;if(!offer||offer.price==null||String(offer.price).trim()===''||!isFinite(Number(offer.price))||Number(offer.price)<0)return;event('view_item',{currency:offer.priceCurrency||'USD',value:Number(offer.price),items:[{item_id:product.sku||path.split('/').pop(),item_name:product.name,price:Number(offer.price),quantity:1}]});}
+  function boot(){calendar();profile();articleLinks();retireReferral();productEvent();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+  setTimeout(function(){calendar();profile();articleLinks();retireReferral();},2500);
 })();
