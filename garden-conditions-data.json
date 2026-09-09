@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-09-09T09:49:51.243Z",
+  "updated_at": "2026-09-09T14:38:40.157Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-09-09T09:49:51.243Z",
+      "updated": "2026-09-09T14:38:40.157Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,21 +24,21 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 70,
+        "temperature": 69,
         "temperatureUnit": "F",
-        "apparentTemperature": 62,
+        "apparentTemperature": 65,
         "conditions": "Mostly Sunny",
-        "detailedForecast": "Mostly sunny. High near 93, with temperatures falling to around 91 in the afternoon. West northwest wind 1 to 7 mph.",
-        "wind": "7 mph",
-        "windSpeed": 6.7,
-        "windGust": 6.7,
+        "detailedForecast": "Mostly sunny. High near 93, with temperatures falling to around 91 in the afternoon. West wind 1 to 7 mph.",
+        "wind": "4 mph",
+        "windSpeed": 4.1,
+        "windGust": 5.6,
         "windDirection": "N",
         "precipitation": 0,
-        "soilTemp": 64,
+        "soilTemp": 65,
         "soilMoisture": 0.116,
-        "humidity": 22,
-        "vapourPressureDeficit": 1.31,
-        "precipitationProbability": 0
+        "humidity": 39,
+        "vapourPressureDeficit": 1.24,
+        "precipitationProbability": 1
       },
       "rainfall": {
         "today": 0,
@@ -170,118 +170,104 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-09-09",
-          "high": 102.5,
+          "high": 101.5,
           "low": 61.5,
           "precipitation": 0,
-          "precipitationProbability": 3,
-          "uvIndex": 6.8,
-          "evapotranspiration": 0.272,
-          "windGust": 18.6
+          "precipitationProbability": 2,
+          "uvIndex": 6.85,
+          "evapotranspiration": 0.256,
+          "windGust": 15.2
         },
         "upcoming": [
           {
             "date": "2026-09-09",
-            "high": 102.5,
+            "high": 101.5,
             "low": 61.5,
             "precipitation": 0,
-            "precipitationProbability": 3,
-            "uvIndex": 6.8,
-            "evapotranspiration": 0.272,
-            "windGust": 18.6
+            "precipitationProbability": 2,
+            "uvIndex": 6.85,
+            "evapotranspiration": 0.256,
+            "windGust": 15.2
           },
           {
             "date": "2026-09-10",
-            "high": 88.2,
-            "low": 64.6,
+            "high": 94.4,
+            "low": 63.4,
             "precipitation": 0,
             "precipitationProbability": 2,
-            "uvIndex": 6.75,
-            "evapotranspiration": 0.187,
-            "windGust": 9.2
+            "uvIndex": 7,
+            "evapotranspiration": 0.192,
+            "windGust": 8.3
           },
           {
             "date": "2026-09-11",
-            "high": 77.8,
-            "low": 60.7,
+            "high": 78.2,
+            "low": 61.1,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.95,
-            "evapotranspiration": 0.162,
-            "windGust": 8.5
+            "evapotranspiration": 0.163,
+            "windGust": 7.4
           },
           {
             "date": "2026-09-12",
-            "high": 78,
-            "low": 59.1,
+            "high": 79.1,
+            "low": 59.6,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.9,
-            "evapotranspiration": 0.191,
-            "windGust": 17.2
+            "uvIndex": 6.95,
+            "evapotranspiration": 0.192,
+            "windGust": 14.8
           },
           {
             "date": "2026-09-13",
-            "high": 74.2,
-            "low": 56.2,
+            "high": 75.7,
+            "low": 56,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.8,
-            "evapotranspiration": 0.16,
-            "windGust": 8.1
+            "evapotranspiration": 0.159,
+            "windGust": 8.5
           },
           {
             "date": "2026-09-14",
-            "high": 70.1,
-            "low": 58.6,
+            "high": 72.6,
+            "low": 58.4,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.75,
-            "evapotranspiration": 0.152,
-            "windGust": 6.3
+            "evapotranspiration": 0.161,
+            "windGust": 6.7
           },
           {
             "date": "2026-09-15",
-            "high": 74.1,
-            "low": 56.6,
+            "high": 71.8,
+            "low": 57.3,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.7,
-            "evapotranspiration": 0.164,
-            "windGust": 11.2
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.145,
+            "windGust": 6.5
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-09-09T02:00:00-07:00",
-          "endTime": "2026-09-09T06:00:00-07:00",
-          "temperature": 65,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy, with a low around 65. North wind around 1 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "1 mph",
-          "windDirection": "N"
-        },
-        {
-          "name": "Wednesday",
-          "startTime": "2026-09-09T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-09-09T07:00:00-07:00",
           "endTime": "2026-09-09T18:00:00-07:00",
           "temperature": 93,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny. High near 93, with temperatures falling to around 91 in the afternoon. West northwest wind 1 to 7 mph.",
+          "detailedForecast": "Mostly sunny. High near 93, with temperatures falling to around 91 in the afternoon. West wind 1 to 7 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 3,
           "wind": "1 to 7 mph",
-          "windDirection": "WNW"
+          "windDirection": "W"
         },
         {
-          "name": "Wednesday Night",
+          "name": "Tonight",
           "startTime": "2026-09-09T18:00:00-07:00",
           "endTime": "2026-09-10T06:00:00-07:00",
           "temperature": 67,
@@ -301,7 +287,7 @@
           "temperature": 86,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 86. West wind 1 to 7 mph.",
+          "detailedForecast": "Mostly sunny. High near 86, with temperatures falling to around 83 in the afternoon. West wind 1 to 7 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 3,
@@ -329,7 +315,7 @@
           "temperature": 79,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 79.",
+          "detailedForecast": "Mostly sunny, with a high near 79. West northwest wind 1 to 9 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -447,10 +433,34 @@
           "precipitation": 0,
           "wind": "2 to 7 mph",
           "windDirection": "WNW"
+        },
+        {
+          "name": "Tuesday Night",
+          "startTime": "2026-09-15T18:00:00-07:00",
+          "endTime": "2026-09-16T06:00:00-07:00",
+          "temperature": 55,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 55.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 0,
+          "wind": "1 to 7 mph",
+          "windDirection": "NW"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
+        {
+          "event": "Heat Advisory",
+          "headline": "Heat Advisory issued September 9 at 3:14AM PDT until September 10 at 10:00PM PDT by NWS San Francisco CA",
+          "severity": "Moderate",
+          "urgency": "Expected",
+          "description": "* WHAT...Hot conditions with temperatures 10 to 20 degrees above\nnormal during the day, with overnight lows also running 10 to 20\ndegrees above normal.\n\n* WHERE...Bay Area and Central Coast.\n\n* WHEN...Until 10 PM PDT Thursday.\n\n* IMPACTS...This level of heat affects most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health systems and in\nheat-sensitive industries. Hot conditions can cause heat illnesses.",
+          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.",
+          "expires": "2026-09-10T22:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ac96bb01ba9fddc9e7545fa02ccb84a8c78b799e.001.1"
+        },
         {
           "event": "Coastal Flood Advisory",
           "headline": "Coastal Flood Advisory issued September 9 at 1:01AM PDT until September 10 at 1:00AM PDT by NWS San Francisco CA",
@@ -460,21 +470,11 @@
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.",
           "expires": "2026-09-10T01:00:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.10a8502b2686c42a52ea3f39a8424bcde13c2b31.001.1"
-        },
-        {
-          "event": "Heat Advisory",
-          "headline": "Heat Advisory issued September 8 at 7:33PM PDT until September 10 at 10:00PM PDT by NWS San Francisco CA",
-          "severity": "Moderate",
-          "urgency": "Expected",
-          "description": "* WHAT...Hot conditions with temperatures 10 to 20 degrees above\nnormal during the day, with overnight lows also running 10 to 20\ndegrees above normal.\n\n* WHERE...Bay Area and Central Coast.\n\n* WHEN...Until 10 PM PDT Thursday.\n\n* IMPACTS...This level of heat affects most individuals sensitive\nto heat, especially those without effective cooling and/or\nadequate hydration. Impacts possible in some health systems and\nin heat-sensitive industries. Hot conditions can cause heat\nillnesses.",
-          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.",
-          "expires": "2026-09-09T09:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.94e48368c392ab3901ebe7c3456160d1a2dd9a4c.001.1"
         }
       ]
     },
     "slv": {
-      "updated": "2026-09-09T09:49:51.243Z",
+      "updated": "2026-09-09T14:38:40.157Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -482,20 +482,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 72,
+        "temperature": 75,
         "temperatureUnit": "F",
-        "apparentTemperature": 68,
+        "apparentTemperature": 71,
         "conditions": "Mostly Sunny",
         "detailedForecast": "Mostly sunny. High near 102, with temperatures falling to around 98 in the afternoon. Northeast wind 0 to 5 mph.",
-        "wind": "1 mph",
-        "windSpeed": 1.3,
-        "windGust": 1.3,
-        "windDirection": "NW",
+        "wind": "5 mph",
+        "windSpeed": 4.7,
+        "windGust": 4.5,
+        "windDirection": "WNW",
         "precipitation": 0,
-        "soilTemp": 68,
+        "soilTemp": 67,
         "soilMoisture": 0.113,
-        "humidity": 23,
-        "vapourPressureDeficit": 2.31,
+        "humidity": 31,
+        "vapourPressureDeficit": 1.91,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -628,105 +628,91 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-09-09",
-          "high": 103.7,
-          "low": 72.6,
+          "high": 103.1,
+          "low": 70.7,
           "precipitation": 0,
           "precipitationProbability": 3,
-          "uvIndex": 6.95,
-          "evapotranspiration": 0.278,
-          "windGust": 15.9
+          "uvIndex": 6.7,
+          "evapotranspiration": 0.259,
+          "windGust": 14.3
         },
         "upcoming": [
           {
             "date": "2026-09-09",
-            "high": 103.7,
-            "low": 72.6,
+            "high": 103.1,
+            "low": 70.7,
             "precipitation": 0,
             "precipitationProbability": 3,
-            "uvIndex": 6.95,
-            "evapotranspiration": 0.278,
-            "windGust": 15.9
+            "uvIndex": 6.7,
+            "evapotranspiration": 0.259,
+            "windGust": 14.3
           },
           {
             "date": "2026-09-10",
-            "high": 98.5,
-            "low": 66.8,
+            "high": 97.9,
+            "low": 72.7,
             "precipitation": 0,
             "precipitationProbability": 2,
-            "uvIndex": 7.05,
-            "evapotranspiration": 0.314,
+            "uvIndex": 7,
+            "evapotranspiration": 0.299,
             "windGust": 19.9
           },
           {
             "date": "2026-09-11",
             "high": 90.8,
-            "low": 55.5,
+            "low": 56.8,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.95,
-            "evapotranspiration": 0.209,
-            "windGust": 11.6
-          },
-          {
-            "date": "2026-09-12",
-            "high": 77.5,
-            "low": 50.5,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 6.9,
-            "evapotranspiration": 0.178,
+            "evapotranspiration": 0.212,
             "windGust": 11.9
           },
           {
-            "date": "2026-09-13",
-            "high": 87.6,
-            "low": 49.2,
+            "date": "2026-09-12",
+            "high": 80.9,
+            "low": 51.2,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.8,
-            "evapotranspiration": 0.185,
-            "windGust": 7.2
+            "uvIndex": 6.95,
+            "evapotranspiration": 0.187,
+            "windGust": 11.2
+          },
+          {
+            "date": "2026-09-13",
+            "high": 86.7,
+            "low": 49.4,
+            "precipitation": 0,
+            "precipitationProbability": 0,
+            "uvIndex": 6.85,
+            "evapotranspiration": 0.184,
+            "windGust": 8.5
           },
           {
             "date": "2026-09-14",
-            "high": 85.2,
-            "low": 52.1,
+            "high": 87.6,
+            "low": 50.4,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.75,
-            "evapotranspiration": 0.189,
-            "windGust": 5.8
+            "evapotranspiration": 0.19,
+            "windGust": 6.5
           },
           {
             "date": "2026-09-15",
-            "high": 78.7,
-            "low": 50,
+            "high": 83.2,
+            "low": 51,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 6.7,
-            "evapotranspiration": 0.167,
-            "windGust": 7.8
+            "evapotranspiration": 0.176,
+            "windGust": 6
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-09-09T02:00:00-07:00",
-          "endTime": "2026-09-09T06:00:00-07:00",
-          "temperature": 66,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy, with a low around 66. Wind around 0 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "0 mph",
-          "windDirection": ""
-        },
-        {
-          "name": "Wednesday",
-          "startTime": "2026-09-09T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-09-09T07:00:00-07:00",
           "endTime": "2026-09-09T18:00:00-07:00",
           "temperature": 102,
           "temperatureUnit": "F",
@@ -739,7 +725,7 @@
           "windDirection": "NE"
         },
         {
-          "name": "Wednesday Night",
+          "name": "Tonight",
           "startTime": "2026-09-09T18:00:00-07:00",
           "endTime": "2026-09-10T06:00:00-07:00",
           "temperature": 66,
@@ -759,7 +745,7 @@
           "temperature": 98,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 98. Northwest wind 0 to 5 mph.",
+          "detailedForecast": "Mostly sunny. High near 98, with temperatures falling to around 93 in the afternoon. Northwest wind 0 to 5 mph.",
           "icon": "https://api.weather.gov/icons/land/day/hot?size=medium",
           "isDaytime": true,
           "precipitation": 3,
@@ -787,7 +773,7 @@
           "temperature": 89,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 89.",
+          "detailedForecast": "Sunny, with a high near 89. Northwest wind 0 to 6 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -905,24 +891,38 @@
           "precipitation": 0,
           "wind": "3 mph",
           "windDirection": "NW"
+        },
+        {
+          "name": "Tuesday Night",
+          "startTime": "2026-09-15T18:00:00-07:00",
+          "endTime": "2026-09-16T06:00:00-07:00",
+          "temperature": 51,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 51.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 0,
+          "wind": "3 mph",
+          "windDirection": "NW"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
         {
           "event": "Heat Advisory",
-          "headline": "Heat Advisory issued September 8 at 7:33PM PDT until September 10 at 10:00PM PDT by NWS San Francisco CA",
+          "headline": "Heat Advisory issued September 9 at 3:14AM PDT until September 10 at 10:00PM PDT by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...Hot conditions with temperatures 10 to 20 degrees above\nnormal during the day, with overnight lows also running 10 to 20\ndegrees above normal.\n\n* WHERE...Bay Area and Central Coast.\n\n* WHEN...Until 10 PM PDT Thursday.\n\n* IMPACTS...This level of heat affects most individuals sensitive\nto heat, especially those without effective cooling and/or\nadequate hydration. Impacts possible in some health systems and\nin heat-sensitive industries. Hot conditions can cause heat\nillnesses.",
+          "description": "* WHAT...Hot conditions with temperatures 10 to 20 degrees above\nnormal during the day, with overnight lows also running 10 to 20\ndegrees above normal.\n\n* WHERE...Bay Area and Central Coast.\n\n* WHEN...Until 10 PM PDT Thursday.\n\n* IMPACTS...This level of heat affects most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health systems and in\nheat-sensitive industries. Hot conditions can cause heat illnesses.",
           "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.",
-          "expires": "2026-09-09T09:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.94e48368c392ab3901ebe7c3456160d1a2dd9a4c.001.1"
+          "expires": "2026-09-10T22:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ac96bb01ba9fddc9e7545fa02ccb84a8c78b799e.001.1"
         }
       ]
     },
     "watsonville": {
-      "updated": "2026-09-09T09:49:51.243Z",
+      "updated": "2026-09-09T14:38:40.157Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -930,20 +930,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 60,
+        "temperature": 59,
         "temperatureUnit": "F",
-        "apparentTemperature": 59,
+        "apparentTemperature": 57,
         "conditions": "Mostly Sunny",
         "detailedForecast": "Mostly sunny. High near 90, with temperatures falling to around 86 in the afternoon. Northwest wind 1 to 7 mph.",
-        "wind": "1 mph",
-        "windSpeed": 0.8,
-        "windGust": 0.7,
-        "windDirection": "NW",
+        "wind": "2 mph",
+        "windSpeed": 2.3,
+        "windGust": 2.2,
+        "windDirection": "E",
         "precipitation": 0,
-        "soilTemp": 62,
+        "soilTemp": 60,
         "soilMoisture": 0.259,
-        "humidity": 64,
-        "vapourPressureDeficit": 0.41,
+        "humidity": 61,
+        "vapourPressureDeficit": 0.55,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1076,105 +1076,91 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-09-09",
-          "high": 100.9,
-          "low": 58.4,
+          "high": 100.7,
+          "low": 57.2,
           "precipitation": 0,
-          "precipitationProbability": 3,
-          "uvIndex": 6.5,
-          "evapotranspiration": 0.228,
-          "windGust": 15
+          "precipitationProbability": 2,
+          "uvIndex": 6.9,
+          "evapotranspiration": 0.222,
+          "windGust": 15.7
         },
         "upcoming": [
           {
             "date": "2026-09-09",
-            "high": 100.9,
-            "low": 58.4,
+            "high": 100.7,
+            "low": 57.2,
             "precipitation": 0,
-            "precipitationProbability": 3,
-            "uvIndex": 6.5,
-            "evapotranspiration": 0.228,
-            "windGust": 15
+            "precipitationProbability": 2,
+            "uvIndex": 6.9,
+            "evapotranspiration": 0.222,
+            "windGust": 15.7
           },
           {
             "date": "2026-09-10",
-            "high": 76.8,
-            "low": 59.2,
+            "high": 80.3,
+            "low": 61,
             "precipitation": 0,
             "precipitationProbability": 2,
-            "uvIndex": 6.7,
-            "evapotranspiration": 0.151,
-            "windGust": 9.6
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.16,
+            "windGust": 10.3
           },
           {
             "date": "2026-09-11",
-            "high": 77,
-            "low": 54.5,
+            "high": 76.5,
+            "low": 55.1,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.55,
-            "evapotranspiration": 0.16,
-            "windGust": 8.3
+            "uvIndex": 6.6,
+            "evapotranspiration": 0.159,
+            "windGust": 8.1
           },
           {
             "date": "2026-09-12",
-            "high": 74.9,
-            "low": 50.7,
+            "high": 78.6,
+            "low": 51.1,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.95,
-            "evapotranspiration": 0.167,
-            "windGust": 7.6
+            "uvIndex": 6.75,
+            "evapotranspiration": 0.17,
+            "windGust": 8.1
           },
           {
             "date": "2026-09-13",
-            "high": 71.1,
-            "low": 48.9,
+            "high": 72.9,
+            "low": 49.1,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.45,
-            "evapotranspiration": 0.147,
-            "windGust": 7.6
-          },
-          {
-            "date": "2026-09-14",
-            "high": 73.7,
-            "low": 51.4,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 6.5,
-            "evapotranspiration": 0.153,
+            "evapotranspiration": 0.152,
             "windGust": 6.5
           },
           {
-            "date": "2026-09-15",
-            "high": 73.2,
-            "low": 51.5,
+            "date": "2026-09-14",
+            "high": 75.2,
+            "low": 49.8,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6.45,
-            "evapotranspiration": 0.145,
-            "windGust": 6.3
+            "uvIndex": 6.6,
+            "evapotranspiration": 0.158,
+            "windGust": 6
+          },
+          {
+            "date": "2026-09-15",
+            "high": 70.7,
+            "low": 51,
+            "precipitation": 0,
+            "precipitationProbability": 0,
+            "uvIndex": 6.4,
+            "evapotranspiration": 0.139,
+            "windGust": 7.4
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-09-09T02:00:00-07:00",
-          "endTime": "2026-09-09T06:00:00-07:00",
-          "temperature": 64,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy. Low around 64, with temperatures rising to around 66 overnight. North northwest wind around 5 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "5 mph",
-          "windDirection": "NNW"
-        },
-        {
-          "name": "Wednesday",
-          "startTime": "2026-09-09T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-09-09T07:00:00-07:00",
           "endTime": "2026-09-09T18:00:00-07:00",
           "temperature": 90,
           "temperatureUnit": "F",
@@ -1187,7 +1173,7 @@
           "windDirection": "NW"
         },
         {
-          "name": "Wednesday Night",
+          "name": "Tonight",
           "startTime": "2026-09-09T18:00:00-07:00",
           "endTime": "2026-09-10T06:00:00-07:00",
           "temperature": 66,
@@ -1207,7 +1193,7 @@
           "temperature": 79,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 79. Southwest wind 2 to 8 mph.",
+          "detailedForecast": "Mostly sunny. High near 79, with temperatures falling to around 76 in the afternoon. Southwest wind 2 to 8 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 3,
@@ -1235,7 +1221,7 @@
           "temperature": 73,
           "temperatureUnit": "F",
           "conditions": "Patchy Fog then Mostly Sunny",
-          "detailedForecast": "Patchy fog between 7am and 8am. Mostly sunny, with a high near 73.",
+          "detailedForecast": "Patchy fog between 7am and 8am. Mostly sunny, with a high near 73. Southwest wind 2 to 9 mph.",
           "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -1353,10 +1339,34 @@
           "precipitation": 0,
           "wind": "1 to 9 mph",
           "windDirection": "W"
+        },
+        {
+          "name": "Tuesday Night",
+          "startTime": "2026-09-15T18:00:00-07:00",
+          "endTime": "2026-09-16T06:00:00-07:00",
+          "temperature": 54,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 54.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 0,
+          "wind": "2 to 9 mph",
+          "windDirection": "WNW"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
+        {
+          "event": "Heat Advisory",
+          "headline": "Heat Advisory issued September 9 at 3:14AM PDT until September 10 at 10:00PM PDT by NWS San Francisco CA",
+          "severity": "Moderate",
+          "urgency": "Expected",
+          "description": "* WHAT...Hot conditions with temperatures 10 to 20 degrees above\nnormal during the day, with overnight lows also running 10 to 20\ndegrees above normal.\n\n* WHERE...Bay Area and Central Coast.\n\n* WHEN...Until 10 PM PDT Thursday.\n\n* IMPACTS...This level of heat affects most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health systems and in\nheat-sensitive industries. Hot conditions can cause heat illnesses.",
+          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.",
+          "expires": "2026-09-10T22:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ac96bb01ba9fddc9e7545fa02ccb84a8c78b799e.001.1"
+        },
         {
           "event": "Coastal Flood Advisory",
           "headline": "Coastal Flood Advisory issued September 9 at 1:01AM PDT until September 10 at 1:00AM PDT by NWS San Francisco CA",
@@ -1366,16 +1376,6 @@
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.",
           "expires": "2026-09-10T01:00:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.10a8502b2686c42a52ea3f39a8424bcde13c2b31.001.1"
-        },
-        {
-          "event": "Heat Advisory",
-          "headline": "Heat Advisory issued September 8 at 7:33PM PDT until September 10 at 10:00PM PDT by NWS San Francisco CA",
-          "severity": "Moderate",
-          "urgency": "Expected",
-          "description": "* WHAT...Hot conditions with temperatures 10 to 20 degrees above\nnormal during the day, with overnight lows also running 10 to 20\ndegrees above normal.\n\n* WHERE...Bay Area and Central Coast.\n\n* WHEN...Until 10 PM PDT Thursday.\n\n* IMPACTS...This level of heat affects most individuals sensitive\nto heat, especially those without effective cooling and/or\nadequate hydration. Impacts possible in some health systems and\nin heat-sensitive industries. Hot conditions can cause heat\nillnesses.",
-          "instruction": "Hydration is a critical piece to surviving the heat. Drink water, and\nif possible, take water to those who are vulnerable.\n\nTake extra precautions when outside. Wear lightweight and loose\nfitting clothing. Try to limit strenuous activities to the early\nmorning or evening. Take action when you experience symptoms of heat\nexhaustion and/or heat stroke.\n\nBeat the heat and check the backseat! Do not leave young children or\npets in unattended vehicles. Car interiors will reach lethal\ntemperatures in a matter of minutes.",
-          "expires": "2026-09-09T09:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.94e48368c392ab3901ebe7c3456160d1a2dd9a4c.001.1"
         }
       ]
     }
