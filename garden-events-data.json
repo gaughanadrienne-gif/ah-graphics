@@ -1,30 +1,8 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-09-12T10:42:30.442Z",
+  "updated_at": "2026-09-12T15:29:43.567Z",
   "events": [
-    {
-      "id": "sccfm-scotts-valley",
-      "title": "Scotts Valley Farmers' Market",
-      "weekday": 6,
-      "start_time": "08:00",
-      "end_time": "12:00",
-      "season_start": "2026-05-02",
-      "season_end": "2026-11-21",
-      "venue": "Graham Plaza, 219 Mount Hermon Road",
-      "city": "Scotts Valley",
-      "categories": [
-        "market"
-      ],
-      "description": "Seasonal farmers' market with local produce, prepared foods and live music.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/scotts-valley/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Saturdays, 8:00 AM to noon, May 2 to November 21",
-      "start": "2026-09-12T15:00:00.000Z",
-      "end": "2026-09-12T19:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
     {
       "id": "sccfm-westside",
       "title": "Westside Farmers' Market",
@@ -264,6 +242,28 @@
       "recurrence": "Thursdays, 1:30 to 6:30 PM",
       "start": "2026-09-17T20:30:00.000Z",
       "end": "2026-09-18T01:30:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
+      "id": "sccfm-scotts-valley",
+      "title": "Scotts Valley Farmers' Market",
+      "weekday": 6,
+      "start_time": "08:00",
+      "end_time": "12:00",
+      "season_start": "2026-05-02",
+      "season_end": "2026-11-21",
+      "venue": "Graham Plaza, 219 Mount Hermon Road",
+      "city": "Scotts Valley",
+      "categories": [
+        "market"
+      ],
+      "description": "Seasonal farmers' market with local produce, prepared foods and live music.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/scotts-valley/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Saturdays, 8:00 AM to noon, May 2 to November 21",
+      "start": "2026-09-19T15:00:00.000Z",
+      "end": "2026-09-19T19:00:00.000Z",
       "status": "confirmed",
       "source_type": "recurring"
     },
@@ -545,6 +545,8 @@
       "source_type": "api"
     }
   ],
-  "warnings": [],
-  "updated": "2026-09-12T10:42:30.442Z"
+  "warnings": [
+    "California Native Plant Society: HTTP 403"
+  ],
+  "updated": "2026-09-12T15:29:43.567Z"
 }
