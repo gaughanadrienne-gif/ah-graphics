@@ -1656,7 +1656,7 @@ function ahIsFlockArticle(slug) {
     box.className = 'ah-prod ah-flock-callout';
     box.innerHTML = '' +
       '<div class="cov"><img src="https://gaughanadrienne-gif.github.io/ah-graphics/flock-guide-cover.jpg" alt=""></div>' +
-      '<div><div class="eb">Go deeper Â· The complete guide</div>' +
+      '<div><div class="eb">Go deeper · The complete guide</div>' +
         '<h4>The California Backyard Flock Starter Guide</h4>' +
         '<p>Everything for chickens, ducks, and geese in one place: choosing your birds, a predator-proof coop, feeding, eggs, health, and a year-round calendar, plus printable resources.</p>' +
         '<span class="price">$12.99</span>' +
@@ -1751,7 +1751,7 @@ function ahIsFlockArticle(slug) {
     box.className = 'ah-prod ah-product-callout';
     box.innerHTML = '' +
       (prod.service ? '' : '<div class="cov"><img src="' + IMG(prod.cover, 400) + '" alt=""></div>') +
-      '<div><div class="eb">' + (prod.service ? 'Help with your garden' : 'Go deeper Â· Recommended guide') + '</div>' +
+      '<div><div class="eb">' + (prod.service ? 'Help with your garden' : 'Go deeper · Recommended guide') + '</div>' +
       '<h4>' + prod.title + '</h4>' +
       '<p>' + prod.line + '</p>' +
       '<span class="price">' + prod.price + '</span>' +
@@ -1967,7 +1967,7 @@ function ahIsFlockArticle(slug) {
   }, 1800);
 })();
 
-// === BERRY CHEAT SHEET â€” INLINE EMAIL CAPTURE (2026-06-22) ===
+// === BERRY CHEAT SHEET - INLINE EMAIL CAPTURE (2026-06-22) ===
 // Offers the free lead magnet "The California Berry Growing Cheat Sheet" (PDF)
 // on berry articles. Subscribes to MailerLite group "Lead Magnet: Berry Cheat
 // Sheet" via embedded form 191027595236607473 (account 1974108, double opt-in).
@@ -2040,7 +2040,7 @@ function ahIsFlockArticle(slug) {
   }, 1700);
 })();
 
-// === CLUSTER CHEAT SHEETS â€” INLINE EMAIL CAPTURE (2026-06-22) ===
+// === CLUSTER CHEAT SHEETS - INLINE EMAIL CAPTURE (2026-06-22) ===
 // Pepper, Native & Drought, and Seed Starting lead magnets. Same verified
 // MailerLite fetch/no-cors mechanism as the berry box (account 1974108). Each
 // entry is slug-gated and inserts before the FAQ (or last non-FAQ H2). Delivery
@@ -2196,7 +2196,7 @@ function ahIsFlockArticle(slug) {
   setTimeout(dedupe, 3800);
 })();
 
-// === PLANTING CALENDAR + GARDEN CONDITIONS â€” INLINE EMAIL CAPTURE (2026-06-24) ===
+// === PLANTING CALENDAR + GARDEN CONDITIONS - INLINE EMAIL CAPTURE (2026-06-24) ===
 // Non-gating opt-in box dropped BELOW the tool on /planting-calendar and
 // /garden-conditions (the tools stay fully open). Offers the Seed Starting cheat
 // sheet (the natural timing companion), wired to the live MailerLite form 191102468073981272
@@ -2249,7 +2249,7 @@ function ahIsFlockArticle(slug) {
   })();
 })();
 
-// === FLOCK LEAD MAGNET â€” INLINE EMAIL CAPTURE (2026-06-24) ===
+// === FLOCK LEAD MAGNET - INLINE EMAIL CAPTURE (2026-06-24) ===
 // Predator-Proof Coop Checklist opt-in on coop/flock /learn articles (before the
 // FAQ) and below the Build Your Flock tool. Wired to MailerLite form
 // 191180688515401447 (group "Lead Magnet: Predator-Proof Coop Checklist", double
@@ -2317,7 +2317,7 @@ function ahIsFlockArticle(slug) {
   }
 })();
 
-// === NEWSLETTER MID-ARTICLE EMAIL CAPTURE (2026-07-23) â€” SITE-WIDE ===
+// === NEWSLETTER MID-ARTICLE EMAIL CAPTURE (2026-07-23) - SITE-WIDE ===
 // The #1 conversion fix from the July 2026 deep dive: ~756 /learn/ articles had
 // no email capture until a text link in the closing paragraph, so ~1,600 weekly
 // readers convert to only ~52 subscribers. This drops a single-field opt-in box
@@ -2345,7 +2345,7 @@ function ahIsFlockArticle(slug) {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   if (location.pathname.indexOf('/learn/category/') === 0) return;
 
-  var FORM = '191102468073981272'; // Seed Starting group / seasonal planting newsletter â€” REUSED, do not re-save
+  var FORM = '191102468073981272'; // Seed Starting group / seasonal planting newsletter - REUSED, do not re-save
   var ENDPOINT = 'https://assets.mailerlite.com/jsonp/1974108/forms/' + FORM + '/subscribe';
 
   setTimeout(function () {
@@ -2414,7 +2414,7 @@ function ahIsFlockArticle(slug) {
   }, 2100); // after the 1700ms targeted-magnet boxes, so the yield check above sees them
 })();
 
-// === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) â€” SITE-WIDE ===
+// === ARTICLE TEMPLATE ENHANCEMENT (2026-06-16) - SITE-WIDE ===
 // Redesign of the article reading experience on every /learn/ article. Adds an
 // "In this guide" jump box, marigold H2 accents, normalized section headers, an
 // author box, a green downloads box, and image-based related cards (broken links
@@ -2777,11 +2777,11 @@ function ahIsFlockArticle(slug) {
       '</div>';
 
     var feat = document.createElement('div'); feat.className = 'ah-feat';
-    feat.innerHTML = '<div class="cov"><span class="ah-badge pop">â˜… Most Popular</span><img src="' + CDN + 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg?format=600w" alt="Tomato Growing MasterKit"></div>' +
-      '<div class="bod"><div class="eb">Start here Â· Bestseller</div><h2>The Tomato Growing MasterKit</h2>' +
-      '<p>The complete, California-specific system for a tomato harvest that doesnâ€™t quit, from variety selection to season-long care.</p>' +
+    feat.innerHTML = '<div class="cov"><span class="ah-badge pop">Most Popular</span><img src="' + CDN + 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg?format=600w" alt="Tomato Growing MasterKit"></div>' +
+      '<div class="bod"><div class="eb">Start here · Bestseller</div><h2>The Tomato Growing MasterKit</h2>' +
+      '<p>The complete, California-specific system for a tomato harvest that doesn’t quit, from variety selection to season-long care.</p>' +
       '<ul><li>12 sections + 2 bonuses (Zone Cards &amp; Season Journal)</li><li>Tailored to all four California growing zones</li><li>Printable, instant download, money-back guarantee</li></ul>' +
-      '<div class="pr"><span class="now">$14.99</span><span class="was">$19.99</span><span class="save">Launch Â· Save 25%</span></div>' +
+      '<div class="pr"><span class="now">$14.99</span><span class="was">$19.99</span><span class="save">Launch · Save 25%</span></div>' +
       '<a class="ah-cta2" href="' + MK + '">Get instant access</a></div>';
 
     par.insertBefore(hero, pl);
@@ -2790,8 +2790,8 @@ function ahIsFlockArticle(slug) {
     var why = document.createElement('div'); why.className = 'ah-why';
     why.innerHTML =
       '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Genuinely local</h3><p>Not generic advice. Every guide is written for our four California microclimates by someone who gardens here.</p></div>' +
-      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Beautifully practical</h3><p>Printable PDFs with checklists, charts, and journal pages youâ€™ll actually use in the garden.</p></div>' +
-      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Risk-free</h3><p>30-day money-back guarantee. If a guide doesnâ€™t help you grow, you donâ€™t pay for it.</p></div>';
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Beautifully practical</h3><p>Printable PDFs with checklists, charts, and journal pages you’ll actually use in the garden.</p></div>' +
+      '<div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Risk-free</h3><p>30-day money-back guarantee. If a guide doesn’t help you grow, you don’t pay for it.</p></div>';
     par.insertBefore(why, pl.nextSibling);
 
     function markServices(){
@@ -2817,7 +2817,7 @@ function ahIsFlockArticle(slug) {
       var link = it.querySelector('a[href*="/store/p/"]');
       var href = link ? link.getAttribute('href') : '';
       var img = it.querySelector('.product-list-image-wrapper, figure, .product-list-image-container') || it;
-      if (href.indexOf('04risdgzwd80') > -1) { var b = document.createElement('span'); b.className = 'ah-badge pop'; b.textContent = 'â˜… Most Popular'; img.appendChild(b); }
+      if (href.indexOf('04risdgzwd80') > -1) { var b = document.createElement('span'); b.className = 'ah-badge pop'; b.textContent = 'Most Popular'; img.appendChild(b); }
       else if (href.indexOf('first-harvest') > -1) { var b2 = document.createElement('span'); b2.className = 'ah-badge start'; b2.textContent = 'Start Here'; img.appendChild(b2); }
     });
   }
@@ -3051,7 +3051,7 @@ function ahIsFlockArticle(slug) {
     '.gallery-section .gallery-strips-item:hover img{transform:scale(1.05)}' +
     '.gallery-section figcaption{position:absolute!important;left:0;right:0;bottom:0;z-index:2;padding:0 20px 18px!important;text-align:left!important;margin:0!important;background:none!important}' +
     '.gallery-section figcaption,.gallery-section figcaption *{color:#F8F9F0!important;font-family:Fraunces,"Palatino Linotype","Book Antiqua",Georgia,serif!important;font-size:21px!important;font-weight:400!important;line-height:1.18!important;letter-spacing:.01em!important}' +
-    '.gallery-section figcaption::after{content:"Browse â†’";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#dde2d8!important;margin-top:6px}' +
+    '.gallery-section figcaption::after{content:"Browse →";display:block;font-family:Montserrat,sans-serif!important;font-size:11px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase;color:#dde2d8!important;margin-top:6px}' +
     /* --- latest-from-the-garden card grid --- */
     '.ah-latest-sec .summary-item-list{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:24px!important;float:none!important;width:100%!important;position:static!important;height:auto!important}' +
     '.ah-latest-sec .summary-item{position:static!important;left:auto!important;top:auto!important;width:100%!important;margin:0!important;padding:0!important;float:none!important;background:#fff;border:1px solid #e3e7da;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(28,33,29,.07);transition:.2s;display:flex!important;flex-direction:column!important}' +
@@ -3389,7 +3389,7 @@ function ahIsFlockArticle(slug) {
       '<h2>California-Specific Guides &amp; Kits</h2>' +
       '<p class="sub">Printable, microclimate-tuned guides to take the guesswork out of your garden. Instant download, 30-day money-back guarantee.</p>' +
       '<div class="grid">' + cards + '</div>' +
-      '<a class="shopall" href="/store">Shop all 17 guides &amp; kits â†’</a></div>';
+      '<a class="shopall" href="/store">Shop all 17 guides &amp; kits →</a></div>';
 
     // Insert after the tools section (heading "Plan your garden..."); fall back to
     // before the category gallery, else append to #sections.
@@ -3948,7 +3948,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === KEEP READING â€” related guides at the end of every /learn article (2026-06-23) ===
+// === KEEP READING - related guides at the end of every /learn article (2026-06-23) ===
 // Appends 3 related-guide cards (ahRenderRelatedCards) as the LAST element of the
 // article, from the auto manifest. The article-enhancement IIFE removes any legacy
 // "Related Articles" section so these cards are the single related block. Staged via
@@ -3981,7 +3981,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === FAQ FORMAT NORMALIZE â€” render all FAQ questions as H3 (2026-06-24) ===
+// === FAQ FORMAT NORMALIZE - render all FAQ questions as H3 (2026-06-24) ===
 // 154 articles used bold-paragraph FAQ questions (<p><strong>Q?</strong></p>) and
 // 17 had mixed H3/bold; normalize them to <h3> so FAQ formatting is uniform
 // site-wide. Scoped to the FAQ section only (between the "Frequently Asked
@@ -4892,7 +4892,7 @@ function ahIsFlockArticle(slug) {
       activeProfile=p;
       var calendarZone=q('#pc-zsel');if(calendarZone&&calendarZone.value!==p.zone){calendarZone.value=p.zone;calendarZone.dispatchEvent(new Event('change',{bubbles:true}));}
       result.hidden=false;result.replaceChildren();result.appendChild(el('h3','Your garden in '+monthName(currentMonth())));
-      result.appendChild(el('p',p.zip+' Â· '+DATA.zones[p.zone].name+' regional calendar'));
+      result.appendChild(el('p',p.zip+' · '+DATA.zones[p.zone].name+' regional calendar'));
       result.appendChild(el('small','ZIP lookup selects a broad California region, not your exact microclimate. Frost pockets, coastal fog, light, and growing space can change what works.'));
       if(p.zone==='desert')result.appendChild(el('small','Basil and garlic are temporarily omitted while low-desert planting dates are checked.'));
       var regionLabel=el('label','Calendar region');var region=el('select');region.setAttribute('aria-label','Calendar region');Object.keys(DATA.zones).forEach(function(z){var o=el('option',DATA.zones[z].name);o.value=z;region.appendChild(o);});region.value=p.zone;regionLabel.appendChild(region);result.appendChild(regionLabel);
