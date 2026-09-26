@@ -1056,17 +1056,25 @@ let conditionsSnapshot = null;
    scratch on every zone change and the toggle must survive that. */
 let rainWindow = 7;
 
-/* Reads ?zone= off the URL and normalizes it. Returns null when absent or
-   unrecognized, so a bad link falls through to the saved zone instead of
-   blanking the dashboard. */
-function zoneFromUrl() {
-  let raw = null;
+/* Reads ?zone= off the URL and distinguishes an absent parameter from an
+   invalid one. Invalid shared links reset to the default instead of silently
+   showing a previously saved zone. */
+function requestedZoneFromUrl() {
+  let params;
+  try { params = new URLSearchParams(window.location.search); }
+  catch (e) { return { present: false, zone: null }; }
+  if (!params.has('zone')) return { present: false, zone: null };
+  const key = String(params.get('zone') || '').trim().toLowerCase();
+  return { present: true, zone: ZONE_ALIASES[key] || null };
+}
+
+function replaceZoneQuery(zone) {
   try {
-    raw = new URLSearchParams(window.location.search).get('zone');
-  } catch (e) { return null; }
-  if (!raw) return null;
-  const key = String(raw).trim().toLowerCase();
-  return ZONE_ALIASES[key] || (ZONE_KEYS.indexOf(key) !== -1 ? key : null);
+    const url = new URL(window.location.href);
+    if (zone) url.searchParams.set('zone', zone);
+    else url.searchParams.delete('zone');
+    window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+  } catch (e) {}
 }
 
 function esc(value) {
@@ -1521,7 +1529,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let saved = 'santa-cruz';
   try { saved = localStorage.getItem('ah-garden-zone') || saved; } catch {}
   if (ZONE_KEYS.indexOf(saved) === -1) saved = 'santa-cruz';
-  // A ?zone= deep link always wins over the remembered zone.
-  loadDashboard(zoneFromUrl() || saved);
+  const requested = requestedZoneFromUrl();
+  if (requested.present && requested.zone) {
+    replaceZoneQuery(requested.zone);
+    loadDashboard(requested.zone);
+  } else if (requested.present) {
+    replaceZoneQuery('santa-cruz');
+    loadDashboard('santa-cruz');
+  } else {
+    loadDashboard(saved);
+  }
 });
 </script>

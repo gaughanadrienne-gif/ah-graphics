@@ -1071,7 +1071,7 @@
   <header class="pc-hdr">
     <p class="pc-brand">Ambitious Harvest Co</p>
     <h1>California Planting Calendar</h1>
-    <p class="pc-sub">Find the right time to plant 45 crops in your California growing zone. Select your zone or enter your zip code to get started.</p>
+    <p class="pc-sub">Find the right time to plant 45 crops in your California growing zone. Select your zone or enter your zip code to get started. ZIP suggestions use broad three-digit regions, so mixed-climate prefixes require manual selection.</p>
     <p class="pc-src">Data sourced from UC Cooperative Extension, UC Master Gardener Program, and UC ANR publications.</p>
   </header>
 
@@ -1092,7 +1092,7 @@
         <option value="coastal">Coastal</option>
         <option value="inland_valley">Inland Valley</option>
         <option value="mountain">Mountain</option>
-        <option value="desert">Desert</option>
+        <option value="desert">Low desert valleys</option>
       </select>
     </div>
 
@@ -1250,7 +1250,7 @@ zones:{
 coastal:{name:"Coastal",avgLastFrost:"Feb 15",avgFirstFrost:"Dec 15",usdaZones:"9b-11a",frostFreeDays:300},
 inland_valley:{name:"Inland Valley",avgLastFrost:"Mar 15",avgFirstFrost:"Nov 15",usdaZones:"9a-10a",frostFreeDays:245},
 mountain:{name:"Mountain",avgLastFrost:"May 1",avgFirstFrost:"Oct 15",usdaZones:"7a-8b",frostFreeDays:165},
-desert:{name:"Desert",avgLastFrost:"Feb 1",avgFirstFrost:"Dec 1",usdaZones:"9a-10b",frostFreeDays:300}
+desert:{name:"Low desert valleys",avgLastFrost:"Feb 1",avgFirstFrost:"Dec 1",usdaZones:"9a-10b",frostFreeDays:300}
 },
 zip:{
 "900":"inland_valley","901":"inland_valley","902":"coastal","903":"inland_valley",
@@ -1580,6 +1580,12 @@ function lookupZip(){
     return;
   }
   var pre=z.substring(0,3);
+  if(pre==="923"||pre==="935"){
+    zMsg.textContent="This ZIP prefix crosses climate regions, so the calendar cannot choose safely. Select a region manually only if it fits your garden; these four regions may not cover high-desert or extreme-elevation sites.";
+    zMsg.classList.add("pc-err");
+    zSel.focus();
+    return;
+  }
   var found=D.zip[pre];
   if(!found){
     var num=parseInt(pre,10);
