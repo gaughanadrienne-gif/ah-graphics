@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-09-26T01:37:38.412Z",
+  "updated_at": "2026-09-26T07:47:06.494Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-09-26T01:37:38.412Z",
+      "updated": "2026-09-26T07:47:06.494Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 75,
+        "temperature": 60,
         "temperatureUnit": "F",
-        "apparentTemperature": 68,
+        "apparentTemperature": 55,
         "conditions": "Mostly Sunny",
-        "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 68 in the afternoon. West southwest wind 2 to 8 mph.",
-        "wind": "13 mph",
-        "windSpeed": 12.6,
-        "windGust": 21.9,
+        "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 68 in the afternoon. West northwest wind 2 to 9 mph.",
+        "wind": "6 mph",
+        "windSpeed": 6.4,
+        "windGust": 15.4,
         "windDirection": "N",
         "precipitation": 0,
-        "soilTemp": 78,
+        "soilTemp": 63,
         "soilMoisture": 0.153,
-        "humidity": 30,
-        "vapourPressureDeficit": 2.65,
+        "humidity": 56,
+        "vapourPressureDeficit": 0.83,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -45,10 +45,6 @@
         "last7Days": 0,
         "last30Days": 0.004,
         "dailyData": [
-          {
-            "date": "2026-08-27",
-            "amount": 0
-          },
           {
             "date": "2026-08-28",
             "amount": 0.004
@@ -164,107 +160,111 @@
           {
             "date": "2026-09-25",
             "amount": 0
+          },
+          {
+            "date": "2026-09-26",
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
-          "date": "2026-09-25",
-          "high": 85.3,
-          "low": 54.8,
+          "date": "2026-09-26",
+          "high": 76,
+          "low": 53.5,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 6.25,
-          "evapotranspiration": 0.173,
-          "windGust": 23.9
+          "evapotranspiration": 0.149,
+          "windGust": 15
         },
         "upcoming": [
           {
-            "date": "2026-09-25",
-            "high": 85.3,
-            "low": 54.8,
+            "date": "2026-09-26",
+            "high": 76,
+            "low": 53.5,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.25,
-            "evapotranspiration": 0.173,
-            "windGust": 23.9
-          },
-          {
-            "date": "2026-09-26",
-            "high": 76.2,
-            "low": 52.1,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 6.2,
-            "evapotranspiration": 0.165,
-            "windGust": 13.6
+            "evapotranspiration": 0.149,
+            "windGust": 15
           },
           {
             "date": "2026-09-27",
-            "high": 71.7,
-            "low": 49.9,
+            "high": 74.7,
+            "low": 51.2,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 6.15,
-            "evapotranspiration": 0.153,
-            "windGust": 16.6
+            "evapotranspiration": 0.155,
+            "windGust": 15.9
           },
           {
             "date": "2026-09-28",
             "high": 73,
-            "low": 54.2,
+            "low": 54.8,
             "precipitation": 0,
             "precipitationProbability": 1,
-            "uvIndex": 6.1,
+            "uvIndex": 6.05,
             "evapotranspiration": 0.138,
-            "windGust": 9.4
+            "windGust": 9.6
           },
           {
             "date": "2026-09-29",
-            "high": 80,
-            "low": 57.8,
+            "high": 76,
+            "low": 58.2,
             "precipitation": 0,
-            "precipitationProbability": 1,
-            "uvIndex": 6.15,
-            "evapotranspiration": 0.158,
-            "windGust": 8.3
+            "precipitationProbability": 0,
+            "uvIndex": 6.1,
+            "evapotranspiration": 0.155,
+            "windGust": 8.5
           },
           {
             "date": "2026-09-30",
             "high": 69.5,
-            "low": 60,
+            "low": 58.6,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.1,
-            "evapotranspiration": 0.138,
-            "windGust": 4.9
+            "evapotranspiration": 0.133,
+            "windGust": 5.6
           },
           {
             "date": "2026-10-01",
-            "high": 64,
-            "low": 57.6,
+            "high": 67.9,
+            "low": 59.1,
             "precipitation": 0,
-            "precipitationProbability": 1,
-            "uvIndex": 6.1,
-            "evapotranspiration": 0.106,
-            "windGust": 4
+            "precipitationProbability": 0,
+            "uvIndex": 5.7,
+            "evapotranspiration": 0.113,
+            "windGust": 4.7
+          },
+          {
+            "date": "2026-10-02",
+            "high": 70.4,
+            "low": 60.2,
+            "precipitation": 0,
+            "precipitationProbability": 0,
+            "uvIndex": 4.6,
+            "evapotranspiration": 0.103,
+            "windGust": 4.9
           }
         ]
       },
       "forecast": [
         {
-          "name": "Tonight",
-          "startTime": "2026-09-25T18:00:00-07:00",
+          "name": "Overnight",
+          "startTime": "2026-09-26T00:00:00-07:00",
           "endTime": "2026-09-26T06:00:00-07:00",
           "temperature": 53,
           "temperatureUnit": "F",
           "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 53. North northwest wind 2 to 12 mph, with gusts as high as 21 mph.",
+          "detailedForecast": "Mostly clear, with a low around 53. North wind around 5 mph.",
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "2 to 12 mph",
-          "windDirection": "NNW"
+          "wind": "5 mph",
+          "windDirection": "N"
         },
         {
           "name": "Saturday",
@@ -273,12 +273,12 @@
           "temperature": 71,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 68 in the afternoon. West southwest wind 2 to 8 mph.",
+          "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 68 in the afternoon. West northwest wind 2 to 9 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "2 to 8 mph",
-          "windDirection": "WSW"
+          "wind": "2 to 9 mph",
+          "windDirection": "WNW"
         },
         {
           "name": "Saturday Night",
@@ -290,7 +290,7 @@
           "detailedForecast": "Mostly cloudy, with a low around 53. Northwest wind 2 to 6 mph.",
           "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
-          "precipitation": 1,
+          "precipitation": 0,
           "wind": "2 to 6 mph",
           "windDirection": "NW"
         },
@@ -298,15 +298,15 @@
           "name": "Sunday",
           "startTime": "2026-09-27T06:00:00-07:00",
           "endTime": "2026-09-27T18:00:00-07:00",
-          "temperature": 68,
+          "temperature": 67,
           "temperatureUnit": "F",
           "conditions": "Partly Sunny",
-          "detailedForecast": "Partly sunny, with a high near 68. Northwest wind 2 to 12 mph, with gusts as high as 21 mph.",
+          "detailedForecast": "Partly sunny, with a high near 67. West northwest wind 2 to 10 mph, with gusts as high as 20 mph.",
           "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 1,
-          "wind": "2 to 12 mph",
-          "windDirection": "NW"
+          "wind": "2 to 10 mph",
+          "windDirection": "WNW"
         },
         {
           "name": "Sunday Night",
@@ -315,11 +315,11 @@
           "temperature": 53,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 53. Northwest wind 2 to 12 mph, with gusts as high as 21 mph.",
+          "detailedForecast": "Partly cloudy, with a low around 53. Northwest wind 2 to 10 mph, with gusts as high as 20 mph.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
-          "precipitation": 1,
-          "wind": "2 to 12 mph",
+          "precipitation": 0,
+          "wind": "2 to 10 mph",
           "windDirection": "NW"
         },
         {
@@ -328,13 +328,13 @@
           "endTime": "2026-09-28T18:00:00-07:00",
           "temperature": 73,
           "temperatureUnit": "F",
-          "conditions": "Patchy Fog then Sunny",
-          "detailedForecast": "Patchy fog before 8am. Sunny, with a high near 73.",
-          "icon": "https://api.weather.gov/icons/land/day/fog/few?size=medium",
+          "conditions": "Mostly Sunny",
+          "detailedForecast": "Mostly sunny, with a high near 73.",
+          "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 1,
-          "wind": "2 to 8 mph",
-          "windDirection": "NW"
+          "wind": "2 to 7 mph",
+          "windDirection": "WNW"
         },
         {
           "name": "Monday Night",
@@ -347,45 +347,17 @@
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
           "precipitation": 1,
-          "wind": "1 to 8 mph",
+          "wind": "1 to 6 mph",
           "windDirection": "NNW"
         },
         {
           "name": "Tuesday",
           "startTime": "2026-09-29T06:00:00-07:00",
           "endTime": "2026-09-29T18:00:00-07:00",
-          "temperature": 79,
+          "temperature": 80,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 79.",
-          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
-          "isDaytime": true,
-          "precipitation": 0,
-          "wind": "1 to 7 mph",
-          "windDirection": "NW"
-        },
-        {
-          "name": "Tuesday Night",
-          "startTime": "2026-09-29T18:00:00-07:00",
-          "endTime": "2026-09-30T06:00:00-07:00",
-          "temperature": 57,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 57.",
-          "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "1 to 5 mph",
-          "windDirection": "NNW"
-        },
-        {
-          "name": "Wednesday",
-          "startTime": "2026-09-30T06:00:00-07:00",
-          "endTime": "2026-09-30T18:00:00-07:00",
-          "temperature": 77,
-          "temperatureUnit": "F",
-          "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 77.",
+          "detailedForecast": "Sunny, with a high near 80.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -393,16 +365,44 @@
           "windDirection": "NW"
         },
         {
+          "name": "Tuesday Night",
+          "startTime": "2026-09-29T18:00:00-07:00",
+          "endTime": "2026-09-30T06:00:00-07:00",
+          "temperature": 56,
+          "temperatureUnit": "F",
+          "conditions": "Mostly Clear",
+          "detailedForecast": "Mostly clear, with a low around 56.",
+          "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
+          "isDaytime": false,
+          "precipitation": 0,
+          "wind": "1 to 6 mph",
+          "windDirection": "NNW"
+        },
+        {
+          "name": "Wednesday",
+          "startTime": "2026-09-30T06:00:00-07:00",
+          "endTime": "2026-09-30T18:00:00-07:00",
+          "temperature": 76,
+          "temperatureUnit": "F",
+          "conditions": "Sunny",
+          "detailedForecast": "Sunny, with a high near 76.",
+          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
+          "isDaytime": true,
+          "precipitation": 0,
+          "wind": "1 to 6 mph",
+          "windDirection": "W"
+        },
+        {
           "name": "Wednesday Night",
           "startTime": "2026-09-30T18:00:00-07:00",
           "endTime": "2026-10-01T06:00:00-07:00",
-          "temperature": 57,
+          "temperature": 56,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 57.",
+          "detailedForecast": "Partly cloudy, with a low around 56.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
-          "precipitation": 1,
+          "precipitation": 0,
           "wind": "1 to 5 mph",
           "windDirection": "NW"
         },
@@ -410,14 +410,14 @@
           "name": "Thursday",
           "startTime": "2026-10-01T06:00:00-07:00",
           "endTime": "2026-10-01T18:00:00-07:00",
-          "temperature": 76,
+          "temperature": 73,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 76.",
+          "detailedForecast": "Mostly sunny, with a high near 73.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "1 to 7 mph",
+          "wind": "1 to 6 mph",
           "windDirection": "NW"
         },
         {
@@ -431,29 +431,29 @@
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "2 to 6 mph",
+          "wind": "0 to 5 mph",
           "windDirection": "NW"
         },
         {
           "name": "Friday",
           "startTime": "2026-10-02T06:00:00-07:00",
           "endTime": "2026-10-02T18:00:00-07:00",
-          "temperature": 76,
+          "temperature": 74,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 76.",
+          "detailedForecast": "Sunny, with a high near 74.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "2 to 7 mph",
-          "windDirection": "WNW"
+          "wind": "0 to 5 mph",
+          "windDirection": "NW"
         }
       ],
       "hasActiveAlerts": false,
       "alerts": []
     },
     "slv": {
-      "updated": "2026-09-26T01:37:38.412Z",
+      "updated": "2026-09-26T07:47:06.494Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -461,20 +461,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 66,
+        "temperature": 57,
         "temperatureUnit": "F",
-        "apparentTemperature": 61,
+        "apparentTemperature": 53,
         "conditions": "Sunny",
-        "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. West southwest wind around 3 mph.",
-        "wind": "11 mph",
-        "windSpeed": 11.2,
-        "windGust": 18.3,
-        "windDirection": "NNW",
+        "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. West wind 1 to 5 mph.",
+        "wind": "7 mph",
+        "windSpeed": 7.4,
+        "windGust": 13.4,
+        "windDirection": "NW",
         "precipitation": 0,
-        "soilTemp": 71,
-        "soilMoisture": 0.151,
-        "humidity": 52,
-        "vapourPressureDeficit": 1.34,
+        "soilTemp": 62,
+        "soilMoisture": 0.153,
+        "humidity": 68,
+        "vapourPressureDeficit": 0.54,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -482,10 +482,6 @@
         "last7Days": 0,
         "last30Days": 0,
         "dailyData": [
-          {
-            "date": "2026-08-27",
-            "amount": 0
-          },
           {
             "date": "2026-08-28",
             "amount": 0
@@ -601,107 +597,111 @@
           {
             "date": "2026-09-25",
             "amount": 0
+          },
+          {
+            "date": "2026-09-26",
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
-          "date": "2026-09-25",
-          "high": 84,
-          "low": 59.5,
+          "date": "2026-09-26",
+          "high": 82.8,
+          "low": 53.9,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 6.25,
-          "evapotranspiration": 0.198,
-          "windGust": 20.6
+          "evapotranspiration": 0.176,
+          "windGust": 14.1
         },
         "upcoming": [
           {
-            "date": "2026-09-25",
-            "high": 84,
-            "low": 59.5,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 6.25,
-            "evapotranspiration": 0.198,
-            "windGust": 20.6
-          },
-          {
             "date": "2026-09-26",
-            "high": 79.9,
-            "low": 54.1,
+            "high": 82.8,
+            "low": 53.9,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.25,
-            "evapotranspiration": 0.184,
-            "windGust": 15.4
+            "evapotranspiration": 0.176,
+            "windGust": 14.1
           },
           {
             "date": "2026-09-27",
-            "high": 70.6,
-            "low": 49.9,
+            "high": 71.5,
+            "low": 49.8,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 6.15,
-            "evapotranspiration": 0.146,
-            "windGust": 17.4
+            "evapotranspiration": 0.147,
+            "windGust": 16.3
           },
           {
             "date": "2026-09-28",
-            "high": 82.5,
-            "low": 48,
+            "high": 82,
+            "low": 47.8,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 6.1,
-            "evapotranspiration": 0.161,
-            "windGust": 11.4
+            "evapotranspiration": 0.16,
+            "windGust": 12.3
           },
           {
             "date": "2026-09-29",
-            "high": 94,
-            "low": 52.6,
+            "high": 93.3,
+            "low": 52.5,
             "precipitation": 0,
-            "precipitationProbability": 1,
+            "precipitationProbability": 0,
             "uvIndex": 6.15,
-            "evapotranspiration": 0.174,
-            "windGust": 10.7
+            "evapotranspiration": 0.18,
+            "windGust": 12.3
           },
           {
             "date": "2026-09-30",
-            "high": 89,
-            "low": 55.3,
+            "high": 87.4,
+            "low": 54.3,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 6.1,
-            "evapotranspiration": 0.171,
-            "windGust": 6
+            "evapotranspiration": 0.174,
+            "windGust": 5.8
           },
           {
             "date": "2026-10-01",
-            "high": 77.1,
-            "low": 50.8,
+            "high": 80.9,
+            "low": 54.1,
+            "precipitation": 0,
+            "precipitationProbability": 1,
+            "uvIndex": 5.6,
+            "evapotranspiration": 0.138,
+            "windGust": 5.1
+          },
+          {
+            "date": "2026-10-02",
+            "high": 83.4,
+            "low": 57.3,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 6,
-            "evapotranspiration": 0.139,
-            "windGust": 7.2
+            "uvIndex": 4.6,
+            "evapotranspiration": 0.123,
+            "windGust": 4.5
           }
         ]
       },
       "forecast": [
         {
-          "name": "Tonight",
-          "startTime": "2026-09-25T18:00:00-07:00",
+          "name": "Overnight",
+          "startTime": "2026-09-26T00:00:00-07:00",
           "endTime": "2026-09-26T06:00:00-07:00",
           "temperature": 48,
           "temperatureUnit": "F",
           "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear. Low around 48, with temperatures rising to around 50 overnight. Northwest wind 1 to 7 mph, with gusts as high as 18 mph.",
+          "detailedForecast": "Mostly clear, with a low around 48. West northwest wind around 3 mph.",
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "1 to 7 mph",
-          "windDirection": "NW"
+          "wind": "3 mph",
+          "windDirection": "WNW"
         },
         {
           "name": "Saturday",
@@ -710,12 +710,12 @@
           "temperature": 77,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. West southwest wind around 3 mph.",
+          "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. West wind 1 to 5 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "3 mph",
-          "windDirection": "WSW"
+          "wind": "1 to 5 mph",
+          "windDirection": "W"
         },
         {
           "name": "Saturday Night",
@@ -737,11 +737,11 @@
           "endTime": "2026-09-27T18:00:00-07:00",
           "temperature": 72,
           "temperatureUnit": "F",
-          "conditions": "Patchy Fog then Mostly Sunny",
-          "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 72. West northwest wind 1 to 6 mph.",
-          "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
+          "conditions": "Partly Sunny",
+          "detailedForecast": "Partly sunny, with a high near 72. West northwest wind 1 to 6 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
-          "precipitation": 2,
+          "precipitation": 1,
           "wind": "1 to 6 mph",
           "windDirection": "WNW"
         },
@@ -749,13 +749,13 @@
           "name": "Sunday Night",
           "startTime": "2026-09-27T18:00:00-07:00",
           "endTime": "2026-09-28T06:00:00-07:00",
-          "temperature": 46,
+          "temperature": 48,
           "temperatureUnit": "F",
-          "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 46. Northwest wind 0 to 6 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 48. Northwest wind 0 to 6 mph.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
-          "precipitation": 2,
+          "precipitation": 0,
           "wind": "0 to 6 mph",
           "windDirection": "NW"
         },
@@ -765,13 +765,13 @@
           "endTime": "2026-09-28T18:00:00-07:00",
           "temperature": 80,
           "temperatureUnit": "F",
-          "conditions": "Patchy Fog then Sunny",
-          "detailedForecast": "Patchy fog before 8am. Sunny, with a high near 80.",
-          "icon": "https://api.weather.gov/icons/land/day/fog/few?size=medium",
+          "conditions": "Sunny",
+          "detailedForecast": "Sunny, with a high near 80.",
+          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 1,
           "wind": "0 to 6 mph",
-          "windDirection": "NNW"
+          "windDirection": "NW"
         },
         {
           "name": "Monday Night",
@@ -784,31 +784,31 @@
           "icon": "https://api.weather.gov/icons/land/night/skc?size=medium",
           "isDaytime": false,
           "precipitation": 1,
-          "wind": "1 to 6 mph",
+          "wind": "0 to 6 mph",
           "windDirection": "NNW"
         },
         {
           "name": "Tuesday",
           "startTime": "2026-09-29T06:00:00-07:00",
           "endTime": "2026-09-29T18:00:00-07:00",
-          "temperature": 89,
+          "temperature": 90,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 89.",
+          "detailedForecast": "Sunny, with a high near 90.",
           "icon": "https://api.weather.gov/icons/land/day/skc?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "1 to 5 mph",
+          "wind": "0 to 5 mph",
           "windDirection": "NNW"
         },
         {
           "name": "Tuesday Night",
           "startTime": "2026-09-29T18:00:00-07:00",
           "endTime": "2026-09-30T06:00:00-07:00",
-          "temperature": 54,
+          "temperature": 52,
           "temperatureUnit": "F",
           "conditions": "Clear",
-          "detailedForecast": "Clear, with a low around 54.",
+          "detailedForecast": "Clear, with a low around 52.",
           "icon": "https://api.weather.gov/icons/land/night/skc?size=medium",
           "isDaytime": false,
           "precipitation": 0,
@@ -819,27 +819,27 @@
           "name": "Wednesday",
           "startTime": "2026-09-30T06:00:00-07:00",
           "endTime": "2026-09-30T18:00:00-07:00",
-          "temperature": 89,
+          "temperature": 88,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 89.",
+          "detailedForecast": "Sunny, with a high near 88.",
           "icon": "https://api.weather.gov/icons/land/day/skc?size=medium",
           "isDaytime": true,
           "precipitation": 0,
           "wind": "3 mph",
-          "windDirection": "NW"
+          "windDirection": "NNW"
         },
         {
           "name": "Wednesday Night",
           "startTime": "2026-09-30T18:00:00-07:00",
           "endTime": "2026-10-01T06:00:00-07:00",
-          "temperature": 54,
+          "temperature": 53,
           "temperatureUnit": "F",
           "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 54.",
+          "detailedForecast": "Mostly clear, with a low around 53.",
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
-          "precipitation": 1,
+          "precipitation": 0,
           "wind": "3 mph",
           "windDirection": "NW"
         },
@@ -847,42 +847,42 @@
           "name": "Thursday",
           "startTime": "2026-10-01T06:00:00-07:00",
           "endTime": "2026-10-01T18:00:00-07:00",
-          "temperature": 85,
+          "temperature": 84,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 85.",
+          "detailedForecast": "Sunny, with a high near 84.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "1 to 5 mph",
-          "windDirection": "NW"
+          "wind": "2 mph",
+          "windDirection": "WNW"
         },
         {
           "name": "Thursday Night",
           "startTime": "2026-10-01T18:00:00-07:00",
           "endTime": "2026-10-02T06:00:00-07:00",
-          "temperature": 52,
+          "temperature": 53,
           "temperatureUnit": "F",
           "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 52.",
+          "detailedForecast": "Mostly clear, with a low around 53.",
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "1 to 5 mph",
+          "wind": "2 mph",
           "windDirection": "NW"
         },
         {
           "name": "Friday",
           "startTime": "2026-10-02T06:00:00-07:00",
           "endTime": "2026-10-02T18:00:00-07:00",
-          "temperature": 85,
+          "temperature": 86,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 85.",
+          "detailedForecast": "Sunny, with a high near 86.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
-          "wind": "1 to 5 mph",
+          "wind": "2 mph",
           "windDirection": "NW"
         }
       ],
@@ -890,7 +890,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-09-26T01:37:38.412Z",
+      "updated": "2026-09-26T07:47:06.494Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -898,20 +898,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 68,
+        "temperature": 55,
         "temperatureUnit": "F",
-        "apparentTemperature": 67,
+        "apparentTemperature": 52,
         "conditions": "Mostly Sunny",
         "detailedForecast": "Mostly sunny. High near 67, with temperatures falling to around 64 in the afternoon. South southeast wind 1 to 9 mph.",
-        "wind": "7 mph",
-        "windSpeed": 6.6,
-        "windGust": 8.5,
-        "windDirection": "SSE",
+        "wind": "5 mph",
+        "windSpeed": 4.9,
+        "windGust": 5.4,
+        "windDirection": "E",
         "precipitation": 0,
-        "soilTemp": 68,
-        "soilMoisture": 0.274,
-        "humidity": 64,
-        "vapourPressureDeficit": 1.02,
+        "soilTemp": 59,
+        "soilMoisture": 0.275,
+        "humidity": 69,
+        "vapourPressureDeficit": 0.5,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -919,10 +919,6 @@
         "last7Days": 0,
         "last30Days": 0.008,
         "dailyData": [
-          {
-            "date": "2026-08-27",
-            "amount": 0
-          },
           {
             "date": "2026-08-28",
             "amount": 0.008
@@ -1038,107 +1034,111 @@
           {
             "date": "2026-09-25",
             "amount": 0
+          },
+          {
+            "date": "2026-09-26",
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
-          "date": "2026-09-25",
-          "high": 78.6,
-          "low": 49.8,
+          "date": "2026-09-26",
+          "high": 69.5,
+          "low": 48.9,
           "precipitation": 0,
-          "precipitationProbability": 0,
+          "precipitationProbability": 2,
           "uvIndex": 6,
-          "evapotranspiration": 0.14,
-          "windGust": 11.4
+          "evapotranspiration": 0.123,
+          "windGust": 12.9
         },
         "upcoming": [
           {
-            "date": "2026-09-25",
-            "high": 78.6,
-            "low": 49.8,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 6,
-            "evapotranspiration": 0.14,
-            "windGust": 11.4
-          },
-          {
             "date": "2026-09-26",
-            "high": 68.4,
-            "low": 47.6,
+            "high": 69.5,
+            "low": 48.9,
             "precipitation": 0,
             "precipitationProbability": 2,
-            "uvIndex": 5.9,
-            "evapotranspiration": 0.127,
-            "windGust": 14.5
+            "uvIndex": 6,
+            "evapotranspiration": 0.123,
+            "windGust": 12.9
           },
           {
             "date": "2026-09-27",
-            "high": 67.3,
-            "low": 49.8,
-            "precipitation": 0,
-            "precipitationProbability": 1,
-            "uvIndex": 6.15,
-            "evapotranspiration": 0.124,
-            "windGust": 7.8
-          },
-          {
-            "date": "2026-09-28",
-            "high": 70.5,
-            "low": 47.7,
-            "precipitation": 0,
-            "precipitationProbability": 1,
-            "uvIndex": 6,
-            "evapotranspiration": 0.127,
-            "windGust": 7.8
-          },
-          {
-            "date": "2026-09-29",
-            "high": 83.7,
+            "high": 67.7,
             "low": 51.3,
             "precipitation": 0,
             "precipitationProbability": 1,
             "uvIndex": 6.15,
-            "evapotranspiration": 0.152,
-            "windGust": 7.6
+            "evapotranspiration": 0.119,
+            "windGust": 12.5
+          },
+          {
+            "date": "2026-09-28",
+            "high": 73.4,
+            "low": 49.1,
+            "precipitation": 0,
+            "precipitationProbability": 1,
+            "uvIndex": 6.1,
+            "evapotranspiration": 0.129,
+            "windGust": 7.8
+          },
+          {
+            "date": "2026-09-29",
+            "high": 79.5,
+            "low": 51.6,
+            "precipitation": 0,
+            "precipitationProbability": 1,
+            "uvIndex": 5.95,
+            "evapotranspiration": 0.143,
+            "windGust": 8.5
           },
           {
             "date": "2026-09-30",
-            "high": 78.6,
-            "low": 53.7,
+            "high": 79,
+            "low": 52,
             "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 6,
-            "evapotranspiration": 0.143,
-            "windGust": 5.4
+            "precipitationProbability": 1,
+            "uvIndex": 5.95,
+            "evapotranspiration": 0.138,
+            "windGust": 6.9
           },
           {
             "date": "2026-10-01",
-            "high": 67.6,
-            "low": 52.4,
+            "high": 72.8,
+            "low": 54.3,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 5.8,
-            "evapotranspiration": 0.108,
-            "windGust": 5.6
+            "uvIndex": 5.75,
+            "evapotranspiration": 0.116,
+            "windGust": 5.1
+          },
+          {
+            "date": "2026-10-02",
+            "high": 75.1,
+            "low": 55.7,
+            "precipitation": 0,
+            "precipitationProbability": 0,
+            "uvIndex": 4.15,
+            "evapotranspiration": 0.096,
+            "windGust": 4
           }
         ]
       },
       "forecast": [
         {
-          "name": "Tonight",
-          "startTime": "2026-09-25T18:00:00-07:00",
+          "name": "Overnight",
+          "startTime": "2026-09-26T00:00:00-07:00",
           "endTime": "2026-09-26T06:00:00-07:00",
           "temperature": 52,
           "temperatureUnit": "F",
           "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 52. East wind 2 to 8 mph.",
+          "detailedForecast": "Mostly clear, with a low around 52. East northeast wind around 3 mph.",
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
           "precipitation": 0,
-          "wind": "2 to 8 mph",
-          "windDirection": "E"
+          "wind": "3 mph",
+          "windDirection": "ENE"
         },
         {
           "name": "Saturday",
@@ -1160,13 +1160,13 @@
           "endTime": "2026-09-27T06:00:00-07:00",
           "temperature": 52,
           "temperatureUnit": "F",
-          "conditions": "Mostly Cloudy then Patchy Fog",
-          "detailedForecast": "Patchy fog after 5am. Mostly cloudy, with a low around 52. South southwest wind 2 to 7 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/bkn/fog?size=medium",
+          "conditions": "Mostly Cloudy",
+          "detailedForecast": "Mostly cloudy, with a low around 52. South southeast wind 1 to 7 mph.",
+          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
-          "precipitation": 3,
-          "wind": "2 to 7 mph",
-          "windDirection": "SSW"
+          "precipitation": 2,
+          "wind": "1 to 7 mph",
+          "windDirection": "SSE"
         },
         {
           "name": "Sunday",
@@ -1174,12 +1174,12 @@
           "endTime": "2026-09-27T18:00:00-07:00",
           "temperature": 64,
           "temperatureUnit": "F",
-          "conditions": "Patchy Fog then Partly Sunny",
-          "detailedForecast": "Patchy fog before 9am. Partly sunny, with a high near 64. Southwest wind 2 to 10 mph, with gusts as high as 20 mph.",
-          "icon": "https://api.weather.gov/icons/land/day/fog/bkn?size=medium",
+          "conditions": "Partly Sunny",
+          "detailedForecast": "Partly sunny, with a high near 64. Southwest wind 1 to 10 mph, with gusts as high as 20 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 1,
-          "wind": "2 to 10 mph",
+          "wind": "1 to 10 mph",
           "windDirection": "SW"
         },
         {
@@ -1188,12 +1188,12 @@
           "endTime": "2026-09-28T06:00:00-07:00",
           "temperature": 51,
           "temperatureUnit": "F",
-          "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 51. West wind 2 to 10 mph, with gusts as high as 20 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "conditions": "Mostly Cloudy",
+          "detailedForecast": "Mostly cloudy, with a low around 51. West wind 2 to 9 mph, with gusts as high as 20 mph.",
+          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
           "precipitation": 1,
-          "wind": "2 to 10 mph",
+          "wind": "2 to 9 mph",
           "windDirection": "W"
         },
         {
@@ -1208,21 +1208,21 @@
           "isDaytime": true,
           "precipitation": 1,
           "wind": "1 to 8 mph",
-          "windDirection": "NW"
+          "windDirection": "W"
         },
         {
           "name": "Monday Night",
           "startTime": "2026-09-28T18:00:00-07:00",
           "endTime": "2026-09-29T06:00:00-07:00",
-          "temperature": 53,
+          "temperature": 54,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 53.",
+          "detailedForecast": "Partly cloudy, with a low around 54.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
           "precipitation": 1,
           "wind": "2 to 8 mph",
-          "windDirection": "ESE"
+          "windDirection": "S"
         },
         {
           "name": "Tuesday",
@@ -1236,16 +1236,16 @@
           "isDaytime": true,
           "precipitation": 0,
           "wind": "1 to 7 mph",
-          "windDirection": "W"
+          "windDirection": "NNW"
         },
         {
           "name": "Tuesday Night",
           "startTime": "2026-09-29T18:00:00-07:00",
           "endTime": "2026-09-30T06:00:00-07:00",
-          "temperature": 56,
+          "temperature": 55,
           "temperatureUnit": "F",
           "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 56.",
+          "detailedForecast": "Mostly clear, with a low around 55.",
           "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
           "isDaytime": false,
           "precipitation": 0,
@@ -1256,34 +1256,62 @@
           "name": "Wednesday",
           "startTime": "2026-09-30T06:00:00-07:00",
           "endTime": "2026-09-30T18:00:00-07:00",
-          "temperature": 76,
+          "temperature": 75,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 76.",
+          "detailedForecast": "Sunny, with a high near 75.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
-          "precipitation": 0,
+          "precipitation": 1,
           "wind": "1 to 7 mph",
-          "windDirection": "SSE"
+          "windDirection": "SW"
         },
         {
           "name": "Wednesday Night",
           "startTime": "2026-09-30T18:00:00-07:00",
           "endTime": "2026-10-01T06:00:00-07:00",
-          "temperature": 56,
+          "temperature": 57,
           "temperatureUnit": "F",
           "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 56.",
+          "detailedForecast": "Partly cloudy, with a low around 57.",
           "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
           "isDaytime": false,
-          "precipitation": 0,
+          "precipitation": 1,
           "wind": "2 to 7 mph",
-          "windDirection": "SSW"
+          "windDirection": "S"
         },
         {
           "name": "Thursday",
           "startTime": "2026-10-01T06:00:00-07:00",
           "endTime": "2026-10-01T18:00:00-07:00",
+          "temperature": 72,
+          "temperatureUnit": "F",
+          "conditions": "Mostly Sunny",
+          "detailedForecast": "Mostly sunny, with a high near 72.",
+          "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
+          "isDaytime": true,
+          "precipitation": 0,
+          "wind": "1 to 7 mph",
+          "windDirection": "SSW"
+        },
+        {
+          "name": "Thursday Night",
+          "startTime": "2026-10-01T18:00:00-07:00",
+          "endTime": "2026-10-02T06:00:00-07:00",
+          "temperature": 55,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 55.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 0,
+          "wind": "2 to 7 mph",
+          "windDirection": "S"
+        },
+        {
+          "name": "Friday",
+          "startTime": "2026-10-02T06:00:00-07:00",
+          "endTime": "2026-10-02T18:00:00-07:00",
           "temperature": 73,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
@@ -1292,35 +1320,7 @@
           "isDaytime": true,
           "precipitation": 0,
           "wind": "1 to 7 mph",
-          "windDirection": "SW"
-        },
-        {
-          "name": "Thursday Night",
-          "startTime": "2026-10-01T18:00:00-07:00",
-          "endTime": "2026-10-02T06:00:00-07:00",
-          "temperature": 54,
-          "temperatureUnit": "F",
-          "conditions": "Partly Cloudy",
-          "detailedForecast": "Partly cloudy, with a low around 54.",
-          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "2 to 7 mph",
-          "windDirection": "SW"
-        },
-        {
-          "name": "Friday",
-          "startTime": "2026-10-02T06:00:00-07:00",
-          "endTime": "2026-10-02T18:00:00-07:00",
-          "temperature": 73,
-          "temperatureUnit": "F",
-          "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 73.",
-          "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
-          "isDaytime": true,
-          "precipitation": 0,
-          "wind": "2 to 7 mph",
-          "windDirection": "SSW"
+          "windDirection": "S"
         }
       ],
       "hasActiveAlerts": false,
