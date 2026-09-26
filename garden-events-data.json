@@ -1,77 +1,8 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-09-26T04:54:06.730Z",
+  "updated_at": "2026-09-26T16:20:32.617Z",
   "events": [
-    {
-      "id": "sccfm-scotts-valley",
-      "title": "Scotts Valley Farmers' Market",
-      "weekday": 6,
-      "start_time": "08:00",
-      "end_time": "12:00",
-      "season_start": "2026-05-02",
-      "season_end": "2026-11-21",
-      "venue": "Graham Plaza, 219 Mount Hermon Road",
-      "city": "Scotts Valley",
-      "categories": [
-        "market"
-      ],
-      "description": "Seasonal farmers' market with local produce, prepared foods and live music.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/scotts-valley/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Saturdays, 8:00 AM to noon, May 2 to November 21",
-      "start": "2026-09-26T15:00:00.000Z",
-      "end": "2026-09-26T19:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
-    {
-      "id": "garden-exchange-live-oak",
-      "title": "Santa Cruz Garden Exchange",
-      "weekday": 6,
-      "ordinal": 4,
-      "start_time": "08:00",
-      "end_time": "09:00",
-      "season": "year-round",
-      "venue": "Live Oak Grange parking lot",
-      "address": "1900 17th Avenue, Santa Cruz, CA",
-      "city": "Live Oak",
-      "categories": [
-        "swap",
-        "meetup",
-        "community"
-      ],
-      "description": "Bring extra seedlings, cuttings, produce, seeds or garden supplies to share. No contribution is required.",
-      "source_url": "https://www.facebook.com/groups/305590139896038/",
-      "organizer": "Santa Cruz Garden Exchange",
-      "contact": "Jesselyn Rego",
-      "recurrence": "Fourth Saturday, 8:00 to 9:00 AM",
-      "start": "2026-09-26T15:00:00.000Z",
-      "end": "2026-09-26T16:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
-    {
-      "id": "sccfm-westside",
-      "title": "Westside Farmers' Market",
-      "weekday": 6,
-      "start_time": "09:00",
-      "end_time": "13:00",
-      "season": "year-round",
-      "venue": "Mission Street Extension & Western Drive",
-      "city": "Santa Cruz",
-      "categories": [
-        "market"
-      ],
-      "description": "A year-round market with regional produce, prepared foods, Market Match and seasonal special events.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/westside/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Saturdays, 9:00 AM to 1:00 PM",
-      "start": "2026-09-26T16:00:00.000Z",
-      "end": "2026-09-26T20:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
     {
       "id": "live-earth-farm-u-pick-2026",
       "title": "Live Earth Farm U-pick, Strawberries Open",
@@ -271,6 +202,70 @@
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
       "source_type": "api"
+    },
+    {
+      "id": "sccfm-scotts-valley",
+      "title": "Scotts Valley Farmers' Market",
+      "weekday": 6,
+      "start_time": "08:00",
+      "end_time": "12:00",
+      "season_start": "2026-05-02",
+      "season_end": "2026-11-21",
+      "venue": "Graham Plaza, 219 Mount Hermon Road",
+      "city": "Scotts Valley",
+      "categories": [
+        "market"
+      ],
+      "description": "Seasonal farmers' market with local produce, prepared foods and live music.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/scotts-valley/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Saturdays, 8:00 AM to noon, May 2 to November 21",
+      "start": "2026-10-03T15:00:00.000Z",
+      "end": "2026-10-03T19:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
+      "id": "sccfm-westside",
+      "title": "Westside Farmers' Market",
+      "weekday": 6,
+      "start_time": "09:00",
+      "end_time": "13:00",
+      "season": "year-round",
+      "venue": "Mission Street Extension & Western Drive",
+      "city": "Santa Cruz",
+      "categories": [
+        "market"
+      ],
+      "description": "A year-round market with regional produce, prepared foods, Market Match and seasonal special events.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/westside/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Saturdays, 9:00 AM to 1:00 PM",
+      "start": "2026-10-03T16:00:00.000Z",
+      "end": "2026-10-03T20:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
+      "id": "ucsc_agroecology-10016393",
+      "source_id": "ucsc_agroecology",
+      "title": "UCSC Farm U-Pick",
+      "start": "2026-10-03T16:00:00.000Z",
+      "end": "2026-10-03T19:00:00.000Z",
+      "venue": "UCSC Farm",
+      "city": "Santa Cruz",
+      "address": "152 Farm Rd",
+      "categories": [
+        "u-pick"
+      ],
+      "description": "Come enjoy picking your own organic produce at the campus farm! When : U-picks will take place on Saturdays from 9am to 12pm while supplies last. What : Enjoy farm fresh corn, apples, tomatoes, flowers and more! Where : Free parking will be available in the Hay Barn lot or lot 115/116 during u-pick hours.",
+      "all_day": false,
+      "source_url": "https://events.ucsc.edu/event/ucsc-farm-u-pick-2/2026-10-03/",
+      "organizer": "UCSC Center for Agroecology",
+      "status": "confirmed",
+      "source_type": "api",
+      "recurrence": "Weekly on Saturdays, next occurrence shown",
+      "series": true
     },
     {
       "id": "ucsc-farm-guided-tour-2026-10-03",
@@ -637,6 +632,32 @@
       "source_type": "api"
     },
     {
+      "id": "garden-exchange-live-oak",
+      "title": "Santa Cruz Garden Exchange",
+      "weekday": 6,
+      "ordinal": 4,
+      "start_time": "08:00",
+      "end_time": "09:00",
+      "season": "year-round",
+      "venue": "Live Oak Grange parking lot",
+      "address": "1900 17th Avenue, Santa Cruz, CA",
+      "city": "Live Oak",
+      "categories": [
+        "swap",
+        "meetup",
+        "community"
+      ],
+      "description": "Bring extra seedlings, cuttings, produce, seeds or garden supplies to share. No contribution is required.",
+      "source_url": "https://www.facebook.com/groups/305590139896038/",
+      "organizer": "Santa Cruz Garden Exchange",
+      "contact": "Jesselyn Rego",
+      "recurrence": "Fourth Saturday, 8:00 to 9:00 AM",
+      "start": "2026-10-24T15:00:00.000Z",
+      "end": "2026-10-24T16:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
       "id": "ucsc_agroecology-13314",
       "source_id": "ucsc_agroecology",
       "title": "Make & Take Dried Floral Pumpkin Workshop",
@@ -848,6 +869,8 @@
       "source_type": "api"
     }
   ],
-  "warnings": [],
-  "updated": "2026-09-26T04:54:06.730Z"
+  "warnings": [
+    "California Native Plant Society: HTTP 404"
+  ],
+  "updated": "2026-09-26T16:20:32.617Z"
 }
