@@ -4966,6 +4966,20 @@ function ahIsFlockArticle(slug) {
       var header=q('header');panel.style.marginTop=((header?header.getBoundingClientRect().height:100)+24)+'px';main.insertBefore(panel,main.firstChild);setTimeout(function(){panel.scrollIntoView({block:'start'});},100);
     }
     renderDownload();window.addEventListener('hashchange',renderDownload);
+    // Squarespace's smooth-scroll handler swallows hashes that are state, not element ids.
+    // Handle only allowlisted same-page download links and retain a shareable URL.
+    if(!window.__ahDownloadLinkBinding){
+      window.__ahDownloadLinkBinding=true;
+      document.addEventListener('click',function(e){
+        if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+        var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(!a)return;
+        var u;try{u=new URL(a.href,location.href);}catch(err){return;}
+        if(u.origin!==location.origin||u.pathname.replace(/\/$/,'')!=='/your-garden-toolkit')return;
+        var slug=new URLSearchParams(u.hash.slice(1)).get('download');
+        if(!resources.some(function(r){return r.slug===slug;}))return;
+        e.preventDefault();e.stopPropagation();location.hash=u.hash;renderDownload();
+      },true);
+    }
   }
   function retireReferral(){all('a[href*="status.firewards.com"]').forEach(function(a){var item=a.closest('.header-nav-item,.header-menu-nav-item');if(item&&item.querySelectorAll('a').length===1)item.remove();else a.remove();});}
   function productEvent(){if(path.indexOf('/store/p/')!==0)return;var scripts=all('script[type="application/ld+json"]'),product;
@@ -5089,6 +5103,22 @@ checkoutTracking();
       document.head.appendChild(st);
     }
     document.querySelectorAll('header a[href="/your-garden-toolkit"]').forEach(function(a){if(a.textContent.trim().toLowerCase()==='free calendar')a.href='/your-garden-toolkit#download=seasonal-planting-calendar';});
+    // Squarespace's important cascade layers can outrank unlayered stylesheet rules.
+    // Set only these dark-surface links directly, including styled child spans.
+    var lightLinks='section[data-section-id="6a46ab24a4ee56000e0007d4"] a[href*="/store/p/"]';
+    ['55b9aaf15e2bc0f2a0f4','1bab4141a89c0b28acbf','c73329c077ccbc09677e','5f7f0504aef65bc36cea'].forEach(function(id){lightLinks+=',section[data-section-id="6931d4ad6d3823703aa2dd48"] .fe-block-'+id+' a';});
+    document.querySelectorAll(lightLinks).forEach(function(a){[a].concat(Array.from(a.querySelectorAll('*'))).forEach(function(n){n.style.setProperty('color','#f8f9f0','important');});});
+    function mobileLogo() {
+      var picture=document.querySelector('.header-display-mobile .header-mobile-logo picture'),img=picture&&picture.querySelector('img');
+      if(!picture||!img)return;
+      var small=window.matchMedia('(max-width:767px)').matches;
+      var box={display:'block',position:'relative',width:'145px',height:'54px',overflow:'hidden'};
+      var photo={position:'absolute',top:'50%',left:'0',transform:'translateY(-50%)',width:'145px',height:'145px','max-width':'none','max-height':'none'};
+      Object.keys(box).forEach(function(k){if(small)picture.style.setProperty(k,box[k],'important');else picture.style.removeProperty(k);});
+      Object.keys(photo).forEach(function(k){if(small)img.style.setProperty(k,photo[k],'important');else img.style.removeProperty(k);});
+    }
+    mobileLogo();
+    if(!window.__ahAuditLogoResize){window.__ahAuditLogoResize=true;window.addEventListener('resize',mobileLogo);}
     if(location.pathname.replace(/\/$/,'')==='/your-garden-toolkit') {
       var lib=document.getElementById('ah-product-library');
       if(lib && !document.getElementById('ah-toolkit-intro')) {
