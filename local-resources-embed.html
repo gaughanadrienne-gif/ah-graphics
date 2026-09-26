@@ -51,9 +51,9 @@
     <h2>Santa Cruz County Gardening Resources</h2>
     <p>Trusted local nurseries, soil and compost yards, seed sources, feed stores, farmers markets, classes, and community gardens, all in one place. Every listing is a real, currently-open Santa Cruz County resource. Call ahead before you go, as hours and seasonal stock change.</p>
   </div>
-  <div class="lr-controls" id="lr-filters"></div>
+  <div class="lr-controls" id="lr-filters" role="group" aria-label="Filter resources by category"></div>
   <input type="text" class="lr-search" id="lr-search" placeholder="Search by name, city, or type..." aria-label="Search resources" style="display:block;margin:10px auto 0;">
-  <div class="lr-count" id="lr-count"></div>
+  <div class="lr-count" id="lr-count" role="status" aria-live="polite"></div>
   <div id="lr-results"></div>
   <div class="lr-note">Run a Santa Cruz County nursery, feed store, farm, or garden program and want to be listed? Reach out through our <a href="/contact">Contact page</a> and we will add you.</div>
   <span class="lr-stamp" id="lr-stamp"></span>
@@ -91,18 +91,29 @@
 
   function renderFilters(){
     var box = document.getElementById('lr-filters');
-    var btns = ['<button class="lr-filter'+(state.cat==='all'?' active':'')+'" data-cat="all">All</button>'];
+    var btns = ['<button type="button" class="lr-filter active" data-cat="all" aria-pressed="true">All</button>'];
     DATA.categories.forEach(function(c){
-      btns.push('<button class="lr-filter'+(state.cat===c.key?' active':'')+'" data-cat="'+esc(c.key)+'">'+esc(c.label)+'</button>');
+      btns.push('<button type="button" class="lr-filter" data-cat="'+esc(c.key)+'" aria-pressed="false">'+esc(c.label)+'</button>');
     });
     box.innerHTML = btns.join('');
     Array.prototype.forEach.call(box.querySelectorAll('.lr-filter'), function(b){
-      b.addEventListener('click', function(){ state.cat = b.getAttribute('data-cat'); render(); });
+      b.addEventListener('click', function(){
+        state.cat = b.getAttribute('data-cat');
+        updateFilterStates();
+        render();
+      });
+    });
+  }
+
+  function updateFilterStates(){
+    Array.prototype.forEach.call(document.querySelectorAll('#lr-filters .lr-filter'), function(b){
+      var on = b.getAttribute('data-cat') === state.cat;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
   }
 
   function render(){
-    renderFilters();
     var out = '', total = 0;
     DATA.categories.forEach(function(c){
       var items = c.items.filter(function(it){ return matches(it, c); });
@@ -124,6 +135,7 @@
     var when = new Date(data.updated + 'T12:00:00');
     stamp.textContent = isNaN(when) ? '' : 'Last verified: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
     document.getElementById('lr-search').addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); render(); });
+    renderFilters();
     render();
   }
 

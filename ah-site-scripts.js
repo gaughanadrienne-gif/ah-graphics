@@ -2222,7 +2222,7 @@ function ahIsFlockArticle(slug) {
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The California Seed Starting Cheat Sheet</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Working out your planting dates? Grab the free one-page seed starting cheat sheet: what to start indoors versus sow direct, sow-depth and timing, and how to avoid damping off, tuned to coastal California. Enter your email and I will send the PDF.</p>' +
       '<form class="ah-cal-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
-        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<input type="email" name="fields[email]" required autocomplete="email" aria-required="true" aria-label="Email address for California Seed Starting Cheat Sheet on ' + (_cp === '/garden-conditions' ? 'Garden Conditions' : 'the Planting Calendar') + '" placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the cheat sheet</button>' +
       '</form>' +
       '<div class="ah-cal-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
@@ -2267,7 +2267,7 @@ function ahIsFlockArticle(slug) {
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;margin:0 0 7px;">The Predator-Proof Coop Checklist</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Keep your flock safe at night. Grab the free one-page predator-proofing checklist for Santa Cruz County coops: hardware cloth, the buried apron, raccoon-proof latches, and a simple nightly lock-up routine. Enter your email and I will send the PDF.</p>' +
       '<form class="ah-flock-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
-        '<input type="email" name="fields[email]" required placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
+        '<input type="email" name="fields[email]" required autocomplete="email" aria-required="true" aria-label="Email address for predator-proof coop checklist" placeholder="Your email address" style="flex:1 1 220px;min-width:0;padding:13px 14px;font:15px Montserrat,sans-serif;border:1px solid #dde2d8;border-radius:6px;background:#fff!important;color:#1a3b2a!important;outline:none;">' +
         '<button type="submit" style="flex:0 0 auto;background:#1A3B2A!important;color:#F8F9F0!important;font:700 13px/1 Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:14px 24px;border-radius:4px;border:0;cursor:pointer;">Send me the checklist</button>' +
       '</form>' +
       '<div class="ah-flock-msg" style="font:13px/1.5 Montserrat,sans-serif;color:#b8694a!important;margin-top:8px;display:none;"></div>' +
@@ -2769,16 +2769,16 @@ function ahIsFlockArticle(slug) {
     var hero = document.createElement('div'); hero.className = 'ah-shop-hero';
     hero.innerHTML = '<div class="eb">Guides, kits &amp; garden services</div>' +
       '<h1>Garden Guides &amp; Kits, Built for California</h1>' +
-      '<p>Every guide is written for our four local microclimates (coastal, inland valley, mountain, and desert) so the advice actually fits your yard.</p>' +
+      '<p>Practical guides for California gardens, with regional timing and local growing advice. Check each product for its coverage and format.</p>' +
       '<div class="ah-trust">' +
-      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>30-day money-back guarantee</span>' +
-      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Instant PDF, yours forever</span>' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Digital guides: 30-day money-back guarantee</span>' +
+      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>PDF guides download after checkout. Services follow their stated intake and delivery schedule.</span>' +
       '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Santa Cruz &amp; Bay Area specific</span>' +
       '</div>';
 
     var feat = document.createElement('div'); feat.className = 'ah-feat';
-    feat.innerHTML = '<div class="cov"><span class="ah-badge pop">Most Popular</span><img src="' + CDN + 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg?format=600w" alt="Tomato Growing MasterKit"></div>' +
-      '<div class="bod"><div class="eb">Start here · Bestseller</div><h2>The Tomato Growing MasterKit</h2>' +
+    feat.innerHTML = '<div class="cov"><span class="ah-badge pop">Featured guide</span><img src="' + CDN + 'fba84310-2261-4060-b98f-2e6323c6fa4d/mk-gallery-1-cover.jpeg?format=600w" alt="Tomato Growing MasterKit"></div>' +
+      '<div class="bod"><div class="eb">Tomato season planning</div><h2>The Tomato Growing MasterKit</h2>' +
       '<p>The complete, California-specific system for a tomato harvest that doesn’t quit, from variety selection to season-long care.</p>' +
       '<ul><li>12 sections + 2 bonuses (Zone Cards &amp; Season Journal)</li><li>Tailored to all four California growing zones</li><li>Printable, instant download, money-back guarantee</li></ul>' +
       '<div class="pr"><span class="now">$14.99</span><span class="was">$19.99</span><span class="save">Launch · Save 25%</span></div>' +
@@ -4796,7 +4796,8 @@ function ahIsFlockArticle(slug) {
   function currentMonth() { return Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',month:'numeric'}).format(new Date())); }
   function monthName(m) { return new Intl.DateTimeFormat('en-US',{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(2026,m-1,15))); }
   function stored() { try { return JSON.parse(localStorage.getItem('ah_garden_profile_v1') || 'null'); } catch(e) { return null; } }
-  function valid(p) { return p && typeof p.zip==='string' && (p.zip.slice(0,3)!=='935'||p.regionConfirmed===true) && /^\d{5}$/.test(p.zip) && DATA.zones[p.zone] && ['full','partial','shade'].indexOf(p.sun)>=0 && ['ground','raised_beds','containers','mixed'].indexOf(p.environment)>=0 && ['vegetables','fruit','flowers','natives','herbs'].indexOf(p.interest)>=0; }
+  function ambiguousZipPrefix(zip) { return /^(923|935)/.test(String(zip || '')); }
+  function valid(p) { return p && typeof p.zip==='string' && (!ambiguousZipPrefix(p.zip)||p.regionConfirmed===true) && /^\d{5}$/.test(p.zip) && DATA.zones[p.zone] && ['full','partial','shade'].indexOf(p.sun)>=0 && ['ground','raised_beds','containers','mixed'].indexOf(p.environment)>=0 && ['vegetables','fruit','flowers','natives','herbs'].indexOf(p.interest)>=0; }
   function timingReview(c,z){return z==='desert'&&(c.s==='basil'||c.s==='garlic');}
   function actions(c,z,m) { if(timingReview(c,z))return [];var d=c.z[z]; return d ? ['i','d','x','h'].filter(function(k){return d[k].indexOf(m)>=0;}) : []; }
   function actionName(c,k){return k==='d'&&c.s==='garlic'?'Plant cloves outdoors':k==='d'&&c.s==='potatoes'?'Plant seed potatoes outdoors':names[k];}
@@ -4827,8 +4828,8 @@ function ahIsFlockArticle(slug) {
     // Capture before the original inline ZIP resolver can assign high desert to low desert.
     function guardZip(e){
       if(!((e.type==='click'&&e.target.closest('#pc-zbtn'))||(e.type==='keydown'&&e.key==='Enter'&&e.target.id==='pc-zip')))return;
-      var zip=q('#pc-zip').value.trim();if(zip.slice(0,3)!=='935')return;
-      e.preventDefault();e.stopImmediatePropagation();var message=q('#pc-zmsg');message.classList.add('pc-err');message.setAttribute('role','status');message.textContent='This ZIP needs local timing. Low desert valleys means Imperial and Coachella, not high-desert gardens. Choose a region only if it fits your garden; these four regions may not cover your site.';
+      var zip=q('#pc-zip').value.trim();if(!/^\d{5}$/.test(zip)||!ambiguousZipPrefix(zip))return;
+      e.preventDefault();e.stopImmediatePropagation();var message=q('#pc-zmsg');message.classList.add('pc-err');message.setAttribute('role','status');message.textContent='This ZIP prefix crosses climate regions. Select a region manually only if it fits your garden; these four regions may not cover high-desert or extreme-elevation sites.';q('#pc-zsel').focus();
     }
     wrap.addEventListener('click',guardZip,true);wrap.addEventListener('keydown',guardZip,true);
     var ctrl=el('label','Show activities:','ah-cal-control'); ctrl.htmlFor='ah-cal-action';
@@ -4925,7 +4926,7 @@ function ahIsFlockArticle(slug) {
       });
       var clear=el('button','Clear saved garden');clear.type='button';clear.addEventListener('click',function(){try{localStorage.removeItem('ah_garden_profile_v1');}catch(e){}activeProfile=null;result.hidden=true;form.reset();msg.textContent='Saved garden cleared.';event('garden_profile_cleared');});result.appendChild(clear);
     }
-    form.addEventListener('submit',function(e){e.preventDefault();if(!form.reportValidity())return;var d=new FormData(form),zip=d.get('zip'),manual=d.get('region'),zone=DATA.zones[manual]?manual:DATA.zip[zip.slice(0,3)];if(!zone){result.hidden=true;activeProfile=null;msg.textContent='We could not safely match this ZIP. Choose a calendar region only if it fits your garden. Low-desert timing does not apply to high-desert sites.';return;}var p={zip:zip,zone:zone,regionConfirmed:!!manual,sun:d.get('sun'),environment:d.get('environment'),interest:d.get('interest')};var saved=false;try{localStorage.setItem('ah_garden_profile_v1',JSON.stringify(p));saved=true;}catch(err){}show(p,saved);msg.textContent='Your garden profile is ready below.';event('zip_entered',{climate_zone:p.zone,entry_point:home?'homepage':'calendar'});event('garden_profile_completed',{climate_zone:p.zone,sun_exposure:p.sun,garden_type:p.environment,primary_interest:p.interest,entry_point:home?'homepage':'calendar'});result.scrollIntoView({behavior:'auto',block:'start'});});
+    form.addEventListener('submit',function(e){e.preventDefault();if(!form.reportValidity())return;var d=new FormData(form),zip=d.get('zip'),manual=d.get('region'),zone=DATA.zones[manual]?manual:(ambiguousZipPrefix(zip)?null:DATA.zip[zip.slice(0,3)]);if(!zone){result.hidden=true;activeProfile=null;msg.textContent='We could not safely match this ZIP. Choose a calendar region only if it fits your garden. Low-desert timing does not apply to high-desert sites.';return;}var p={zip:zip,zone:zone,regionConfirmed:!!manual,sun:d.get('sun'),environment:d.get('environment'),interest:d.get('interest')};var saved=false;try{localStorage.setItem('ah_garden_profile_v1',JSON.stringify(p));saved=true;}catch(err){}show(p,saved);msg.textContent='Your garden profile is ready below.';event('zip_entered',{climate_zone:p.zone,entry_point:home?'homepage':'calendar'});event('garden_profile_completed',{climate_zone:p.zone,sun_exposure:p.sun,garden_type:p.environment,primary_interest:p.interest,entry_point:home?'homepage':'calendar'});result.scrollIntoView({behavior:'auto',block:'start'});});
     var saved=stored();if(valid(saved)){['zip','sun','environment','interest'].forEach(function(k){form.elements[k].value=saved[k];});form.elements.region.value=saved.regionConfirmed?saved.zone:'';show(saved,true);}
     if(home){var hero=q('section[data-section-id="6402865e8544e5fc30e1d9b6"]');var heading=q('h1',hero);if(heading)heading.textContent='Know what to do in your garden today.';var start=all('a',hero).find(function(a){return a.textContent.trim().toLowerCase()==='start here';});if(start){start.href='#my-garden';start.textContent='Show me my garden';}var tools=q('section[data-section-id="6931d4ad6d3823703aa2dd48"]'),guides=q('section[data-section-id="6a84de343e4bd40e63be8832"]');if(tools&&guides&&tools.parentNode===guides.parentNode)guides.parentNode.insertBefore(tools,guides);}
   }
@@ -4992,7 +4993,47 @@ function ahIsFlockArticle(slug) {
     XMLHttpRequest.prototype.open=function(method,url){var previous=requests.get(this);if(previous&&previous.cleanup)previous.cleanup();requests.set(this,{track:isEntryPost(method,url)});return open.apply(this,arguments);};
     XMLHttpRequest.prototype.send=function(body){var xhr=this,state=requests.get(xhr);if(state&&state.track){var done=function(){xhr.removeEventListener('loadend',done);try{receipt(xhr.status,xhr.responseType==='json'?xhr.response:xhr.responseText,body);}catch(e){}};state.cleanup=function(){xhr.removeEventListener('loadend',done);};xhr.addEventListener('loadend',done);}return send.apply(this,arguments);};
   }
-  commerceTracking();
+  function checkoutTracking() {
+  if (window.__ahBeginCheckoutTracking) return;
+  window.__ahBeginCheckoutTracking = true;
+  var sent = false;
+
+  document.addEventListener('click', function (e) {
+    if (sent || !e.isTrusted || !e.target || !e.target.closest) return;
+    var checkout = e.target.closest('a.cart-checkout-button[href^="/commerce/goto-checkout"]');
+    if (!checkout) return;
+
+    var items = all('[data-testid="cart-table-row"]').map(function (row) {
+      var title = q('.cart-row-title', row);
+      var quantityInput = q('[data-test="quantity-input"]', row);
+      var priceNode = q('.cart-row-price', row);
+      var quantity = Math.max(1, parseInt(quantityInput && quantityInput.value, 10) || 1);
+      var total = Number((priceNode && priceNode.textContent || '').replace(/[^0-9.-]/g, ''));
+      if (!title || !priceNode || !/\d/.test(priceNode.textContent) || !isFinite(total) || total < 0) return null;
+      var href = title.getAttribute('href') || '';
+      return {
+        item_id: href.split('/').filter(Boolean).pop() || title.textContent.trim(),
+        item_name: title.textContent.trim(),
+        price: Math.round(total * 100 / quantity) / 100,
+        quantity: quantity
+      };
+    }).filter(Boolean);
+
+    if (!items.length) return;
+    sent = true;
+    event('begin_checkout', {
+      currency: 'USD',
+      value: Math.round(items.reduce(function (sum, item) {
+        return sum + item.price * item.quantity;
+      }, 0) * 100) / 100,
+      items: items,
+      measurement_scope: 'trusted_checkout_click'
+    });
+  }, true);
+}
+
+commerceTracking();
+checkoutTracking();
   function boot(){calendar();profile();articleLinks();resourceDelivery();retireReferral();productEvent();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
   setTimeout(function(){calendar();profile();articleLinks();retireReferral();},2500);
@@ -5035,3 +5076,29 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === AH PRODUCT LIBRARY GENERATED END ===
+
+// Audit corrections, 2026-09-26: scoped contrast, navigation, and page hierarchy.
+(function () {
+  function run() {
+    if (!document.getElementById('ah-audit-accessibility-20260926')) {
+      var st=document.createElement('style'); st.id='ah-audit-accessibility-20260926';
+      st.textContent='section[data-section-id="6a46ab24a4ee56000e0007d4"] a[href*="/store/p/"]{color:#f8f9f0!important}'+
+        'section[data-section-id="6a46ab24a4ee56000e0007d4"] a[href*="/store/p/"]:focus-visible{outline:3px solid #1a3b2a!important;outline-offset:4px}'+
+        ['55b9aaf15e2bc0f2a0f4','1bab4141a89c0b28acbf','c73329c077ccbc09677e','5f7f0504aef65bc36cea'].map(function(id){return 'section[data-section-id="6931d4ad6d3823703aa2dd48"] .fe-block-'+id+' a{color:#f8f9f0!important;text-decoration:underline!important}';}).join('')+
+        '@media(max-width:767px){.header-display-mobile .header-title-logo img{max-width:150px!important;width:auto!important;max-height:58px!important}.header-display-mobile .header-title{min-width:0;flex:1 1 auto}}';
+      document.head.appendChild(st);
+    }
+    document.querySelectorAll('header a[href="/your-garden-toolkit"]').forEach(function(a){if(a.textContent.trim().toLowerCase()==='free calendar')a.href='/your-garden-toolkit#download=seasonal-planting-calendar';});
+    if(location.pathname.replace(/\/$/,'')==='/your-garden-toolkit') {
+      var lib=document.getElementById('ah-product-library');
+      if(lib && !document.getElementById('ah-toolkit-intro')) {
+        var intro=document.createElement('div');intro.id='ah-toolkit-intro';
+        intro.innerHTML='<h1>Your Garden Toolkit</h1><p>Browse free downloads, garden tools, and paid guides. Start with the <a href="/your-garden-toolkit#download=seasonal-planting-calendar">free seasonal planting calendar</a>, or use the search below to find a specific resource.</p><p>The email signup includes three starter guides by default. You can change that selection in the guide chooser below. Free downloads in this library do not require another signup.</p>';
+        lib.insertBefore(intro,lib.firstChild);
+        document.querySelectorAll('main h1').forEach(function(h){if(h!==intro.querySelector('h1')){var h2=document.createElement('h2');Array.from(h.attributes).forEach(function(a){h2.setAttribute(a.name,a.value);});h2.innerHTML=h.innerHTML;h.replaceWith(h2);}});
+      }
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+  setTimeout(run,1800);
+})();
