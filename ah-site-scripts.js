@@ -1453,8 +1453,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 })();
 // === MASTERKIT BUY BUTTON FIX (2026-06-11) ===
-// The landing page buy buttons were authored against a guessed product slug
-// before the product existed. Rewrite them to the real product URL.
+// Normalize legacy buy-button links to the canonical product URL.
+//
 (function() {
   var DEAD = '/store/the-tomato-growing-masterkit-california-edition';
   var REAL = '/store/p/tomato-growing-masterkit-california-edition';
@@ -3915,11 +3915,11 @@ function ahIsFlockArticle(slug) {
 // === KEEP READING - related guides at the end of every /learn article (2026-06-23) ===
 // Appends 3 related-guide cards (ahRenderRelatedCards) as the LAST element of the
 // article, from the auto manifest. The article-enhancement IIFE removes any legacy
-// "Related Articles" section so these cards are the single related block. Staged via
-// ALLOW; set ALLOW=null for site-wide.
+// "Related Articles" section so these cards are the single related block.
+// Set ALLOW=null for site-wide related cards.
 (function () {
   var MANIFEST = 'https://gaughanadrienne-gif.github.io/ah-graphics/related-manifest.json';
-  var ALLOW = null; // site-wide (was a 5-slug staged allowlist during rollout)
+  var ALLOW = null; // site-wide
   function slug() { return location.pathname.replace(/\/$/, '').split('/').pop(); }
   function onArt() { return /^\/learn\//.test(location.pathname) && document.querySelector('.blog-item-content'); }
   function ready() { return onArt() && window.ahRenderRelatedCards; }
