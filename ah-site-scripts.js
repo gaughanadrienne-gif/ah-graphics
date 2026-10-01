@@ -1,10 +1,4 @@
-// === NOINDEX THIN TAG LISTING PAGES (added 2026-06-16) ===
-// Tag pages (/learn/tag/...) are thin, duplicative aggregations and are being
-// deprecated (tag links stripped in the session-41 link audit; BlogToPin tag
-// pages off). Keep them out of the search index. Runs immediately (this file is
-// header-injected) so the robots meta is in the DOM as early as possible for
-// crawlers, which render JS and honor a JS-set robots meta. Categories are left
-// indexed as browse hubs per the 2026-06-16 decision.
+// Noindex tag listing pages; category browse hubs remain indexed. Runs in the header.
 (function () {
   try {
     if (location.pathname.indexOf("/learn/tag/") === 0) {
@@ -39,11 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var blocks = heroSection.querySelectorAll(".sqs-block");
     var lastBlock = blocks[blocks.length - 1];
     if (lastBlock) {
-      // 2026-08-19 flow pass: the CTA used to be appended AFTER the fluid-engine
-      // grid, which rendered it on the dark strip under the inset hero photo,
-      // orphaned from the headline. It now lives inside the hero text block,
-      // directly under the subtitle, left-aligned with the headline, rosewood
-      // like every other action button on the page.
+      // Place the CTA inside the hero text block under the subtitle.
       var ctaDiv = document.createElement("div");
       ctaDiv.className = "ah-hero-cta";
       ctaDiv.style.cssText = "text-align:left;margin-top:26px;padding:0;";
@@ -65,8 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // (2026-08-19) The old "ah-footer-links" quick-links row was removed here:
-  // it duplicated the Explore column of the enriched footer below.
+
 
   // ============================================================
   // NEW: Cross-link "More Free Resources" on resource pages
@@ -445,11 +434,6 @@ document.addEventListener("DOMContentLoaded", function() {
  * PLACEHOLDER FORMAT:
  * <div class="ah-graphic" data-graphic="graphic-id"></div>
  *
- * DEPLOYMENT:
- * Wrap this entire file in ... tags and add to:
- * Settings > Advanced > Code Injection > Blog Post Item (postItem)
- *
- * This replaces the pilot loader (ah-graphics-loader.js) and pilot registry.
  */
 
 // Wait for DOM ready, then run loader
@@ -1527,10 +1511,7 @@ document.addEventListener("DOMContentLoaded", function() {
 })();
 
 // === GARDEN REVIEW CALLOUT ON ABOUT + CONTACT (2026-07-02) ===
-// Compact card linking to the /garden-review sales page (Virtual Garden Review $49 /
-// Virtual Garden Design). GUARDED: a HEAD probe confirms /garden-review exists before
-// injecting, so this stays dormant until Adrienne creates the page, then activates on
-// its own. Reversible: delete this block.
+// Show the garden-review card on About and Contact only after its HEAD availability check.
 (function() {
   var path = window.location.pathname.replace(/\/$/, '');
   if (path !== '/about' && path !== '/contact') return;
@@ -1557,10 +1538,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }).catch(function() {});
 })();
 
-// === MASTERKIT TESTIMONIALS REMOVED (2026-07-01) ===
-// "What early readers are saying" (section.social-proof#proof on /tomato-masterkit)
-// removed per Adrienne: quotes predate any ebook sale and cannot be attributed.
-// Reversible: delete this block to restore.
+// Suppress the legacy proof section on Tomato Masterkit.
 (function() {
   if (window.location.pathname.replace(/\/$/, '') !== '/tomato-masterkit') return;
   var st = document.createElement('style');
@@ -1862,10 +1840,7 @@ function ahIsFlockArticle(slug) {
 
 // === FAST GROWING TREES AFFILIATE CALLOUT (2026-06-18) ===
 // Contextual affiliate card on fruit-tree / avocado / berry articles (citrus excluded).
-// Adrienne is a genuine Fast Growing Trees customer (AH's own fruit trees and
-// tropical pond plants). Code-based program: the link carries reader code
-// AMBITIOUS-TREES plus referral attribution (resolves to FGT's ambassador page).
-// Fully reversible: remove this whole block.
+// The affiliate link carries the reader code and referral attribution.
 (function () {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   if (location.pathname.indexOf('/learn/category/') === 0) return;
@@ -2585,11 +2560,7 @@ function ahIsFlockArticle(slug) {
       sections[0].parentElement.insertBefore(box, sections[0]);
     }
 
-    // The auto-injected "Adrienne Gaughan" bio card and the "Free downloads to take with
-    // you" card were judged off-brand and removed (2026-06-24). Rather than styling the
-    // stored "Free Downloadable Resources" block into a card, simply hide it (the heading
-    // and its following link list). Display-only and reversible -- the stored body is
-    // untouched; restore the previous bio/lead injection to bring the cards back.
+    // Hide the stored free-resources heading and adjacent link list without changing the stored body.
     if (dl) {
       var dlUl = dl.nextElementSibling;
       dl.style.display = 'none';
@@ -4130,10 +4101,7 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === /tomato-quiz: "300+" GUIDE COUNT -> 600+ (2026-07-01) ===
-// The page undersold the library (673 live guides). Text-node swap; no-ops
-// if the page copy is rewritten. NOTE: the "Answer 5 quick questions" line
-// inside the quiz widget lives in the Interact quiz cover (their dashboard),
-// not on this page; real count = 4 (confirmed by Adrienne).
+// Update matching page text only; the embedded quiz cover is managed separately.
 (function () {
   if (location.pathname.replace(/\/$/, '') !== '/tomato-quiz') return;
   function run() {
@@ -4310,17 +4278,7 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === CATEGORY HUBS (2026-07-13) ===
-// 14 editorial hub posts at /learn/<category-slug>. They exist because every /learn/category/* page
-// is noindex and /learn?category=X canonicalises to /learn, so 730 articles had NO indexable
-// category landing page. Spec: Analytics & SEO/Category_Hubs_Design_2026-07-13.md
-//
-// This module does two things:
-//   1. NAV: repoints the LEARN dropdown from /learn?category=X to the hub. The Squarespace
-//      nav-save API is dead (every candidate route 404s), so the links are rewritten client-side.
-//      Google renders JS, so the hubs still collect the nav's internal link equity.
-//   2. FEED: hides the 14 hub cards from the /learn archive grid. Hubs are navigation pages, not
-//      articles, and do not belong in a chronological feed. This keeps the feed clean WITHOUT
-//      backdating their publish dates, which would put a false datePublished in the Article schema.
+// Repoint the Learn category dropdown to the corresponding indexable hub pages.
 (function () {
   var HUBS = {
     'Getting Started': 'getting-started',
@@ -4353,13 +4311,7 @@ function ahIsFlockArticle(slug) {
     });
   }
 
-  // FEED SUPPRESSION REMOVED (2026-07-13). It hid hub cards from every listing, but the
-  // homepage "Latest from the Garden" block shows the N most recent posts and does NOT backfill,
-  // so hiding the 14 newest posts left the section BLANK. Adrienne's call: backdate the hubs
-  // instead (staggered Jun 10-17 2026, ~4 weeks back). 76 real articles now sit above them, so
-  // they fall out of "latest" and off page 1 of the archive naturally, and the section repopulates.
-  // Tradeoff accepted knowingly: datePublished in the Article schema is ~4 weeks earlier than the
-  // true creation date.
+  // Keep hub cards in the feed; this module only changes navigation links.
 
   function run() { repointNav(); }
 
@@ -4459,9 +4411,7 @@ function ahIsFlockArticle(slug) {
   }, true);
 })();
 
-// (The 2026-08-19 Latest-from-the-Garden row-start patch that lived here was
-// superseded the same day by the HOMEPAGE FLOW PASS block at the end of this
-// file, which lays the whole section out as a 3-column grid of 6 posts.)
+
 
 
 // Store band spacing (2026-08-19). The Featured Products template leaves 4
@@ -4774,8 +4724,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// AH REVENUE SPRINT 2026-09-06: task semantics, saved garden, and measured paths.
-// Existing crop dates are reused unchanged. No account, purchase, or confirmed-signup event is invented.
+// Saved garden actions reuse the crop data and measure supported events.
 (function () {
   'use strict';
   if (window.AHGrowth) return;
@@ -4802,7 +4751,7 @@ function ahIsFlockArticle(slug) {
   function actions(c,z,m) { if(timingReview(c,z))return [];var d=c.z[z]; return d ? ['i','d','x','h'].filter(function(k){return d[k].indexOf(m)>=0;}) : []; }
   function actionName(c,k){return k==='d'&&c.s==='garlic'?'Plant cloves outdoors':k==='d'&&c.s==='potatoes'?'Plant seed potatoes outdoors':names[k];}
   window.AHGrowth={version:VERSION,actions:actions,data:DATA};
-  // False until an owner-authorized signup test verifies all fields through the MailerLite API.
+  // Profile email delivery is disabled until end-to-end verification.
   var PROFILE_EMAIL_VERIFIED=false;
   window.AHAcceptSignupResponse=function(response){
     if(!response.ok)throw new Error('Signup request failed');
@@ -5091,7 +5040,7 @@ checkoutTracking();
 
 // === AH PRODUCT LIBRARY GENERATED END ===
 
-// Audit corrections, 2026-09-26: scoped contrast, navigation, and page hierarchy.
+// Scoped contrast, navigation and page hierarchy.
 (function () {
   function run() {
     if (!document.getElementById('ah-audit-accessibility-20260926')) {
