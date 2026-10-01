@@ -2405,7 +2405,7 @@ function ahIsFlockArticle(slug) {
   function init() {
     if (!onArticle() || document.getElementById('ah-enh-style')) return;
 
-    // --- Internal link repair (link audit 2026-06-16) ---------------------
+    // --- Internal link repair ---------------------
     // Remap known-broken cross-links to their correct slug, and neutralize dead
     // tag-page links (tag pages are disabled, so they 404). Runs before the
     // related-card builder below, so corrected links render as real cards.
@@ -2676,7 +2676,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === STORE MERCHANDISING (2026-06-16, session 41) ===
+// === STORE MERCHANDISING (2026-06-16) ===
 // Adds a value hero + trust bar, a featured MasterKit card, tinted cover panels
 // + truthful badges on the product grid, and a why-buy strip to the /store page.
 // Bundle banner intentionally omitted (no bundle product exists yet).
@@ -2803,7 +2803,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === ARTICLE DISPLAY FIXES (2026-06-16, session 41) ===
+// === ARTICLE DISPLAY FIXES (2026-06-16) ===
 // Two pre-existing content bugs, fixed at render time across ALL /learn/ articles:
 //  1. Dark-background graphic boxes whose heading/paragraph text inherits the
 //     theme's dark color (the box sets color:#f8f9f0 but not !important, so the
@@ -2995,7 +2995,7 @@ function ahIsFlockArticle(slug) {
   else setTimeout(go, 400);
 })();
 
-// === HOMEPAGE POLISH (2026-06-16, session 41) ===
+// === HOMEPAGE POLISH (2026-06-16) ===
 // Homepage only. Two wins:
 //  1. Category gallery: overlay bold serif labels on the images (with a gradient
 //     scrim + "Browse" prompt) instead of the tiny gray captions below them.
@@ -3209,7 +3209,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === START HERE POLISH (2026-06-16, session 41) ===
+// === START HERE POLISH (2026-06-16) ===
 // /start-here only. Marigold heading accents + upgrade the muted sage CTAs to
 // strong marigold buttons that pop on both the dark-green and cream bands.
 // Reversible.
@@ -3236,7 +3236,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === LOCAL RESOURCES POLISH (2026-06-16, session 41) ===
+// === LOCAL RESOURCES POLISH (2026-06-16) ===
 // /local-resources only. Groups each resource entry (a bold-led name + its
 // following description/location/website paragraphs) into a card, lays each
 // category out in a uniform auto-fill grid, adds marigold heading accents, makes
@@ -3314,7 +3314,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === HOMEPAGE SHOP CALLOUT (2026-06-16, session 41) ===
+// === HOMEPAGE SHOP CALLOUT (2026-06-16) ===
 // Homepage only. Inserts a "From the Garden Shop" featured-products band after
 // the tools section (the homepage had no link to the store at all). Reversible.
 (function () {
@@ -3383,7 +3383,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === HOMEPAGE: WHY-SECTION REDESIGN + HERO POLISH (2026-06-16, session 41) ===
+// === HOMEPAGE: WHY-SECTION REDESIGN + HERO POLISH (2026-06-16) ===
 // Homepage only. (1) Replaces the "Why Local Gardening Knowledge Matters"
 // paragraph with a centered 3-column value section. (2) Hero: makes the value
 // line the headline (brand name becomes an eyebrow), trims the second paragraph,
@@ -3455,7 +3455,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === LEARN LIBRARY + CATEGORY GRID (2026-06-16, session 41) ===
+// === LEARN LIBRARY + CATEGORY GRID (2026-06-16) ===
 // /learn index and /learn/category/* only (NOT individual articles). Converts
 // the sparse single-column "side by side" blog list into a multi-column card
 // grid, force-loads the lazy items (the list rendered blank-first), and paints
@@ -3523,7 +3523,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === CONTENT-PAGE POLISH (2026-06-16, session 41) ===
+// === CONTENT-PAGE POLISH (2026-06-16) ===
 // /about + the tool pages. Adds alignment-aware marigold heading accents and the
 // brand button style, but ONLY to real page-section headings -- never headings
 // inside a tool/code block (the Garden Conditions dashboard and Planting Calendar
@@ -3571,7 +3571,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === LEGAL PAGE POLISH (2026-06-16, session 41) ===
+// === LEGAL PAGE POLISH (2026-06-16) ===
 // /terms-of-use + /privacy-policy. These are dark-green pages of uniform 14px
 // paragraphs. Light touch: style the first line as a serif title with a marigold
 // accent, the "Last updated" line as a muted subtitle, give the body a readable
@@ -3624,7 +3624,7 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
-// === CONTACT PAGE POLISH (2026-06-16, session 41) ===
+// === CONTACT PAGE POLISH (2026-06-16) ===
 // /contact only. Marigold accent under "Get in Touch", brand styling on the
 // form's Send button (was muted sage), and the social icons (which rendered as
 // unreadable low-contrast green blocks) swapped for clean brand-circle glyphs.
@@ -3953,12 +3953,7 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === FAQ FORMAT NORMALIZE - render all FAQ questions as H3 (2026-06-24) ===
-// 154 articles used bold-paragraph FAQ questions (<p><strong>Q?</strong></p>) and
-// 17 had mixed H3/bold; normalize them to <h3> so FAQ formatting is uniform
-// site-wide. Scoped to the FAQ section only (between the "Frequently Asked
-// Questions" h2 and the next h2); only converts a <p> whose first child is
-// <strong> and whose text ends in "?". An audit confirmed NO plain-paragraph FAQ
-// questions exist, so detection is unambiguous. Idempotent + reversible.
+// Normalize bold-paragraph FAQ questions to H3 within the FAQ section only. Match a paragraph whose first child is strong and whose text ends in a question mark.
 (function () {
   function run() {
     var root = document.querySelector('.blog-item-content');
@@ -4058,7 +4053,7 @@ function ahIsFlockArticle(slug) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
 
-// === BRAND TYPOGRAPHY: LOAD FRAUNCES SITE-WIDE (2026-07-01, Adrienne-approved) ===
+// === BRAND TYPOGRAPHY: LOAD FRAUNCES SITE-WIDE (2026-07-01) ===
 // Brand guide v1.1 specifies Fraunces for headings but the font was never
 // loaded; headings rendered as Palatino (system serif) or Montserrat depending
 // on the page. Load Fraunces from Google Fonts and apply it to all headings
@@ -4141,9 +4136,7 @@ function ahIsFlockArticle(slug) {
     var src = og.content.replace(/^http:/, 'https:').split('?')[0];
     var slug = path.split('/').pop().toLowerCase();
     var file = src.split('/').pop().toLowerCase().replace(/\.(jpe?g|png|webp)$/, '');
-    // The 14 category hubs deliberately REUSE the featured photo of a representative article
-    // (already-published photos have cleared provenance), so their filename will never match
-    // their slug. Let the header inject for them anyway.
+    // Category hubs reuse article featured photos, so allow header injection without a filename-to-slug match.
     var HUB_SLUGS = ['getting-started','grow-guides','microclimates','the-garden-coop','seasonal-planting',
                      'water-wise-gardening','wildlife-and-pest-management','fire-wise-gardening','beekeeping',
                      'gardening-with-kids','indoor-gardening','this-vs-that','garden-myth-buster',
@@ -4322,12 +4315,7 @@ function ahIsFlockArticle(slug) {
 
 // ---------------------------------------------------------------------------
 // GA4 TOOL + SIGNUP EVENTS (added 2026-08-05)
-// Closes the tools audit P2 gap: no tool carried any usage instrumentation, so
-// tool conversion was unmeasurable. Events, not UTMs (internal UTMs overwrite
-// GA4 session attribution). Squarespace's native GA4 integration creates
-// window.dataLayer; pushing gtag-style arguments into it registers events on
-// the configured property. Every handler is wrapped so a failure here can
-// never break anything else in this file.
+// Send GA4 events through the existing dataLayer, without internal UTMs. Wrap handlers so instrumentation failures do not interrupt other features.
 (function () {
   'use strict';
 
@@ -4385,9 +4373,7 @@ function ahIsFlockArticle(slug) {
         return;
       }
 
-      // tool_cta_click: a link INTO a tool page from anywhere that is not
-      // that tool itself. Measures which pages actually route readers to the
-      // tools (audit P4: tools are internally near-invisible).
+      // Measure links to other tool pages with tool_cta_click.
       if (TOOL_PATHS[clean] && clean !== path) {
         send('tool_cta_click', { tool_name: TOOL_PATHS[clean], page_path: path });
       }
@@ -4577,8 +4563,7 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === SITE FLOW PASS (2026-08-19, evening) ===
-// Follow-up to the homepage flow pass, from the site-wide design audit of the
-// 13 nav pages. Every item here is layout the editor cannot express cleanly:
+// Layout adjustments for the supported navigation pages.
 // (1) FIT-TO-CONTENT: single-code-block tool/sales pages were authored on a
 //     fixed grid far taller than the embed (Toolkit 5,508px section for a
 //     3,084px block = 2,400px of cream; Garden Consulting 5,840 for 1,962 =
