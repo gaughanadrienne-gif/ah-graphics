@@ -14,14 +14,7 @@
 })();
 
 // === FOOTER LINKS, CROSS-LINKS, HEADING UPGRADES ===
-/*
- * Ambitious Harvest - Footer Code Injection Updates
- * March 2026 - Tasks: Footer links, Cross-links, H2/H3 headings
- *
- * This is the UPDATED footer code injection content.
- * Served through the existing GitHub Pages site-script loader.
- * Never use SaveInjectionSettings: see feedback_code_injection_safety.md.
- */
+/* Shared site behaviors loaded through the existing GitHub Pages site-script loader. */
 
 // ============================================================
 // EXISTING: Hero CTA + Footer Links (UPDATED with new links)
@@ -1501,7 +1494,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // === GARDEN REVIEW PAGE: FAQ card contrast fix (2026-07-02) ===
 // The pasted code block predates the .ah-gr-faq card style; the page section bg is
 // dark green so the FAQ text was green-on-green. Injecting the card rule here.
-// (Canonical block incl. this rule: Commercialization/Garden Review Service/Garden_Review_Page.html)
+//
 (function() {
   if (window.location.pathname.replace(/\/$/, '') !== '/garden-review') return;
   var st = document.createElement('style');
@@ -2293,16 +2286,16 @@ function ahIsFlockArticle(slug) {
 })();
 
 // === NEWSLETTER MID-ARTICLE EMAIL CAPTURE (2026-07-23) - SITE-WIDE ===
-// The #1 conversion fix from the July 2026 deep dive: ~756 /learn/ articles had
-// no email capture until a text link in the closing paragraph, so ~1,600 weekly
-// readers convert to only ~52 subscribers. This drops a single-field opt-in box
-// roughly one third of the way down EVERY long-form article, offering the free
-// seasonal planting newsletter (the primary lead magnet). Wired to the existing
-// live MailerLite form 191102468073981272 (group "Lead Magnet: Seed Starting
-// Cheat Sheet", account 1974108, double opt-in) via the same jsonp/no-cors
-// mechanism as the other opt-in boxes. Delivery is handled by the existing
-// "Deliver: Seed Starting Cheat Sheet" automation, and every subscriber also
-// enters the Welcome Sequence + twice-monthly notes.
+// Insert the newsletter opt-in on eligible long-form articles using the existing form.
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 // Design notes:
 //  - Self-heals like the other opt-in boxes: this whole block re-runs on every
@@ -2315,7 +2308,7 @@ function ahIsFlockArticle(slug) {
 //  - Skips short articles (GQOTW, < 6 real paragraphs) so it never crowds them.
 //  - Rosewood Clay submit button per brand v1.1 (Rosewood = the action).
 // Fully reversible: remove this whole block, and remove 'ah-news-optin' from the
-// de-stack PRIORITY list and the enhancement SKIP selector (see INTEGRATION.md).
+// de-stack PRIORITY list and the enhancement SKIP selector.
 (function () {
   if (location.pathname.indexOf('/learn/') !== 0) return;
   if (location.pathname.indexOf('/learn/category/') === 0) return;
@@ -4436,7 +4429,7 @@ function ahIsFlockArticle(slug) {
 //     sit in ONE row on an auto-sized grid row directly under the header
 //     (about 620px section). Mobile layout is untouched. Fluid-engine grid
 //     placement is layered !important, so this is element-style, like the
-//     Latest-section fix (see fluid-engine-grid-rules-beat-custom-css-use-site-scripts).
+//     Latest-section fix.
 // (2) What to Plant This Week section 6a739a13d02880699baa6af2: the widget is
 //     the full tool (kicker, zone-link copier, 8 cards with two buttons each,
 //     attribution footer, 1,314px). On the homepage it is trimmed to a compact
