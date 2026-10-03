@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-03T13:26:49.567Z",
+  "updated_at": "2026-10-03T17:59:16.001Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -471,7 +471,8 @@
           "expires": "2026-10-03T09:15:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c49d62f93996a96cb756c4569a6927363ae308c.001.1"
         }
-      ]
+      ],
+      "stale": true
     },
     "slv": {
       "updated": "2026-10-03T13:26:49.567Z",
@@ -919,7 +920,8 @@
           "expires": "2026-10-03T09:15:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c49d62f93996a96cb756c4569a6927363ae308c.004.1"
         }
-      ]
+      ],
+      "stale": true
     },
     "watsonville": {
       "updated": "2026-10-03T13:26:49.567Z",
@@ -1377,8 +1379,13 @@
           "expires": "2026-10-03T09:15:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c49d62f93996a96cb756c4569a6927363ae308c.001.1"
         }
-      ]
+      ],
+      "stale": true
     }
   },
-  "warnings": []
+  "warnings": [
+    "Santa Cruz: The operation was aborted due to timeout",
+    "San Lorenzo Valley: fetch failed",
+    "Watsonville: The operation was aborted due to timeout"
+  ]
 }
