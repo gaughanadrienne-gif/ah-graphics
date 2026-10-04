@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-04T12:27:38.416Z",
+  "updated_at": "2026-10-04T17:37:38.088Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-10-04T12:27:38.416Z",
+      "updated": "2026-10-04T17:37:38.088Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 66,
+        "temperature": 82,
         "temperatureUnit": "F",
-        "apparentTemperature": 63,
+        "apparentTemperature": 81,
         "conditions": "Partly Sunny",
         "detailedForecast": "Partly sunny. High near 88, with temperatures falling to around 84 in the afternoon. West southwest wind 0 to 5 mph.",
-        "wind": "2 mph",
-        "windSpeed": 2.2,
-        "windGust": 2.5,
-        "windDirection": "N",
+        "wind": "3 mph",
+        "windSpeed": 2.5,
+        "windGust": 3.4,
+        "windDirection": "SE",
         "precipitation": 0,
-        "soilTemp": 63,
+        "soilTemp": 69,
         "soilMoisture": 0.158,
-        "humidity": 47,
-        "vapourPressureDeficit": 1.06,
+        "humidity": 35,
+        "vapourPressureDeficit": 2.18,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -170,43 +170,43 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-10-04",
-          "high": 95.6,
+          "high": 94.2,
           "low": 60.7,
           "precipitation": 0,
-          "precipitationProbability": 2,
+          "precipitationProbability": 1,
           "uvIndex": 5.6,
-          "evapotranspiration": 0.168,
-          "windGust": 15.4
+          "evapotranspiration": 0.169,
+          "windGust": 13.6
         },
         "upcoming": [
           {
             "date": "2026-10-04",
-            "high": 95.6,
+            "high": 94.2,
             "low": 60.7,
             "precipitation": 0,
-            "precipitationProbability": 2,
+            "precipitationProbability": 1,
             "uvIndex": 5.6,
-            "evapotranspiration": 0.168,
-            "windGust": 15.4
+            "evapotranspiration": 0.169,
+            "windGust": 13.6
           },
           {
             "date": "2026-10-05",
-            "high": 80.1,
-            "low": 55.3,
+            "high": 85.1,
+            "low": 56.2,
             "precipitation": 0,
             "precipitationProbability": 2,
             "uvIndex": 5.95,
-            "evapotranspiration": 0.129,
-            "windGust": 8.3
+            "evapotranspiration": 0.133,
+            "windGust": 9.4
           },
           {
             "date": "2026-10-06",
             "high": 85,
-            "low": 69.7,
+            "low": 57.9,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 5.9,
-            "evapotranspiration": 0.164,
+            "evapotranspiration": 0.163,
             "windGust": 8.9
           },
           {
@@ -234,7 +234,7 @@
             "high": 75.7,
             "low": 61.4,
             "precipitation": 0,
-            "precipitationProbability": 1,
+            "precipitationProbability": 3,
             "uvIndex": 5.7,
             "evapotranspiration": 0.138,
             "windGust": 7.2
@@ -253,22 +253,8 @@
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-10-04T05:00:00-07:00",
-          "endTime": "2026-10-04T06:00:00-07:00",
-          "temperature": 64,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy, with a low around 64. North northwest wind around 1 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "1 mph",
-          "windDirection": "NNW"
-        },
-        {
-          "name": "Sunday",
-          "startTime": "2026-10-04T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-10-04T10:00:00-07:00",
           "endTime": "2026-10-04T18:00:00-07:00",
           "temperature": 88,
           "temperatureUnit": "F",
@@ -281,7 +267,7 @@
           "windDirection": "WSW"
         },
         {
-          "name": "Sunday Night",
+          "name": "Tonight",
           "startTime": "2026-10-04T18:00:00-07:00",
           "endTime": "2026-10-05T06:00:00-07:00",
           "temperature": 64,
@@ -301,7 +287,7 @@
           "temperature": 87,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 87. West northwest wind 0 to 3 mph.",
+          "detailedForecast": "Sunny. High near 87, with temperatures falling to around 83 in the afternoon. West northwest wind 0 to 3 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -329,7 +315,7 @@
           "temperature": 88,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny, with a high near 88.",
+          "detailedForecast": "Sunny, with a high near 88. North northwest wind 0 to 5 mph.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -447,6 +433,20 @@
           "precipitation": 4,
           "wind": "1 to 10 mph",
           "windDirection": "W"
+        },
+        {
+          "name": "Saturday Night",
+          "startTime": "2026-10-10T18:00:00-07:00",
+          "endTime": "2026-10-11T06:00:00-07:00",
+          "temperature": 54,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 54.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 6,
+          "wind": "3 to 10 mph",
+          "windDirection": "NW"
         }
       ],
       "hasActiveAlerts": true,
@@ -909,7 +909,8 @@
           "expires": "2026-10-04T22:15:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bb08928e50c29e025b51bdcbf1f5ace5c9e39054.003.1"
         }
-      ]
+      ],
+      "stale": true
     },
     "watsonville": {
       "updated": "2026-10-04T12:27:38.416Z",
@@ -1357,8 +1358,12 @@
           "expires": "2026-10-04T22:00:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bb08928e50c29e025b51bdcbf1f5ace5c9e39054.002.1"
         }
-      ]
+      ],
+      "stale": true
     }
   },
-  "warnings": []
+  "warnings": [
+    "San Lorenzo Valley: The operation was aborted due to timeout",
+    "Watsonville: fetch failed"
+  ]
 }
