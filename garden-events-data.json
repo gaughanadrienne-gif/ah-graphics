@@ -1,30 +1,8 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-04T21:21:05.007Z",
+  "updated_at": "2026-10-06T22:38:11.863Z",
   "events": [
-    {
-      "id": "sccfm-felton",
-      "title": "Felton Farmers' Market",
-      "weekday": 2,
-      "start_time": "13:30",
-      "end_time": "17:30",
-      "season_start": "2026-05-05",
-      "season_end": "2026-10-27",
-      "venue": "120 Russell Avenue",
-      "city": "Felton",
-      "categories": [
-        "market"
-      ],
-      "description": "Seasonal farmers' market with regional produce, prepared foods and live music.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/felton/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Tuesdays, 1:30 to 5:30 PM, May 5 to October 27",
-      "start": "2026-10-06T20:30:00.000Z",
-      "end": "2026-10-07T00:30:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
     {
       "id": "ucsc_agroecology-10017113",
       "source_id": "ucsc_agroecology",
@@ -322,6 +300,24 @@
       "reviewed_at": "2026-07-15"
     },
     {
+      "id": "ucsc_arboretum-2026-10-12-a-presentation-by-rick-flores-the-uses-of-native",
+      "source_id": "ucsc_arboretum",
+      "title": "A Presentation by Rick Flores: The Uses of Native Plants",
+      "start": "2026-10-13T00:30:00.000Z",
+      "end": "2026-10-13T02:00:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "u-pick"
+      ],
+      "description": "Attend the CNPS chapter meeting on October 12 to hear UCSC Arboretum and Botanic Garden Director Rick Flores explore seasonal harvest, nuts, berries, and edible greens.",
+      "all_day": false,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html"
+    },
+    {
       "id": "ucsc-arboretum-volunteer-orientation",
       "title": "UCSC Arboretum Volunteer Information Session",
       "weekday": 2,
@@ -366,6 +362,28 @@
       "source_type": "api"
     },
     {
+      "id": "sccfm-felton",
+      "title": "Felton Farmers' Market",
+      "weekday": 2,
+      "start_time": "13:30",
+      "end_time": "17:30",
+      "season_start": "2026-05-05",
+      "season_end": "2026-10-27",
+      "venue": "120 Russell Avenue",
+      "city": "Felton",
+      "categories": [
+        "market"
+      ],
+      "description": "Seasonal farmers' market with regional produce, prepared foods and live music.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/felton/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Tuesdays, 1:30 to 5:30 PM, May 5 to October 27",
+      "start": "2026-10-13T20:30:00.000Z",
+      "end": "2026-10-14T00:30:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
       "id": "ucsc_agroecology-10017115",
       "source_id": "ucsc_agroecology",
       "title": "Produce Pop-Up",
@@ -404,6 +422,25 @@
       "source_type": "api"
     },
     {
+      "id": "ucsc_arboretum-2026-10-17-early-bird-saturday-members-early-access",
+      "source_id": "ucsc_arboretum",
+      "title": "Early Bird Saturday, Members Early Access",
+      "start": "2026-10-17T07:00:00.000Z",
+      "end": "2026-10-17T07:00:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "experience"
+      ],
+      "description": "",
+      "all_day": true,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html",
+      "recurrence": "Open during garden hours, confirm before visiting"
+    },
+    {
       "id": "ucsc_agroecology-13380",
       "source_id": "ucsc_agroecology",
       "title": "2026 Harvest Festival",
@@ -427,15 +464,15 @@
       "id": "ucsc_agroecology-13571",
       "source_id": "ucsc_agroecology",
       "title": "North Stars of Emancipation: Navigating Movements and Institutions to Change Food Systems",
-      "start": "2026-10-20T00:30:00.000Z",
-      "end": "2026-10-20T02:00:00.000Z",
+      "start": "2026-10-20T01:00:00.000Z",
+      "end": "2026-10-20T02:30:00.000Z",
       "venue": "Hay Barn",
       "city": "Santa Cruz",
       "address": "94 Ranch View Road",
       "categories": [
-        "learn"
+        "experience"
       ],
-      "description": "In this talk, Dr. Roman-Alcal will discuss his new book, North Stars of Emancipation: California's Diverse Food and Farming Movements in Times of Racial Reckoning, based on his 20 years of engaging such movements as both participant and (more recently) researcher.",
+      "description": "Dr. Antonio Roman-Alcal has been participating in food and farming movements in California for over two decades. He's founded urban farms, taught organic horticulture, and made documentary films about why food systems continue to be unsustainable.",
       "all_day": false,
       "source_url": "https://events.ucsc.edu/event/north-stars-of-emancipation-navigating-movements-and-institutions-to-change-food-systems/",
       "cost": "Free",
@@ -566,6 +603,24 @@
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
       "source_type": "api"
+    },
+    {
+      "id": "ucsc_arboretum-2026-10-26-plant-keying-with-lucy-4th-monday-each-month",
+      "source_id": "ucsc_arboretum",
+      "title": "Plant Keying with Lucy, 4th Monday each month",
+      "start": "2026-10-27T02:30:00.000Z",
+      "end": "2026-10-27T02:30:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "experience"
+      ],
+      "description": "5:30 to 7:30pm at the Horticulture 2 Meeting Hall Join Lucy Ferneyhough, our Associate Director and Native Plant Program Project Manager, who will be hosting keying sessions on the fourth Monday of every month.",
+      "all_day": false,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html"
     },
     {
       "id": "ucsc_agroecology-10017119",
@@ -807,5 +862,5 @@
   "warnings": [
     "California Native Plant Society: HTTP 404"
   ],
-  "updated": "2026-10-04T21:21:05.007Z"
+  "updated": "2026-10-06T22:38:11.863Z"
 }
