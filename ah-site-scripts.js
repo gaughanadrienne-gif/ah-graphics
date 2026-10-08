@@ -1659,6 +1659,21 @@ function ahIsFlockArticle(slug) {
     if (document.querySelector('.ah-flock-callout')) return;
     if (document.querySelector('.ah-product-callout')) return;
 
+    // Berry Guide placement test: only these eight verified article boundaries.
+    // The following heading ends the first complete practical answer, including
+    // its subsections and graphics. Match text so generated TOC IDs are optional.
+    var berryTestBoundaries = {
+      "grow-blackberries-containers": "The Best Blackberry Varieties for Containers",
+      "raspberry-growth-stages-what-to-expect-year-by-year": "What Should I Expect from Raspberries in Year 1",
+      "best-mulberry-varieties-santa-cruz": "What Makes 'Pakistan' and Long-Fruited Honey Mulberries Special",
+      "blackberry-growth-stages": "What Happens During a Blackberry Plant's First Year",
+      "troubleshooting-mulberry-problems": "What Causes Branch Dieback in Mulberry Trees",
+      "blackberry-problems-pests-diseases": "What Causes Yellow Leaves and Weak Growth",
+      "mulberry-propagation-cuttings-grafting-layering": "How Do You Propagate Mulberries by Tip Layering",
+      "strawberry-growth-stages-guide": "What Happens During Dormancy"
+    };
+    var berryTestHeading = berryTestBoundaries[slug];
+
     var IMGBASE = 'https://images.squarespace-cdn.com/content/v1/6257536342b010638376c856/';
     var IMG = function (c, w) { return IMGBASE + c + '?format=' + w + 'w'; };
     var P = {
@@ -1716,6 +1731,20 @@ function ahIsFlockArticle(slug) {
                       document.querySelector('.entry-content');
     if (!articleBody) return;
 
+    var berryTestBoundary = null;
+    if (berryTestHeading) {
+      var sectionHeadings = articleBody.querySelectorAll('h2, h3');
+      for (var k = 0; k < sectionHeadings.length; k++) {
+        if (sectionHeadings[k].textContent.trim() === berryTestHeading) {
+          berryTestBoundary = sectionHeadings[k];
+          break;
+        }
+      }
+      // If editorial structure changes, keep the existing recommendation placement.
+    }
+
+    if (berryTestBoundary) prod = P.berry;
+
     // Card-with-cover design. Uses the .ah-prod styles injected by the article
     // enhancement block below (present on every article page).
     var box = document.createElement('div');
@@ -1727,6 +1756,16 @@ function ahIsFlockArticle(slug) {
       '<p>' + prod.line + '</p>' +
       '<span class="price">' + prod.price + '</span>' +
       '<a class="ah-cta" href="' + prod.url + '">' + (prod.service ? 'See the Garden Review' : 'View the guide') + '</a></div>';
+
+    if (berryTestBoundary) {
+      box.classList.add('ah-berry-guide-test');
+      box.setAttribute('data-campaign', 'berry_guide_test_2026q4');
+      box.querySelector('.ah-cta').setAttribute('href', prod.url +
+        '?utm_source=website&utm_medium=article_block' +
+        '&utm_campaign=berry_guide_test_2026q4&utm_content=' + encodeURIComponent(slug));
+      berryTestBoundary.parentNode.insertBefore(box, berryTestBoundary);
+      return;
+    }
 
     var faqHeading = null;
     var headings = articleBody.querySelectorAll('h2, h3');
@@ -2121,6 +2160,8 @@ function ahIsFlockArticle(slug) {
   var destackSlug = location.pathname.replace('/learn/', '').replace(/\/$/, '');
   var berryProductWins = /berr|currant/.test(destackSlug);
   function rank(el) {
+    // Keep the bounded placement test if a lower-priority promo shares its boundary.
+    if (el.classList.contains('ah-berry-guide-test')) return PRIORITY.length;
     for (var i = 0; i < PRIORITY.length; i++) {
       if (el.classList.contains(PRIORITY[i])) {
         if (berryProductWins && PRIORITY[i] === 'ah-product-callout') return PRIORITY.indexOf('ah-berry-optin') + 0.5; // just above ah-berry-optin (unchanged behavior; derived so it stays correct if PRIORITY is reordered)
