@@ -5100,3 +5100,26 @@ checkoutTracking();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
   setTimeout(run,1800);
 })();
+
+// AH_FIREWISE_PDF_REVISION_20261014
+// The free toolkit PDF revision is uploaded and byte-verified. The legacy
+// native block cannot currently be opened in the Squarespace preview editor.
+// Route its existing URL map and any already-open download card to the revision.
+(function () {
+  var oldUrl = 'https://www.ambitiousharvest.com/s/Ambitious-Harvest-Fire-Wise-Gardening-Guide.pdf';
+  var revisedUrl = 'https://www.ambitiousharvest.com/s/Ambitious-Harvest-Fire-Wise-Gardening-Guide-Revised-2026-10-12.pdf';
+  function routeRevision() {
+    if (window.location.pathname.replace(/\/$/, '') !== '/your-garden-toolkit') return;
+    var guides = window.AH_GUIDE_PDFS;
+    if (guides && guides['toolkit-firewise'] && guides['toolkit-firewise'].url === oldUrl) {
+      guides['toolkit-firewise'].url = revisedUrl;
+    }
+    var links = document.querySelectorAll('a[href="' + oldUrl + '"]');
+    for (var i = 0; i < links.length; i++) links[i].href = revisedUrl;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', routeRevision);
+  } else {
+    routeRevision();
+  }
+})();
