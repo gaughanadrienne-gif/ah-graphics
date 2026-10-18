@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-18T14:37:50.572Z",
+  "updated_at": "2026-10-18T18:09:34.377Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -461,7 +461,8 @@
           "expires": "2026-10-18T21:00:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3e729c64a2992a0579198f22c9a177b5319636aa.001.1"
         }
-      ]
+      ],
+      "stale": true
     },
     "slv": {
       "updated": "2026-10-18T14:37:50.572Z",
@@ -898,7 +899,8 @@
         }
       ],
       "hasActiveAlerts": false,
-      "alerts": []
+      "alerts": [],
+      "stale": true
     },
     "watsonville": {
       "updated": "2026-10-18T14:37:50.572Z",
@@ -1346,8 +1348,13 @@
           "expires": "2026-10-18T21:00:00-07:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3e729c64a2992a0579198f22c9a177b5319636aa.001.1"
         }
-      ]
+      ],
+      "stale": true
     }
   },
-  "warnings": []
+  "warnings": [
+    "Santa Cruz: HTTP 503",
+    "San Lorenzo Valley: HTTP 503",
+    "Watsonville: HTTP 503"
+  ]
 }
