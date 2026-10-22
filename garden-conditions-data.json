@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-22T19:15:10.062Z",
+  "updated_at": "2026-10-22T22:22:51.924Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-10-22T19:15:10.062Z",
+      "updated": "2026-10-22T22:22:51.924Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,26 +24,26 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 66,
+        "temperature": 61,
         "temperatureUnit": "F",
-        "apparentTemperature": 65,
-        "conditions": "Showers And Thunderstorms Likely",
-        "detailedForecast": "Showers and thunderstorms likely. Mostly cloudy. High near 64, with temperatures falling to around 62 in the afternoon. West southwest wind around 6 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
-        "wind": "6 mph",
-        "windSpeed": 5.9,
-        "windGust": 6.9,
-        "windDirection": "S",
-        "precipitation": 0,
+        "apparentTemperature": 63,
+        "conditions": "Chance Rain Showers",
+        "detailedForecast": "A chance of rain showers. Partly sunny. High near 64, with temperatures falling to around 62 in the afternoon. West wind around 6 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+        "wind": "3 mph",
+        "windSpeed": 3.2,
+        "windGust": 6.3,
+        "windDirection": "SW",
+        "precipitation": 0.043,
         "soilTemp": 66,
-        "soilMoisture": 0.157,
-        "humidity": 73,
-        "vapourPressureDeficit": 0.6,
-        "precipitationProbability": 36
+        "soilMoisture": 0.158,
+        "humidity": 93,
+        "vapourPressureDeficit": 0.13,
+        "precipitationProbability": 33
       },
       "rainfall": {
-        "today": 0.008,
-        "last7Days": 0.012,
-        "last30Days": 0.012,
+        "today": 0.406,
+        "last7Days": 0.41000000000000003,
+        "last30Days": 0.41000000000000003,
         "dailyData": [
           {
             "date": "2026-09-23",
@@ -163,51 +163,51 @@
           },
           {
             "date": "2026-10-22",
-            "amount": 0.008
+            "amount": 0.406
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-10-22",
-          "high": 65.5,
-          "low": 57.8,
-          "precipitation": 0.008,
-          "precipitationProbability": 40,
+          "high": 64.2,
+          "low": 56.2,
+          "precipitation": 0.406,
+          "precipitationProbability": 42,
           "uvIndex": 1.6,
-          "evapotranspiration": 0.058,
-          "windGust": 15.4
+          "evapotranspiration": 0.039,
+          "windGust": 17
         },
         "upcoming": [
           {
             "date": "2026-10-22",
-            "high": 65.5,
-            "low": 57.8,
-            "precipitation": 0.008,
-            "precipitationProbability": 40,
+            "high": 64.2,
+            "low": 56.2,
+            "precipitation": 0.406,
+            "precipitationProbability": 42,
             "uvIndex": 1.6,
-            "evapotranspiration": 0.058,
-            "windGust": 15.4
+            "evapotranspiration": 0.039,
+            "windGust": 17
           },
           {
             "date": "2026-10-23",
-            "high": 68.4,
-            "low": 51.9,
+            "high": 70.8,
+            "low": 53.8,
             "precipitation": 0,
-            "precipitationProbability": 4,
+            "precipitationProbability": 3,
             "uvIndex": 4.75,
-            "evapotranspiration": 0.101,
-            "windGust": 15.4
+            "evapotranspiration": 0.1,
+            "windGust": 16.3
           },
           {
             "date": "2026-10-24",
             "high": 70.6,
-            "low": 54.2,
+            "low": 51.6,
             "precipitation": 0,
-            "precipitationProbability": 0,
+            "precipitationProbability": 1,
             "uvIndex": 4.9,
-            "evapotranspiration": 0.131,
-            "windGust": 6.5
+            "evapotranspiration": 0.13,
+            "windGust": 6.9
           },
           {
             "date": "2026-10-25",
@@ -254,17 +254,17 @@
       "forecast": [
         {
           "name": "This Afternoon",
-          "startTime": "2026-10-22T12:00:00-07:00",
+          "startTime": "2026-10-22T15:00:00-07:00",
           "endTime": "2026-10-22T18:00:00-07:00",
           "temperature": 64,
           "temperatureUnit": "F",
-          "conditions": "Showers And Thunderstorms Likely",
-          "detailedForecast": "Showers and thunderstorms likely. Mostly cloudy. High near 64, with temperatures falling to around 62 in the afternoon. West southwest wind around 6 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/day/tsra_sct,70?size=medium",
+          "conditions": "Chance Rain Showers",
+          "detailedForecast": "A chance of rain showers. Partly sunny. High near 64, with temperatures falling to around 62 in the afternoon. West wind around 6 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+          "icon": "https://api.weather.gov/icons/land/day/rain_showers,50?size=medium",
           "isDaytime": true,
-          "precipitation": 73,
+          "precipitation": 52,
           "wind": "6 mph",
-          "windDirection": "WSW"
+          "windDirection": "W"
         },
         {
           "name": "Tonight",
@@ -453,7 +453,7 @@
       "alerts": []
     },
     "slv": {
-      "updated": "2026-10-22T19:15:10.062Z",
+      "updated": "2026-10-22T22:22:51.924Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -461,26 +461,26 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 63,
+        "temperature": 61,
         "temperatureUnit": "F",
-        "apparentTemperature": 62,
-        "conditions": "Rain Showers",
-        "detailedForecast": "Rain showers. Mostly cloudy. High near 69, with temperatures falling to around 63 in the afternoon. West southwest wind around 3 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
-        "wind": "5 mph",
-        "windSpeed": 5.4,
-        "windGust": 7.2,
+        "apparentTemperature": 61,
+        "conditions": "Rain Showers Likely",
+        "detailedForecast": "Rain showers likely. Mostly cloudy. High near 69, with temperatures falling to around 63 in the afternoon. West northwest wind around 3 mph. Chance of precipitation is 70%. New rainfall amounts between a tenth and quarter of an inch possible.",
+        "wind": "4 mph",
+        "windSpeed": 3.9,
+        "windGust": 6.3,
         "windDirection": "SSE",
         "precipitation": 0,
         "soilTemp": 64,
-        "soilMoisture": 0.157,
-        "humidity": 69,
-        "vapourPressureDeficit": 0.62,
-        "precipitationProbability": 43
+        "soilMoisture": 0.158,
+        "humidity": 85,
+        "vapourPressureDeficit": 0.25,
+        "precipitationProbability": 29
       },
       "rainfall": {
-        "today": 0.079,
-        "last7Days": 0.083,
-        "last30Days": 0.083,
+        "today": 0.126,
+        "last7Days": 0.13,
+        "last30Days": 0.13,
         "dailyData": [
           {
             "date": "2026-09-23",
@@ -600,51 +600,51 @@
           },
           {
             "date": "2026-10-22",
-            "amount": 0.079
+            "amount": 0.126
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-10-22",
-          "high": 64.7,
-          "low": 56.7,
-          "precipitation": 0.079,
-          "precipitationProbability": 45,
+          "high": 61.6,
+          "low": 55.2,
+          "precipitation": 0.126,
+          "precipitationProbability": 43,
           "uvIndex": 1.1,
-          "evapotranspiration": 0.046,
-          "windGust": 15.4
+          "evapotranspiration": 0.027,
+          "windGust": 15.7
         },
         "upcoming": [
           {
             "date": "2026-10-22",
-            "high": 64.7,
-            "low": 56.7,
-            "precipitation": 0.079,
-            "precipitationProbability": 45,
+            "high": 61.6,
+            "low": 55.2,
+            "precipitation": 0.126,
+            "precipitationProbability": 43,
             "uvIndex": 1.1,
-            "evapotranspiration": 0.046,
-            "windGust": 15.4
+            "evapotranspiration": 0.027,
+            "windGust": 15.7
           },
           {
             "date": "2026-10-23",
-            "high": 68.5,
-            "low": 50.7,
+            "high": 67.1,
+            "low": 51.6,
             "precipitation": 0,
             "precipitationProbability": 6,
             "uvIndex": 4.65,
-            "evapotranspiration": 0.106,
-            "windGust": 14.3
+            "evapotranspiration": 0.105,
+            "windGust": 13.9
           },
           {
             "date": "2026-10-24",
             "high": 77.5,
-            "low": 51.2,
+            "low": 54.2,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.9,
-            "evapotranspiration": 0.135,
-            "windGust": 9.6
+            "evapotranspiration": 0.143,
+            "windGust": 10.1
           },
           {
             "date": "2026-10-25",
@@ -691,17 +691,17 @@
       "forecast": [
         {
           "name": "This Afternoon",
-          "startTime": "2026-10-22T12:00:00-07:00",
+          "startTime": "2026-10-22T15:00:00-07:00",
           "endTime": "2026-10-22T18:00:00-07:00",
           "temperature": 69,
           "temperatureUnit": "F",
-          "conditions": "Rain Showers",
-          "detailedForecast": "Rain showers. Mostly cloudy. High near 69, with temperatures falling to around 63 in the afternoon. West southwest wind around 3 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/day/rain_showers,90?size=medium",
+          "conditions": "Rain Showers Likely",
+          "detailedForecast": "Rain showers likely. Mostly cloudy. High near 69, with temperatures falling to around 63 in the afternoon. West northwest wind around 3 mph. Chance of precipitation is 70%. New rainfall amounts between a tenth and quarter of an inch possible.",
+          "icon": "https://api.weather.gov/icons/land/day/rain_showers,70?size=medium",
           "isDaytime": true,
-          "precipitation": 88,
+          "precipitation": 66,
           "wind": "3 mph",
-          "windDirection": "WSW"
+          "windDirection": "WNW"
         },
         {
           "name": "Tonight",
@@ -890,7 +890,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-10-22T19:15:10.062Z",
+      "updated": "2026-10-22T22:22:51.924Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -898,26 +898,26 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 67,
+        "temperature": 64,
         "temperatureUnit": "F",
-        "apparentTemperature": 65,
-        "conditions": "Showers And Thunderstorms Likely",
-        "detailedForecast": "Showers and thunderstorms likely. Mostly cloudy. High near 62, with temperatures falling to around 59 in the afternoon. West southwest wind 3 to 8 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
-        "wind": "8 mph",
-        "windSpeed": 7.8,
-        "windGust": 8.7,
+        "apparentTemperature": 63,
+        "conditions": "Rain Showers Likely",
+        "detailedForecast": "Rain showers likely. Mostly cloudy. High near 62, with temperatures falling to around 59 in the afternoon. West southwest wind around 8 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
+        "wind": "7 mph",
+        "windSpeed": 7.1,
+        "windGust": 10.3,
         "windDirection": "SW",
         "precipitation": 0,
-        "soilTemp": 63,
-        "soilMoisture": 0.274,
-        "humidity": 63,
-        "vapourPressureDeficit": 0.84,
-        "precipitationProbability": 23
+        "soilTemp": 65,
+        "soilMoisture": 0.276,
+        "humidity": 82,
+        "vapourPressureDeficit": 0.38,
+        "precipitationProbability": 44
       },
       "rainfall": {
-        "today": 0,
-        "last7Days": 0.012,
-        "last30Days": 0.012,
+        "today": 0.047,
+        "last7Days": 0.059,
+        "last30Days": 0.059,
         "dailyData": [
           {
             "date": "2026-09-23",
@@ -1037,51 +1037,51 @@
           },
           {
             "date": "2026-10-22",
-            "amount": 0
+            "amount": 0.047
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-10-22",
-          "high": 67.2,
+          "high": 66.7,
           "low": 54,
-          "precipitation": 0,
-          "precipitationProbability": 36,
+          "precipitation": 0.047,
+          "precipitationProbability": 44,
           "uvIndex": 3.4,
-          "evapotranspiration": 0.063,
+          "evapotranspiration": 0.05,
           "windGust": 17.7
         },
         "upcoming": [
           {
             "date": "2026-10-22",
-            "high": 67.2,
+            "high": 66.7,
             "low": 54,
-            "precipitation": 0,
-            "precipitationProbability": 36,
+            "precipitation": 0.047,
+            "precipitationProbability": 44,
             "uvIndex": 3.4,
-            "evapotranspiration": 0.063,
+            "evapotranspiration": 0.05,
             "windGust": 17.7
           },
           {
             "date": "2026-10-23",
-            "high": 68.1,
-            "low": 51.5,
+            "high": 70.1,
+            "low": 50.7,
             "precipitation": 0,
-            "precipitationProbability": 5,
+            "precipitationProbability": 2,
             "uvIndex": 4.1,
-            "evapotranspiration": 0.079,
-            "windGust": 11.2
+            "evapotranspiration": 0.088,
+            "windGust": 11.6
           },
           {
             "date": "2026-10-24",
             "high": 77.2,
-            "low": 49.5,
+            "low": 45.9,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.9,
-            "evapotranspiration": 0.12,
-            "windGust": 5.8
+            "evapotranspiration": 0.117,
+            "windGust": 6.5
           },
           {
             "date": "2026-10-25",
@@ -1128,16 +1128,16 @@
       "forecast": [
         {
           "name": "This Afternoon",
-          "startTime": "2026-10-22T12:00:00-07:00",
+          "startTime": "2026-10-22T15:00:00-07:00",
           "endTime": "2026-10-22T18:00:00-07:00",
           "temperature": 62,
           "temperatureUnit": "F",
-          "conditions": "Showers And Thunderstorms Likely",
-          "detailedForecast": "Showers and thunderstorms likely. Mostly cloudy. High near 62, with temperatures falling to around 59 in the afternoon. West southwest wind 3 to 8 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/day/tsra,70?size=medium",
+          "conditions": "Rain Showers Likely",
+          "detailedForecast": "Rain showers likely. Mostly cloudy. High near 62, with temperatures falling to around 59 in the afternoon. West southwest wind around 8 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
+          "icon": "https://api.weather.gov/icons/land/day/rain_showers,60?size=medium",
           "isDaytime": true,
-          "precipitation": 74,
-          "wind": "3 to 8 mph",
+          "precipitation": 59,
+          "wind": "8 mph",
           "windDirection": "WSW"
         },
         {
