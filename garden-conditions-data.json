@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-24T09:35:20.558Z",
+  "updated_at": "2026-10-24T14:01:39.192Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-10-24T09:35:20.558Z",
+      "updated": "2026-10-24T14:01:39.192Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,20 +24,20 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 54,
+        "temperature": 51,
         "temperatureUnit": "F",
-        "apparentTemperature": 50,
+        "apparentTemperature": 47,
         "conditions": "Sunny",
         "detailedForecast": "Sunny. High near 72, with temperatures falling to around 70 in the afternoon. West southwest wind around 5 mph.",
-        "wind": "4 mph",
-        "windSpeed": 3.5,
-        "windGust": 3.6,
-        "windDirection": "NNE",
+        "wind": "2 mph",
+        "windSpeed": 2.1,
+        "windGust": 2.9,
+        "windDirection": "NE",
         "precipitation": 0,
-        "soilTemp": 54,
-        "soilMoisture": 0.167,
-        "humidity": 51,
-        "vapourPressureDeficit": 0.71,
+        "soilTemp": 51,
+        "soilMoisture": 0.168,
+        "humidity": 60,
+        "vapourPressureDeficit": 0.51,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -170,105 +170,91 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-10-24",
-          "high": 72.7,
-          "low": 52.5,
+          "high": 71.7,
+          "low": 50.9,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 4.9,
-          "evapotranspiration": 0.137,
-          "windGust": 11.9
+          "evapotranspiration": 0.131,
+          "windGust": 10.7
         },
         "upcoming": [
           {
             "date": "2026-10-24",
-            "high": 72.7,
-            "low": 52.5,
+            "high": 71.7,
+            "low": 50.9,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.9,
-            "evapotranspiration": 0.137,
-            "windGust": 11.9
+            "evapotranspiration": 0.131,
+            "windGust": 10.7
           },
           {
             "date": "2026-10-25",
-            "high": 66,
-            "low": 51.4,
+            "high": 66.9,
+            "low": 51.9,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 4.4,
+            "uvIndex": 4.35,
             "evapotranspiration": 0.099,
-            "windGust": 12.8
+            "windGust": 11.9
           },
           {
             "date": "2026-10-26",
-            "high": 69.8,
-            "low": 56,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 4.75,
-            "evapotranspiration": 0.119,
-            "windGust": 13.2
-          },
-          {
-            "date": "2026-10-27",
-            "high": 68.7,
-            "low": 54.4,
+            "high": 69.4,
+            "low": 51.1,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.65,
-            "evapotranspiration": 0.118,
-            "windGust": 14.8
+            "evapotranspiration": 0.119,
+            "windGust": 15.4
+          },
+          {
+            "date": "2026-10-27",
+            "high": 69.2,
+            "low": 54.3,
+            "precipitation": 0,
+            "precipitationProbability": 0,
+            "uvIndex": 4.7,
+            "evapotranspiration": 0.114,
+            "windGust": 11.2
           },
           {
             "date": "2026-10-28",
-            "high": 66.1,
-            "low": 53.3,
+            "high": 65.5,
+            "low": 54,
             "precipitation": 0,
             "precipitationProbability": 3,
-            "uvIndex": 4.1,
-            "evapotranspiration": 0.097,
-            "windGust": 8.9
+            "uvIndex": 4.5,
+            "evapotranspiration": 0.103,
+            "windGust": 12.1
           },
           {
             "date": "2026-10-29",
-            "high": 65.9,
-            "low": 56.7,
+            "high": 63.9,
+            "low": 55.1,
             "precipitation": 0,
             "precipitationProbability": 13,
-            "uvIndex": 3.35,
-            "evapotranspiration": 0.083,
-            "windGust": 5.4
+            "uvIndex": 3.9,
+            "evapotranspiration": 0.093,
+            "windGust": 6.5
           },
           {
             "date": "2026-10-30",
-            "high": 64.3,
-            "low": 55.5,
+            "high": 65.2,
+            "low": 51.8,
             "precipitation": 0,
             "precipitationProbability": 29,
-            "uvIndex": 4.25,
-            "evapotranspiration": 0.094,
-            "windGust": 4.7
+            "uvIndex": 4.3,
+            "evapotranspiration": 0.115,
+            "windGust": 9.8
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-10-24T02:00:00-07:00",
-          "endTime": "2026-10-24T06:00:00-07:00",
-          "temperature": 48,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 48. North northeast wind around 2 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "2 mph",
-          "windDirection": "NNE"
-        },
-        {
-          "name": "Saturday",
-          "startTime": "2026-10-24T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-10-24T07:00:00-07:00",
           "endTime": "2026-10-24T18:00:00-07:00",
           "temperature": 72,
           "temperatureUnit": "F",
@@ -281,7 +267,7 @@
           "windDirection": "WSW"
         },
         {
-          "name": "Saturday Night",
+          "name": "Tonight",
           "startTime": "2026-10-24T18:00:00-07:00",
           "endTime": "2026-10-25T06:00:00-07:00",
           "temperature": 50,
@@ -301,7 +287,7 @@
           "temperature": 72,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 72. West wind 1 to 5 mph.",
+          "detailedForecast": "Mostly sunny. High near 72, with temperatures falling to around 69 in the afternoon. West wind 1 to 5 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -329,7 +315,7 @@
           "temperature": 70,
           "temperatureUnit": "F",
           "conditions": "Patchy Fog then Mostly Sunny",
-          "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 70.",
+          "detailedForecast": "Patchy fog before 8am. Mostly sunny, with a high near 70. Northwest wind 2 to 8 mph.",
           "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -447,24 +433,38 @@
           "precipitation": 37,
           "wind": "3 to 7 mph",
           "windDirection": "NW"
+        },
+        {
+          "name": "Friday Night",
+          "startTime": "2026-10-30T18:00:00-07:00",
+          "endTime": "2026-10-31T06:00:00-07:00",
+          "temperature": 48,
+          "temperatureUnit": "F",
+          "conditions": "Chance Light Rain",
+          "detailedForecast": "A chance of rain. Mostly cloudy, with a low around 48.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,40?size=medium",
+          "isDaytime": false,
+          "precipitation": 37,
+          "wind": "3 to 7 mph",
+          "windDirection": "N"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
         {
           "event": "Coastal Flood Advisory",
-          "headline": "Coastal Flood Advisory issued October 23 at 12:45PM PDT until October 29 at 3:00PM PDT by NWS San Francisco CA",
+          "headline": "Coastal Flood Advisory issued October 24 at 5:46AM PDT until October 29 at 3:00PM PDT by NWS San Francisco CA",
           "severity": "Minor",
           "urgency": "Expected",
-          "description": "* WHAT...Up to 1.9ft of inundation above ground level is possible\nin low-lying areas near shorelines and tidal waterways.\n\n* WHERE...Bay Shoreline locations of San Francisco Bay, Monterey\nBay and Big Sur Coast.\n\n* WHEN...From 8 AM Saturday to 3 PM PDT Thursday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal areas.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high tide\nis expected to be 1.1 ft above normal (6.9 ft MLLW) at 10:39 AM\nSaturday 10/24, 1.4 ft above normal (7.2 ft MLLW) at 11:07 AM\nSunday 10/25, 1.7 ft above normal (7.5 ft MLLW) at 11:39 AM\nMonday 10/26, 1.8 ft above normal (7.6 ft MLLW) at 12:15 PM\nTuesday 10/27, 1.9 ft above normal (7.7 ft MLLW) at 12:56 PM\nWednesday 10/28, and 1.7 ft above normal (7.5 ft MLLW) at 01:43\nPM Thursday 10/29. These predictions include up to 1.0 ft of\nsurge that will enhance the astronomical tide and flooding\nthreat. High tide varies up to 90 minutes earlier or later along\nthe Pacific Coast and through the San Francisco Bay,\nrespectively.",
+          "description": "* WHAT...Up to 1.9ft of inundation above ground level is\npossible in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Bay Shoreline locations of San Francisco Bay, Monterey\nBay and Big Sur Coast.\n\n* WHEN...From 8 AM Saturday to 3 PM PDT Thursday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal areas.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high tide\nis expected to be 1.1 ft above normal (6.9 ft MLLW) at 10:39 AM\nSaturday 10/24, 1.5 ft above normal (7.3 ft MLLW) at 11:07 AM\nSunday 10/25, 1.6 ft above normal (7.4 ft MLLW) at 11:39 AM\nMonday 10/26, 1.8 ft above normal (7.6 ft MLLW) at 12:15 PM\nTuesday 10/27, 1.9 ft above normal (7.7 ft MLLW) at 12:56 PM\nWednesday 10/28, and 1.7 ft above normal (7.5 ft MLLW) at 01:43\nPM Thursday 10/29. These predictions include up to 1.0 ft of\nsurge that will enhance the astronomical tide and flooding\nthreat. High tide varies up to 90 minutes earlier or later along\nthe Pacific Coast and through the San Francisco Bay,\nrespectively.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.",
-          "expires": "2026-10-24T05:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c9f54b250a8067122e1e777ced22b42550c82a6f.001.1"
+          "expires": "2026-10-24T14:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.43cc8e0ec9ff2a247687d9b2982f8e2cbdfa1c14.001.1"
         }
       ]
     },
     "slv": {
-      "updated": "2026-10-24T09:35:20.558Z",
+      "updated": "2026-10-24T14:01:39.192Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -472,20 +472,20 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 57,
+        "temperature": 56,
         "temperatureUnit": "F",
-        "apparentTemperature": 50,
+        "apparentTemperature": 49,
         "conditions": "Sunny",
-        "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. North northeast wind around 2 mph.",
+        "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. Northeast wind around 2 mph.",
         "wind": "7 mph",
-        "windSpeed": 6.9,
+        "windSpeed": 7.4,
         "windGust": 8.1,
         "windDirection": "WNW",
         "precipitation": 0,
-        "soilTemp": 53,
-        "soilMoisture": 0.167,
+        "soilTemp": 49,
+        "soilMoisture": 0.168,
         "humidity": 37,
-        "vapourPressureDeficit": 1.06,
+        "vapourPressureDeficit": 0.96,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -618,118 +618,104 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-10-24",
-          "high": 77.3,
-          "low": 55.1,
+          "high": 77.2,
+          "low": 53.8,
           "precipitation": 0,
           "precipitationProbability": 0,
           "uvIndex": 4.9,
-          "evapotranspiration": 0.163,
-          "windGust": 11.6
+          "evapotranspiration": 0.152,
+          "windGust": 10.5
         },
         "upcoming": [
           {
             "date": "2026-10-24",
-            "high": 77.3,
-            "low": 55.1,
+            "high": 77.2,
+            "low": 53.8,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.9,
-            "evapotranspiration": 0.163,
-            "windGust": 11.6
+            "evapotranspiration": 0.152,
+            "windGust": 10.5
           },
           {
             "date": "2026-10-25",
-            "high": 73.5,
-            "low": 50.2,
+            "high": 73.7,
+            "low": 49.8,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.2,
-            "evapotranspiration": 0.108,
-            "windGust": 9.4
+            "evapotranspiration": 0.109,
+            "windGust": 8.7
           },
           {
             "date": "2026-10-26",
-            "high": 69.5,
-            "low": 48.4,
-            "precipitation": 0,
-            "precipitationProbability": 0,
-            "uvIndex": 4.75,
-            "evapotranspiration": 0.103,
-            "windGust": 9.2
-          },
-          {
-            "date": "2026-10-27",
-            "high": 67.5,
-            "low": 48.3,
+            "high": 69.1,
+            "low": 47.8,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.65,
-            "evapotranspiration": 0.098,
-            "windGust": 9.4
+            "evapotranspiration": 0.102,
+            "windGust": 10.3
+          },
+          {
+            "date": "2026-10-27",
+            "high": 69.1,
+            "low": 47.9,
+            "precipitation": 0,
+            "precipitationProbability": 0,
+            "uvIndex": 4.7,
+            "evapotranspiration": 0.1,
+            "windGust": 8.9
           },
           {
             "date": "2026-10-28",
-            "high": 70.8,
-            "low": 46,
+            "high": 64.4,
+            "low": 47.4,
             "precipitation": 0,
             "precipitationProbability": 2,
-            "uvIndex": 4.15,
-            "evapotranspiration": 0.093,
-            "windGust": 7.2
+            "uvIndex": 4.5,
+            "evapotranspiration": 0.085,
+            "windGust": 8.5
           },
           {
             "date": "2026-10-29",
-            "high": 72.2,
-            "low": 49.3,
+            "high": 66.4,
+            "low": 46.3,
             "precipitation": 0,
             "precipitationProbability": 17,
-            "uvIndex": 3.55,
-            "evapotranspiration": 0.084,
-            "windGust": 5.4
+            "uvIndex": 3.9,
+            "evapotranspiration": 0.085,
+            "windGust": 5.6
           },
           {
             "date": "2026-10-30",
-            "high": 68.7,
-            "low": 47.4,
+            "high": 65.3,
+            "low": 42.8,
             "precipitation": 0,
             "precipitationProbability": 30,
-            "uvIndex": 4.2,
-            "evapotranspiration": 0.1,
-            "windGust": 5.1
+            "uvIndex": 4.3,
+            "evapotranspiration": 0.102,
+            "windGust": 7.6
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-10-24T02:00:00-07:00",
-          "endTime": "2026-10-24T06:00:00-07:00",
-          "temperature": 45,
-          "temperatureUnit": "F",
-          "conditions": "Clear",
-          "detailedForecast": "Clear, with a low around 45. West northwest wind around 1 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/skc?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "1 mph",
-          "windDirection": "WNW"
-        },
-        {
-          "name": "Saturday",
-          "startTime": "2026-10-24T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-10-24T07:00:00-07:00",
           "endTime": "2026-10-24T18:00:00-07:00",
           "temperature": 77,
           "temperatureUnit": "F",
           "conditions": "Sunny",
-          "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. North northeast wind around 2 mph.",
+          "detailedForecast": "Sunny. High near 77, with temperatures falling to around 73 in the afternoon. Northeast wind around 2 mph.",
           "icon": "https://api.weather.gov/icons/land/day/skc?size=medium",
           "isDaytime": true,
           "precipitation": 0,
           "wind": "2 mph",
-          "windDirection": "NNE"
+          "windDirection": "NE"
         },
         {
-          "name": "Saturday Night",
+          "name": "Tonight",
           "startTime": "2026-10-24T18:00:00-07:00",
           "endTime": "2026-10-25T06:00:00-07:00",
           "temperature": 46,
@@ -749,7 +735,7 @@
           "temperature": 78,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 78. South southwest wind around 1 mph.",
+          "detailedForecast": "Mostly sunny. High near 78, with temperatures falling to around 73 in the afternoon. South southwest wind around 1 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -777,7 +763,7 @@
           "temperature": 73,
           "temperatureUnit": "F",
           "conditions": "Patchy Fog then Sunny",
-          "detailedForecast": "Patchy fog before 8am. Sunny, with a high near 73.",
+          "detailedForecast": "Patchy fog before 8am. Sunny, with a high near 73. North northwest wind 0 to 6 mph.",
           "icon": "https://api.weather.gov/icons/land/day/fog/few?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -895,13 +881,27 @@
           "precipitation": 36,
           "wind": "3 mph",
           "windDirection": "WNW"
+        },
+        {
+          "name": "Friday Night",
+          "startTime": "2026-10-30T18:00:00-07:00",
+          "endTime": "2026-10-31T06:00:00-07:00",
+          "temperature": 44,
+          "temperatureUnit": "F",
+          "conditions": "Chance Light Rain",
+          "detailedForecast": "A chance of rain. Mostly cloudy, with a low around 44.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,40/rain,30?size=medium",
+          "isDaytime": false,
+          "precipitation": 36,
+          "wind": "3 mph",
+          "windDirection": "NNW"
         }
       ],
       "hasActiveAlerts": false,
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-10-24T09:35:20.558Z",
+      "updated": "2026-10-24T14:01:39.192Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -909,20 +909,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 49,
+        "temperature": 45,
         "temperatureUnit": "F",
-        "apparentTemperature": 46,
+        "apparentTemperature": 42,
         "conditions": "Sunny",
         "detailedForecast": "Sunny. High near 70, with temperatures falling to around 66 in the afternoon. East wind 2 to 6 mph.",
-        "wind": "3 mph",
-        "windSpeed": 3,
-        "windGust": 4.9,
-        "windDirection": "ESE",
+        "wind": "2 mph",
+        "windSpeed": 1.7,
+        "windGust": 7.4,
+        "windDirection": "NNE",
         "precipitation": 0,
-        "soilTemp": 55,
+        "soilTemp": 52,
         "soilMoisture": 0.295,
-        "humidity": 76,
-        "vapourPressureDeficit": 0.29,
+        "humidity": 74,
+        "vapourPressureDeficit": 0.27,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1055,79 +1055,79 @@
       "gardenMetrics": {
         "today": {
           "date": "2026-10-24",
-          "high": 74.4,
-          "low": 45.7,
+          "high": 74.9,
+          "low": 44.9,
           "precipitation": 0,
           "precipitationProbability": 0,
-          "uvIndex": 4.95,
-          "evapotranspiration": 0.117,
-          "windGust": 10.5
+          "uvIndex": 4.9,
+          "evapotranspiration": 0.115,
+          "windGust": 11.4
         },
         "upcoming": [
           {
             "date": "2026-10-24",
-            "high": 74.4,
-            "low": 45.7,
+            "high": 74.9,
+            "low": 44.9,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 4.95,
-            "evapotranspiration": 0.117,
-            "windGust": 10.5
+            "uvIndex": 4.9,
+            "evapotranspiration": 0.115,
+            "windGust": 11.4
           },
           {
             "date": "2026-10-25",
-            "high": 66.9,
-            "low": 46.6,
+            "high": 68,
+            "low": 46.3,
             "precipitation": 0,
             "precipitationProbability": 1,
-            "uvIndex": 4.4,
-            "evapotranspiration": 0.091,
-            "windGust": 13.4
+            "uvIndex": 4.3,
+            "evapotranspiration": 0.09,
+            "windGust": 12.5
           },
           {
             "date": "2026-10-26",
-            "high": 67.7,
-            "low": 50.7,
+            "high": 66.8,
+            "low": 49.9,
             "precipitation": 0,
             "precipitationProbability": 0,
-            "uvIndex": 4.75,
-            "evapotranspiration": 0.1,
-            "windGust": 7.2
+            "uvIndex": 4.65,
+            "evapotranspiration": 0.098,
+            "windGust": 7.8
           },
           {
             "date": "2026-10-27",
-            "high": 66.7,
-            "low": 47.6,
+            "high": 65.3,
+            "low": 47.5,
             "precipitation": 0,
             "precipitationProbability": 0,
             "uvIndex": 4.7,
-            "evapotranspiration": 0.097,
-            "windGust": 7.6
+            "evapotranspiration": 0.095,
+            "windGust": 6.5
           },
           {
             "date": "2026-10-28",
-            "high": 66.6,
-            "low": 46.9,
+            "high": 64.1,
+            "low": 47.7,
             "precipitation": 0,
             "precipitationProbability": 2,
-            "uvIndex": 4.1,
-            "evapotranspiration": 0.087,
-            "windGust": 4.9
+            "uvIndex": 4.55,
+            "evapotranspiration": 0.088,
+            "windGust": 6.3
           },
           {
             "date": "2026-10-29",
-            "high": 66.6,
-            "low": 51,
+            "high": 63.7,
+            "low": 48,
             "precipitation": 0,
             "precipitationProbability": 9,
-            "uvIndex": 3.45,
-            "evapotranspiration": 0.075,
-            "windGust": 3.6
+            "uvIndex": 3.6,
+            "evapotranspiration": 0.073,
+            "windGust": 4.3
           },
           {
             "date": "2026-10-30",
-            "high": 66.9,
-            "low": 47.7,
+            "high": 63.9,
+            "low": 43.7,
             "precipitation": 0,
             "precipitationProbability": 24,
             "uvIndex": 4.3,
@@ -1138,22 +1138,8 @@
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-10-24T02:00:00-07:00",
-          "endTime": "2026-10-24T06:00:00-07:00",
-          "temperature": 46,
-          "temperatureUnit": "F",
-          "conditions": "Mostly Clear",
-          "detailedForecast": "Mostly clear, with a low around 46. East wind around 5 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
-          "isDaytime": false,
-          "precipitation": 0,
-          "wind": "5 mph",
-          "windDirection": "E"
-        },
-        {
-          "name": "Saturday",
-          "startTime": "2026-10-24T06:00:00-07:00",
+          "name": "Today",
+          "startTime": "2026-10-24T07:00:00-07:00",
           "endTime": "2026-10-24T18:00:00-07:00",
           "temperature": 70,
           "temperatureUnit": "F",
@@ -1166,7 +1152,7 @@
           "windDirection": "E"
         },
         {
-          "name": "Saturday Night",
+          "name": "Tonight",
           "startTime": "2026-10-24T18:00:00-07:00",
           "endTime": "2026-10-25T06:00:00-07:00",
           "temperature": 47,
@@ -1186,7 +1172,7 @@
           "temperature": 71,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 71. West southwest wind 2 to 7 mph.",
+          "detailedForecast": "Mostly sunny. High near 71, with temperatures falling to around 66 in the afternoon. West southwest wind 2 to 7 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -1214,7 +1200,7 @@
           "temperature": 67,
           "temperatureUnit": "F",
           "conditions": "Mostly Sunny",
-          "detailedForecast": "Mostly sunny, with a high near 67.",
+          "detailedForecast": "Mostly sunny, with a high near 67. West northwest wind 1 to 8 mph.",
           "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
           "precipitation": 0,
@@ -1332,19 +1318,33 @@
           "precipitation": 34,
           "wind": "2 to 8 mph",
           "windDirection": "W"
+        },
+        {
+          "name": "Friday Night",
+          "startTime": "2026-10-30T18:00:00-07:00",
+          "endTime": "2026-10-31T06:00:00-07:00",
+          "temperature": 47,
+          "temperatureUnit": "F",
+          "conditions": "Chance Light Rain",
+          "detailedForecast": "A chance of rain. Mostly cloudy, with a low around 47.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,40?size=medium",
+          "isDaytime": false,
+          "precipitation": 35,
+          "wind": "9 mph",
+          "windDirection": "N"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
         {
           "event": "Coastal Flood Advisory",
-          "headline": "Coastal Flood Advisory issued October 23 at 12:45PM PDT until October 29 at 3:00PM PDT by NWS San Francisco CA",
+          "headline": "Coastal Flood Advisory issued October 24 at 5:46AM PDT until October 29 at 3:00PM PDT by NWS San Francisco CA",
           "severity": "Minor",
           "urgency": "Expected",
-          "description": "* WHAT...Up to 1.9ft of inundation above ground level is possible\nin low-lying areas near shorelines and tidal waterways.\n\n* WHERE...Bay Shoreline locations of San Francisco Bay, Monterey\nBay and Big Sur Coast.\n\n* WHEN...From 8 AM Saturday to 3 PM PDT Thursday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal areas.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high tide\nis expected to be 1.1 ft above normal (6.9 ft MLLW) at 10:39 AM\nSaturday 10/24, 1.4 ft above normal (7.2 ft MLLW) at 11:07 AM\nSunday 10/25, 1.7 ft above normal (7.5 ft MLLW) at 11:39 AM\nMonday 10/26, 1.8 ft above normal (7.6 ft MLLW) at 12:15 PM\nTuesday 10/27, 1.9 ft above normal (7.7 ft MLLW) at 12:56 PM\nWednesday 10/28, and 1.7 ft above normal (7.5 ft MLLW) at 01:43\nPM Thursday 10/29. These predictions include up to 1.0 ft of\nsurge that will enhance the astronomical tide and flooding\nthreat. High tide varies up to 90 minutes earlier or later along\nthe Pacific Coast and through the San Francisco Bay,\nrespectively.",
+          "description": "* WHAT...Up to 1.9ft of inundation above ground level is\npossible in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Bay Shoreline locations of San Francisco Bay, Monterey\nBay and Big Sur Coast.\n\n* WHEN...From 8 AM Saturday to 3 PM PDT Thursday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal areas.\n\n* ADDITIONAL DETAILS...At the San Francisco tidal gauge, high tide\nis expected to be 1.1 ft above normal (6.9 ft MLLW) at 10:39 AM\nSaturday 10/24, 1.5 ft above normal (7.3 ft MLLW) at 11:07 AM\nSunday 10/25, 1.6 ft above normal (7.4 ft MLLW) at 11:39 AM\nMonday 10/26, 1.8 ft above normal (7.6 ft MLLW) at 12:15 PM\nTuesday 10/27, 1.9 ft above normal (7.7 ft MLLW) at 12:56 PM\nWednesday 10/28, and 1.7 ft above normal (7.5 ft MLLW) at 01:43\nPM Thursday 10/29. These predictions include up to 1.0 ft of\nsurge that will enhance the astronomical tide and flooding\nthreat. High tide varies up to 90 minutes earlier or later along\nthe Pacific Coast and through the San Francisco Bay,\nrespectively.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.",
-          "expires": "2026-10-24T05:00:00-07:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c9f54b250a8067122e1e777ced22b42550c82a6f.001.1"
+          "expires": "2026-10-24T14:00:00-07:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.43cc8e0ec9ff2a247687d9b2982f8e2cbdfa1c14.001.1"
         }
       ]
     }
