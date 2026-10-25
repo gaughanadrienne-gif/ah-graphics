@@ -5128,7 +5128,7 @@ checkoutTracking();
 /* AH toolkit truthful signup and accessible selection. No provider settings changed. */
 (function () {
   'use strict';
-  var VERSION = '2026-10-25.1';
+  var VERSION = '2026-10-25.2';
   function acceptedResponse(response) {
     if (!response || !response.ok || response.type === 'opaque') return Promise.reject(new Error('Unconfirmed request'));
     return response.json().then(function (data) {
@@ -5189,6 +5189,9 @@ checkoutTracking();
     if (actions[1]) actions[1].textContent = 'Select the starter three';
     var intro = document.querySelector('.ah-tk-hero > p');
     if (intro) intro.textContent = 'Choose the guides you want to open now. Three are selected to start. Your email copy includes all 12 guides.';
+    document.querySelectorAll('main p').forEach(function (p) {
+      if (p.textContent.indexOf('The email signup includes three starter guides by default.') === 0) p.textContent = 'Choose individual guides to open on this page, or request the full collection of 12 guides by email. Free downloads in this library do not require a signup.';
+    });
     var hint = document.getElementById('ah-tk-instruction');
     if (hint) hint.textContent = 'Use the checkboxes to choose your on-page downloads.';
     submit.textContent = 'Request the toolkit by email';
@@ -5200,6 +5203,7 @@ checkoutTracking();
     var style = document.createElement('style');
     style.textContent = '.ah-journey-choice{display:flex;align-items:center;gap:10px;padding:12px;min-height:44px;cursor:pointer;font:600 14px/1.5 Montserrat,Arial,sans-serif}.ah-journey-choice input{width:20px;height:20px;flex-shrink:0}.ah-journey-choice:focus-within{outline:3px solid #2e6b46;outline-offset:-3px}.ah-tk-card .ah-tk-check{display:none}.ah-journey-helper{font:13px/1.5 Montserrat,Arial,sans-serif;margin:6px 12px}.ah-journey-helper a{text-decoration:underline}.ah-journey-download{display:block;width:100%;min-height:48px;padding:14px 18px;background:#1a3b2a;color:#fff;border:2px solid #1a3b2a;border-radius:6px;text-align:left;font:600 15px/1.5 Montserrat,Arial,sans-serif;cursor:pointer}.ah-journey-download:focus-visible{outline:3px solid #8f4f45;outline-offset:3px}';
     document.head.appendChild(style);
+    style.textContent += '.ah-tk-card .ah-tk-starter-badge{position:static;display:table;margin:8px 12px}.ah-journey-helper{color:#fff!important}.ah-journey-helper a{color:#fff!important}';
     function showDownloads(tags, accepted) {
       downloads.textContent = '';
       tags.forEach(function (tag) {
