@@ -5124,3 +5124,123 @@ checkoutTracking();
     routeRevision();
   }
 })();
+
+/* AH toolkit truthful signup and accessible selection. No provider settings changed. */
+(function () {
+  'use strict';
+  var VERSION = '2026-10-25.1';
+  function acceptedResponse(response) {
+    if (!response || !response.ok || response.type === 'opaque') return Promise.reject(new Error('Unconfirmed request'));
+    return response.json().then(function (data) {
+      if (!data || data.success !== true) throw new Error('Unconfirmed acceptance');
+      return data;
+    });
+  }
+  // Node-only export for offline contract tests. No browser global API added.
+  if (typeof module === 'object' && module.exports) module.exports = { acceptedResponse: acceptedResponse };
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  function run() {
+    if (location.pathname.replace(/\/$/, '') !== '/your-garden-toolkit') return;
+    var form = document.getElementById('ah-toolkit-form');
+    if (!form || form.dataset.ahJourneyVersion === VERSION) return;
+    var cards = Array.from(document.querySelectorAll('.ah-tk-card[data-guide]'));
+    var msg = document.getElementById('ah-sticky-msg');
+    var submit = document.getElementById('ah-sticky-submit');
+    var success = document.getElementById('ah-success-msg');
+    var downloads = document.getElementById('ah-remaining-downloads');
+    if (!cards.length || !msg || !submit || !success || !downloads) return;
+    form.dataset.ahJourneyVersion = VERSION;
+    msg.setAttribute('role', 'status'); msg.setAttribute('aria-live', 'polite');
+    success.setAttribute('tabindex', '-1');
+    function sync() {
+      if (!window.document || !form.isConnected) return;
+      var instruction = document.getElementById('ah-tk-instruction');
+      if (instruction) instruction.textContent = cards.some(function (card) { return card.classList.contains('selected'); }) ? 'Use the checkboxes to choose your on-page downloads.' : 'Select at least one guide using the checkboxes.';
+      cards.forEach(function (card) {
+        var input = card.querySelector('.ah-journey-checkbox');
+        if (input) input.checked = card.classList.contains('selected');
+      });
+    }
+    cards.forEach(function (card, index) {
+      card.removeAttribute('onclick'); card.onclick = null;
+      var title = card.querySelector('.ah-tk-visual-title');
+      var label = document.createElement('label');
+      label.className = 'ah-journey-choice';
+      var checkbox = document.createElement('input');
+      checkbox.type = 'checkbox'; checkbox.className = 'ah-journey-checkbox';
+      checkbox.id = 'ah-journey-guide-' + index;
+      checkbox.checked = card.classList.contains('selected');
+      label.htmlFor = checkbox.id;
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode('Select ' + (title ? title.textContent.trim() : card.dataset.guide)));
+      card.insertBefore(label, card.firstChild);
+      checkbox.addEventListener('change', function () {
+        card.classList.toggle('selected', checkbox.checked);
+        if (typeof window.ahUpdateStickyCount === 'function') window.ahUpdateStickyCount();
+      });
+      // No whole-card click listener: reference links never alter selection.
+    });
+    var originalUpdate = window.ahUpdateStickyCount;
+    if (typeof originalUpdate === 'function') window.ahUpdateStickyCount = function () { originalUpdate.apply(this, arguments); sync(); };
+    var observer = new MutationObserver(sync);
+    cards.forEach(function (card) { observer.observe(card, { attributes: true, attributeFilter: ['class'] }); });
+    var actions = document.querySelectorAll('.ah-tk-hero-actions button');
+    if (actions[0]) actions[0].textContent = 'Select all 12 guides';
+    if (actions[1]) actions[1].textContent = 'Select the starter three';
+    var intro = document.querySelector('.ah-tk-hero > p');
+    if (intro) intro.textContent = 'Choose the guides you want to open now. Three are selected to start. Your email copy includes all 12 guides.';
+    var hint = document.getElementById('ah-tk-instruction');
+    if (hint) hint.textContent = 'Use the checkboxes to choose your on-page downloads.';
+    submit.textContent = 'Request the toolkit by email';
+    var helper = document.createElement('p'); helper.className = 'ah-journey-helper';
+    helper.textContent = 'Confirm your email address to receive the collection and seasonal gardening emails. Unsubscribe anytime.';
+    if (window.AH_TOOLKIT_WELCOME_DISCLOSURE === true) helper.textContent += ' New subscribers also receive four welcome emails over eight days.';
+    var free = document.createElement('a'); free.href = '#ah-product-library'; free.textContent = 'Browse free downloads';
+    helper.appendChild(document.createTextNode(' ')); helper.appendChild(free); form.appendChild(helper);
+    var style = document.createElement('style');
+    style.textContent = '.ah-journey-choice{display:flex;align-items:center;gap:10px;padding:12px;min-height:44px;cursor:pointer;font:600 14px/1.5 Montserrat,Arial,sans-serif}.ah-journey-choice input{width:20px;height:20px;flex-shrink:0}.ah-journey-choice:focus-within{outline:3px solid #2e6b46;outline-offset:-3px}.ah-tk-card .ah-tk-check{display:none}.ah-journey-helper{font:13px/1.5 Montserrat,Arial,sans-serif;margin:6px 12px}.ah-journey-helper a{text-decoration:underline}.ah-journey-download{display:block;width:100%;min-height:48px;padding:14px 18px;background:#1a3b2a;color:#fff;border:2px solid #1a3b2a;border-radius:6px;text-align:left;font:600 15px/1.5 Montserrat,Arial,sans-serif;cursor:pointer}.ah-journey-download:focus-visible{outline:3px solid #8f4f45;outline-offset:3px}';
+    document.head.appendChild(style);
+    function showDownloads(tags, accepted) {
+      downloads.textContent = '';
+      tags.forEach(function (tag) {
+        // Read live map here so later fire-wise revision overrides remain authoritative.
+        var guide = window.AH_GUIDE_PDFS && window.AH_GUIDE_PDFS[tag];
+        if (!guide) return;
+        var link = document.createElement('button'); link.type = 'button'; link.className = 'ah-journey-download';
+        link.textContent = 'Download ' + guide.title + ' PDF';
+        link.addEventListener('click', function () { window.open(guide.url, '_blank', 'noopener'); });
+        downloads.appendChild(link);
+      });
+      var heading = success.querySelector('h2');
+      var text = success.querySelector('p');
+      if (heading) heading.textContent = 'Your selected downloads are ready';
+      if (text) text.textContent = accepted
+        ? 'Your email request was accepted. If confirmation is needed, check your inbox and confirm your subscription. You can open your selected guides below now.'
+        : 'We could not confirm your email request. Your selected free guides are still available below. Check your inbox before trying again.';
+      success.classList.add('visible'); success.focus();
+    }
+    var pending = false;
+    form.removeAttribute('onsubmit'); form.onsubmit = null;
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (pending || !form.reportValidity()) return;
+      var tags = cards.filter(function (card) { return card.classList.contains('selected'); }).map(function (card) { return card.dataset.guide; });
+      if (!tags.length) { msg.textContent = 'Choose at least one guide.'; return; }
+      var field = document.getElementById('ah-toolkit-guides-field');
+      if (field) field.value = tags.join(',');
+      pending = true; submit.disabled = true; submit.textContent = 'Requesting...'; msg.textContent = '';
+      fetch(form.action, { method: 'POST', body: new FormData(form), mode: 'cors' })
+        .then(acceptedResponse)
+        .then(function () {
+          if (typeof window.gtag === 'function' && !window.__AH_QA__) window.gtag('event', 'email_signup_accepted', { form_id: '182673613650920778', measurement_scope: 'accepted_request_not_confirmed_subscriber', page_path: location.pathname });
+          msg.textContent = 'Request accepted. Check your inbox for any required confirmation.';
+          showDownloads(tags, true);
+        })
+        .catch(function () { msg.textContent = 'We could not confirm your request. Check your inbox before retrying, or use the free downloads below.'; showDownloads(tags, false); })
+        .finally(function () { pending = false; submit.disabled = false; submit.textContent = 'Request the toolkit by email'; });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  document.addEventListener('mercury:load', run);
+})();
+
