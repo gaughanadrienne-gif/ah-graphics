@@ -1,30 +1,8 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-10-27T04:58:56.487Z",
+  "updated_at": "2026-10-27T22:10:12.809Z",
   "events": [
-    {
-      "id": "sccfm-felton",
-      "title": "Felton Farmers' Market",
-      "weekday": 2,
-      "start_time": "13:30",
-      "end_time": "17:30",
-      "season_start": "2026-05-05",
-      "season_end": "2026-10-27",
-      "venue": "120 Russell Avenue",
-      "city": "Felton",
-      "categories": [
-        "market"
-      ],
-      "description": "Seasonal farmers' market with regional produce, prepared foods and live music.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/felton/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Tuesdays, 1:30 to 5:30 PM, May 5 to October 27",
-      "start": "2026-10-27T20:30:00.000Z",
-      "end": "2026-10-28T00:30:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
     {
       "id": "ucsc_agroecology-10017119",
       "source_id": "ucsc_agroecology",
@@ -432,6 +410,62 @@
       "source_type": "api"
     },
     {
+      "id": "ucsc_arboretum-2026-11-21-early-bird-saturday-members-early-access",
+      "source_id": "ucsc_arboretum",
+      "title": "Early Bird Saturday, Members Early Access",
+      "start": "2026-11-21T08:00:00.000Z",
+      "end": "2026-11-21T08:00:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "experience"
+      ],
+      "description": "",
+      "all_day": true,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html",
+      "recurrence": "Open during garden hours, confirm before visiting"
+    },
+    {
+      "id": "ucsc_arboretum-2026-11-21-gift-wreath-fundraiser-handmade-wreathes-dish-ga",
+      "source_id": "ucsc_arboretum",
+      "title": "Gift & Wreath Fundraiser ~ Handmade wreathes, dish gardens, and gifts!",
+      "start": "2026-11-21T08:00:00.000Z",
+      "end": "2026-11-21T08:00:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "experience"
+      ],
+      "description": "",
+      "all_day": true,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html",
+      "recurrence": "Open during garden hours, confirm before visiting"
+    },
+    {
+      "id": "ucsc_arboretum-2026-11-23-plant-keying-with-lucy-4th-monday-each-month",
+      "source_id": "ucsc_arboretum",
+      "title": "Plant Keying with Lucy, 4th Monday each month",
+      "start": "2026-11-24T03:30:00.000Z",
+      "end": "2026-11-24T03:30:00.000Z",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "city": "Santa Cruz",
+      "categories": [
+        "experience"
+      ],
+      "description": "5:30 to 7:30pm at the Horticulture 2 Meeting Hall Join Lucy Ferneyhough, our Associate Director and Native Plant Program Project Manager, who will be hosting keying sessions on the fourth Monday of every month.",
+      "all_day": false,
+      "source_url": "https://arboretum.ucsc.edu/visit/events/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "status": "confirmed",
+      "source_type": "html"
+    },
+    {
       "id": "ucsc_agroecology-10017126",
       "source_id": "ucsc_agroecology",
       "title": "Produce Pop-Up",
@@ -516,8 +550,7 @@
     }
   ],
   "warnings": [
-    "California Native Plant Society: HTTP 404",
-    "UCSC Arboretum & Botanic Garden: validation gate failed, page parsed but no dated events matched"
+    "California Native Plant Society: HTTP 404"
   ],
-  "updated": "2026-10-27T04:58:56.487Z"
+  "updated": "2026-10-27T22:10:12.809Z"
 }
