@@ -7,7 +7,7 @@ Run after editing either embed, or --check to reject stale generated assets.
 from pathlib import Path
 import argparse, hashlib, json, re
 ROOT = Path(__file__).resolve().parents[1]
-TOOLS = [("garden-events", "#garden-events-tool"), ("build-your-flock", ".bf-wrap")]
+TOOLS = [("garden-events", "#garden-events-tool")]
 
 def build(name, root_id):
     source = (ROOT / (name + "-embed.html")).read_text(encoding="utf-8")

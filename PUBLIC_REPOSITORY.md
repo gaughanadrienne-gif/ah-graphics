@@ -27,19 +27,22 @@ link has been verified against its replacement.
 
 ## Tool runtime releases
 
-Garden Events and Build Your Flock use canonical `*-embed.html` sources here.
-After editing either source, run `python scripts/build_tool_runtimes.py` and
-commit the matching generated `*-runtime.js` file. The builder also updates its revision query in
-the tool loader at the end of `ah-site-scripts.js`. Commit that file too. Pages
-rejects stale generated runtimes or loader revisions.
+Garden Events has a native inline compatibility embed. Its canonical executable
+source is `garden-events-embed.html` here. After editing it, run
+`python scripts/build_tool_runtimes.py`, then commit the generated
+`garden-events-runtime.js` and updated loader revision in `ah-site-scripts.js`.
+Pages rejects stale generated assets or loader revisions.
 
-The shared script loads each revision only on its tool page. It mounts a namespaced
-tool root and leaves the native root hidden and inert as a sink for late legacy
-async callbacks. Only the current runtime is visible and interactive. The surrounding Squarespace page stays intact. Native code
-blocks are compatibility shells, not the current executable release authority.
-Do not paste an older native embed over the canonical sources.
+The shared site script mounts the current Garden Events runtime in a namespaced
+root. The native root remains hidden and inert as a sink for late legacy async
+callbacks. The surrounding Squarespace page stays intact.
+
+Build Your Flock already fetches `build-your-flock-embed.html` from GitHub Pages
+in its native shell. Publish changes to that embed directly; it needs no second
+runtime loader. Feed refresh failures suppress retained stock and expose a
+supplier-specific verification notice.
 
 Related recommendations refresh from the complete public feed and sitemap every
 day. The builder fails closed on incomplete inventory and only recommends known
-public destinations. A script fallback handles newly published articles until
-the next manifest release.
+public destinations. A no-store fetch and safe script fallback handle new posts
+until the next manifest release.

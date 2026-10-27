@@ -5279,7 +5279,7 @@ checkoutTracking();
 // Canonical tool runtime delivery. Native embeds retain the page shell; mounting
 // a namespaced tool root isolates legacy async callbacks from the revision.
 (function(){
-  var tools={'/garden-events':{root:'#garden-events-tool',asset:'garden-events-runtime.js?v=93bec1fe1a30d660'},'/build-your-flock':{root:'.bf-wrap',asset:'build-your-flock-runtime.js?v=a64b619081ae39ca'}},tool=tools[location.pathname.replace(/\/$/,'')];
+  var tools={'/garden-events':{root:'#garden-events-tool',asset:'garden-events-runtime.js?v=93bec1fe1a30d660'}},tool=tools[location.pathname.replace(/\/$/,'')];
   if(!tool)return;
   function boot(){
     if(!document.querySelector(tool.root)||document.getElementById('ah-canonical-tool-runtime'))return;
