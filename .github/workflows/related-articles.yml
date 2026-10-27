@@ -1,6 +1,11 @@
 name: Refresh related article recommendations
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - build_related_manifest.py
+      - .github/workflows/related-articles.yml
   schedule:
     - cron: "43 15 * * *"
   workflow_dispatch:
