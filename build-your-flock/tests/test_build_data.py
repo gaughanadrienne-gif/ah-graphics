@@ -64,3 +64,34 @@ def test_assemble_handles_empty_inputs():
     for section in ("shelters", "feedStores", "breeders"):
         assert data["sections"][section]["live"] == []
         assert data["sections"][section]["curated"] == []
+
+
+def test_failed_refresh_marks_preserved_inventory_stale(monkeypatch):
+    class Broken:
+        def fetch_html(self):
+            raise RuntimeError("supplier unavailable")
+    previous = {"sections": {"breeders": {"live": [
+        {"source": "Alchemist Farm", "name": "Old chicks", "price": "$10",
+         "verified_at": "2026-10-01T06:00:00-07:00"}
+    ]}}}
+    monkeypatch.setattr(build_data, "LIVE_PLAN", [("alchemist", Broken(), "Alchemist Farm", "breeders")])
+    live, errors = build_data.collect_live(previous)
+    assert live["alchemist"][0]["stale"] is True
+    assert live["alchemist"][0]["verified_at"] == "2026-10-01T06:00:00-07:00"
+    assert "stale" not in previous["sections"]["breeders"]["live"][0]
+    result = build_data.assemble(live, {}, [], errors=errors)
+    assert result["status"]["sources"]["Alchemist Farm"]["available"] is False
+
+
+def test_successful_refresh_clears_stale_flag(monkeypatch):
+    class Working:
+        def fetch_html(self):
+            return "html"
+        def parse(self, html):
+            return [{"source": "Alchemist Farm", "name": "New chicks", "stale": True}]
+    monkeypatch.setattr(build_data, "LIVE_PLAN", [("alchemist", Working(), "Alchemist Farm", "breeders")])
+    live, errors = build_data.collect_live()
+    assert errors == []
+    assert live["alchemist"][0]["stale"] is False
+    assert datetime.datetime.fromisoformat(live["alchemist"][0]["verified_at"]).tzinfo
+    assert build_data.assemble(live, {}, [], errors=errors)["status"]["sources"]["Alchemist Farm"]["available"] is True

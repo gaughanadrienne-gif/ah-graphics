@@ -7,7 +7,8 @@ build-your-flock-data.json that the Squarespace embed fetches.
 Run daily by GitHub Actions. Petfinder is NOT fetched here (its endpoint blocks
 datacenter IPs); it is read from petfinder_cache.json. If a live scraper fails on
 a given run, that source's records are preserved from the previous output so the
-page never loses data on a transient failure.
+records remain available for diagnosis. Failed-source inventory is marked stale
+and must not be presented as current availability.
 """
 import datetime
 import json
@@ -70,9 +71,10 @@ def collect_live(previous=None):
         data, err = _safe(lambda m=mod: m.parse(m.fetch_html()))
         if err:
             errors.append(f"{key}: {err}")
-            out[key] = _prev_records(previous, section, source)
+            out[key] = [dict(r, stale=True) for r in _prev_records(previous, section, source)]
         else:
-            out[key] = data
+            out[key] = [dict(r, stale=False, verified_at=datetime.datetime.now(PACIFIC).isoformat())
+                        for r in data]
     return out, errors
 
 
@@ -105,6 +107,8 @@ def assemble(live, curated, petfinder_records, now=None, errors=None):
         "status": {
             "scottsValley": "in-season" if in_season else "off-season",
             "scrapeErrors": errors,
+            "sources": {source: {"available": not any(e.startswith(key + ":") for e in errors)}
+                        for key, mod, source, section in LIVE_PLAN},
         },
     }
 

@@ -3,7 +3,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-URL = "https://www.alchemistfarm.com/shop/"
+URL = "https://www.alchemistfarm.com/buy-rare-chicken-chicks-and-hatching-eggs-online-alchemist-farm/"
 HEADERS = {"User-Agent": "Mozilla/5.0 (AmbitiousHarvest BuildYourFlock)"}
 # Category tiles (not real products) carry a "N Products" count suffix in their name
 # and link to /product-category/ rather than /product/. Exclude them so we only ever

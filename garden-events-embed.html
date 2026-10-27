@@ -42,7 +42,7 @@
      instant. For a date-only event that drags the card into the PREVIOUS DAY for
      any reader west of UTC, which is every reader this tool has. All-day events
      now export as DTSTART;VALUE=DATE with an exclusive DTEND, and timed events
-     as floating local times pinned to Pacific.
+     as UTC instants resolved from Pacific wall time (including daylight saving).
      The feed carries two date shapes and they mean different things: a
      hand-typed card holds a naive local "2026-08-01T10:00", already Pacific wall
      time, which must be read literally; a generated card holds a UTC instant,
@@ -61,6 +61,27 @@
   }
   function icsDate(p,addDay){var d=new Date(p.y,p.mo-1,p.d+(addDay?1:0));return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate())}
   function icsDateTime(p){return icsDate(p,false)+'T'+pad2(p.h)+pad2(p.mi||0)+'00'}
+  /* Resolve naive feed times in Pacific, never in the reader's device timezone.
+     Keep explicit feed offsets intact. For DST folds choose the first occurrence;
+     for a skipped spring hour use the pre-transition offset, as RFC 5545 specifies. */
+  function icsUtc(value,p){
+    var s=String(value==null?'':value),dt;
+    if(/(?:Z|[+-]\d{2}:?\d{2})$/.test(s))dt=new Date(s);
+    else{
+      var wall=Date.UTC(p.y,p.mo-1,p.d,p.h,p.mi||0),offsets=[];
+      [-86400000,86400000].forEach(function(delta){
+        var sample=wall+delta,q=evParts(new Date(sample).toISOString(),false);
+        var offset=Date.UTC(q.y,q.mo-1,q.d,q.h,q.mi)-sample;
+        if(offsets.indexOf(offset)<0)offsets.push(offset);
+      });
+      var matches=offsets.map(function(offset){return wall-offset}).filter(function(candidate){
+        var q=evParts(new Date(candidate).toISOString(),false);
+        return q.y===p.y&&q.mo===p.mo&&q.d===p.d&&q.h===p.h&&q.mi===(p.mi||0);
+      });
+      dt=new Date(matches.length?Math.min.apply(null,matches):wall-offsets[0]);
+    }
+    return dt.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z');
+  }
   function icsStamp(){var d=new Date();return d.getUTCFullYear()+pad2(d.getUTCMonth()+1)+pad2(d.getUTCDate())+'T'+pad2(d.getUTCHours())+pad2(d.getUTCMinutes())+pad2(d.getUTCSeconds())+'Z'}
   function googleUrl(e){
     var start=evParts(e.start,e.all_day);if(!start)return'#';
@@ -77,7 +98,7 @@
     var clean=function(v){return String(v==null?'':v).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;')};
     var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ambitious Harvest//Garden Events//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:'+clean(e.id)+'@ambitiousharvest.com','DTSTAMP:'+icsStamp()];
     if(start.h==null){lines.push('DTSTART;VALUE=DATE:'+icsDate(start,false));lines.push('DTEND;VALUE=DATE:'+icsDate(end.h==null?end:start,true))}
-    else{lines.push('DTSTART:'+icsDateTime(start));lines.push('DTEND:'+icsDateTime(end.h==null?start:end))}
+    else{lines.push('DTSTART:'+icsUtc(e.start,start));lines.push('DTEND:'+icsUtc(end.h==null?e.start:(e.end||e.start),end.h==null?start:end))}
     lines.push('SUMMARY:'+clean(e.title));
     var place=[e.venue,e.address,e.city].filter(Boolean).join(', ');
     if(place)lines.push('LOCATION:'+clean(place));

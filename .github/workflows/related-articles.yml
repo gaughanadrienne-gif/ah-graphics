@@ -1,0 +1,44 @@
+name: Refresh related article recommendations
+
+on:
+  schedule:
+    - cron: "43 15 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: related-articles-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install requests
+      - name: Rebuild from the complete public inventory
+        run: python build_related_manifest.py
+      - name: Commit validated manifest
+        id: commit
+        run: |
+          git config user.name "ah-related-bot"
+          git config user.email "actions@github.com"
+          git add related-manifest.json
+          if ! git diff --staged --quiet; then
+            git commit -m "data: refresh related article recommendations"
+            git pull --rebase origin main
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      # GITHUB_TOKEN commits do not trigger a second Pages workflow.
+      - name: Publish refreshed static assets
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml

@@ -56,7 +56,7 @@
 <div class="bf-wrap">
   <div class="bf-hero">
     <h2>Build Your Flock</h2>
-    <p>Chickens, ducks, and geese available right now from Santa Cruz County shelters, rescues, feed stores, and breeders. Availability changes fast, so always call or check the source before you go.</p>
+    <p>Find chickens, ducks, and geese from Santa Cruz County shelters, rescues, feed stores, and California breeders. Availability changes fast, so always call or check the source before you go.</p>
     <div class="bf-stamp" id="bf-stamp">Loading availability...</div>
   </div>
   <div id="bf-shelters" class="bf-section"></div>
@@ -185,22 +185,41 @@
     stamp.textContent = isNaN(when) ? 'Availability updates daily'
       : 'Last updated: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
 
+    // A successful feed build does not mean every supplier refreshed successfully.
+    var sourceKeys = {'Santa Cruz County Animal Shelter':'sccas', 'Scotts Valley Feed':'scotts_valley',
+      'Alchemist Farm':'alchemist', 'Metzer Farms':'metzer'};
+    var errors = (data.status && data.status.scrapeErrors) || [];
+    function failed(source){
+      var state = data.status && data.status.sources && data.status.sources[source];
+      return (state && state.available === false) || errors.some(function(e){
+        return String(e).indexOf(sourceKeys[source] + ':') === 0;
+      });
+    }
+    function current(records){ return records.filter(function(r){ return !r.stale && !failed(r.source); }); }
+    function notices(records){
+      return Object.keys(sourceKeys).filter(function(source){
+        return failed(source) && records.indexOf(source) > -1;
+      }).map(function(source){
+        return '<div class="bf-card"><h4>'+esc(source)+'</h4><p class="bf-meta">Current availability could not be verified. Check the supplier directly for birds, prices, and dates.</p></div>';
+      }).join('');
+    }
+
     // Shelters: individual cards (low volume)
     renderSection(document.getElementById('bf-shelters'), 'Shelters and Rescues', '',
-      s.shelters.live.map(shelterCard).join('') + s.shelters.curated.map(curatedCard).join(''),
+      current(s.shelters.live).map(shelterCard).join('') + s.shelters.curated.map(curatedCard).join('') + notices(['Santa Cruz County Animal Shelter']),
       'No birds listed at local shelters today. Check back soon.');
 
     // Feed stores: Scotts Valley summary (or seasonal message) + curated
-    var feedHtml = feedSummary(s.feedStores.live) + s.feedStores.curated.map(curatedCard).join('');
+    var feedHtml = feedSummary(current(s.feedStores.live)) + s.feedStores.curated.map(curatedCard).join('') + notices(['Scotts Valley Feed']);
     var feedEmpty = (data.status && data.status.scottsValley === 'off-season')
       ? 'Chick season runs March through August. Check back in spring for arrivals.'
       : 'No chick arrivals posted right now. Call your local feed store for the latest.';
     renderSection(document.getElementById('bf-feed'), 'Feed Stores (Chick Season)', '', feedHtml, feedEmpty);
 
     // Breeders: Metzer summary + curated breeders/sellers
-    var metzerItems = s.breeders.live.filter(function(i){ return i.source === 'Metzer Farms'; });
+    var metzerItems = current(s.breeders.live).filter(function(i){ return i.source === 'Metzer Farms'; });
     var breederHtml = (metzerItems.length ? metzerSummary(metzerItems) : '') +
-      s.breeders.curated.map(curatedCard).join('');
+      s.breeders.curated.map(curatedCard).join('') + notices(['Alchemist Farm', 'Metzer Farms']);
     renderSection(document.getElementById('bf-breeders'), 'Breeders and Sellers', '', breederHtml,
       'No breeder listings available right now.');
   }

@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+      - name: Verify canonical tool runtimes
+        run: python scripts/build_tool_runtimes.py --check
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static assets

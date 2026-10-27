@@ -3954,6 +3954,12 @@ function ahIsFlockArticle(slug) {
   else boot();
 })();
 
+// Canonical replacements for superseded public resource files. Reused by native
+// Toolkit maps and every dynamically created download panel.
+window.AH_RESOURCE_PDF_REVISIONS = {
+  'fire-wise-gardening-guide': 'https://www.ambitiousharvest.com/s/Ambitious-Harvest-Fire-Wise-Gardening-Guide-Revised-2026-10-12.pdf'
+};
+
 // === KEEP READING - related guides at the end of every /learn article (2026-06-23) ===
 // Appends 3 related-guide cards (ahRenderRelatedCards) as the LAST element of the
 // article, from the auto manifest. The article-enhancement IIFE removes any legacy
@@ -3972,7 +3978,25 @@ function ahIsFlockArticle(slug) {
     var root = document.querySelector('.blog-item-content');
     var marker = document.createElement('span'); marker.id = 'ah-keepreading'; marker.style.display = 'none'; root.appendChild(marker);
     function render(links) { if (links && links.length) window.ahRenderRelatedCards(root, links, 'Keep Reading'); }
-    fetch(MANIFEST).then(function (r) { return r.json(); }).then(function (d) { render(d[slug()]); }).catch(function () {});
+    fetch(MANIFEST).then(function (r) { if(!r.ok)throw new Error('Related guides unavailable');return r.json(); }).then(function (d) {
+      var links=d[slug()];
+      // The scheduled manifest refresh covers new posts. Until it catches up,
+      // rank already-known destinations by this article's topic, never invent URLs.
+      if(!links||!links.length){
+        var stop=/^(the|and|for|with|how|when|what|should|california|santa|cruz|garden|gardening|grow|growing|guide|coast)$/;
+        var terms=slug().split('-').filter(function(w){return w.length>2&&!stop.test(w);});
+        var candidates={},self='/learn/'+slug();
+        Object.keys(d).forEach(function(k){(d[k]||[]).forEach(function(link){
+          if(!link||!link.title||!/^\/learn\/[^/?#]+$/.test(link.url)||link.url===self)return;
+          var text=(link.title+' '+link.url).toLowerCase(),score=0;
+          terms.forEach(function(term){if(text.indexOf(term)!==-1)score++;});
+          if(score)candidates[link.url]={title:link.title,url:link.url,score:score};
+        });});
+        links=Object.keys(candidates).map(function(k){return candidates[k];}).sort(function(a,b){return b.score-a.score||a.url.localeCompare(b.url);}).slice(0,3);
+        if(!links.length)links=[{title:'Browse all gardening guides',url:'/learn'}];
+      }
+      render(links);
+    }).catch(function () { render([{title:'Browse all gardening guides',url:'/learn'}]); });
     return true;
   }
   function boot() {
@@ -4919,6 +4943,9 @@ function ahIsFlockArticle(slug) {
   function resourceDelivery(){
     if(path!=='/your-garden-toolkit')return;
     var resources=[{"slug":"tomato-selector","title":"Tomato Variety Selector","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Tomato-Selector.pdf"},{"slug":"seasonaltaskschecklist","title":"Seasonal Garden Tasks Checklist","url":"https://www.ambitiousharvest.com/s/AmbitiousHarvestSeasonalTasksChecklistpdf.pdf"},{"slug":"seasonalplantingcalendar","title":"Seasonal Planting Calendar: Monthly Reference","url":"https://www.ambitiousharvest.com/s/AmbitiousHarvestSeasonalPlantingCalendar.pdf"},{"slug":"microclimate-worksheet","title":"Know Your Microclimate Worksheet","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Microclimate-Worksheet.pdf"},{"slug":"garden-checklist","title":"Beginner Garden Setup Checklist","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Garden-Checklist.pdf"},{"slug":"fire-wise-gardening-guide","title":"Fire-Wise Gardening Guide","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Fire-Wise-Gardening-Guide.pdf"},{"slug":"companion-planting","title":"Companion Planting Guide","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Companion-Planting.pdf"},{"slug":"seasonal-planting-calendar","title":"Seasonal Planting Calendar","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Seasonal-Planting-Calendar.pdf"},{"slug":"seed-starting-guide","title":"Seed Starting Guide","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Seed-Starting-Guide.pdf"},{"slug":"vegetables-by-season","title":"Vegetables by Season","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Vegetables-by-Seasonpdf.pdf"},{"slug":"gopher-guide","title":"Gopher Control Guide","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Gopher-Guide.pdf"},{"slug":"water-wise-gardening-guide","title":"Water-Wise Gardening Guide","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Water-Wise-Gardening-Guidepdf.pdf"},{"slug":"garden-troubleshooting","title":"Garden Troubleshooting Guide","url":"https://www.ambitiousharvest.com/s/Ambitious-Harvest-Garden-Troubleshooting.pdf"},{"slug":"berry-growing-cheat-sheet","title":"California Berry Growing Cheat Sheet","url":"https://gaughanadrienne-gif.github.io/ah-graphics/Berry_Growing_Cheat_Sheet.pdf"},{"slug":"pepper-growing-cheat-sheet","title":"California Pepper Growing Cheat Sheet","url":"https://gaughanadrienne-gif.github.io/ah-graphics/Pepper_Growing_Cheat_Sheet.pdf"},{"slug":"native-drought-cheat-sheet","title":"California Native and Drought-Tolerant Plant Cheat Sheet","url":"https://gaughanadrienne-gif.github.io/ah-graphics/Native_Drought_Cheat_Sheet.pdf"},{"slug":"seed-starting-cheat-sheet","title":"California Seed Starting Cheat Sheet","url":"https://gaughanadrienne-gif.github.io/ah-graphics/Seed_Starting_Cheat_Sheet.pdf"},{"slug":"predator-proof-coop-checklist","title":"Predator-Proof Coop Checklist","url":"https://gaughanadrienne-gif.github.io/ah-graphics/Predator_Proof_Coop_Checklist.pdf"},{"slug":"fruit-tree-planting-guide","title":"California Fruit Tree Planting Guide","url":"https://gaughanadrienne-gif.github.io/ah-graphics/Fruit_Tree_Planting_Guide.pdf"}];
+    resources.forEach(function(resource){
+      resource.url=window.AH_RESOURCE_PDF_REVISIONS[resource.slug]||resource.url;
+    });
     function renderDownload(){
       var slug=new URLSearchParams(location.hash.slice(1)).get('download');
       var resource=resources.find(function(r){return r.slug===slug;}),old=q('#ah-requested-download');
@@ -5108,7 +5135,7 @@ checkoutTracking();
 // Route its existing URL map and any already-open download card to the revision.
 (function () {
   var oldUrl = 'https://www.ambitiousharvest.com/s/Ambitious-Harvest-Fire-Wise-Gardening-Guide.pdf';
-  var revisedUrl = 'https://www.ambitiousharvest.com/s/Ambitious-Harvest-Fire-Wise-Gardening-Guide-Revised-2026-10-12.pdf';
+  var revisedUrl = window.AH_RESOURCE_PDF_REVISIONS['fire-wise-gardening-guide'];
   function routeRevision() {
     if (window.location.pathname.replace(/\/$/, '') !== '/your-garden-toolkit') return;
     var guides = window.AH_GUIDE_PDFS;
@@ -5248,3 +5275,17 @@ checkoutTracking();
   document.addEventListener('mercury:load', run);
 })();
 
+
+// Canonical tool runtime delivery. Native embeds retain the page shell; mounting
+// a namespaced tool root isolates legacy async callbacks from the revision.
+(function(){
+  var tools={'/garden-events':{root:'#garden-events-tool',asset:'garden-events-runtime.js?v=93bec1fe1a30d660'},'/build-your-flock':{root:'.bf-wrap',asset:'build-your-flock-runtime.js?v=a64b619081ae39ca'}},tool=tools[location.pathname.replace(/\/$/,'')];
+  if(!tool)return;
+  function boot(){
+    if(!document.querySelector(tool.root)||document.getElementById('ah-canonical-tool-runtime'))return;
+    var script=document.createElement('script');script.id='ah-canonical-tool-runtime';
+    script.src='https://gaughanadrienne-gif.github.io/ah-graphics/'+tool.asset;
+    document.head.appendChild(script);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
