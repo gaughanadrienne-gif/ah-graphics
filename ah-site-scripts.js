@@ -3978,7 +3978,7 @@ window.AH_RESOURCE_PDF_REVISIONS = {
     var root = document.querySelector('.blog-item-content');
     var marker = document.createElement('span'); marker.id = 'ah-keepreading'; marker.style.display = 'none'; root.appendChild(marker);
     function render(links) { if (links && links.length) window.ahRenderRelatedCards(root, links, 'Keep Reading'); }
-    fetch(MANIFEST).then(function (r) { if(!r.ok)throw new Error('Related guides unavailable');return r.json(); }).then(function (d) {
+    fetch(MANIFEST,{cache:'no-store'}).then(function (r) { if(!r.ok)throw new Error('Related guides unavailable');return r.json(); }).then(function (d) {
       var links=d[slug()];
       // The scheduled manifest refresh covers new posts. Until it catches up,
       // rank already-known destinations by this article's topic, never invent URLs.
