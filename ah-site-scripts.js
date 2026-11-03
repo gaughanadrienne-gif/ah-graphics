@@ -3722,9 +3722,9 @@ function ahIsFlockArticle(slug) {
       "blueberry-southern-highbush": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/8f26925c-e743-48ba-b309-6377ed6c5542/blueberry-southern-highbush-coastal-fog-belt-santa-cruz.png?format=750w",
       "broccoli": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8407cf281b59e90dbb/1781735824404/growing-broccoli-santa-cruz.jpg?format=750w",
       "brussels-sprouts": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef85e65b3d6f374d6739/1781735826451/growing-brussels-sprouts-santa-cruz.jpg?format=750w",
-      "bush-bean": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d627951aff6cb79caf3f/1781735828541/best-bean-varieties-santa-cruz.jpg?format=750w",
+      "bush-bean": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/e05d5bd8-efde-432a-9e7d-e3d4a002c61c/bean-plant-leaves-and-flowers.jpg?content-type=image%2Fjpeg&format=750w",
       "eureka-lemon": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef873a1b0f25d1c4b33a/1781735830571/growing-meyer-lemons-santa-cruz.jpg?format=750w",
-      "everbearing-strawberry": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62887944957a2321a84/1781735832720/Strawberry.jpg?format=750w",
+      "everbearing-strawberry": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/8270f74c-b5bd-424d-a05c-5c217d2bf0d7/ripe-strawberries-raised-bed-edge.jpg?content-type=image%2Fjpeg&format=750w",
       "feijoa-pineapple-guava": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/4cdaa964-64c8-4450-a295-41ea9cb7066d/feijoa-pineapple-guava.png?format=750w",
       "grapes": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8ad0305a47cc348e66/1781736528584/pg-grapes.jpg?format=750w",
       "heritage-apple": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef8ba6b79330e05bb0bf/1781735834806/best-apple-varieties-santa-cruz.jpg?format=750w",
@@ -3737,9 +3737,9 @@ function ahIsFlockArticle(slug) {
       "roma-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a73ab4dd5fd33a5abb/1781661389669/roma-tomato-banana-belt-santa-cruz.jpg?format=750w",
       "romaine-lettuce": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/b913f590-ab92-4c25-9521-3af1cd7d74f1/felton-garden-shaded-by-redwoods-with-winter-greens.png?format=750w",
       "satsuma-mandarin": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31ef9307cf281b59e91425/1781735843998/growing-mandarins-satsumas.jpg?format=750w",
-      "sugar-snap-pea": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31c9a35092893df6a8b96f/1781735850055/growing-sugar-snap-peas.jpg?format=750w",
-      "sungold-cherry-tomato": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62b7c0e4f0def695825/1781735845919/Tomato.png?format=750w",
-      "zucchini": "https://static1.squarespace.com/static/6257536342b010638376c856/6266f6ac7683d664da300493/6a31d62d47c0946850788fd2/1781735848070/best-zucchini-varieties-santa-cruz.jpg?format=750w"
+      "sugar-snap-pea": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/de61e4d6-3f0f-4b79-9c3b-9a51b6d0ca89/pea-vines-climbing-strings.jpg?content-type=image%2Fjpeg&format=750w",
+      "sungold-cherry-tomato": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/a5a9fcaf-f3a1-4653-87c1-cccb18ef6580/tomato.webp?content-type=image%2Fwebp&format=750w",
+      "zucchini": "https://images.squarespace-cdn.com/content/6257536342b010638376c856/52606ccc-ae4e-4774-bfbd-56c2c95e5c97/young-zucchini-on-plant.jpg?content-type=image%2Fjpeg&format=750w"
   };
   function build() {
     var scope = document.querySelector('.blog-item-content, .entry-content, [data-content-field="main-content"]') || document.querySelector('article') || document.body;
