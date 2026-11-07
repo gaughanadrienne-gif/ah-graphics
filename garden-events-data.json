@@ -1,76 +1,8 @@
 {
   "version": 1,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-11-06T19:20:50.182Z",
+  "updated_at": "2026-11-07T21:46:05.576Z",
   "events": [
-    {
-      "id": "sccfm-scotts-valley",
-      "title": "Scotts Valley Farmers' Market",
-      "weekday": 6,
-      "start_time": "08:00",
-      "end_time": "12:00",
-      "season_start": "2026-05-02",
-      "season_end": "2026-11-21",
-      "venue": "Graham Plaza, 219 Mount Hermon Road",
-      "city": "Scotts Valley",
-      "categories": [
-        "market"
-      ],
-      "description": "Seasonal farmers' market with local produce, prepared foods and live music.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/scotts-valley/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Saturdays, 8:00 AM to noon, May 2 to November 21",
-      "start": "2026-11-07T16:00:00.000Z",
-      "end": "2026-11-07T20:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
-    {
-      "id": "sccfm-westside",
-      "title": "Westside Farmers' Market",
-      "weekday": 6,
-      "start_time": "09:00",
-      "end_time": "13:00",
-      "season": "year-round",
-      "venue": "Mission Street Extension & Western Drive",
-      "city": "Santa Cruz",
-      "categories": [
-        "market"
-      ],
-      "description": "A year-round market with regional produce, prepared foods, Market Match and seasonal special events.",
-      "source_url": "https://santacruzfarmersmarket.org/markets/westside/",
-      "organizer": "Santa Cruz Community Farmers' Markets",
-      "recurrence": "Saturdays, 9:00 AM to 1:00 PM",
-      "start": "2026-11-07T17:00:00.000Z",
-      "end": "2026-11-07T21:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
-    {
-      "id": "ucsc-arboretum-first-saturday-tour",
-      "title": "First Saturday Tour at the Arboretum",
-      "weekday": 6,
-      "ordinal": 1,
-      "start_time": "11:00",
-      "end_time": "12:00",
-      "season": "year-round",
-      "venue": "UCSC Arboretum & Botanic Garden",
-      "address": "122 Arboretum Road, Santa Cruz, CA 95064",
-      "city": "Santa Cruz",
-      "categories": [
-        "tour",
-        "learn"
-      ],
-      "description": "A docent-led introduction to the Arboretum's plant collections and wildlife. Each tour varies with the season and guide. Admission is $13; current members are free. Limited to 15 people; unsuitable weather cancels.",
-      "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSeXniw1cnyk0AkgsBen0vzFJFQNl5P5tFUBvvBj9kJh91K16g/viewform",
-      "source_url": "https://arboretum.ucsc.edu/visit/exploring-our-gardens/",
-      "organizer": "UCSC Arboretum & Botanic Garden",
-      "recurrence": "First Saturday of each month at 11:00 AM",
-      "start": "2026-11-07T19:00:00.000Z",
-      "end": "2026-11-07T20:00:00.000Z",
-      "status": "confirmed",
-      "source_type": "recurring"
-    },
     {
       "id": "sccfm-live-oak",
       "title": "Live Oak Farmers' Market",
@@ -204,6 +136,49 @@
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
       "source_type": "api"
+    },
+    {
+      "id": "sccfm-scotts-valley",
+      "title": "Scotts Valley Farmers' Market",
+      "weekday": 6,
+      "start_time": "08:00",
+      "end_time": "12:00",
+      "season_start": "2026-05-02",
+      "season_end": "2026-11-21",
+      "venue": "Graham Plaza, 219 Mount Hermon Road",
+      "city": "Scotts Valley",
+      "categories": [
+        "market"
+      ],
+      "description": "Seasonal farmers' market with local produce, prepared foods and live music.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/scotts-valley/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Saturdays, 8:00 AM to noon, May 2 to November 21",
+      "start": "2026-11-14T16:00:00.000Z",
+      "end": "2026-11-14T20:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
+    },
+    {
+      "id": "sccfm-westside",
+      "title": "Westside Farmers' Market",
+      "weekday": 6,
+      "start_time": "09:00",
+      "end_time": "13:00",
+      "season": "year-round",
+      "venue": "Mission Street Extension & Western Drive",
+      "city": "Santa Cruz",
+      "categories": [
+        "market"
+      ],
+      "description": "A year-round market with regional produce, prepared foods, Market Match and seasonal special events.",
+      "source_url": "https://santacruzfarmersmarket.org/markets/westside/",
+      "organizer": "Santa Cruz Community Farmers' Markets",
+      "recurrence": "Saturdays, 9:00 AM to 1:00 PM",
+      "start": "2026-11-14T17:00:00.000Z",
+      "end": "2026-11-14T21:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
     },
     {
       "id": "ucsc_agroecology-14212",
@@ -422,10 +397,35 @@
       "organizer": "UCSC Center for Agroecology",
       "status": "confirmed",
       "source_type": "api"
+    },
+    {
+      "id": "ucsc-arboretum-first-saturday-tour",
+      "title": "First Saturday Tour at the Arboretum",
+      "weekday": 6,
+      "ordinal": 1,
+      "start_time": "11:00",
+      "end_time": "12:00",
+      "season": "year-round",
+      "venue": "UCSC Arboretum & Botanic Garden",
+      "address": "122 Arboretum Road, Santa Cruz, CA 95064",
+      "city": "Santa Cruz",
+      "categories": [
+        "tour",
+        "learn"
+      ],
+      "description": "A docent-led introduction to the Arboretum's plant collections and wildlife. Each tour varies with the season and guide. Admission is $13; current members are free. Limited to 15 people; unsuitable weather cancels.",
+      "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSeXniw1cnyk0AkgsBen0vzFJFQNl5P5tFUBvvBj9kJh91K16g/viewform",
+      "source_url": "https://arboretum.ucsc.edu/visit/exploring-our-gardens/",
+      "organizer": "UCSC Arboretum & Botanic Garden",
+      "recurrence": "First Saturday of each month at 11:00 AM",
+      "start": "2026-12-05T19:00:00.000Z",
+      "end": "2026-12-05T20:00:00.000Z",
+      "status": "confirmed",
+      "source_type": "recurring"
     }
   ],
   "warnings": [
     "California Native Plant Society: HTTP 404"
   ],
-  "updated": "2026-11-06T19:20:50.182Z"
+  "updated": "2026-11-07T21:46:05.576Z"
 }
