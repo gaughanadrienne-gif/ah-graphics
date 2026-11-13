@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-11-12T19:59:40.499Z",
+  "updated_at": "2026-11-13T01:08:35.433Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -481,10 +481,11 @@
           "expires": "2026-11-12T15:00:00-08:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f24acdc8bab05264fb6a2dc1481bf8cf8e0da56e.002.3"
         }
-      ]
+      ],
+      "stale": true
     },
     "slv": {
-      "updated": "2026-11-12T19:59:40.499Z",
+      "updated": "2026-11-13T01:08:35.433Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -492,26 +493,26 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 66,
+        "temperature": 61,
         "temperatureUnit": "F",
-        "apparentTemperature": 63,
+        "apparentTemperature": 58,
         "conditions": "Mostly Cloudy",
-        "detailedForecast": "Mostly cloudy. High near 71, with temperatures falling to around 62 in the afternoon. South wind around 9 mph, with gusts as high as 21 mph.",
-        "wind": "13 mph",
-        "windSpeed": 12.7,
-        "windGust": 26.8,
+        "detailedForecast": "Mostly cloudy. High near 71, with temperatures falling to around 62 in the afternoon. South wind around 8 mph, with gusts as high as 20 mph.",
+        "wind": "10 mph",
+        "windSpeed": 10.3,
+        "windGust": 32.7,
         "windDirection": "S",
         "precipitation": 0,
-        "soilTemp": 63,
+        "soilTemp": 62,
         "soilMoisture": 0.193,
-        "humidity": 72,
-        "vapourPressureDeficit": 0.57,
-        "precipitationProbability": 2
+        "humidity": 78,
+        "vapourPressureDeficit": 0.4,
+        "precipitationProbability": 0
       },
       "rainfall": {
-        "today": 0.059,
-        "last7Days": 0.059,
-        "last30Days": 0.6459999999999999,
+        "today": 0,
+        "last7Days": 0,
+        "last30Days": 0.587,
         "dailyData": [
           {
             "date": "2026-10-14",
@@ -631,107 +632,107 @@
           },
           {
             "date": "2026-11-12",
-            "amount": 0.059
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-11-12",
-          "high": 67.1,
+          "high": 67.5,
           "low": 50.7,
-          "precipitation": 0.059,
-          "precipitationProbability": 23,
+          "precipitation": 0,
+          "precipitationProbability": 6,
           "uvIndex": 4,
-          "evapotranspiration": 0.062,
-          "windGust": 26.8
+          "evapotranspiration": 0.069,
+          "windGust": 33.8
         },
         "upcoming": [
           {
             "date": "2026-11-12",
-            "high": 67.1,
+            "high": 67.5,
             "low": 50.7,
-            "precipitation": 0.059,
-            "precipitationProbability": 23,
+            "precipitation": 0,
+            "precipitationProbability": 6,
             "uvIndex": 4,
-            "evapotranspiration": 0.062,
-            "windGust": 26.8
+            "evapotranspiration": 0.069,
+            "windGust": 33.8
           },
           {
             "date": "2026-11-13",
-            "high": 61.6,
-            "low": 50.5,
-            "precipitation": 0.738,
-            "precipitationProbability": 97,
-            "uvIndex": 1.45,
-            "evapotranspiration": 0.049,
+            "high": 59.4,
+            "low": 51.5,
+            "precipitation": 1.407,
+            "precipitationProbability": 100,
+            "uvIndex": 1.25,
+            "evapotranspiration": 0.041,
             "windGust": 35.1
           },
           {
             "date": "2026-11-14",
-            "high": 63.9,
-            "low": 48.1,
-            "precipitation": 0,
-            "precipitationProbability": 22,
+            "high": 63,
+            "low": 49.8,
+            "precipitation": 0.087,
+            "precipitationProbability": 28,
             "uvIndex": 3.95,
-            "evapotranspiration": 0.075,
-            "windGust": 16.3
-          },
-          {
-            "date": "2026-11-15",
-            "high": 61.6,
-            "low": 50.2,
-            "precipitation": 0.201,
-            "precipitationProbability": 89,
-            "uvIndex": 3.5,
-            "evapotranspiration": 0.056,
-            "windGust": 15
-          },
-          {
-            "date": "2026-11-16",
-            "high": 58,
-            "low": 47,
-            "precipitation": 0.472,
-            "precipitationProbability": 72,
-            "uvIndex": 2.95,
-            "evapotranspiration": 0.046,
-            "windGust": 16.1
-          },
-          {
-            "date": "2026-11-17",
-            "high": 60.5,
-            "low": 46.5,
-            "precipitation": 0.028,
-            "precipitationProbability": 23,
-            "uvIndex": 3.45,
             "evapotranspiration": 0.071,
             "windGust": 16.8
           },
           {
-            "date": "2026-11-18",
-            "high": 59.3,
-            "low": 45.7,
-            "precipitation": 0.35,
-            "precipitationProbability": 77,
-            "uvIndex": 3.1,
+            "date": "2026-11-15",
+            "high": 60.8,
+            "low": 50.3,
+            "precipitation": 0.252,
+            "precipitationProbability": 90,
+            "uvIndex": 2.85,
             "evapotranspiration": 0.057,
-            "windGust": 25.5
+            "windGust": 17.7
+          },
+          {
+            "date": "2026-11-16",
+            "high": 57,
+            "low": 48.6,
+            "precipitation": 1.173,
+            "precipitationProbability": 66,
+            "uvIndex": 2.55,
+            "evapotranspiration": 0.031,
+            "windGust": 18.3
+          },
+          {
+            "date": "2026-11-17",
+            "high": 58.4,
+            "low": 46.1,
+            "precipitation": 0.157,
+            "precipitationProbability": 35,
+            "uvIndex": 3.2,
+            "evapotranspiration": 0.061,
+            "windGust": 24.6
+          },
+          {
+            "date": "2026-11-18",
+            "high": 57.7,
+            "low": 50.4,
+            "precipitation": 3.512,
+            "precipitationProbability": 84,
+            "uvIndex": 0.2,
+            "evapotranspiration": 0.007,
+            "windGust": 43.8
           }
         ]
       },
       "forecast": [
         {
-          "name": "Today",
-          "startTime": "2026-11-12T11:00:00-08:00",
+          "name": "This Afternoon",
+          "startTime": "2026-11-12T17:00:00-08:00",
           "endTime": "2026-11-12T18:00:00-08:00",
           "temperature": 71,
           "temperatureUnit": "F",
           "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy. High near 71, with temperatures falling to around 62 in the afternoon. South wind around 9 mph, with gusts as high as 21 mph.",
+          "detailedForecast": "Mostly cloudy. High near 71, with temperatures falling to around 62 in the afternoon. South wind around 8 mph, with gusts as high as 20 mph.",
           "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
-          "precipitation": 5,
-          "wind": "9 mph",
+          "precipitation": 1,
+          "wind": "8 mph",
           "windDirection": "S"
         },
         {
@@ -921,7 +922,7 @@
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-11-12T19:59:40.499Z",
+      "updated": "2026-11-13T01:08:35.433Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -929,20 +930,20 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 70,
+        "temperature": 64,
         "temperatureUnit": "F",
-        "apparentTemperature": 68,
-        "conditions": "Partly Sunny",
-        "detailedForecast": "Partly sunny. High near 71, with temperatures falling to around 64 in the afternoon. Southwest wind 6 to 12 mph, with gusts as high as 24 mph.",
-        "wind": "9 mph",
-        "windSpeed": 9,
-        "windGust": 11.2,
-        "windDirection": "W",
+        "apparentTemperature": 63,
+        "conditions": "Mostly Cloudy",
+        "detailedForecast": "Mostly cloudy. High near 71, with temperatures falling to around 64 in the afternoon. West southwest wind around 12 mph, with gusts as high as 21 mph.",
+        "wind": "5 mph",
+        "windSpeed": 5.1,
+        "windGust": 18.6,
+        "windDirection": "SW",
         "precipitation": 0,
         "soilTemp": 63,
-        "soilMoisture": 0.26,
-        "humidity": 58,
-        "vapourPressureDeficit": 1.18,
+        "soilMoisture": 0.259,
+        "humidity": 66,
+        "vapourPressureDeficit": 0.7,
         "precipitationProbability": 0
       },
       "rainfall": {
@@ -1078,10 +1079,10 @@
           "high": 70.7,
           "low": 48.4,
           "precipitation": 0,
-          "precipitationProbability": 5,
+          "precipitationProbability": 4,
           "uvIndex": 4.05,
-          "evapotranspiration": 0.084,
-          "windGust": 27.7
+          "evapotranspiration": 0.09,
+          "windGust": 25.9
         },
         "upcoming": [
           {
@@ -1089,87 +1090,87 @@
             "high": 70.7,
             "low": 48.4,
             "precipitation": 0,
-            "precipitationProbability": 5,
+            "precipitationProbability": 4,
             "uvIndex": 4.05,
-            "evapotranspiration": 0.084,
-            "windGust": 27.7
+            "evapotranspiration": 0.09,
+            "windGust": 25.9
           },
           {
             "date": "2026-11-13",
-            "high": 64.1,
-            "low": 51.9,
-            "precipitation": 0.224,
-            "precipitationProbability": 85,
-            "uvIndex": 2.25,
-            "evapotranspiration": 0.035,
-            "windGust": 34.4
+            "high": 61,
+            "low": 53.1,
+            "precipitation": 0.748,
+            "precipitationProbability": 92,
+            "uvIndex": 1.2,
+            "evapotranspiration": 0.029,
+            "windGust": 40.3
           },
           {
             "date": "2026-11-14",
             "high": 63.5,
-            "low": 48,
-            "precipitation": 0,
-            "precipitationProbability": 18,
+            "low": 50.3,
+            "precipitation": 0.028,
+            "precipitationProbability": 37,
             "uvIndex": 3.95,
             "evapotranspiration": 0.074,
-            "windGust": 14.3
+            "windGust": 12.3
           },
           {
             "date": "2026-11-15",
-            "high": 63.4,
-            "low": 49.6,
-            "precipitation": 0.012,
-            "precipitationProbability": 84,
-            "uvIndex": 3.65,
-            "evapotranspiration": 0.062,
-            "windGust": 10.1
+            "high": 63.5,
+            "low": 49.9,
+            "precipitation": 0,
+            "precipitationProbability": 82,
+            "uvIndex": 3.45,
+            "evapotranspiration": 0.06,
+            "windGust": 7.6
           },
           {
             "date": "2026-11-16",
-            "high": 60.8,
-            "low": 47.1,
-            "precipitation": 0.378,
-            "precipitationProbability": 84,
-            "uvIndex": 3,
-            "evapotranspiration": 0.053,
-            "windGust": 16.3
+            "high": 56.6,
+            "low": 49.3,
+            "precipitation": 0.449,
+            "precipitationProbability": 82,
+            "uvIndex": 2.55,
+            "evapotranspiration": 0.028,
+            "windGust": 13.9
           },
           {
             "date": "2026-11-17",
-            "high": 61.9,
-            "low": 46.4,
-            "precipitation": 0.008,
-            "precipitationProbability": 17,
-            "uvIndex": 3.1,
-            "evapotranspiration": 0.067,
-            "windGust": 11.2
+            "high": 61.6,
+            "low": 46.1,
+            "precipitation": 0.083,
+            "precipitationProbability": 26,
+            "uvIndex": 3.45,
+            "evapotranspiration": 0.073,
+            "windGust": 13.2
           },
           {
             "date": "2026-11-18",
-            "high": 59.2,
-            "low": 46.2,
-            "precipitation": 0.524,
-            "precipitationProbability": 75,
-            "uvIndex": 2.45,
-            "evapotranspiration": 0.044,
-            "windGust": 21.5
+            "high": 59.1,
+            "low": 48.7,
+            "precipitation": 3.874,
+            "precipitationProbability": 85,
+            "uvIndex": 0.2,
+            "evapotranspiration": 0.012,
+            "windGust": 43.2
           }
         ]
       },
       "forecast": [
         {
-          "name": "Today",
-          "startTime": "2026-11-12T11:00:00-08:00",
+          "name": "This Afternoon",
+          "startTime": "2026-11-12T17:00:00-08:00",
           "endTime": "2026-11-12T18:00:00-08:00",
           "temperature": 71,
           "temperatureUnit": "F",
-          "conditions": "Partly Sunny",
-          "detailedForecast": "Partly sunny. High near 71, with temperatures falling to around 64 in the afternoon. Southwest wind 6 to 12 mph, with gusts as high as 24 mph.",
+          "conditions": "Mostly Cloudy",
+          "detailedForecast": "Mostly cloudy. High near 71, with temperatures falling to around 64 in the afternoon. West southwest wind around 12 mph, with gusts as high as 21 mph.",
           "icon": "https://api.weather.gov/icons/land/day/bkn?size=medium",
           "isDaytime": true,
           "precipitation": 2,
-          "wind": "6 to 12 mph",
-          "windDirection": "SW"
+          "wind": "12 mph",
+          "windDirection": "WSW"
         },
         {
           "name": "Tonight",
@@ -1358,36 +1359,38 @@
       "alerts": [
         {
           "event": "Coastal Flood Advisory",
-          "headline": "Coastal Flood Advisory issued November 11 at 10:48PM PST until November 14 at 6:00PM PST by NWS San Francisco CA",
+          "headline": "Coastal Flood Advisory issued November 12 at 2:58PM PST until November 14 at 6:00PM PST by NWS San Francisco CA",
           "severity": "Minor",
           "urgency": "Expected",
-          "description": "* WHAT...For the Beach Hazards Statement, An increased risk for\nsneaker waves and strong rip currents with breaking waves of 15\nto 20 ft expected. For the High Surf Warning, Dangerously large\nbreaking waves of 25 to 35 ft, with occasional sets of 40 to 50\nft at favored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...Coastal North Bay Including Point Reyes National\nSeashore, San Francisco Peninsula Coast and Northern Monterey\nBay.\n\n* WHEN...For the Beach Hazards Statement, through Friday\nafternoon. For the High Surf Warning, from 6 PM Friday to 4 AM\nPST Sunday. For the Coastal Flood Advisory, from midnight\nFriday night to 6 PM PST Saturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
+          "description": "* WHAT...For the Beach Hazards Statement, An increased risk for\nsneaker waves and strong rip currents with breaking waves of\n15 to 20 ft expected. For the High Surf Warning, Dangerously\nlarge breaking waves of 25 to 35 ft, with occasional sets of\n40 to 50 ft at favored breakpoints. For the Coastal Flood\nAdvisory, large breaking waves will run up beaches and crash\nover seawalls, inundating adjacent, low-lying infrastructure.\n\n* WHERE...Coastal North Bay Including Point Reyes National\nSeashore, San Francisco Peninsula Coast and Northern Monterey\nBay.\n\n* WHEN...For the Beach Hazards Statement, through Friday\nafternoon. For the High Surf Warning, from 6 PM Friday to 4 AM\nPST Sunday. For the Coastal Flood Advisory, from midnight\nFriday night to 6 PM PST Saturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.\n\nStay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-11-12T15:00:00-08:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f24acdc8bab05264fb6a2dc1481bf8cf8e0da56e.002.1"
+          "expires": "2026-11-13T03:00:00-08:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cdad9736fd52c00007a734100826b65a2f4993b4.002.2"
         },
         {
           "event": "High Surf Warning",
-          "headline": "High Surf Warning issued November 11 at 10:48PM PST until November 15 at 4:00AM PST by NWS San Francisco CA",
+          "headline": "High Surf Warning issued November 12 at 2:58PM PST until November 15 at 4:00AM PST by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...For the Beach Hazards Statement, An increased risk for\nsneaker waves and strong rip currents with breaking waves of 15\nto 20 ft expected. For the High Surf Warning, Dangerously large\nbreaking waves of 25 to 35 ft, with occasional sets of 40 to 50\nft at favored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...Coastal North Bay Including Point Reyes National\nSeashore, San Francisco Peninsula Coast and Northern Monterey\nBay.\n\n* WHEN...For the Beach Hazards Statement, through Friday\nafternoon. For the High Surf Warning, from 6 PM Friday to 4 AM\nPST Sunday. For the Coastal Flood Advisory, from midnight\nFriday night to 6 PM PST Saturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
+          "description": "* WHAT...For the Beach Hazards Statement, An increased risk for\nsneaker waves and strong rip currents with breaking waves of\n15 to 20 ft expected. For the High Surf Warning, Dangerously\nlarge breaking waves of 25 to 35 ft, with occasional sets of\n40 to 50 ft at favored breakpoints. For the Coastal Flood\nAdvisory, large breaking waves will run up beaches and crash\nover seawalls, inundating adjacent, low-lying infrastructure.\n\n* WHERE...Coastal North Bay Including Point Reyes National\nSeashore, San Francisco Peninsula Coast and Northern Monterey\nBay.\n\n* WHEN...For the Beach Hazards Statement, through Friday\nafternoon. For the High Surf Warning, from 6 PM Friday to 4 AM\nPST Sunday. For the Coastal Flood Advisory, from midnight\nFriday night to 6 PM PST Saturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.\n\nStay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-11-12T15:00:00-08:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f24acdc8bab05264fb6a2dc1481bf8cf8e0da56e.002.2"
+          "expires": "2026-11-13T03:00:00-08:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cdad9736fd52c00007a734100826b65a2f4993b4.002.1"
         },
         {
           "event": "Beach Hazards Statement",
-          "headline": "Beach Hazards Statement issued November 11 at 10:48PM PST until November 13 at 6:00PM PST by NWS San Francisco CA",
+          "headline": "Beach Hazards Statement issued November 12 at 2:58PM PST until November 13 at 6:00PM PST by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...For the Beach Hazards Statement, An increased risk for\nsneaker waves and strong rip currents with breaking waves of 15\nto 20 ft expected. For the High Surf Warning, Dangerously large\nbreaking waves of 25 to 35 ft, with occasional sets of 40 to 50\nft at favored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...Coastal North Bay Including Point Reyes National\nSeashore, San Francisco Peninsula Coast and Northern Monterey\nBay.\n\n* WHEN...For the Beach Hazards Statement, through Friday\nafternoon. For the High Surf Warning, from 6 PM Friday to 4 AM\nPST Sunday. For the Coastal Flood Advisory, from midnight\nFriday night to 6 PM PST Saturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
+          "description": "* WHAT...For the Beach Hazards Statement, An increased risk for\nsneaker waves and strong rip currents with breaking waves of\n15 to 20 ft expected. For the High Surf Warning, Dangerously\nlarge breaking waves of 25 to 35 ft, with occasional sets of\n40 to 50 ft at favored breakpoints. For the Coastal Flood\nAdvisory, large breaking waves will run up beaches and crash\nover seawalls, inundating adjacent, low-lying infrastructure.\n\n* WHERE...Coastal North Bay Including Point Reyes National\nSeashore, San Francisco Peninsula Coast and Northern Monterey\nBay.\n\n* WHEN...For the Beach Hazards Statement, through Friday\nafternoon. For the High Surf Warning, from 6 PM Friday to 4 AM\nPST Sunday. For the Coastal Flood Advisory, from midnight\nFriday night to 6 PM PST Saturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
           "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.\n\nStay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-11-12T15:00:00-08:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f24acdc8bab05264fb6a2dc1481bf8cf8e0da56e.002.3"
+          "expires": "2026-11-13T03:00:00-08:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cdad9736fd52c00007a734100826b65a2f4993b4.002.3"
         }
       ]
     }
   },
-  "warnings": []
+  "warnings": [
+    "Santa Cruz: fetch failed"
+  ]
 }
