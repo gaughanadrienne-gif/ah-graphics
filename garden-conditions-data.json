@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-11-13T01:08:35.433Z",
+  "updated_at": "2026-11-13T08:03:56.118Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -919,7 +919,8 @@
         }
       ],
       "hasActiveAlerts": false,
-      "alerts": []
+      "alerts": [],
+      "stale": true
     },
     "watsonville": {
       "updated": "2026-11-13T01:08:35.433Z",
@@ -1387,10 +1388,13 @@
           "expires": "2026-11-13T03:00:00-08:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cdad9736fd52c00007a734100826b65a2f4993b4.002.3"
         }
-      ]
+      ],
+      "stale": true
     }
   },
   "warnings": [
-    "Santa Cruz: fetch failed"
+    "Santa Cruz: fetch failed",
+    "San Lorenzo Valley: fetch failed",
+    "Watsonville: fetch failed"
   ]
 }
