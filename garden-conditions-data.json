@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-11-14T10:39:22.682Z",
+  "updated_at": "2026-11-14T17:10:43.175Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -16,7 +16,7 @@
   ],
   "zones": {
     "santa-cruz": {
-      "updated": "2026-11-14T03:20:47.454Z",
+      "updated": "2026-11-14T17:10:43.175Z",
       "zone": "santa-cruz",
       "zoneName": "Santa Cruz",
       "location": {
@@ -24,31 +24,27 @@
         "longitude": -122.0308
       },
       "current": {
-        "temperature": 56,
+        "temperature": 57,
         "temperatureUnit": "F",
-        "apparentTemperature": 53,
-        "conditions": "Slight Chance Light Rain then Partly Sunny",
-        "detailedForecast": "A slight chance of rain before 7am. Partly sunny. High near 64, with temperatures falling to around 61 in the afternoon. Southeast wind around 2 mph. Chance of precipitation is 20%.",
+        "apparentTemperature": 55,
+        "conditions": "Mostly Sunny",
+        "detailedForecast": "Mostly sunny. High near 64, with temperatures falling to around 61 in the afternoon. South wind 0 to 3 mph.",
         "wind": "5 mph",
-        "windSpeed": 4.9,
-        "windGust": 24.2,
+        "windSpeed": 4.5,
+        "windGust": 7.6,
         "windDirection": "ENE",
         "precipitation": 0,
-        "soilTemp": 59,
-        "soilMoisture": 0.254,
-        "humidity": 78,
-        "vapourPressureDeficit": 0.32,
-        "precipitationProbability": 6
+        "soilTemp": 56,
+        "soilMoisture": 0.271,
+        "humidity": 84,
+        "vapourPressureDeficit": 0.25,
+        "precipitationProbability": 0
       },
       "rainfall": {
-        "today": 0.752,
+        "today": 0,
         "last7Days": 0.752,
         "last30Days": 0.992,
         "dailyData": [
-          {
-            "date": "2026-10-15",
-            "amount": 0
-          },
           {
             "date": "2026-10-16",
             "amount": 0
@@ -164,135 +160,125 @@
           {
             "date": "2026-11-13",
             "amount": 0.752
+          },
+          {
+            "date": "2026-11-14",
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
-          "date": "2026-11-13",
-          "high": 64.8,
-          "low": 54,
-          "precipitation": 0.752,
-          "precipitationProbability": 98,
-          "uvIndex": 2.5,
-          "evapotranspiration": 0.043,
-          "windGust": 34.4
+          "date": "2026-11-14",
+          "high": 62.6,
+          "low": 51.6,
+          "precipitation": 0,
+          "precipitationProbability": 10,
+          "uvIndex": 3.95,
+          "evapotranspiration": 0.068,
+          "windGust": 11.2
         },
         "upcoming": [
           {
-            "date": "2026-11-13",
-            "high": 64.8,
-            "low": 54,
-            "precipitation": 0.752,
-            "precipitationProbability": 98,
-            "uvIndex": 2.5,
-            "evapotranspiration": 0.043,
-            "windGust": 34.4
-          },
-          {
             "date": "2026-11-14",
-            "high": 62.8,
-            "low": 51,
+            "high": 62.6,
+            "low": 51.6,
             "precipitation": 0,
-            "precipitationProbability": 30,
+            "precipitationProbability": 10,
             "uvIndex": 3.95,
-            "evapotranspiration": 0.077,
-            "windGust": 15.4
+            "evapotranspiration": 0.068,
+            "windGust": 11.2
           },
           {
             "date": "2026-11-15",
-            "high": 63,
-            "low": 51.5,
-            "precipitation": 0.334,
-            "precipitationProbability": 97,
-            "uvIndex": 3.75,
-            "evapotranspiration": 0.053,
-            "windGust": 19.5
+            "high": 60.2,
+            "low": 52.2,
+            "precipitation": 0.276,
+            "precipitationProbability": 89,
+            "uvIndex": 3.6,
+            "evapotranspiration": 0.024,
+            "windGust": 22.6
           },
           {
             "date": "2026-11-16",
-            "high": 61.8,
-            "low": 53.6,
-            "precipitation": 0.051,
-            "precipitationProbability": 71,
-            "uvIndex": 3.8,
-            "evapotranspiration": 0.091,
-            "windGust": 14.8
+            "high": 58.8,
+            "low": 51.7,
+            "precipitation": 0.43,
+            "precipitationProbability": 89,
+            "uvIndex": 3.7,
+            "evapotranspiration": 0.071,
+            "windGust": 12.8
           },
           {
             "date": "2026-11-17",
-            "high": 62.6,
-            "low": 51.9,
+            "high": 58.6,
+            "low": 52.3,
             "precipitation": 0,
-            "precipitationProbability": 41,
+            "precipitationProbability": 39,
             "uvIndex": 3.7,
-            "evapotranspiration": 0.083,
-            "windGust": 7.8
+            "evapotranspiration": 0.082,
+            "windGust": 17.7
           },
           {
             "date": "2026-11-18",
-            "high": 60.7,
-            "low": 52.4,
-            "precipitation": 1.772,
-            "precipitationProbability": 88,
-            "uvIndex": 0.3,
-            "evapotranspiration": 0.03,
-            "windGust": 34.4
+            "high": 59.6,
+            "low": 54.1,
+            "precipitation": 2.488,
+            "precipitationProbability": 93,
+            "uvIndex": 0.35,
+            "evapotranspiration": 0.04,
+            "windGust": 43
           },
           {
             "date": "2026-11-19",
-            "high": 60.8,
-            "low": 53.2,
-            "precipitation": 1.02,
-            "precipitationProbability": 68,
-            "uvIndex": 2.1,
-            "evapotranspiration": 0.06,
-            "windGust": 34.7
+            "high": 58.6,
+            "low": 56.9,
+            "precipitation": 1.138,
+            "precipitationProbability": 82,
+            "uvIndex": 1.25,
+            "evapotranspiration": 0.066,
+            "windGust": 33.3
+          },
+          {
+            "date": "2026-11-20",
+            "high": 60.3,
+            "low": 55.1,
+            "precipitation": 0.059,
+            "precipitationProbability": 28,
+            "uvIndex": 2.8,
+            "evapotranspiration": 0.082,
+            "windGust": 26.8
           }
         ]
       },
       "forecast": [
         {
-          "name": "Tonight",
-          "startTime": "2026-11-13T19:00:00-08:00",
-          "endTime": "2026-11-14T06:00:00-08:00",
-          "temperature": 47,
-          "temperatureUnit": "F",
-          "conditions": "Chance Light Rain",
-          "detailedForecast": "A chance of rain before 5am. Mostly cloudy, with a low around 47. North wind 2 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,30/rain,20?size=medium",
-          "isDaytime": false,
-          "precipitation": 30,
-          "wind": "2 to 7 mph",
-          "windDirection": "N"
-        },
-        {
-          "name": "Saturday",
-          "startTime": "2026-11-14T06:00:00-08:00",
+          "name": "Today",
+          "startTime": "2026-11-14T09:00:00-08:00",
           "endTime": "2026-11-14T18:00:00-08:00",
           "temperature": 64,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Light Rain then Partly Sunny",
-          "detailedForecast": "A slight chance of rain before 7am. Partly sunny. High near 64, with temperatures falling to around 61 in the afternoon. Southeast wind around 2 mph. Chance of precipitation is 20%.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,20/bkn?size=medium",
+          "conditions": "Mostly Sunny",
+          "detailedForecast": "Mostly sunny. High near 64, with temperatures falling to around 61 in the afternoon. South wind 0 to 3 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/sct?size=medium",
           "isDaytime": true,
-          "precipitation": 16,
-          "wind": "2 mph",
-          "windDirection": "SE"
+          "precipitation": 1,
+          "wind": "0 to 3 mph",
+          "windDirection": "S"
         },
         {
-          "name": "Saturday Night",
+          "name": "Tonight",
           "startTime": "2026-11-14T18:00:00-08:00",
           "endTime": "2026-11-15T06:00:00-08:00",
           "temperature": 48,
           "temperatureUnit": "F",
-          "conditions": "Cloudy",
-          "detailedForecast": "Cloudy. Low around 48, with temperatures rising to around 50 overnight. East wind 0 to 6 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/ovc?size=medium",
+          "conditions": "Mostly Cloudy",
+          "detailedForecast": "Mostly cloudy. Low around 48, with temperatures rising to around 51 overnight. East northeast wind 0 to 6 mph.",
+          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
           "precipitation": 3,
           "wind": "0 to 6 mph",
-          "windDirection": "E"
+          "windDirection": "ENE"
         },
         {
           "name": "Sunday",
@@ -300,11 +286,11 @@
           "endTime": "2026-11-15T18:00:00-08:00",
           "temperature": 64,
           "temperatureUnit": "F",
-          "conditions": "Light Rain",
-          "detailedForecast": "Rain after 10am. Mostly cloudy, with a high near 64. South southeast wind 6 to 14 mph, with gusts as high as 23 mph. Chance of precipitation is 100%. New rainfall amounts between a quarter and half of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,50/rain,100?size=medium",
+          "conditions": "Cloudy then Rain",
+          "detailedForecast": "Rain after 2pm. Cloudy. High near 64, with temperatures falling to around 61 in the afternoon. South southeast wind 6 to 14 mph, with gusts as high as 24 mph. Chance of precipitation is 100%. New rainfall amounts between a quarter and half of an inch possible.",
+          "icon": "https://api.weather.gov/icons/land/day/ovc/rain,100?size=medium",
           "isDaytime": true,
-          "precipitation": 98,
+          "precipitation": 97,
           "wind": "6 to 14 mph",
           "windDirection": "SSE"
         },
@@ -312,27 +298,27 @@
           "name": "Sunday Night",
           "startTime": "2026-11-15T18:00:00-08:00",
           "endTime": "2026-11-16T06:00:00-08:00",
-          "temperature": 47,
+          "temperature": 48,
           "temperatureUnit": "F",
           "conditions": "Light Rain",
-          "detailedForecast": "Rain. Cloudy, with a low around 47. West northwest wind 7 to 12 mph, with gusts as high as 20 mph. Chance of precipitation is 100%. New rainfall amounts between a half and three quarters of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,100/rain,90?size=medium",
+          "detailedForecast": "Rain. Cloudy, with a low around 48. West northwest wind 6 to 12 mph, with gusts as high as 21 mph. Chance of precipitation is 100%. New rainfall amounts between a half and three quarters of an inch possible.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,100/rain,80?size=medium",
           "isDaytime": false,
-          "precipitation": 98,
-          "wind": "7 to 12 mph",
+          "precipitation": 97,
+          "wind": "6 to 12 mph",
           "windDirection": "WNW"
         },
         {
           "name": "Monday",
           "startTime": "2026-11-16T06:00:00-08:00",
           "endTime": "2026-11-16T18:00:00-08:00",
-          "temperature": 61,
+          "temperature": 62,
           "temperatureUnit": "F",
           "conditions": "Chance Light Rain",
-          "detailedForecast": "A chance of rain. Partly sunny, with a high near 61. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,40/rain,30?size=medium",
+          "detailedForecast": "A chance of rain. Partly sunny, with a high near 62. North northwest wind 5 to 9 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+          "icon": "https://api.weather.gov/icons/land/day/rain,50/rain,30?size=medium",
           "isDaytime": true,
-          "precipitation": 44,
+          "precipitation": 46,
           "wind": "5 to 9 mph",
           "windDirection": "NNW"
         },
@@ -340,13 +326,13 @@
           "name": "Monday Night",
           "startTime": "2026-11-16T18:00:00-08:00",
           "endTime": "2026-11-17T06:00:00-08:00",
-          "temperature": 43,
+          "temperature": 42,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Light Rain then Partly Cloudy",
-          "detailedForecast": "A slight chance of rain before 10pm. Partly cloudy, with a low around 43.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,20/sct?size=medium",
+          "conditions": "Slight Chance Light Rain then Mostly Clear",
+          "detailedForecast": "A slight chance of rain before 10pm. Mostly clear, with a low around 42. Chance of precipitation is 20%.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,20/few?size=medium",
           "isDaytime": false,
-          "precipitation": 23,
+          "precipitation": 22,
           "wind": "5 to 8 mph",
           "windDirection": "NNW"
         },
@@ -360,23 +346,23 @@
           "detailedForecast": "Sunny, with a high near 61.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
-          "precipitation": 7,
-          "wind": "5 to 9 mph",
+          "precipitation": 4,
+          "wind": "3 to 7 mph",
           "windDirection": "NNW"
         },
         {
           "name": "Tuesday Night",
           "startTime": "2026-11-17T18:00:00-08:00",
           "endTime": "2026-11-18T06:00:00-08:00",
-          "temperature": 46,
+          "temperature": 47,
           "temperatureUnit": "F",
           "conditions": "Rain",
-          "detailedForecast": "Rain after 10pm. Mostly cloudy, with a low around 46.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,50/rain,90?size=medium",
+          "detailedForecast": "Rain after 10pm. Mostly cloudy, with a low around 47.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,40/rain,90?size=medium",
           "isDaytime": false,
-          "precipitation": 88,
-          "wind": "5 to 12 mph",
-          "windDirection": "SSW"
+          "precipitation": 92,
+          "wind": "2 to 13 mph",
+          "windDirection": "W"
         },
         {
           "name": "Wednesday",
@@ -386,11 +372,11 @@
           "temperatureUnit": "F",
           "conditions": "Rain",
           "detailedForecast": "Rain. Cloudy, with a high near 60.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,90?size=medium",
+          "icon": "https://api.weather.gov/icons/land/day/rain,100?size=medium",
           "isDaytime": true,
-          "precipitation": 94,
-          "wind": "12 to 16 mph",
-          "windDirection": "SW"
+          "precipitation": 96,
+          "wind": "13 to 17 mph",
+          "windDirection": "SSW"
         },
         {
           "name": "Wednesday Night",
@@ -402,9 +388,9 @@
           "detailedForecast": "Rain. Mostly cloudy, with a low around 45.",
           "icon": "https://api.weather.gov/icons/land/night/rain,80/rain,70?size=medium",
           "isDaytime": false,
-          "precipitation": 78,
-          "wind": "7 to 12 mph",
-          "windDirection": "NW"
+          "precipitation": 81,
+          "wind": "7 to 14 mph",
+          "windDirection": "WSW"
         },
         {
           "name": "Thursday",
@@ -412,26 +398,26 @@
           "endTime": "2026-11-19T18:00:00-08:00",
           "temperature": 60,
           "temperatureUnit": "F",
-          "conditions": "Chance Light Rain",
-          "detailedForecast": "A chance of rain. Partly sunny, with a high near 60.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,50/rain,40?size=medium",
+          "conditions": "Light Rain Likely",
+          "detailedForecast": "Rain likely. Partly sunny, with a high near 60.",
+          "icon": "https://api.weather.gov/icons/land/day/rain,60/rain,50?size=medium",
           "isDaytime": true,
-          "precipitation": 53,
-          "wind": "7 to 12 mph",
-          "windDirection": "NNW"
+          "precipitation": 61,
+          "wind": "7 to 10 mph",
+          "windDirection": "WNW"
         },
         {
           "name": "Thursday Night",
           "startTime": "2026-11-19T18:00:00-08:00",
           "endTime": "2026-11-20T06:00:00-08:00",
-          "temperature": 42,
+          "temperature": 41,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Light Rain then Partly Cloudy",
-          "detailedForecast": "A slight chance of rain before 10pm. Partly cloudy, with a low around 42.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,20/sct?size=medium",
+          "conditions": "Chance Light Rain",
+          "detailedForecast": "A chance of rain before 4am. Partly cloudy, with a low around 41.",
+          "icon": "https://api.weather.gov/icons/land/night/rain,30/rain,20?size=medium",
           "isDaytime": false,
-          "precipitation": 22,
-          "wind": "5 to 8 mph",
+          "precipitation": 34,
+          "wind": "3 to 7 mph",
           "windDirection": "N"
         },
         {
@@ -444,38 +430,51 @@
           "detailedForecast": "Sunny, with a high near 61.",
           "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
           "isDaytime": true,
-          "precipitation": 9,
-          "wind": "1 to 5 mph",
+          "precipitation": 12,
+          "wind": "3 mph",
           "windDirection": "N"
+        },
+        {
+          "name": "Friday Night",
+          "startTime": "2026-11-20T18:00:00-08:00",
+          "endTime": "2026-11-21T06:00:00-08:00",
+          "temperature": 42,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 42.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 8,
+          "wind": "1 to 5 mph",
+          "windDirection": "NNE"
         }
       ],
       "hasActiveAlerts": true,
       "alerts": [
         {
           "event": "High Surf Warning",
-          "headline": "High Surf Warning issued November 13 at 5:57PM PST until November 15 at 4:00AM PST by NWS San Francisco CA",
+          "headline": "High Surf Warning issued November 14 at 1:05AM PST until November 15 at 4:00AM PST by NWS San Francisco CA",
           "severity": "Moderate",
           "urgency": "Expected",
-          "description": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 25 to 35 ft, with occasional sets of 40 to 50 ft at\nfavored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...All Pacific Coast Beaches.\n\n* WHEN...For the High Surf Warning, until 4 AM PST Sunday. For\nthe Coastal Flood Advisory, from midnight tonight to 6 PM PST\nSaturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
-          "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.\n\nStay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-11-14T03:00:00-08:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.988379c493882a67dddd4459e7bcc8cbe0076881.001.2"
+          "description": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 25 to 35 ft, with occasional sets of 40 to 50 ft at\nfavored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...All Pacific Coast Beaches.\n\n* WHEN...For the High Surf Warning, until 4 AM PST Sunday. For the\nCoastal Flood Advisory, now through 6 PM PST today.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory today is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
+          "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.",
+          "expires": "2026-11-14T18:00:00-08:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6ebf24d167c2570ae30a2917970d82b92742e6b2.001.1"
         },
         {
           "event": "Coastal Flood Advisory",
-          "headline": "Coastal Flood Advisory issued November 13 at 5:57PM PST until November 14 at 6:00PM PST by NWS San Francisco CA",
+          "headline": "Coastal Flood Advisory issued November 14 at 1:05AM PST until November 14 at 6:00PM PST by NWS San Francisco CA",
           "severity": "Minor",
           "urgency": "Expected",
-          "description": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 25 to 35 ft, with occasional sets of 40 to 50 ft at\nfavored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...All Pacific Coast Beaches.\n\n* WHEN...For the High Surf Warning, until 4 AM PST Sunday. For\nthe Coastal Flood Advisory, from midnight tonight to 6 PM PST\nSaturday.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory on Saturday is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
-          "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.\n\nStay off of jetties, piers, rocks, and other waterside\ninfrastructure. Remain out of the water to avoid hazardous surf\nand NEVER turn your back on the ocean. Monitor local weather,\nsurf and tide forecasts at www.weather.gov/mtr.",
-          "expires": "2026-11-14T03:00:00-08:00",
-          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.988379c493882a67dddd4459e7bcc8cbe0076881.001.3"
+          "description": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 25 to 35 ft, with occasional sets of 40 to 50 ft at\nfavored breakpoints. For the Coastal Flood Advisory, large\nbreaking waves will run up beaches and crash over seawalls,\ninundating adjacent, low-lying infrastructure.\n\n* WHERE...All Pacific Coast Beaches.\n\n* WHEN...For the High Surf Warning, until 4 AM PST Sunday. For the\nCoastal Flood Advisory, now through 6 PM PST today.\n\n* IMPACTS...High tides will result in flooding of low-lying\ninfrastructure, isolated road closures, and coastal erosion.\nRising tides will bring water and waves farther up the beach\nthan normal, restricting escape from beaches and coastal\nareas. Dangerously large breaking waves can overpower\nswimmers, pulling people into the sea from beaches, jetties,\nand rocks resulting in significant physical injury and\nincreasing the risk of drowning. Waves can sweep across the\nshoreline without warning, pulling people into the sea from\nbeaches, jetties, and rocks.\n\n* ADDITIONAL DETAILS...The Coastal Flood Advisory today is\nspecifically for the Pacific Coast, where large breaking waves\nwill spill over sea walls and run up beaches onto adjacent\ninfrastructure.",
+          "instruction": "If travel is required, allow extra time as some roads may be\nclosed. Do not drive around barricades or through water of\nunknown depth. Take the necessary actions to protect flood-prone\nproperty.\n\nEveryone should remain out of the water due to life-threatening\nsurf conditions. Stay off of jetties, piers, and other waterside\ninfrastructure.",
+          "expires": "2026-11-14T18:00:00-08:00",
+          "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6ebf24d167c2570ae30a2917970d82b92742e6b2.001.2"
         }
-      ],
-      "stale": true
+      ]
     },
     "slv": {
-      "updated": "2026-11-14T10:39:22.682Z",
+      "updated": "2026-11-14T17:10:43.175Z",
       "zone": "slv",
       "zoneName": "San Lorenzo Valley",
       "location": {
@@ -483,26 +482,26 @@
         "longitude": -122.1222
       },
       "current": {
-        "temperature": 52,
+        "temperature": 54,
         "temperatureUnit": "F",
-        "apparentTemperature": 50,
+        "apparentTemperature": 53,
         "conditions": "Areas Of Fog then Mostly Sunny",
-        "detailedForecast": "Areas of fog and a slight chance of rain before 10am. Mostly sunny. High near 63, with temperatures falling to around 58 in the afternoon. Southeast wind around 1 mph. Chance of precipitation is 20%.",
-        "wind": "1 mph",
-        "windSpeed": 0.9,
-        "windGust": 1.8,
-        "windDirection": "ENE",
+        "detailedForecast": "Areas of fog before 10am. Mostly sunny. High near 63, with temperatures falling to around 58 in the afternoon. South wind around 1 mph.",
+        "wind": "4 mph",
+        "windSpeed": 4,
+        "windGust": 6,
+        "windDirection": "SE",
         "precipitation": 0,
-        "soilTemp": 54,
-        "soilMoisture": 0.269,
-        "humidity": 82,
-        "vapourPressureDeficit": 0.26,
-        "precipitationProbability": 2
+        "soilTemp": 55,
+        "soilMoisture": 0.271,
+        "humidity": 91,
+        "vapourPressureDeficit": 0.13,
+        "precipitationProbability": 0
       },
       "rainfall": {
-        "today": 0.071,
-        "last7Days": 1.3539999999999999,
-        "last30Days": 1.9409999999999998,
+        "today": 0,
+        "last7Days": 1.283,
+        "last30Days": 1.8699999999999999,
         "dailyData": [
           {
             "date": "2026-10-16",
@@ -622,136 +621,122 @@
           },
           {
             "date": "2026-11-14",
-            "amount": 0.071
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-11-14",
-          "high": 62.5,
-          "low": 49.3,
-          "precipitation": 0.071,
-          "precipitationProbability": 14,
+          "high": 61.6,
+          "low": 48.8,
+          "precipitation": 0,
+          "precipitationProbability": 10,
           "uvIndex": 3.95,
-          "evapotranspiration": 0.056,
-          "windGust": 11
+          "evapotranspiration": 0.059,
+          "windGust": 11.9
         },
         "upcoming": [
           {
             "date": "2026-11-14",
-            "high": 62.5,
-            "low": 49.3,
-            "precipitation": 0.071,
-            "precipitationProbability": 14,
+            "high": 61.6,
+            "low": 48.8,
+            "precipitation": 0,
+            "precipitationProbability": 10,
             "uvIndex": 3.95,
-            "evapotranspiration": 0.056,
-            "windGust": 11
+            "evapotranspiration": 0.059,
+            "windGust": 11.9
           },
           {
             "date": "2026-11-15",
-            "high": 59.9,
-            "low": 50,
-            "precipitation": 0.367,
-            "precipitationProbability": 97,
-            "uvIndex": 3.55,
-            "evapotranspiration": 0.032,
-            "windGust": 22.8
+            "high": 58.6,
+            "low": 49.8,
+            "precipitation": 0.354,
+            "precipitationProbability": 90,
+            "uvIndex": 3.2,
+            "evapotranspiration": 0.024,
+            "windGust": 22.6
           },
           {
             "date": "2026-11-16",
-            "high": 58.3,
+            "high": 56.9,
             "low": 46.2,
-            "precipitation": 0.157,
-            "precipitationProbability": 80,
-            "uvIndex": 3.75,
-            "evapotranspiration": 0.059,
-            "windGust": 9.6
+            "precipitation": 0.3,
+            "precipitationProbability": 84,
+            "uvIndex": 3.65,
+            "evapotranspiration": 0.061,
+            "windGust": 7.6
           },
           {
             "date": "2026-11-17",
-            "high": 59.1,
-            "low": 45.3,
-            "precipitation": 0.008,
-            "precipitationProbability": 40,
-            "uvIndex": 3.6,
-            "evapotranspiration": 0.061,
-            "windGust": 8.3
+            "high": 57.8,
+            "low": 46.4,
+            "precipitation": 0.024,
+            "precipitationProbability": 44,
+            "uvIndex": 3.4,
+            "evapotranspiration": 0.059,
+            "windGust": 13.2
           },
           {
             "date": "2026-11-18",
-            "high": 57,
-            "low": 48.5,
-            "precipitation": 2.567,
-            "precipitationProbability": 90,
-            "uvIndex": 0.25,
+            "high": 57.3,
+            "low": 50.1,
+            "precipitation": 1.902,
+            "precipitationProbability": 96,
+            "uvIndex": 0.2,
             "evapotranspiration": 0.017,
-            "windGust": 38
+            "windGust": 40.3
           },
           {
             "date": "2026-11-19",
-            "high": 54.4,
-            "low": 48.8,
-            "precipitation": 0.827,
-            "precipitationProbability": 65,
-            "uvIndex": 1.2,
-            "evapotranspiration": 0.023,
-            "windGust": 32.4
+            "high": 54.2,
+            "low": 52.2,
+            "precipitation": 0.965,
+            "precipitationProbability": 82,
+            "uvIndex": 0.8,
+            "evapotranspiration": 0.025,
+            "windGust": 30.6
           },
           {
             "date": "2026-11-20",
-            "high": 61.1,
-            "low": 46.8,
-            "precipitation": 0.008,
-            "precipitationProbability": 18,
-            "uvIndex": 3.45,
-            "evapotranspiration": 0.068,
-            "windGust": 3.8
+            "high": 57.9,
+            "low": 47.9,
+            "precipitation": 0.055,
+            "precipitationProbability": 25,
+            "uvIndex": 2.55,
+            "evapotranspiration": 0.05,
+            "windGust": 26.2
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-11-14T02:00:00-08:00",
-          "endTime": "2026-11-14T06:00:00-08:00",
-          "temperature": 43,
-          "temperatureUnit": "F",
-          "conditions": "Slight Chance Light Rain",
-          "detailedForecast": "A slight chance of rain before 3am, then patchy fog and a slight chance of rain. Mostly cloudy, with a low around 43. Wind around 0 mph. Chance of precipitation is 20%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,20?size=medium",
-          "isDaytime": false,
-          "precipitation": 24,
-          "wind": "0 mph",
-          "windDirection": ""
-        },
-        {
-          "name": "Saturday",
-          "startTime": "2026-11-14T06:00:00-08:00",
+          "name": "Today",
+          "startTime": "2026-11-14T09:00:00-08:00",
           "endTime": "2026-11-14T18:00:00-08:00",
           "temperature": 63,
           "temperatureUnit": "F",
           "conditions": "Areas Of Fog then Mostly Sunny",
-          "detailedForecast": "Areas of fog and a slight chance of rain before 10am. Mostly sunny. High near 63, with temperatures falling to around 58 in the afternoon. Southeast wind around 1 mph. Chance of precipitation is 20%.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,20/sct?size=medium",
+          "detailedForecast": "Areas of fog before 10am. Mostly sunny. High near 63, with temperatures falling to around 58 in the afternoon. South wind around 1 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
           "isDaytime": true,
-          "precipitation": 15,
+          "precipitation": 1,
           "wind": "1 mph",
-          "windDirection": "SE"
+          "windDirection": "S"
         },
         {
-          "name": "Saturday Night",
+          "name": "Tonight",
           "startTime": "2026-11-14T18:00:00-08:00",
           "endTime": "2026-11-15T06:00:00-08:00",
-          "temperature": 45,
+          "temperature": 44,
           "temperatureUnit": "F",
           "conditions": "Mostly Cloudy",
-          "detailedForecast": "Mostly cloudy. Low around 45, with temperatures rising to around 47 overnight. South southeast wind around 2 mph.",
+          "detailedForecast": "Mostly cloudy. Low around 44, with temperatures rising to around 47 overnight. South wind around 2 mph.",
           "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
           "precipitation": 3,
           "wind": "2 mph",
-          "windDirection": "SSE"
+          "windDirection": "S"
         },
         {
           "name": "Sunday",
@@ -760,7 +745,7 @@
           "temperature": 62,
           "temperatureUnit": "F",
           "conditions": "Cloudy then Rain",
-          "detailedForecast": "Rain after 1pm. Cloudy, with a high near 62. South wind 2 to 9 mph, with gusts as high as 18 mph. Chance of precipitation is 100%. New rainfall amounts between a half and three quarters of an inch possible.",
+          "detailedForecast": "Rain after 1pm. Cloudy. High near 62, with temperatures falling to around 58 in the afternoon. South wind 2 to 9 mph, with gusts as high as 18 mph. Chance of precipitation is 100%. New rainfall amounts between a half and three quarters of an inch possible.",
           "icon": "https://api.weather.gov/icons/land/day/ovc/rain,100?size=medium",
           "isDaytime": true,
           "precipitation": 97,
@@ -788,7 +773,7 @@
           "temperature": 60,
           "temperatureUnit": "F",
           "conditions": "Chance Light Rain",
-          "detailedForecast": "A chance of rain. Partly sunny, with a high near 60. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
+          "detailedForecast": "A chance of rain. Partly sunny, with a high near 60. North northwest wind 2 to 6 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
           "icon": "https://api.weather.gov/icons/land/day/rain,40/rain,30?size=medium",
           "isDaytime": true,
           "precipitation": 38,
@@ -802,7 +787,7 @@
           "temperature": 39,
           "temperatureUnit": "F",
           "conditions": "Slight Chance Light Rain then Mostly Clear",
-          "detailedForecast": "A slight chance of rain before 10pm. Mostly clear, with a low around 39.",
+          "detailedForecast": "A slight chance of rain before 10pm. Mostly clear, with a low around 39. Chance of precipitation is 20%.",
           "icon": "https://api.weather.gov/icons/land/night/rain,20/few?size=medium",
           "isDaytime": false,
           "precipitation": 16,
@@ -906,13 +891,27 @@
           "precipitation": 11,
           "wind": "2 mph",
           "windDirection": "N"
+        },
+        {
+          "name": "Friday Night",
+          "startTime": "2026-11-20T18:00:00-08:00",
+          "endTime": "2026-11-21T06:00:00-08:00",
+          "temperature": 37,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 37.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 9,
+          "wind": "2 mph",
+          "windDirection": "NNE"
         }
       ],
       "hasActiveAlerts": false,
       "alerts": []
     },
     "watsonville": {
-      "updated": "2026-11-14T10:39:22.682Z",
+      "updated": "2026-11-14T17:10:43.175Z",
       "zone": "watsonville",
       "zoneName": "Watsonville",
       "location": {
@@ -920,26 +919,26 @@
         "longitude": -121.7569
       },
       "current": {
-        "temperature": 50,
+        "temperature": 55,
         "temperatureUnit": "F",
-        "apparentTemperature": 47,
-        "conditions": "Slight Chance Light Rain then Mostly Sunny",
-        "detailedForecast": "A slight chance of rain before 8am, then patchy fog between 9am and 10am. Mostly sunny. High near 64, with temperatures falling to around 60 in the afternoon. West southwest wind 1 to 6 mph. Chance of precipitation is 20%. New rainfall amounts less than a tenth of an inch possible.",
-        "wind": "4 mph",
-        "windSpeed": 4.3,
-        "windGust": 10.7,
-        "windDirection": "ENE",
+        "apparentTemperature": 54,
+        "conditions": "Patchy Fog then Mostly Sunny",
+        "detailedForecast": "Patchy fog before 10am. Mostly sunny. High near 64, with temperatures falling to around 60 in the afternoon. South wind 1 to 6 mph.",
+        "wind": "3 mph",
+        "windSpeed": 2.5,
+        "windGust": 5.1,
+        "windDirection": "NNE",
         "precipitation": 0,
-        "soilTemp": 55,
+        "soilTemp": 54,
         "soilMoisture": 0.31,
-        "humidity": 88,
-        "vapourPressureDeficit": 0.14,
-        "precipitationProbability": 1
+        "humidity": 87,
+        "vapourPressureDeficit": 0.19,
+        "precipitationProbability": 0
       },
       "rainfall": {
-        "today": 0.055,
-        "last7Days": 0.315,
-        "last30Days": 0.484,
+        "today": 0,
+        "last7Days": 0.26,
+        "last30Days": 0.429,
         "dailyData": [
           {
             "date": "2026-10-16",
@@ -1059,136 +1058,122 @@
           },
           {
             "date": "2026-11-14",
-            "amount": 0.055
+            "amount": 0
           }
         ]
       },
       "gardenMetrics": {
         "today": {
           "date": "2026-11-14",
-          "high": 62.8,
-          "low": 49,
-          "precipitation": 0.055,
-          "precipitationProbability": 11,
+          "high": 64,
+          "low": 46.4,
+          "precipitation": 0,
+          "precipitationProbability": 16,
           "uvIndex": 4,
-          "evapotranspiration": 0.052,
-          "windGust": 8.7
+          "evapotranspiration": 0.069,
+          "windGust": 9.4
         },
         "upcoming": [
           {
             "date": "2026-11-14",
-            "high": 62.8,
-            "low": 49,
-            "precipitation": 0.055,
-            "precipitationProbability": 11,
+            "high": 64,
+            "low": 46.4,
+            "precipitation": 0,
+            "precipitationProbability": 16,
             "uvIndex": 4,
-            "evapotranspiration": 0.052,
-            "windGust": 8.7
+            "evapotranspiration": 0.069,
+            "windGust": 9.4
           },
           {
             "date": "2026-11-15",
-            "high": 64.6,
-            "low": 48.8,
-            "precipitation": 0.058,
-            "precipitationProbability": 85,
-            "uvIndex": 3.6,
-            "evapotranspiration": 0.053,
-            "windGust": 20.8
+            "high": 62.3,
+            "low": 48.9,
+            "precipitation": 0.248,
+            "precipitationProbability": 92,
+            "uvIndex": 3.8,
+            "evapotranspiration": 0.032,
+            "windGust": 21.3
           },
           {
             "date": "2026-11-16",
-            "high": 60.1,
-            "low": 46.8,
-            "precipitation": 0.236,
-            "precipitationProbability": 85,
-            "uvIndex": 3.25,
-            "evapotranspiration": 0.057,
-            "windGust": 13
+            "high": 59.3,
+            "low": 46.6,
+            "precipitation": 0.462,
+            "precipitationProbability": 92,
+            "uvIndex": 3.75,
+            "evapotranspiration": 0.061,
+            "windGust": 9.6
           },
           {
             "date": "2026-11-17",
-            "high": 59.8,
-            "low": 44.7,
+            "high": 60.1,
+            "low": 44.9,
             "precipitation": 0,
-            "precipitationProbability": 28,
-            "uvIndex": 3.7,
+            "precipitationProbability": 22,
+            "uvIndex": 3.75,
             "evapotranspiration": 0.067,
-            "windGust": 8.5
+            "windGust": 6.3
           },
           {
             "date": "2026-11-18",
-            "high": 59.1,
-            "low": 45.8,
-            "precipitation": 1.311,
-            "precipitationProbability": 88,
-            "uvIndex": 0.65,
-            "evapotranspiration": 0.021,
-            "windGust": 32.7
+            "high": 56.6,
+            "low": 47.1,
+            "precipitation": 3.165,
+            "precipitationProbability": 92,
+            "uvIndex": 0.5,
+            "evapotranspiration": 0.019,
+            "windGust": 23.5
           },
           {
             "date": "2026-11-19",
-            "high": 57.4,
-            "low": 50.3,
-            "precipitation": 1.63,
-            "precipitationProbability": 64,
-            "uvIndex": 1.25,
-            "evapotranspiration": 0.045,
-            "windGust": 30.6
+            "high": 57.5,
+            "low": 51.5,
+            "precipitation": 1.756,
+            "precipitationProbability": 79,
+            "uvIndex": 1.15,
+            "evapotranspiration": 0.046,
+            "windGust": 31.3
           },
           {
             "date": "2026-11-20",
-            "high": 62.2,
-            "low": 46.1,
-            "precipitation": 0.039,
-            "precipitationProbability": 19,
-            "uvIndex": 3.45,
-            "evapotranspiration": 0.067,
-            "windGust": 5.4
+            "high": 61.1,
+            "low": 49.5,
+            "precipitation": 0.075,
+            "precipitationProbability": 28,
+            "uvIndex": 3.35,
+            "evapotranspiration": 0.076,
+            "windGust": 24.8
           }
         ]
       },
       "forecast": [
         {
-          "name": "Overnight",
-          "startTime": "2026-11-14T02:00:00-08:00",
-          "endTime": "2026-11-14T06:00:00-08:00",
-          "temperature": 46,
-          "temperatureUnit": "F",
-          "conditions": "Slight Chance Light Rain",
-          "detailedForecast": "A slight chance of rain. Mostly cloudy, with a low around 46. East wind around 3 mph. Chance of precipitation is 20%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/night/rain,20?size=medium",
-          "isDaytime": false,
-          "precipitation": 22,
-          "wind": "3 mph",
-          "windDirection": "E"
-        },
-        {
-          "name": "Saturday",
-          "startTime": "2026-11-14T06:00:00-08:00",
+          "name": "Today",
+          "startTime": "2026-11-14T09:00:00-08:00",
           "endTime": "2026-11-14T18:00:00-08:00",
           "temperature": 64,
           "temperatureUnit": "F",
-          "conditions": "Slight Chance Light Rain then Mostly Sunny",
-          "detailedForecast": "A slight chance of rain before 8am, then patchy fog between 9am and 10am. Mostly sunny. High near 64, with temperatures falling to around 60 in the afternoon. West southwest wind 1 to 6 mph. Chance of precipitation is 20%. New rainfall amounts less than a tenth of an inch possible.",
-          "icon": "https://api.weather.gov/icons/land/day/rain,20/sct?size=medium",
+          "conditions": "Patchy Fog then Mostly Sunny",
+          "detailedForecast": "Patchy fog before 10am. Mostly sunny. High near 64, with temperatures falling to around 60 in the afternoon. South wind 1 to 6 mph.",
+          "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
           "isDaytime": true,
-          "precipitation": 15,
+          "precipitation": 1,
           "wind": "1 to 6 mph",
-          "windDirection": "WSW"
+          "windDirection": "S"
         },
         {
-          "name": "Saturday Night",
+          "name": "Tonight",
           "startTime": "2026-11-14T18:00:00-08:00",
           "endTime": "2026-11-15T06:00:00-08:00",
-          "temperature": 46,
+          "temperature": 45,
           "temperatureUnit": "F",
-          "conditions": "Cloudy",
-          "detailedForecast": "Cloudy. Low around 46, with temperatures rising to around 48 overnight. East wind around 3 mph.",
-          "icon": "https://api.weather.gov/icons/land/night/ovc?size=medium",
+          "conditions": "Mostly Cloudy",
+          "detailedForecast": "Mostly cloudy. Low around 45, with temperatures rising to around 48 overnight. South southeast wind around 3 mph.",
+          "icon": "https://api.weather.gov/icons/land/night/bkn?size=medium",
           "isDaytime": false,
           "precipitation": 1,
           "wind": "3 mph",
-          "windDirection": "E"
+          "windDirection": "SSE"
         },
         {
           "name": "Sunday",
@@ -1197,7 +1182,7 @@
           "temperature": 64,
           "temperatureUnit": "F",
           "conditions": "Cloudy then Light Rain",
-          "detailedForecast": "Rain after 3pm. Cloudy, with a high near 64. South southeast wind 3 to 9 mph, with gusts as high as 21 mph. Chance of precipitation is 100%. New rainfall amounts between a tenth and quarter of an inch possible.",
+          "detailedForecast": "Rain after 3pm. Cloudy. High near 64, with temperatures falling to around 61 in the afternoon. South southeast wind 3 to 9 mph, with gusts as high as 21 mph. Chance of precipitation is 100%. New rainfall amounts between a tenth and quarter of an inch possible.",
           "icon": "https://api.weather.gov/icons/land/day/ovc/rain,100?size=medium",
           "isDaytime": true,
           "precipitation": 95,
@@ -1225,7 +1210,7 @@
           "temperature": 60,
           "temperatureUnit": "F",
           "conditions": "Chance Light Rain",
-          "detailedForecast": "A chance of rain before 4pm. Partly sunny, with a high near 60. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+          "detailedForecast": "A chance of rain before 4pm. Partly sunny, with a high near 60. North northwest wind 3 to 9 mph, with gusts as high as 18 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
           "icon": "https://api.weather.gov/icons/land/day/rain,50/rain,30?size=medium",
           "isDaytime": true,
           "precipitation": 47,
@@ -1343,6 +1328,20 @@
           "precipitation": 3,
           "wind": "6 mph",
           "windDirection": "N"
+        },
+        {
+          "name": "Friday Night",
+          "startTime": "2026-11-20T18:00:00-08:00",
+          "endTime": "2026-11-21T06:00:00-08:00",
+          "temperature": 38,
+          "temperatureUnit": "F",
+          "conditions": "Partly Cloudy",
+          "detailedForecast": "Partly cloudy, with a low around 38.",
+          "icon": "https://api.weather.gov/icons/land/night/sct?size=medium",
+          "isDaytime": false,
+          "precipitation": 7,
+          "wind": "5 to 9 mph",
+          "windDirection": "NNE"
         }
       ],
       "hasActiveAlerts": true,
@@ -1370,7 +1369,5 @@
       ]
     }
   },
-  "warnings": [
-    "Santa Cruz: fetch failed"
-  ]
+  "warnings": []
 }
