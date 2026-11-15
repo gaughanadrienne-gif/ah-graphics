@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-11-14T21:32:05.394Z",
+  "updated_at": "2026-11-15T01:57:35.509Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -471,7 +471,8 @@
           "expires": "2026-11-14T18:00:00-08:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6ebf24d167c2570ae30a2917970d82b92742e6b2.001.2"
         }
-      ]
+      ],
+      "stale": true
     },
     "slv": {
       "updated": "2026-11-14T21:32:05.394Z",
@@ -908,7 +909,8 @@
         }
       ],
       "hasActiveAlerts": false,
-      "alerts": []
+      "alerts": [],
+      "stale": true
     },
     "watsonville": {
       "updated": "2026-11-14T21:32:05.394Z",
@@ -1366,8 +1368,13 @@
           "expires": "2026-11-14T18:00:00-08:00",
           "source_url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6ebf24d167c2570ae30a2917970d82b92742e6b2.001.2"
         }
-      ]
+      ],
+      "stale": true
     }
   },
-  "warnings": []
+  "warnings": [
+    "Santa Cruz: fetch failed",
+    "San Lorenzo Valley: fetch failed",
+    "Watsonville: fetch failed"
+  ]
 }
