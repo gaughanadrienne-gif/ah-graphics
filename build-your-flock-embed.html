@@ -182,8 +182,8 @@
     var s = data.sections;
     var stamp = document.getElementById('bf-stamp');
     var when = new Date(data.updated);
-    stamp.textContent = isNaN(when) ? 'Availability updates daily'
-      : 'Last updated: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    stamp.textContent = isNaN(when) ? 'Availability checks are temporarily unavailable'
+      : 'Feed rebuilt: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'}) + '. Individual availability may be older; see source notes.';
 
     // A successful feed build does not mean every supplier refreshed successfully.
     var sourceKeys = {'Santa Cruz County Animal Shelter':'sccas', 'Scotts Valley Feed':'scotts_valley',
@@ -195,7 +195,21 @@
         return String(e).indexOf(sourceKeys[source] + ':') === 0;
       });
     }
-    function current(records){ return records.filter(function(r){ return !r.stale && !failed(r.source); }); }
+    var petfinderCache = data.status && data.status.petfinderCache;
+    function petfinderRecord(record){
+      var link = String(record.link || '').toLowerCase();
+      return link.indexOf('https://www.petfinder.com/') === 0 || link.indexOf('https://petfinder.com/') === 0;
+    }
+    function petfinderObservation(record){
+      return record.verified_at === undefined ? (petfinderCache && petfinderCache.checked) : record.verified_at;
+    }
+    function petfinderCurrent(record){
+      if (!petfinderRecord(record)) return true;
+      var observed = Date.parse(petfinderObservation(record));
+      var age = Date.now() - observed;
+      return Number.isFinite(observed) && age >= 0 && age <= 48 * 60 * 60 * 1000;
+    }
+    function current(records){ return records.filter(function(r){ return !r.stale && !failed(r.source) && petfinderCurrent(r); }); }
     function notices(records){
       return Object.keys(sourceKeys).filter(function(source){
         return failed(source) && records.indexOf(source) > -1;
@@ -204,9 +218,20 @@
       }).join('');
     }
 
+    var expiredPetfinder = s.shelters.live.filter(function(r){ return petfinderRecord(r) && (!petfinderCurrent(r) || r.stale); });
+    var petfinderNotice = '';
+    if ((petfinderCache && petfinderCache.stale) || expiredPetfinder.length) {
+      var checkValue = petfinderCache && petfinderCache.checked;
+      if (!checkValue && expiredPetfinder.length) checkValue = petfinderObservation(expiredPetfinder[0]);
+      var checked = new Date(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(checkValue) ? checkValue + 'T12:00:00' : checkValue);
+      var checkedLabel = !checkValue || isNaN(checked) || checked.getTime() > Date.now() ? 'an unverified date'
+        : checked.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric', timeZone:'America/Los_Angeles'});
+      petfinderNotice = '<div class="bf-card"><h4>Cached shelter listings</h4><p class="bf-meta">Some cached listings are too old or have unverified dates and are not shown as current availability. Recorded source check: '+esc(checkedLabel)+'. Check the shelter or rescue directly for available birds.</p></div>';
+    }
+
     // Shelters: individual cards (low volume)
     renderSection(document.getElementById('bf-shelters'), 'Shelters and Rescues', '',
-      current(s.shelters.live).map(shelterCard).join('') + s.shelters.curated.map(curatedCard).join('') + notices(['Santa Cruz County Animal Shelter']),
+      current(s.shelters.live).map(shelterCard).join('') + s.shelters.curated.map(curatedCard).join('') + notices(['Santa Cruz County Animal Shelter']) + petfinderNotice,
       'No birds listed at local shelters today. Check back soon.');
 
     // Feed stores: Scotts Valley summary (or seasonal message) + curated

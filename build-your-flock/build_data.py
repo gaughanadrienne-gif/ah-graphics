@@ -78,11 +78,29 @@ def collect_live(previous=None):
     return out, errors
 
 
-def assemble(live, curated, petfinder_records, now=None, errors=None):
+PETFINDER_MAX_AGE_HOURS = 48
+
+def petfinder_inventory(records, checked, now):
+    """Retain observation identity, never promote a cache rebuild to verification."""
+    try:
+        stamp = datetime.datetime.fromisoformat(checked)
+        if stamp.tzinfo is None:
+            stamp = stamp.replace(tzinfo=PACIFIC)
+        age = (now - stamp).total_seconds() / 3600
+        stale = not 0 <= age <= PETFINDER_MAX_AGE_HOURS
+    except (TypeError, ValueError):
+        stale = True
+    observed = [dict(r, stale=stale, verified_at=checked) for r in records]
+    return observed, {"checked": checked, "stale": stale,
+                      "maxAgeHours": PETFINDER_MAX_AGE_HOURS, "records": len(records)}
+
+
+def assemble(live, curated, petfinder_records, now=None, errors=None, petfinder_updated=None):
     """Pure assembly of the output structure from already-resolved inputs."""
     now = now or datetime.datetime.now(PACIFIC)
     errors = errors or []
     in_season = in_chick_season(now)
+    petfinder_records, petfinder_status = petfinder_inventory(petfinder_records or [], petfinder_updated, now)
 
     sv_live = live.get("scotts_valley") or []
     if not in_season:
@@ -107,6 +125,7 @@ def assemble(live, curated, petfinder_records, now=None, errors=None):
         "status": {
             "scottsValley": "in-season" if in_season else "off-season",
             "scrapeErrors": errors,
+            "petfinderCache": petfinder_status,
             "sources": {source: {"available": not any(e.startswith(key + ":") for e in errors)}
                         for key, mod, source, section in LIVE_PLAN},
         },
@@ -119,7 +138,7 @@ def main():
     petfinder_records = pf.get("records", [])
     previous = _load_json(OUT_PATH)
     live, errors = collect_live(previous)
-    data = assemble(live, curated, petfinder_records, errors=errors)
+    data = assemble(live, curated, petfinder_records, errors=errors, petfinder_updated=pf.get("updated"))
     OUT_PATH.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     s = data["sections"]
     print(
