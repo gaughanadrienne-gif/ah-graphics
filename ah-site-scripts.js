@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded", function() {
       '<div style="font-family:Montserrat,Arial,sans-serif;background-color:#1a3b2a;border-radius:10px;padding:2rem;margin:2.5rem 0;text-align:center;">' +
         '<p style="font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#657665 !important;margin:0 0 0.5rem 0;">Free Quiz</p>' +
         '<p style="font-family:Georgia,serif;font-size:1.4rem;font-weight:normal;color:#f8f9f0 !important;margin:0 0 0.75rem 0;line-height:1.3;">Not sure which tomato varieties grow best in your zone?</p>' +
-        '<p style="font-size:0.9rem;color:#dde2d8 !important;margin:0 0 1.25rem 0;line-height:1.6;">Answer 4 quick questions and get zone-matched variety recommendations, plus a free Tomato Variety Selector PDF.</p>' +
+        '<p style="font-size:0.9rem;color:#dde2d8 !important;margin:0 0 1.25rem 0;line-height:1.6;">Answer 4 quick questions and get variety recommendations matched to your microclimate.</p>' +
         '<a href="/tomato-quiz" style="display:inline-block;background-color:#f8f9f0;color:#1a3b2a !important;text-decoration:none;padding:0.75rem 2rem;border-radius:6px;font-family:Montserrat,Arial,sans-serif;font-size:0.9rem;font-weight:700;">Take the Quiz</a>' +
         '<p style="font-size:0.85rem;color:#dde2d8 !important;margin:1.25rem 0 0 0;">Ready to grow more tomatoes this season? ' +
           '<a href="/tomato-masterkit" style="color:#d2a097 !important;font-weight:700;text-decoration:underline;">Get the Tomato Growing MasterKit</a>' +
@@ -2538,6 +2538,23 @@ function ahIsFlockArticle(slug) {
       wrap.appendChild(hh); wrap.appendChild(grid); container.appendChild(wrap);
       var leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="#1A3B2A" stroke-width="1.4"><path d="M12 2C7 5 4 9 4 14a8 8 0 0016 0c0-5-3-9-8-12z"/><path d="M12 5v13"/></svg>';
       var drop = function (c) { if (c.parentNode) c.parentNode.removeChild(c); if (!grid.children.length && wrap.parentNode) wrap.parentNode.removeChild(wrap); };
+      // 2026-11-18: several articles share one featured photo, so three cards could
+      // show the same picture. Each card claims its image by file name; a later card
+      // with the same file falls back to that article's first different body image,
+      // or keeps the leaf placeholder.
+      var usedImg = {};
+      var imgKey = function (u) { return String(u || '').split('?')[0].split('/').pop().toLowerCase(); };
+      var cleanImg = function (u) { return u.replace(/^http:/, 'https:').replace(/&amp;/g, '&').split('?')[0]; };
+      var bodyImg = function (t) {
+        var re = /<img[^>]+(?:data-src|src)=["'](https?:\/\/(?:images\.squarespace-cdn\.com|static1\.squarespace\.com)\/[^"']+)["']/gi, m;
+        var start = t.indexOf('blog-item-content');
+        re.lastIndex = start > 0 ? start : 0;
+        while ((m = re.exec(t))) {
+          var k = imgKey(m[1]);
+          if (k && !usedImg[k] && !/AHC|logo|favicon/i.test(m[1]) && /\.(jpe?g|png|webp)$/i.test(k)) return m[1];
+        }
+        return null;
+      };
       links.slice(0, 3).forEach(function (l) {
         if (!l || !l.url) return;
         var c = document.createElement('a'); c.href = l.url;
@@ -2547,7 +2564,11 @@ function ahIsFlockArticle(slug) {
           .then(function (t) {
             if (!t) return;
             var m = t.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
-            if (m && !/AHC|logo/i.test(m[1])) c.querySelector('.ph').innerHTML = '<img src="' + m[1].replace(/^http:/, 'https:').split('?')[0] + '?format=600w" alt="">';
+            var src = (m && !/AHC|logo/i.test(m[1])) ? m[1] : null;
+            if (src && usedImg[imgKey(src)]) src = bodyImg(t);
+            if (!src) return;
+            usedImg[imgKey(src)] = 1;
+            c.querySelector('.ph').innerHTML = '<img src="' + cleanImg(src) + '?format=600w" alt="">';
           }).catch(function () { drop(c); });
       });
     };
@@ -5287,4 +5308,240 @@ checkoutTracking();
     document.head.appendChild(script);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+
+
+// === TOOLS VISIBILITY + CALENDAR FIXES (2026-11-18, design critique) ===
+// 1. /planting-calendar: crop name and "Read Growing Guide" text were dark green
+//    on the dark green popup (site-wide heading/link colour rules win over the
+//    tool's own CSS); month headers wrapped on phones and the current month sat
+//    off-screen in the year grid.
+// 2. /learn articles: link text that is a bare tool path ("/planting-calendar")
+//    is replaced with the tool's name.
+// 3. /learn articles: one slim, topic-matched tool strip near the top, so a
+//    reader meets the relevant tool before the end of the article.
+// 4. Homepage: the tools section names the three tools it did not show.
+// 5. Tool pages without a next step get a short "Keep going" list.
+// Tool-link clicks are already measured by the tool_cta_click delegation above.
+// ASCII only in this block (see the 2026-09 double-encoding incident).
+(function () {
+  'use strict';
+  var HUB = '/tools'; // the hub page must be live before this block ships
+  var path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+  var TOOLS = {
+    calendar:   { href: '/planting-calendar', name: 'Planting Calendar' },
+    conditions: { href: '/garden-conditions', name: 'Garden Conditions' },
+    quiz:       { href: '/tomato-quiz',       name: 'Find Your Perfect Tomato' },
+    flock:      { href: '/build-your-flock',  name: 'Build Your Flock' },
+    resources:  { href: '/local-resources',   name: 'Local Resources' },
+    events:     { href: '/garden-events',     name: 'Garden Events' },
+    toolkit:    { href: '/your-garden-toolkit', name: 'Your Garden Toolkit' }
+  };
+  function css(id, text) {
+    if (document.getElementById(id)) return;
+    var st = document.createElement('style'); st.id = id; st.textContent = text;
+    document.head.appendChild(st);
+  }
+  function imp(el, prop, val) { if (el) el.style.setProperty(prop, val, 'important'); }
+  function onReady(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn();
+  }
+
+  // ---- 1. Planting calendar ----
+  if (path === '/planting-calendar') {
+    onReady(function () {
+      css('ah-cal-fix-20261118',
+        '#pc-do .pc-dh #dd-name{color:#f8f9f0!important}' +
+        '#pc-do a.pc-dlnk{color:#f8f9f0!important}' +
+        '#pc-do a.pc-dlnk:focus-visible{outline:3px solid #8f4f45!important;outline-offset:3px}' +
+        '.pc-tbl thead th{white-space:nowrap!important;letter-spacing:0!important}' +
+        // Phones scroll the year grid sideways: keep the crop names in view while they do.
+        '@media(max-width:900px){.pc-tbl thead th:first-child{position:sticky;left:0;z-index:3;background:#1a3b2a}' +
+        '.pc-tbl tbody tr:not(.pc-cr)>td:first-child{position:sticky;left:0;z-index:2;background:#fff;box-shadow:1px 0 0 #dde2d8}}');
+      function enforce() {
+        imp(document.getElementById('dd-name'), 'color', '#f8f9f0');
+        var links = document.querySelectorAll('#pc-do a.pc-dlnk');
+        for (var i = 0; i < links.length; i++) imp(links[i], 'color', '#f8f9f0');
+      }
+      function showCurrentMonth() {
+        var t = document.querySelector('.pc-tbl');
+        var cm = t && t.querySelector('thead th.pc-cm');
+        var w = t && t.parentElement;
+        if (!cm || !w || w.scrollWidth <= w.clientWidth + 4) return;
+        var first = t.querySelector('thead th:first-child');
+        var fw = first ? first.offsetWidth : 0;   // sticky crop-name column
+        w.scrollLeft = Math.max(0, cm.offsetLeft - fw - (w.clientWidth - fw - cm.offsetWidth) / 2);
+      }
+      var tries = 0;
+      var iv = setInterval(function () {
+        tries++;
+        var modal = document.getElementById('pc-do');
+        if (modal || tries > 40) clearInterval(iv);
+        if (!modal) return;
+        enforce();
+        try { new MutationObserver(enforce).observe(modal, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] }); } catch (e) {}
+        showCurrentMonth();
+        document.addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('.pc-vb, .pc-fb, .pc-zbtn') : null;
+          if (b) setTimeout(showCurrentMonth, 150);
+        });
+      }, 300);
+    });
+  }
+
+  // ---- Shared styles for the strip, the homepage line and the next-step list ----
+  var SHARED =
+    '.ah-toolstrip{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:32px 0;padding:18px 22px;background:#eef1e6;border:1px solid #d5dccd;border-radius:6px;font-family:Montserrat,Arial,sans-serif}' +
+    '.ah-toolstrip p{margin:0!important;font-size:15px!important;line-height:1.5!important;color:#1a3b2a!important}' +
+    '.ah-toolstrip p strong{font-weight:700}' +
+    '.ah-toolstrip a.ah-toolstrip-go{flex:none;display:inline-block;min-height:44px;box-sizing:border-box;padding:12px 18px;background:#1a3b2a;border-radius:4px;font-size:14px;font-weight:700;line-height:1.4;text-decoration:none!important;white-space:nowrap}' +
+    '.ah-toolstrip a.ah-toolstrip-go:hover{background:#2e6b46}' +
+    '.ah-toolstrip a.ah-toolstrip-go:focus-visible{outline:3px solid #8f4f45;outline-offset:3px}' +
+    '@media(max-width:640px){.ah-toolstrip{flex-direction:column;align-items:flex-start;gap:12px;padding:16px 18px}.ah-toolstrip a.ah-toolstrip-go{white-space:normal}}' +
+    '.ah-moretools{background:#f8f9f0;padding:0 24px 44px;text-align:center;font-family:Montserrat,Arial,sans-serif}' +
+    '.ah-moretools p{max-width:760px;margin:0 auto!important;font-size:16px!important;line-height:1.9!important;color:#1a3b2a!important}' +
+    '.ah-moretools a{color:#2e6b46!important;font-weight:600;text-decoration:underline!important;text-underline-offset:3px;display:inline-block;padding:6px 0}' +
+    '.ah-moretools a:focus-visible,.ah-next a:focus-visible{outline:3px solid #8f4f45;outline-offset:3px}' +
+    '.ah-next{max-width:760px;margin:56px auto 32px;padding:0 24px;font-family:Montserrat,Arial,sans-serif}' +
+    '.ah-next h2{font-family:Fraunces,Lora,Georgia,serif!important;font-weight:400!important;font-size:28px!important;line-height:1.2!important;color:#1a3b2a!important;margin:0 0 10px!important}' +
+    '.ah-next ul{list-style:none!important;margin:0!important;padding:0!important;border-top:1px solid #d5dccd}' +
+    '.ah-next li{margin:0!important;padding:0!important;border-bottom:1px solid #d5dccd}' +
+    '.ah-next li a{display:block;padding:16px 0;min-height:44px;box-sizing:border-box;color:#2e6b46!important;font-size:16px;line-height:1.45;text-decoration:none!important}' +
+    '.ah-next li a b{font-weight:600;text-decoration:underline;text-underline-offset:3px}' +
+    '.ah-next li span{display:block;margin-top:3px;color:#3a5446;font-size:14px;font-weight:400;line-height:1.5}';
+
+  // ---- 2 + 3. Articles ----
+  var CATEGORY_SLUGS = /^(getting-started|grow-guides|microclimates|the-garden-coop|seasonal-planting|water-wise-gardening|wildlife-and-pest-management|fire-wise-gardening|beekeeping|gardening-with-kids|indoor-gardening|this-vs-that|garden-question-of-the-week|garden-myth-buster|garden-road-trips)$/;
+  var STRIPS = {
+    quiz:       ['Not sure which tomato to grow?', 'Four questions match varieties to your microclimate.', 'Take the tomato quiz'],
+    flock:      ['Looking for birds or supplies nearby?', 'See where chickens, ducks and geese are available near Santa Cruz County.', 'Open Build Your Flock'],
+    conditions: ['Check before you water.', 'See this week\u2019s rain, wind and advisories for your part of Santa Cruz County.', 'See garden conditions'],
+    resources:  ['Buying local?', 'Find nurseries, garden centers and farmers markets across Santa Cruz County.', 'Browse local resources'],
+    calendar:   ['Planting this month?', 'See what to sow, transplant and harvest in your zone right now.', 'Open the planting calendar']
+  };
+  function pickTool(slug, cats) {
+    if (slug.indexOf('tomato') !== -1) return 'quiz';
+    if (typeof ahIsFlockArticle === 'function' && ahIsFlockArticle(slug)) return 'flock';
+    if (/beekeeping|garden road trips|indoor gardening/.test(cats)) return null;
+    if (/nurser|where-to-buy|farmers-market|garden-club|seed-swap|plant-sale|local-source/.test(slug)) return 'resources';
+    if (/water-wise/.test(cats) || /water|irrigat|drought|rain|frost|heat-wave|heatwave|weather|fog|wind/.test(slug)) return 'conditions';
+    return 'calendar';
+  }
+  function articleWork() {
+    var slug = path.replace('/learn/', '');
+    if (slug.indexOf('/') !== -1) return;
+    var root = document.querySelector('.blog-item-content');
+    if (!root) return;
+
+    // 2. Bare tool paths used as link text.
+    var links = root.querySelectorAll('a[href^="/"]');
+    for (var i = 0; i < links.length; i++) {
+      var h = links[i].getAttribute('href');
+      if (links[i].textContent.trim() !== h) continue;
+      for (var k in TOOLS) if (TOOLS[k].href === h) links[i].textContent = TOOLS[k].name;
+    }
+
+    // 3. Tool strip (not on the category hub posts, which are link lists).
+    if (CATEGORY_SLUGS.test(slug) || document.querySelector('.ah-toolstrip')) return;
+    var catEls = document.querySelectorAll('.blog-meta-item--categories a, .blog-item-category');
+    var cats = [].map.call(catEls, function (a) { return a.textContent.trim().toLowerCase(); }).join('|');
+    var key = pickTool(slug, cats);
+    if (!key) return;
+    var PROMO = '.ah-news-optin,.ah-fgt-callout,.ah-product-callout,.ah-gr-design-callout,.ah-gr-review-callout,.ah-flock-callout,.ah-tomato-quiz-callout,.ah-lm-optin,.ah-berry-optin,.ah-flock-optin,.ah-prod';
+    // Articles can be split across several text blocks, so walk them all in order.
+    var kids = [].slice.call(root.querySelectorAll('.sqs-html-content > *')), target = null, paras = 0, seen = false;
+    for (var j = 0; j < kids.length; j++) {
+      var el = kids[j];
+      if (el.tagName === 'P' && el.textContent.trim().length > 40) paras++;
+      if (el.querySelector && el.querySelector('a[href="' + TOOLS[key].href + '"]')) seen = true;
+      if (el.tagName === 'H2') { target = el; break; }
+    }
+    if (seen || paras < 2) return;          // already linked up top, or no real intro
+    if (!target) return;
+    // Never inside a list or between two promos: the strip sits directly above an H2.
+    var prev = target.previousElementSibling;
+    if (prev && prev.matches && prev.matches(PROMO)) return;
+    var s = STRIPS[key];
+    var strip = document.createElement('aside');
+    strip.className = 'ah-toolstrip';
+    strip.setAttribute('aria-label', 'Free garden tool');
+    var p = document.createElement('p');
+    var b = document.createElement('strong'); b.textContent = s[0];
+    p.appendChild(b); p.appendChild(document.createTextNode(' ' + s[1]));
+    var a = document.createElement('a'); a.className = 'ah-toolstrip-go'; a.href = TOOLS[key].href; a.textContent = s[2];
+    imp(a, 'color', '#f8f9f0');
+    strip.appendChild(p); strip.appendChild(a);
+    target.parentNode.insertBefore(strip, target);
+  }
+
+  // ---- 4. Homepage ----
+  function homeWork() {
+    if (document.querySelector('.ah-moretools')) return;
+    var sec = document.querySelector('section[data-section-id="6931d4ad6d3823703aa2dd48"]');
+    if (!sec || !sec.parentNode) return;
+    var wrap = document.createElement('div'); wrap.className = 'ah-moretools';
+    var p = document.createElement('p');
+    p.appendChild(document.createTextNode('Also free: '));
+    var items = [[TOOLS.quiz.href, 'find your perfect tomato'], [TOOLS.flock.href, 'find chickens, ducks and geese nearby'], [TOOLS.resources.href, 'browse local nurseries and markets']];
+    items.forEach(function (it, n) {
+      var a = document.createElement('a'); a.href = it[0]; a.textContent = it[1];
+      p.appendChild(a); p.appendChild(document.createTextNode(n < items.length - 1 ? ', ' : '. '));
+    });
+    var all = document.createElement('a'); all.href = HUB; all.textContent = 'See all garden tools';
+    p.appendChild(all);
+    wrap.appendChild(p);
+    sec.parentNode.insertBefore(wrap, sec.nextSibling);
+  }
+
+  // ---- 5. Next steps on tool pages ----
+  var NEXT = {
+    '/planting-calendar': [
+      ['/garden-conditions', 'Check this week\u2019s garden conditions', 'Rain, wind and advisories for Santa Cruz, the San Lorenzo Valley and Watsonville.'],
+      ['/learn/seasonal-planting', 'Read the seasonal planting guides', 'Seasonal guides for California gardens.'],
+      ['/tomato-quiz', 'Find a tomato that fits your microclimate', 'Four questions, three matched varieties.']
+    ],
+    '/tomato-quiz': [
+      ['/planting-calendar', 'See when to plant in your zone', 'Sowing, transplanting and harvest windows by month.'],
+      ['/learn/growing-tomatoes-santa-cruz', 'Read the Santa Cruz tomato growing guide', 'The full local guide, from planting to harvest.'],
+      ['/local-resources', 'Find a local nursery for starts', 'Nurseries, garden centers and farmers markets across Santa Cruz County.']
+    ],
+    '/build-your-flock': [
+      ['/store/p/the-california-backyard-flock-starter-guide', 'The California Backyard Flock Starter Guide', 'Choosing birds, a predator-proof coop, feeding, eggs and health in one guide.'],
+      ['/learn/the-garden-coop', 'Read the Garden Coop articles', 'Breeds, predators, local rules and seasonal care.'],
+      ['/local-resources', 'Browse local resources', 'Nurseries, garden centers and farmers markets across Santa Cruz County.']
+    ],
+    '/local-resources': [
+      ['/garden-events', 'See upcoming garden events', 'Plant sales, workshops, volunteer days and garden tours.'],
+      ['/planting-calendar', 'Check what to plant this month', 'Sowing, transplanting and harvest windows for your zone.'],
+      ['/garden-review', 'Get a virtual garden review', 'A one-on-one review of your own garden.']
+    ]
+  };
+  function nextWork() {
+    var list = NEXT[path];
+    if (!list || document.querySelector('.ah-next')) return;
+    var main = document.querySelector('main#page, main');
+    if (!main) return;
+    var box = document.createElement('nav'); box.className = 'ah-next'; box.setAttribute('aria-label', 'Keep going');
+    var h = document.createElement('h2'); h.textContent = 'Keep going';
+    var ul = document.createElement('ul');
+    list.concat([[HUB, 'See all garden tools', 'Every free Ambitious Harvest tool on one page.']]).forEach(function (it) {
+      var li = document.createElement('li'), a = document.createElement('a'), sp = document.createElement('span');
+      var ti = document.createElement('b'); ti.textContent = it[1];
+      a.href = it[0]; a.appendChild(ti); sp.textContent = it[2]; a.appendChild(sp);
+      li.appendChild(a); ul.appendChild(li);
+    });
+    box.appendChild(h); box.appendChild(ul);
+    main.appendChild(box);
+  }
+
+  var isArticle = path.indexOf('/learn/') === 0 && path.indexOf('/learn/category/') !== 0;
+  if (isArticle || path === '/' || NEXT[path]) {
+    onReady(function () {
+      css('ah-tools-shared-20261118', SHARED);
+      if (path === '/') { homeWork(); setTimeout(homeWork, 1500); }
+      if (NEXT[path]) setTimeout(nextWork, 1200);
+      // After the other article passes (1500 ms) and before the last de-stack (3800 ms).
+      if (isArticle) setTimeout(articleWork, 2600);
+    });
+  }
 })();
