@@ -1,7 +1,7 @@
 {
   "version": 2,
   "timezone": "America/Los_Angeles",
-  "updated_at": "2026-11-20T13:00:01.236Z",
+  "updated_at": "2026-11-20T21:11:29.633Z",
   "sources": [
     {
       "name": "National Weather Service",
@@ -450,7 +450,8 @@
         }
       ],
       "hasActiveAlerts": false,
-      "alerts": []
+      "alerts": [],
+      "stale": true
     },
     "slv": {
       "updated": "2026-11-20T13:00:01.236Z",
@@ -887,7 +888,8 @@
         }
       ],
       "hasActiveAlerts": false,
-      "alerts": []
+      "alerts": [],
+      "stale": true
     },
     "watsonville": {
       "updated": "2026-11-20T13:00:01.236Z",
@@ -1324,8 +1326,13 @@
         }
       ],
       "hasActiveAlerts": false,
-      "alerts": []
+      "alerts": [],
+      "stale": true
     }
   },
-  "warnings": []
+  "warnings": [
+    "Santa Cruz: HTTP 429",
+    "San Lorenzo Valley: HTTP 429",
+    "Watsonville: HTTP 429"
+  ]
 }
