@@ -49,14 +49,14 @@
 <div class="lr-wrap">
   <div class="lr-hero">
     <h2>Santa Cruz County Gardening Resources</h2>
-    <p>Trusted local nurseries, soil and compost yards, seed sources, feed stores, farmers markets, classes, and community gardens, all in one place. Every listing is a real, currently-open Santa Cruz County resource. Call ahead before you go, as hours and seasonal stock change.</p>
+    <p>Find Santa Cruz County nurseries, soil and compost yards, seed sources, feed stores, farmers markets, classes, and community gardens. Contact the organization before visiting to confirm hours, seasonal stock, and current programs.</p>
+    <span class="lr-stamp" id="lr-stamp"></span>
   </div>
   <div class="lr-controls" id="lr-filters" role="group" aria-label="Filter resources by category"></div>
   <input type="text" class="lr-search" id="lr-search" placeholder="Search by name, city, or type..." aria-label="Search resources" style="display:block;margin:10px auto 0;">
   <div class="lr-count" id="lr-count" role="status" aria-live="polite"></div>
   <div id="lr-results"></div>
   <div class="lr-note">Run a Santa Cruz County nursery, feed store, farm, or garden program and want to be listed? Reach out through our <a href="/contact">Contact page</a> and we will add you.</div>
-  <span class="lr-stamp" id="lr-stamp"></span>
 </div>
 <script>
 (function () {
@@ -133,7 +133,7 @@
     var stamp = document.getElementById('lr-stamp');
     // Parse date-only values at local noon so Pacific time does not display the prior day.
     var when = new Date(data.updated + 'T12:00:00');
-    stamp.textContent = isNaN(when) ? '' : 'Last verified: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    stamp.textContent = isNaN(when) ? '' : 'Directory last reviewed: ' + when.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
     document.getElementById('lr-search').addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); render(); });
     renderFilters();
     render();

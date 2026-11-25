@@ -21,7 +21,7 @@ downloadable.
 
 The purchase-bonus files currently at the repository root are a temporary
 compatibility exception while their fulfillment links are migrated. Do not add
-new gated files here. Remove the exception only after every external delivery
+new gated files here. Reviewed PDF paths are recorded in scripts/public-pdf-paths.txt. Confirm public distribution rights before adding a new path. Remove the exception only after every external delivery
 link has been verified against its replacement.
 
 
@@ -31,7 +31,7 @@ Garden Events has a native inline compatibility embed. Its canonical executable
 source is `garden-events-embed.html` here. After editing it, run
 `python scripts/build_tool_runtimes.py`, then commit the generated
 `garden-events-runtime.js` and updated loader revision in `ah-site-scripts.js`.
-Pages rejects stale generated assets or loader revisions.
+The Verify public assets workflow checks runtime and loader revisions on pull requests and main. GitHub Pages publishes through its configured main-branch builder.
 
 The shared site script mounts the current Garden Events runtime in a namespaced
 root. The native root remains hidden and inert as a sink for late legacy async

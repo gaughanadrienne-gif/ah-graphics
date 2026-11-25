@@ -3534,6 +3534,11 @@ function ahIsFlockArticle(slug) {
         if (a && url) {
           a.style.backgroundImage = 'url("' + url.split('?')[0] + '?format=750w")';
           a.classList.add('ah-bgimg');
+          var titleLink = it.querySelector('.blog-title a');
+          if (titleLink && a.tagName === 'A' && a.href === titleLink.href &&
+              !a.hasAttribute('aria-label') && !a.hasAttribute('aria-labelledby')) {
+            a.setAttribute('aria-label', titleLink.textContent.trim());
+          }
         }
       }
       it.setAttribute('data-ah-grid', '1');
@@ -5218,11 +5223,40 @@ checkoutTracking();
     var downloads = document.getElementById('ah-remaining-downloads');
     if (!cards.length || !msg || !submit || !success || !downloads) return;
     form.dataset.ahJourneyVersion = VERSION;
+    var bar = document.getElementById('ah-sticky-bar');
+    var starterNote = document.createElement('span');
+    starterNote.textContent = 'Starter selection: ';
+    starterNote.hidden = true;
+    var count = document.getElementById('ah-sticky-count');
+    if (count) count.parentNode.insertBefore(starterNote, count);
+    var toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'ah-toolkit-mail-toggle';
+    toggle.setAttribute('aria-controls', form.id);
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = 'Email me the toolkit';
+    bar.insertBefore(toggle, form);
+    toggle.addEventListener('click', function () {
+      var open = toggle.getAttribute('aria-expanded') === 'false';
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Close email form' : 'Email me the toolkit';
+      if (open) document.getElementById('ah-sticky-email').focus();
+    });
+    form.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && toggle.offsetWidth && toggle.getAttribute('aria-expanded') === 'true') {
+        toggle.click();
+        toggle.focus();
+      }
+    });
     msg.setAttribute('role', 'status'); msg.setAttribute('aria-live', 'polite');
     success.setAttribute('tabindex', '-1');
     function sync() {
       if (!window.document || !form.isConnected) return;
       var instruction = document.getElementById('ah-tk-instruction');
+      var selected = cards.filter(function (card) { return card.classList.contains('selected'); });
+      var starterCards = cards.filter(function (card) { return card.querySelector('.ah-tk-starter-badge'); });
+      starterNote.hidden = !starterCards.length || selected.length !== starterCards.length ||
+        !starterCards.every(function (card) { return card.classList.contains('selected'); });
       if (instruction) instruction.textContent = cards.some(function (card) { return card.classList.contains('selected'); }) ? 'Use the checkboxes to choose your on-page downloads.' : 'Select at least one guide using the checkboxes.';
       cards.forEach(function (card) {
         var input = card.querySelector('.ah-journey-checkbox');
@@ -5252,6 +5286,7 @@ checkoutTracking();
     if (typeof originalUpdate === 'function') window.ahUpdateStickyCount = function () { originalUpdate.apply(this, arguments); sync(); };
     var observer = new MutationObserver(sync);
     cards.forEach(function (card) { observer.observe(card, { attributes: true, attributeFilter: ['class'] }); });
+    sync();
     var actions = document.querySelectorAll('.ah-tk-hero-actions button');
     if (actions[0]) actions[0].textContent = 'Select all 12 guides';
     if (actions[1]) actions[1].textContent = 'Select the starter three';
@@ -5272,6 +5307,11 @@ checkoutTracking();
     style.textContent = '.ah-journey-choice{display:flex;align-items:center;gap:10px;padding:12px;min-height:44px;cursor:pointer;font:600 14px/1.5 Montserrat,Arial,sans-serif}.ah-journey-choice input{width:20px;height:20px;flex-shrink:0}.ah-journey-choice:focus-within{outline:3px solid #2e6b46;outline-offset:-3px}.ah-tk-card .ah-tk-check{display:none}.ah-journey-helper{font:13px/1.5 Montserrat,Arial,sans-serif;margin:6px 12px}.ah-journey-helper a{text-decoration:underline}.ah-journey-download{display:block;width:100%;min-height:48px;padding:14px 18px;background:#1a3b2a;color:#fff;border:2px solid #1a3b2a;border-radius:6px;text-align:left;font:600 15px/1.5 Montserrat,Arial,sans-serif;cursor:pointer}.ah-journey-download:focus-visible{outline:3px solid #8f4f45;outline-offset:3px}';
     document.head.appendChild(style);
     style.textContent += '.ah-tk-card .ah-tk-starter-badge{position:static;display:table;margin:8px 12px}.ah-journey-helper{color:#fff!important}.ah-journey-helper a{color:#fff!important}';
+    style.textContent += '.ah-toolkit-mail-toggle{display:none}@media(max-width:700px){' +
+      '#ah-sticky-bar .ah-toolkit-mail-toggle{display:block;min-height:44px;width:100%;background:#1a3b2a;color:white;border:0;font:600 15px/1.45 Montserrat,Arial,sans-serif;cursor:pointer}' +
+      '#ah-sticky-bar .ah-toolkit-mail-toggle:focus-visible{outline:2px solid white;outline-offset:-4px}' +
+      '#ah-sticky-bar .ah-toolkit-mail-toggle[aria-expanded="false"]+form{display:none}' +
+      '#ah-sticky-bar.hidden{visibility:hidden}#ah-sticky-bar{max-height:75vh;overflow-y:auto}}';
     function showDownloads(tags, accepted) {
       downloads.textContent = '';
       tags.forEach(function (tag) {
