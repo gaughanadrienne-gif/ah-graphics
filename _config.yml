@@ -1,7 +1,14 @@
 # The configured branch-based Pages publisher only needs visitor assets.
 exclude:
   - scripts
-  - build-your-flock
+  - build-your-flock/tests
+  - build-your-flock/scrapers
+  - build-your-flock/build_data.py
+  - build-your-flock/refresh_petfinder_cache.py
+  - build-your-flock/curated.json
+  - build-your-flock/petfinder_cache.json
+  - build-your-flock/requirements.txt
+  - build-your-flock/pytest.ini
   - build_native_related.py
   - build_related_manifest.py
   - test-garden-events-export.cjs
