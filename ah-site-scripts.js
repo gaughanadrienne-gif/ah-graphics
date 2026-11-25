@@ -2386,7 +2386,7 @@ function ahIsFlockArticle(slug) {
     box.className = 'ah-news-optin';
     box.setAttribute('style', 'display:block;margin:34px 0;padding:24px 26px;background:#F8F9F0!important;border:1px solid #dde2d8;border-left:5px solid #1A3B2A;border-radius:10px;');
     box.innerHTML = '' +
-      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free planting guide</div>' +
+      '<div style="font:700 11px/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#8f4f45!important;margin-bottom:9px;">Free cheat sheet</div>' +
       '<div style="font-family:Fraunces,Palatino Linotype,Georgia,serif;color:#1A3B2A!important;font-size:21px;line-height:1.25;margin:0 0 7px;">Know what to plant, and when, in Santa Cruz County</div>' +
       '<p style="font:15px/1.6 Montserrat,sans-serif;color:#2a2a28!important;margin:0 0 15px;">Join the free Ambitious Harvest email list for seasonal planting reminders and practical Central Coast gardening notes. As a welcome, I will send you the one-page California Seed Starting Cheat Sheet, so you always know what to start indoors, what to sow direct, and the right timing for your zone.</p>' +
       '<form class="ah-news-form ml-block-form" novalidate style="display:flex;flex-wrap:wrap;gap:8px;margin:0;">' +
@@ -3196,8 +3196,8 @@ function ahIsFlockArticle(slug) {
       '<a href="https://www.facebook.com/AmbitiousHarvest/" aria-label="Facebook">' + fb + '</a>' +
       '<a href="https://www.threads.com/@ambitiousharvest" aria-label="Threads">' + th + '</a></div></div>' +
       '<div><h4>Explore</h4><a href="/start-here">Start Here</a><a href="/learn">The Garden Library</a><a href="/your-garden-toolkit">Garden Toolkit</a><a href="/planting-calendar">Planting Calendar</a><a href="/store">Shop Guides &amp; Kits</a><a href="/about">About</a></div>' +
-      '<div><h4>Free Santa Cruz planting calendar</h4>' +
-      '<p>Seasonal gardening emails with seasonal reminders and new guides. No spam, unsubscribe anytime.</p>' +
+      '<div><h4>Free Seasonal Planting Calendar</h4>' +
+      '<p>Enter your email for the printable calendar, plus seasonal Santa Cruz gardening emails. Unsubscribe anytime.</p>' +
       '<div id="mlb2-' + ML_FORM_ID + '" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-' + ML_FORM_ID + '">' +
         '<div class="row-form">' +
           '<form class="ml-block-form ah-fe-form" action="' + ML_ACTION + '" data-code="" method="post" target="_blank">' +
@@ -3208,7 +3208,7 @@ function ahIsFlockArticle(slug) {
             '<input type="hidden" name="anticsrf" value="true">' +
           '</form>' +
         '</div>' +
-        '<div class="row-success ah-fe-success">Thank you. Check your inbox for the calendar link.</div>' +
+        '<div class="row-success ah-fe-success">Thank you. Confirm your email with the link we just sent, and the calendar follows.</div>' +
       '</div>' +
       '<p class="ah-fe-fine">Delivered as a printable PDF.</p></div>';
     foot.insertBefore(band, foot.firstChild);
@@ -4967,6 +4967,8 @@ window.AH_RESOURCE_PDF_REVISIONS = {
     resources.forEach(function(resource){
       resource.url=window.AH_RESOURCE_PDF_REVISIONS[resource.slug]||resource.url;
     });
+    // Owner decision 2026-11-18: the Seasonal Planting Calendar is delivered by email (form 173377502828299397, double opt-in).
+    var CAL_GATE={'seasonal-planting-calendar':1,'seasonalplantingcalendar':1};
     function renderDownload(){
       var slug=new URLSearchParams(location.hash.slice(1)).get('download');
       var resource=resources.find(function(r){return r.slug===slug;}),old=q('#ah-requested-download');
@@ -4975,10 +4977,29 @@ window.AH_RESOURCE_PDF_REVISIONS = {
       var main=q('main')||q('#page');if(!main)return;
       var panel=el('section',null,'ah-garden');panel.id='ah-requested-download';panel.dataset.resource=slug;panel.setAttribute('aria-labelledby','ah-download-title');
       var title=el('h2',resource.title);title.id='ah-download-title';panel.appendChild(title);
+      if(CAL_GATE[slug]){
+        var pitch=el('p','Enter your email and I will send the printable PDF. You will also get seasonal Santa Cruz gardening emails. Unsubscribe anytime.');panel.appendChild(pitch);
+        var gate=el('form',null,'ml-block-form');gate.id='ah-calendar-gate';gate.noValidate=false;
+        gate.innerHTML='<label style="max-width:420px">Your email address<input type="email" name="fields[email]" autocomplete="email" required></label><input type="hidden" name="ml-submit" value="1"><input type="hidden" name="anticsrf" value="true"><button type="submit">Send me the calendar</button><p role="status" class="ah-garden-signup-message"></p>';
+        panel.appendChild(gate);
+        if(!q('#ah-calendar-gate-style')){var gs=el('style');gs.id='ah-calendar-gate-style';gs.textContent='body:has(#ah-calendar-gate) #ah-sticky-bar{display:none!important}';document.head.appendChild(gs);}
+        gate.addEventListener('submit',function(e){
+          e.preventDefault();if(!gate.reportValidity())return;
+          var send=q('button',gate),note=q('[role="status"]',gate);send.disabled=true;send.textContent='Sending...';note.textContent='';
+          fetch('https://assets.mailerlite.com/jsonp/1974108/forms/173377502828299397/subscribe',{method:'POST',body:new FormData(gate),mode:'cors'}).then(window.AHAcceptSignupResponse).then(function(){
+            event('toolkit_download_requested',{resource_slug:resource.slug,measurement_scope:'email_gate_accepted_request'});
+            var done=el('div');done.setAttribute('role','status');done.appendChild(el('h3','Check your inbox'));
+            done.appendChild(el('p','Confirm your email with the link we just sent, and the calendar follows a few minutes later. If you do not see it, check your spam or promotions folder.'));
+            var help=el('small','Already on the list and nothing arrived? '),ask=el('a','Send me a note');ask.href='/contact';help.appendChild(ask);help.appendChild(document.createTextNode(' and I will email it to you.'));done.appendChild(help);
+            pitch.remove();gate.replaceWith(done);
+          }).catch(function(){note.textContent='We could not complete your signup. Check your email address and try again.';send.disabled=false;send.textContent='Send me the calendar';});
+        });
+      }else{
       panel.appendChild(el('p','Your guide is ready. No additional signup is needed.'));
       var link=el('a','Download PDF','ah-action');link.href=resource.url;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','Download '+resource.title+' PDF');
       link.addEventListener('click',function(e){if(e.isTrusted)event('toolkit_download_requested',{resource_slug:resource.slug,measurement_scope:'download_link_activation'});});panel.appendChild(link);
       panel.appendChild(el('small','Opens the PDF in a new tab. Save a copy to keep it handy.'));
+      }
       var next=el('p'),calendar=el('a','Check current planting windows');calendar.href='/planting-calendar';next.appendChild(calendar);panel.appendChild(next);
       var header=q('header');panel.style.marginTop=((header?header.getBoundingClientRect().height:100)+24)+'px';main.insertBefore(panel,main.firstChild);setTimeout(function(){panel.scrollIntoView({block:'start'});},100);
     }
@@ -5139,7 +5160,7 @@ checkoutTracking();
       var lib=document.getElementById('ah-product-library');
       if(lib && !document.getElementById('ah-toolkit-intro')) {
         var intro=document.createElement('div');intro.id='ah-toolkit-intro';
-        intro.innerHTML='<h1>Your Garden Toolkit</h1><p>Browse free downloads, garden tools, and paid guides. Start with the <a href="/your-garden-toolkit#download=seasonal-planting-calendar">free seasonal planting calendar</a>, or use the search below to find a specific resource.</p><p>The email signup includes three starter guides by default. You can change that selection in the guide chooser below. Free downloads in this library do not require another signup.</p>';
+        intro.innerHTML='<h1>Your Garden Toolkit</h1><p>Browse free downloads, garden tools, and paid guides. Start with the <a href="/your-garden-toolkit#download=seasonal-planting-calendar">free seasonal planting calendar</a>, or use the search below to find a specific resource.</p><p>The email signup includes three starter guides by default. You can change that selection in the guide chooser below. Most free downloads in this library open without another signup. The Seasonal Planting Calendar is sent by email.</p>';
         lib.insertBefore(intro,lib.firstChild);
         document.querySelectorAll('main h1').forEach(function(h){if(h!==intro.querySelector('h1')){var h2=document.createElement('h2');Array.from(h.attributes).forEach(function(a){h2.setAttribute(a.name,a.value);});h2.innerHTML=h.innerHTML;h.replaceWith(h2);}});
       }
@@ -5237,7 +5258,7 @@ checkoutTracking();
     var intro = document.querySelector('.ah-tk-hero > p');
     if (intro) intro.textContent = 'Choose the guides you want to open now. Three are selected to start. Your email copy includes all 12 guides.';
     document.querySelectorAll('main p').forEach(function (p) {
-      if (p.textContent.indexOf('The email signup includes three starter guides by default.') === 0) p.textContent = 'Choose individual guides to open on this page, or request the full collection of 12 guides by email. Free downloads in this library do not require a signup.';
+      if (p.textContent.indexOf('The email signup includes three starter guides by default.') === 0) p.textContent = 'Choose individual guides to open on this page, or request the full collection of 12 guides by email. Most free downloads in this library open without a signup. The Seasonal Planting Calendar is sent by email.';
     });
     var hint = document.getElementById('ah-tk-instruction');
     if (hint) hint.textContent = 'Use the checkboxes to choose your on-page downloads.';
