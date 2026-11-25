@@ -21,3 +21,7 @@ jobs:
         run: python scripts/build_tool_runtimes.py --check
       - name: Check public download inventory
         run: python scripts/check_public_downloads.py
+      - name: Build the same static site as the branch publisher
+        uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697 # v1
+      - name: Confirm the built site retains tool and fulfillment paths
+        run: python scripts/check_public_downloads.py --site _site
