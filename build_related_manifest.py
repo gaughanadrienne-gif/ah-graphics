@@ -4,15 +4,16 @@ Crawls the public /learn blog feed, computes each article's top-3
 related guides (subject first, category and recency as tiebreakers),
 and emits related-manifest.json for GitHub Pages. Run: py build_related_manifest.py
 """
-import requests, json, time, re
+import json, time, re
+from urllib.request import Request, urlopen
 from functools import lru_cache
 
 BASE = "https://www.ambitiousharvest.com"
 
 def _get_json(url):
-    response = requests.get(url, headers={"User-Agent": "AHC-related-bot"}, timeout=40)
-    response.raise_for_status()
-    data = response.json()
+    request = Request(url, headers={"User-Agent": "AHC-related-bot"})
+    with urlopen(request, timeout=40) as response:
+        data = json.load(response)
     if not isinstance(data, dict):
         raise ValueError("Unexpected feed response")
     return data
@@ -57,9 +58,9 @@ def fetch_articles():
         offset = next_offset
     # Independently compare the published sitemap so feed truncation fails closed.
     import xml.etree.ElementTree as ET
-    response = requests.get(BASE + "/sitemap.xml", timeout=40)
-    response.raise_for_status()
-    root = ET.fromstring(response.content)
+    request = Request(BASE + "/sitemap.xml", headers={"User-Agent": "AHC-related-bot"})
+    with urlopen(request, timeout=40) as response:
+        root = ET.parse(response).getroot()
     sitemap_slugs = set()
     from urllib.parse import urlsplit, unquote
     for element in root.iter():
