@@ -1,4 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { TIMEZONE, localYmd, zonedIso, nextOccurrence } from './garden-event-dates.mjs';
+import { SCRAPED_TYPES, carryOngoing, validateFeed } from './validate-garden-events.mjs';
 
 const FILE = new URL('../garden-events-data.json', import.meta.url);
 const YIELD_FILE = new URL('../garden-events-source-yield.json', import.meta.url);
@@ -8,15 +10,10 @@ const REGISTRY = new URL('../garden-events-sources.json', import.meta.url);
    GARDEN_EVENTS_YIELD) to a staging path and diff before promoting. */
 const OUTPUT = process.env.GARDEN_EVENTS_OUTPUT ? new URL(`file:///${String(process.env.GARDEN_EVENTS_OUTPUT).replace(/\\/g, '/')}`) : FILE;
 const YIELD_OUTPUT = process.env.GARDEN_EVENTS_YIELD ? new URL(`file:///${String(process.env.GARDEN_EVENTS_YIELD).replace(/\\/g, '/')}`) : YIELD_FILE;
-const TIMEZONE = 'America/Los_Angeles';
 const NOW = process.env.GARDEN_EVENTS_NOW ? new Date(process.env.GARDEN_EVENTS_NOW) : new Date();
 const HORIZON = new Date(NOW.getTime() + 240 * 86400000);
 const ALARM_AFTER = 3;
 const REQUEST_HEADERS = { 'user-agent': 'AmbitiousHarvestGardenEvents/1.0 (+https://ambitiousharvest.com)', 'accept': '*/*' };
-/* Anything fetched from a source, as opposed to hand-typed or expanded from a
-   recurrence rule. These are rebuilt every run and carried forward only when
-   their source fetch fails. */
-const SCRAPED_TYPES = new Set(['ics', 'html', 'api']);
 
 /* GARDEN_EVENTS_INPUT lets a staging run replay against a candidate feed, which
    is how the carry-forward and idempotency paths get tested without touching
@@ -91,44 +88,6 @@ function normalizeEvent(event, fallback) {
   }
   out.categories = toCategories(out.categories, fallback || ['experience']);
   return out;
-}
-
-function localParts(date) {
-  return Object.fromEntries(new Intl.DateTimeFormat('en-US', {
-    timeZone: TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
-  }).formatToParts(date).filter(p => p.type !== 'literal').map(p => [p.type, p.value]));
-}
-
-function localYmd(date) {
-  const p = localParts(date);
-  return `${p.year}-${p.month}-${p.day}`;
-}
-
-function zonedIso(date, time = '00:00') {
-  const [y, m, d] = date.split('-').map(Number);
-  const [hh, mm] = time.split(':').map(Number);
-  let guess = Date.UTC(y, m - 1, d, hh, mm);
-  const p = localParts(new Date(guess));
-  const represented = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
-  guess -= represented - guess;
-  return new Date(guess).toISOString();
-}
-
-function nextOccurrence(item) {
-  let cursor = new Date(zonedIso(localYmd(NOW), item.start_time));
-  if (cursor < NOW) cursor = new Date(cursor.getTime() + 86400000);
-  for (let i = 0; i < 370; i++, cursor = new Date(cursor.getTime() + 86400000)) {
-    const ymd = localYmd(cursor);
-    if (item.season_start && ymd < item.season_start) continue;
-    if (item.season_end && ymd > item.season_end) return null;
-    const weekday = new Date(`${ymd}T12:00:00Z`).getUTCDay();
-    const weekdays = item.weekdays || [item.weekday];
-    if (!weekdays.includes(weekday)) continue;
-    if (item.ordinal && Math.ceil(Number(ymd.slice(-2)) / 7) !== item.ordinal) continue;
-    return { ...item, start: zonedIso(ymd, item.start_time), end: zonedIso(ymd, item.end_time), status: 'confirmed', source_type: 'recurring' };
-  }
-  return null;
 }
 
 function unfoldIcs(text) { return text.replace(/\r?\n[ \t]/g, '').split(/\r?\n/); }
@@ -288,7 +247,7 @@ const WEEKDAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', '
    fill the page with identical cards. The README asks for one series card with
    the next occurrence, so three or more matching titles collapse to the
    earliest and carry a plain-language recurrence line. */
-function collapseSeries(events) {
+function collapseSeries(events, representatives) {
   const groups = [];
   for (const event of events) {
     const group = groups.find(g => titlesMatch(g[0].title, event.title));
@@ -305,7 +264,9 @@ function collapseSeries(events) {
     if (group.length < 3 || !gaps.every(g => g === gaps[0])) { out.push(...group); continue; }
     const weekday = WEEKDAY_NAMES[new Date(`${localYmd(new Date(group[0].start))}T12:00:00Z`).getUTCDay()];
     const cadence = gaps[0] === 7 ? `Weekly on ${weekday}s` : gaps[0] === 14 ? `Every other ${weekday}` : `Every ${gaps[0]} days`;
-    out.push({ ...group[0], recurrence: `${cadence}, next occurrence shown`, series: true });
+    const series = { ...group[0], recurrence: `${cadence}, next occurrence shown`, series: true };
+    for (const event of group) representatives.set(event, series);
+    out.push(series);
   }
   return out;
 }
@@ -505,7 +466,7 @@ const OFF_TOPIC = /\bwedding|venue rental|facility rental|board meeting|staff me
 function relevant(event, source) {
   if (!event.title || !event.start || event.status === 'cancelled') return false;
   const start = new Date(event.start);
-  if (start < NOW || start > HORIZON) return false;
+  if (new Date(event.end || event.start) < NOW || start > HORIZON) return false;
   if (source.id === 'ah_google_calendar' && /gizdich ranch/i.test(event.title)) return false;
   if (source.adapter !== 'ics' && OFF_TOPIC.test(`${event.title} ${event.description}`)) return false;
   if (source.id !== 'cnps') return true;
@@ -558,12 +519,13 @@ function dedupe(events) {
   }).sort((a, b) => new Date(a.start) - new Date(b.start));
 }
 
+const evidence = new Map();
 const warnings = [];
 const status = {};
 const priorEvents = (existing.events || []).map(e => normalizeEvent(e));
 let collected = priorEvents.filter(e => e.source_type !== 'recurring' && !SCRAPED_TYPES.has(e.source_type) && new Date(e.end || e.start) >= NOW);
 status.manual = { count: collected.length, note: 'carried from feed' };
-const recurring = priorEvents.filter(e => e.source_type === 'recurring').map(nextOccurrence).filter(Boolean).map(e => normalizeEvent(e));
+const recurring = priorEvents.filter(e => e.source_type === 'recurring').map(item => nextOccurrence(item, NOW)).filter(Boolean).map(e => normalizeEvent(e));
 collected.push(...recurring);
 status.recurring = { count: recurring.length, note: 'expanded to next occurrence' };
 
@@ -577,8 +539,10 @@ for (const source of FETCHABLE) {
     const response = await fetch(source.url, { headers: REQUEST_HEADERS, signal: AbortSignal.timeout(20000) });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const body = await response.text();
-    let parsed = adapter.parse(adapter.json ? JSON.parse(body) : body, source).filter(e => relevant(e, source));
-    parsed = collapseSeries(parsed);
+    const records = adapter.parse(adapter.json ? JSON.parse(body) : body, source);
+    const eligible = records.filter(e => relevant(e, source));
+    const representatives = new Map();
+    const parsed = collapseSeries(eligible, representatives);
     /* Monitored tier never publishes on trust. No gate means no publish. */
     if (source.tier === 'monitored') {
       const gate = adapter.gate ? adapter.gate(parsed, body, source) : { ok: false, reason: 'no validation gate for this adapter' };
@@ -590,6 +554,9 @@ for (const source of FETCHABLE) {
         continue;
       }
     }
+    const observed = { eligible, representatives, cancelled: records.filter(e => e.status === 'cancelled') };
+    evidence.set(source.id, observed);
+    collected.push(...carryOngoing(priorEvents, source.id, observed, NOW));
     if (source.adapter === 'ics') {
       collected.push(...parsed);
       status[source.id] = { count: parsed.length, note: 'fetched' };
@@ -631,15 +598,19 @@ for (const key of Object.keys(status)) {
     last_note: asciiText(status[key].note)
   };
 }
-await writeFile(YIELD_OUTPUT, `${JSON.stringify({ updated: today, alarm_after: ALARM_AFTER, total_events: events.length, sources: yieldSources }, null, 2)}\n`, 'utf8');
 
 const before = JSON.stringify({ events: existing.events || [], warnings: existing.warnings || [] });
 const after = JSON.stringify({ events, warnings });
 const stamp = NOW.toISOString();
-if (before === after && existing.updated && OUTPUT.href === FILE.href) {
+const unchanged = before === after && existing.updated && OUTPUT.href === FILE.href;
+const output = unchanged ? existing : { ...existing, timezone: TIMEZONE, updated: stamp, updated_at: stamp, events, warnings };
+const baseline = process.env.GARDEN_EVENTS_BASELINE ? JSON.parse(await readFile(process.env.GARDEN_EVENTS_BASELINE, 'utf8')) : existing;
+const summary = validateFeed(baseline, output, { now: NOW, horizon: HORIZON, sourceIds: SOURCES.map(s => s.id), evidence, titlesMatch });
+console.log(`Garden Events validation: ${summary}`);
+await writeFile(YIELD_OUTPUT, `${JSON.stringify({ updated: today, alarm_after: ALARM_AFTER, total_events: events.length, sources: yieldSources }, null, 2)}\n`, 'utf8');
+if (unchanged) {
   console.log('Garden events are already current.');
 } else {
-  const output = { ...existing, timezone: TIMEZONE, updated: stamp, updated_at: stamp, events, warnings };
   await writeFile(OUTPUT, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
   console.log(`Wrote ${events.length} events to ${OUTPUT.pathname}${warnings.length ? ` with ${warnings.length} source warning(s)` : ''}.`);
 }
